@@ -75,7 +75,7 @@
           ·
         </span>
         <span>
-          4756字
+          4734字
         </span>
         <span class="split">
           ·
@@ -131,26 +131,26 @@
 if [ ! -z &ldquo;$ES_JAVA_HOME&rdquo; ]; then
 JAVA=&quot;$ES_JAVA_HOME/bin/java&quot;
 JAVA_TYPE=&ldquo;ES_JAVA_HOME&rdquo;</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">### Java堆内存配置</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>### Java堆内存配置
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Elasticsearch使用Java编写的<span style="">，所以</span>Java的堆内存越大<span style="">，</span>Elasticsearch可用的堆内存越多<span style="">，缓存的数据也就越多。但是过于太大的堆内存，可能是垃圾回收暂停。</span> <span style="">除此之外，官方还建议堆内存的大小设置不要超过对象指针（</span>oops<span style="">）的阈值。不同的系统阈值有所不同，而在大多数系统上</span><span style="color:#666">26</span>GB是安全<span style="">，而有些可能可用高达</span><span style="color:#666">30</span>G<span style="">。</span> <span style="">查看是否超过了</span>oops阈值<span style="">，可用两种方法。第一种为</span>API<span style="">：```</span>
-</span></span><span style="display:flex;"><span>_nodes<span style="color:#666">/</span>_all<span style="color:#666">/</span>jvm
+</span></span><span style="display:flex;"><span>Elasticsearch使用Java编写的，所以Java的堆内存越大，Elasticsearch可用的堆内存越多，缓存的数据也就越多。但是过于太大的堆内存，可能是垃圾回收暂停。 除此之外，官方还建议堆内存的大小设置不要超过对象指针（oops）的阈值。不同的系统阈值有所不同，而在大多数系统上26GB是安全，而有些可能可用高达30G。 查看是否超过了oops阈值，可用两种方法。第一种为API：```
+</span></span><span style="display:flex;"><span>_nodes/_all/jvm
 </span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#666">...</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#b44">&#34;using_compressed_ordinary_object_pointers&#34;</span>: <span style="color:#b44">&#34;true&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#666">...</span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    &#34;using_compressed_ordinary_object_pointers&#34;: &#34;true&#34;,
+</span></span><span style="display:flex;"><span>    ...
 </span></span><span style="display:flex;"><span>} 
-</span></span><span style="display:flex;"><span><span style="">```第二种为检查日志：```</span>
-</span></span><span style="display:flex;"><span>[<span style="color:#666">2022</span><span style="color:#666">-</span><span style="color:#666">06</span><span style="color:#666">-</span><span style="color:#666">09</span>T06:<span style="color:#666">17</span>:<span style="color:#666">15</span>,<span style="color:#666">837</span>][INFO ][o<span style="color:#666">.</span>e<span style="color:#666">.</span>e<span style="color:#666">.</span>NodeEnvironment    ] [xxx<span style="color:#666">-</span>p1] heap size [<span style="color:#666">28</span>gb], compressed ordinary object
+</span></span></code></pre></div><p>第二种为检查日志：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>[2022-06-09T06:17:15,837][INFO ][o.e.e.NodeEnvironment    ] [xxx-p1] heap size [28gb], compressed ordinary object
 </span></span><span style="display:flex;"><span> pointers [true] 
-</span></span><span style="display:flex;"><span><span style="">```设置堆内存大小通过设置</span>Elasticsearch配置文件中的<span style="">`</span>jvm<span style="color:#666">.</span>options<span style="">`文件，但在生产环境中尽量不要使用该文件直接修改，而是在`</span>java<span style="color:#666">.</span>options<span style="color:#666">.</span>d<span style="">`目录中新添加一个后缀为`</span><span style="color:#666">.</span>options<span style="">`的文件。</span> <span style="">配置文件中通过`</span><span style="color:#666">-</span>Xms<span style="">`和`</span><span style="color:#666">-</span>Xmx<span style="">`来设置最小和最大的堆内存：```</span>
-</span></span><span style="display:flex;"><span>esdir<span style="color:#666">/</span>config<span style="color:#666">/</span>jvm<span style="color:#666">.</span>options<span style="color:#666">.</span>d<span style="color:#666">/</span>heap<span style="color:#666">.</span>options
+</span></span></code></pre></div><p>设置堆内存大小通过设置Elasticsearch配置文件中的<code>jvm.options</code>文件，但在生产环境中尽量不要使用该文件直接修改，而是在<code>java.options.d</code>目录中新添加一个后缀为<code>.options</code>的文件。 配置文件中通过<code>-Xms</code>和<code>-Xmx</code>来设置最小和最大的堆内存：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>esdir/config/jvm.options.d/heap.options
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#666">-</span>Xms16g
-</span></span><span style="display:flex;"><span><span style="color:#666">-</span>Xmx16g 
-</span></span><span style="display:flex;"><span><span style="">```官方建议将该值设置为一致的，并且该值应该小于物理内存的</span><span style="color:#666">50</span><span style="color:#666">%</span><span style="">。因为除了堆内存，</span>JVM本身也需要一定的内存<span style="">，除此之外，</span>Elasticsearch底层使用的Lucence<span style="">，</span>Lucence段存放在单独的文件中<span style="">，而</span>OS会将部分常用段进行缓存<span style="">（热段），便于加快应用的访问性能，所以没有足够的内存给</span>OS进行缓存<span style="">，那么同样会降低</span>Elasticsearch的性能<span style="">。</span> <span style="">下面是因为堆内存设置过大，导致</span>JVM内存不够的报错<span style="">：```</span>
-</span></span><span style="display:flex;"><span>Exception <span style="color:#a2f;font-weight:bold">in</span> thread <span style="color:#b44">&#34;main&#34;</span> java<span style="color:#666">.</span>lang<span style="color:#666">.</span>RuntimeException: starting java failed with [<span style="color:#666">1</span>]
+</span></span><span style="display:flex;"><span>-Xms16g
+</span></span><span style="display:flex;"><span>-Xmx16g 
+</span></span></code></pre></div><p>官方建议将该值设置为一致的，并且该值应该小于物理内存的50%。因为除了堆内存，JVM本身也需要一定的内存，除此之外，Elasticsearch底层使用的Lucence，Lucence段存放在单独的文件中，而OS会将部分常用段进行缓存（热段），便于加快应用的访问性能，所以没有足够的内存给OS进行缓存，那么同样会降低Elasticsearch的性能。 下面是因为堆内存设置过大，导致JVM内存不够的报错：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span>Exception <span style="color:#a2f;font-weight:bold">in</span> thread <span style="color:#b44">&#34;main&#34;</span> java<span style="color:#666">.</span>lang<span style="color:#666">.</span>RuntimeException: starting java failed with [<span style="color:#666">1</span>]
 </span></span><span style="display:flex;"><span>output:
 </span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">#</span>
 </span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"># There is insufficient memory for the Java Runtime Environment to continue.</span>
@@ -164,8 +164,14 @@ JAVA_TYPE=&ldquo;ES_JAVA_HOME&rdquo;</p>
 </span></span><span style="display:flex;"><span>        at org<span style="color:#666">.</span>Elasticsearch<span style="color:#666">.</span>tools<span style="color:#666">.</span>launchers<span style="color:#666">.</span>MachineDependentHeap<span style="color:#666">.</span>determineHeapSettings(MachineDependentHeap<span style="color:#666">.</span>java:<span style="color:#666">61</span>)
 </span></span><span style="display:flex;"><span>        at org<span style="color:#666">.</span>Elasticsearch<span style="color:#666">.</span>tools<span style="color:#666">.</span>launchers<span style="color:#666">.</span>JvmOptionsParser<span style="color:#666">.</span>jvmOptions(JvmOptionsParser<span style="color:#666">.</span>java:<span style="color:#666">135</span>)
 </span></span><span style="display:flex;"><span>        at org<span style="color:#666">.</span>Elasticsearch<span style="color:#666">.</span>tools<span style="color:#666">.</span>launchers<span style="color:#666">.</span>JvmOptionsParser<span style="color:#666">.</span>main(JvmOptionsParser<span style="color:#666">.</span>java:<span style="color:#666">87</span>) 
-</span></span></code></pre></div><h3 id="数据日志临时文件存放配置">数据、日志、临时文件存放配置 <a href="#%e6%95%b0%e6%8d%ae%e6%97%a5%e5%bf%97%e4%b8%b4%e6%97%b6%e6%96%87%e4%bb%b6%e5%ad%98%e6%94%be%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h3><p>Elasticsearch默认将索引的数据写入Elasticsearch主目录下的<code>data</code>目录，而集群和操作相关的日志则写入Elasticsearch主目录下的<code>logs</code>目录。而这些目录在Elasticsearch升级的过程中可能会造成丢失或者删除。 所以在配置文件中<code>config/Elasticsearch.yml</code>设置<code>path.data</code>和<code>path.logs</code>来设置指定存放路径尤为重要。 比如下面的目录则设置了将数据存放在<code>/var/es-data</code>和<code>/var/es-logs</code>。<code>... path.data: /var/es-data path.logs: /var/es-logs ... </code>同时Elasticsearch在启动的时候会在系统的临时目录下创建私有的临时目录，而某些Linux的发行中的系统程序会删除掉临时目录<code>/tmp</code>中最近未访问的文件和目录，如果Elasticsearch长时间不使用私有的临时目录，那么将被系统可能删除掉，进而引发Elasticsearch的错误。 而指定这个临时的私有目录的路径方法可用通过在运行前提供环境变量<code>$ES_TMPDIR</code>。也可用通过修改Elasticsearch主目录<code>bin/Elasticsearch-env</code>文件，在<code>ES_HOME</code>上一行添加：```
+</span></span></code></pre></div><h3 id="数据日志临时文件存放配置">数据、日志、临时文件存放配置 <a href="#%e6%95%b0%e6%8d%ae%e6%97%a5%e5%bf%97%e4%b8%b4%e6%97%b6%e6%96%87%e4%bb%b6%e5%ad%98%e6%94%be%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h3><p>Elasticsearch默认将索引的数据写入Elasticsearch主目录下的<code>data</code>目录，而集群和操作相关的日志则写入Elasticsearch主目录下的<code>logs</code>目录。而这些目录在Elasticsearch升级的过程中可能会造成丢失或者删除。 所以在配置文件中<code>config/Elasticsearch.yml</code>设置<code>path.data</code>和<code>path.logs</code>来设置指定存放路径尤为重要。 比如下面的目录则设置了将数据存放在<code>/var/es-data</code>和<code>/var/es-logs</code>。```
 &hellip;
+path.data: /var/es-data
+path.logs: /var/es-logs
+&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">同时</span>Elasticsearch在启动的时候会在系统的临时目录下创建私有的临时目录<span style="">，而某些</span>Linux的发行中的系统程序会删除掉临时目录<span style="color:#666">`/</span>tmp<span style="color:#666">`</span><span style="">中最近未访问的文件和目录，如果</span>Elasticsearch长时间不使用私有的临时目录<span style="">，那么将被系统可能删除掉，进而引发</span>Elasticsearch的错误<span style="">。</span><span style="color:#bbb"> </span><span style="">而指定这个临时的私有目录的路径方法可用通过在运行前提供环境变量</span><span style="color:#666">`</span><span style="">$</span>ES_TMPDIR<span style="color:#666">`</span><span style="">。也可用通过修改</span>Elasticsearch主目录<span style="color:#666">`</span>bin<span style="color:#666">/</span>Elasticsearch<span style="color:#666">-</span>env<span style="color:#666">`</span><span style="">文件，在</span><span style="color:#666">`</span>ES_HOME<span style="color:#666">`</span><span style="">上一行添加：</span><span style="color:#bbb">
+</span></span></span></code></pre></div><p>&hellip;
 ES_TMPDIR: /var/es-tmp  # 添加
 ES_HOME=<code>dirname &quot;SCRIPT&quot;</code>
 &hellip;</p>
