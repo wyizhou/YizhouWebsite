@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Python数据集合 | Yizhou&#39;s Website</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="列表 🔗列表是有序可变的数据集合，并且一对[]来表示这是一个列表，元素之间逗号分隔，每个数据之间有逗号分隔，列表基本上可以包含很多数据类型，下">
+<meta name="generator" content="Hugo 0.121.1">
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85 },
+          tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+          }
+        });
+    </script>
+    
+    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://example.com/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Python数据集合</h1>
+
+    <div class="tip">
+        <time datetime="2018-06-25 13:21:31 &#43;0000 &#43;0000">2018年06月25日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1459字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          3分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#列表">列表</a></li>
+        <li><a href="#元组">元组</a></li>
+        <li><a href="#集合">集合</a></li>
+        <li><a href="#字典">字典</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h3 id="列表">列表 <a href="#%e5%88%97%e8%a1%a8" class="anchor">🔗</a></h3><p>列表是<strong>有序可变</strong>的数据集合，并且一对<code>[]</code>来表示这是一个列表，元素之间逗号分隔，每个数据之间有逗号分隔，列表基本上可以包含很多数据类型，下面就是一个典型的列表：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>list = [1,2.2,&#39;ok&#39;,bool] 
+</span></span></code></pre></div><p>在上面的列表中存储了数据(整型、浮点型、字符串、布尔值)，包含我们下面看见的几种集合类型都是可以当作列表的子元素的。</p>
+<p>当然也可以从列表中取出数据，因为列表是有序的，所以我们可以通过索引从0开始进行取数据,你需要注意的是所有可以用索引进行得到值的都是从0开始，比如下面的代码取出了列表第一个和第三个数据。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>list = [1,2.2,&#39;ok&#39;,bool]
+</span></span><span style="display:flex;"><span>list[0]  # 1
+</span></span><span style="display:flex;"><span>list[2]  # &#39;ok&#39; 
+</span></span></code></pre></div><p>除了0开始的整数，还可以用负数，比如<code>-1</code>表示倒数第一个值，<code>-2</code>表示倒数第二个值，以此类推。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>list = [1,2.2,&#39;ok&#39;,bool]
+</span></span><span style="display:flex;"><span>list[-1]  # bool
+</span></span><span style="display:flex;"><span>list[-2]  # &#39;ok&#39; 
+</span></span></code></pre></div><h5 id="列表切片">列表切片 <a href="#%e5%88%97%e8%a1%a8%e5%88%87%e7%89%87" class="anchor">🔗</a></h5><p>除此之外，列表还支持切片的功能，<strong>就相当于一块肉，我们通过菜刀把这块肉切成一片一片的，方便我们炒菜（方便处理）</strong>。切片同样和索引一样存在列表变量名后的<code>[]</code>里面，大概语法如下：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>list[起始位置:截至位置(但不包括本位置的值):步数] 
+</span></span></code></pre></div><p>下面的代码我获取了从第一个到第四个的值（但不包括第四个值）：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>list = [1,2.2,&#39;ok&#39;,bool]
+</span></span><span style="display:flex;"><span>list[0:3]  # 1,2.2,&#39;ok&#39; 
+</span></span></code></pre></div><p>也可以设置步数，作用就是比如我们设置2，就会每隔两个值就返回一个值：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>list = [1,2.2,&#39;ok&#39;,bool]
+</span></span><span style="display:flex;"><span>list[0:4:1] #[1, &#39;ok&#39;] 
+</span></span></code></pre></div><p>当然同样可以设置负数，可以自行测试！</p>
+<h5 id="列表查询">列表查询 <a href="#%e5%88%97%e8%a1%a8%e6%9f%a5%e8%af%a2" class="anchor">🔗</a></h5><p>列表查询可以用于判断一个值是否在列表当中，通过<code>in</code>和<code>not in</code>来进行，其中<code>in</code>表示一个值是否包含在列表当中，如果包含则返回<code>True</code>，反之返回<code>False</code>，而<code>not in</code>则是对<code>in</code>的结果进行取反，比如下面的代码则表示了判断值<code>2.2</code>是不是存在于列表当中以及对<code>in</code>结果进行取反。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>list = [1,2.2,&#39;ok&#39;,bool]
+</span></span><span style="display:flex;"><span>print(2.2 in list) #返回 True
+</span></span><span style="display:flex;"><span>print(2.2 not in list) #返回False 
+</span></span></code></pre></div><h3 id="元组">元组 <a href="#%e5%85%83%e7%bb%84" class="anchor">🔗</a></h3><p>元组是有序不可变的数据集合，并且用一对<code>()</code>来进行表示，元素之间逗号分隔，当你定义好元组那一刻，元组里面的所有数据就不能够进行修改了，你只能读取里面的数据而无法修改和添加数据，比如下面，我定义了一组元组后，我通过修改第一个元素产生错误：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>tple = (1,2,3,4)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tple[0] # 1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tple[0] = &#39;m&#39;
+</span></span><span style="display:flex;"><span>&#34;&#34;&#34;
+</span></span><span style="display:flex;"><span>Traceback (most recent call last):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  File &#34;&lt;ipython-input-21-cae8ab2b1ade&gt;&#34;, line 1, in &lt;module&gt;
+</span></span><span style="display:flex;"><span>    tple[0] = m
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>TypeError: &#39;tuple&#39; object does not support item assignment
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>在上面这一行就会明显提醒你tuple对象不支持修改。
+</span></span><span style="display:flex;"><span>&#34;&#34;&#34; 
+</span></span></code></pre></div><h3 id="集合">集合 <a href="#%e9%9b%86%e5%90%88" class="anchor">🔗</a></h3><p>集合是可变无序的数据集合，并且用一对<code>{}</code>表示，元素之间逗号分隔，<strong>还需要特别注意的是集合是一个包含唯一元素的可变无序集合数据类型,集合的一个用途是快速删除列表中的重复项</strong> ，集合是无序的，既然是无序那么就没有办法进行索引，我们只能通过两个方法进行添加和删除数据并返回，添加通过<code>add()</code>方法，删除是<code>pop()</code>方法，<strong>添加是随机插入到集合当中的任何位置，而删除是从集合当中随机取出一个值删除并返回</strong>。比如下面的操作：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>coll = {1,2,3,4,5,5}
+</span></span><span style="display:flex;"><span>print(coll)  # {1,2,3,4,5} 这里只返回了一个5，另外一个5已经被去重了
+</span></span><span style="display:flex;"><span>coll.add(7)  # {1,2,3,4,5,7} 
+</span></span><span style="display:flex;"><span># 添加一个元素，虽然看着像有序列表，但是千万不要试图把集合用作有序集合来使用。
+</span></span><span style="display:flex;"><span>coll.pop() # {2,3,4,5,7} 
+</span></span></code></pre></div><p>集合同样支持<code>in</code>和<code>not in</code>操作，来判断值是否包含在集合当中。</p>
+<h3 id="字典">字典 <a href="#%e5%ad%97%e5%85%b8" class="anchor">🔗</a></h3><p>字典是可变无序的数据集合，其中存储的是键值对的形式进行存储的，比如下面的代码就是一个字典：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>dic = {
+</span></span><span style="display:flex;"><span>    &#39;a&#39;: 1,
+</span></span><span style="display:flex;"><span>    &#39;b&#39;: 2,
+</span></span><span style="display:flex;"><span>    &#39;c&#39;: 3
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>字典的键可以是任何不可变类型，例如整数或元组，而不仅仅是字符串。甚至每个键都不一定要是相同的类型！我们可以使用方括号并在括号里放入键，查询字典中的值或向字典中插入新值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>dic = {
+</span></span><span style="display:flex;"><span>    &#39;a&#39;: 1,
+</span></span><span style="display:flex;"><span>    &#39;b&#39;: 2,
+</span></span><span style="display:flex;"><span>    &#39;c&#39;: 3
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dic[&#39;a&#39;] # 1 
+</span></span></code></pre></div><p>如何你需要在字典中查询一个键是否存在，可以使用<code>in</code>和<code>not in</code>，根据返回的<code>True</code>和<code>False</code>可以做出相应的判断，如果还需要查询值，除了可以通过上面的<code>['key']</code>之外，还可以使用<code>get()</code>方法进行查询，如没有找到相应的键返回就返回<code>None</code>类型值，表示没有值：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>dic = {
+</span></span><span style="display:flex;"><span>    &#39;a&#39;: 1,
+</span></span><span style="display:flex;"><span>    &#39;b&#39;: 2,
+</span></span><span style="display:flex;"><span>    &#39;c&#39;: 3
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dic.get(&#39;a&#39;) # 1
+</span></span><span style="display:flex;"><span>dic.get(&#39;dd&#39;) # None 
+</span></span></code></pre></div>
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://example.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="your-github-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-stackoverflow-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>stackoverflow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
+            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-twitter-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+        © Copyright 2023 Yizhou
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

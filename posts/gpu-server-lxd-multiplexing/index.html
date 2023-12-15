@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>GPU服务器的多人环境搭建 | Yizhou&#39;s Website</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="环境 🔗CPU: Intel(R) Xeon(R) Gold 6154* 2 Momery: 128G GPU: 3080TI * 2 Disk: 16T HD &amp; 512 SSD System: Ubuntu 22.04 Server 前言 🔗因为最近团队对于GPU的需求量增加，但之前都是在工作电脑上直接使用GPU进行训">
+<meta name="generator" content="Hugo 0.121.1">
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85 },
+          tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+          }
+        });
+    </script>
+    
+    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://example.com/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">GPU服务器的多人环境搭建</h1>
+
+    <div class="tip">
+        <time datetime="2022-10-21 04:52:07 &#43;0000 &#43;0000">2022年10月21日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          3089字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          7分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#环境">环境</a></li>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#准备">准备</a></li>
+    <li><a href="#初始化lxd">初始化LXD</a></li>
+    <li><a href="#创建容器模板">创建容器模板</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#创建公共目录">创建公共目录</a></li>
+    <li><a href="#添加gpu设备到容器中">添加GPU设备到容器中</a></li>
+    <li><a href="#配置容器的远程登陆">配置容器的远程登陆</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h2 id="环境">环境 <a href="#%e7%8e%af%e5%a2%83" class="anchor">🔗</a></h2><p>CPU: Intel(R) Xeon(R) Gold 6154* 2 Momery: 128G GPU: 3080TI * 2 Disk: 16T HD &amp; 512 SSD System: Ubuntu 22.04 Server</p>
+<h2 id="前言">前言 <a href="#%e5%89%8d%e8%a8%80" class="anchor">🔗</a></h2><p>因为最近团队对于GPU的需求量增加，但之前都是在工作电脑上直接使用GPU进行训练和使用，而几个人中只有一两台电脑有显卡，所以后期就更新了服务器。 随之而来的就会产生一个问题，大家直接用账号密码链接上去每个人的环境、配置都会造成环境、冲突，甚至导致系统出错，所有就有必要通过容器的解决方案让每个人都隔离，相互不影响，并且不能直接操作到宿主机，以保证所有人操作都在容器进行而不影响到宿主机，除此之外也需要给每一个容器映射显卡。 在这个基础上有三个相关的技术，分别为Docker、LXC、虚拟机（PVE、ESXI等）。首先排除掉Docker，Docker比较适用应用级的层面上，不符合需求。虚拟机虽然可以直通显卡等，但直通单张显卡后，其他虚拟机无法使用。所以最后就锁定到了LXD，LXD由Canonical有限公司发起，是一个类容器管理系统，而底层则基于<a href="https://zh.wikipedia.org/wiki/LXC" target="_blank" rel="noopener">LXC容器</a>，额外提供了更加方便的API接口、分布式、网络管理、储存管理等，同时Ubuntu 22.04自集成了LXD，所以这里部署也是通过LXD来管理LXC容器。</p>
+<h2 id="准备">准备 <a href="#%e5%87%86%e5%a4%87" class="anchor">🔗</a></h2><ol>
+<li>16T的机械盘，分为两个分区（分区可以使用<code>fdisk</code>），分1T用于给LXC作储存池，剩余的15T用于挂载到宿主机下的<code>/data</code>目录，后期映射到每个容器的<code>/data</code>目录下，用于所有容器之间的数据互传和数据存储（因为相互之间的数据不涉及隐私，所以可以共用），这样的好处在于大家都将重要的数据放置<code>/data</code>，即使容器出现了问题，也不会影响到数据的丢失问题。</li>
+<li>显卡驱动可以直接通过Ubuntu的GPU驱动安装，如果你没有安装显卡驱动，你可以直接输入<code>nvidia-smi</code>，会得到相关的提示，而不用安装网上的教程去设置，因为非常麻烦。</li>
+<li>使用<code>apt</code>安装<code>zfsutils-linux</code>，前者用于安装LXD的储存池驱动，LXD支持<a href="https://linuxcontainers.org/lxd/docs/master/explanation/storage/" target="_blank" rel="noopener">多种储存池</a>，这用于储存LXD、LXC相关的数据。</li>
+<li>使用<code>apt</code>安装<code>bridge-utils</code>，该工具是用于管理和创建网桥设备所需要的工具和程序。</li>
+</ol>
+<h2 id="初始化lxd">初始化LXD <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96lxd" class="anchor">🔗</a></h2><p>通过命令执行<code>sudo lxd init</code>，就会得到如下的问题：</p>
+<ul>
+<li>LXD Clustering：用于集群配置，单节点不需要，默认为no，回车即可</li>
+<li>new storage pool：需要创建一个存储池，输入yes</li>
+<li>Name of storage pool：给存储池命名，默认为default，回车即可</li>
+<li>storage backend：存储后端，默认使用zfs，回车即可</li>
+<li>Create a new ZFS pool：需要创建一个ZFS池，默认为no，输入yes</li>
+<li>use an existing block device：使用现有的块设备（硬盘），输入yes</li>
+<li>Path to block device：输入现有的硬盘，比如我的为sda1，那么就输入/dev/sda1</li>
+<li>MAAS server：<a href="https://maas.io/" target="_blank" rel="noopener">MAAS</a>是一个用于将物理机视为云服务器的集群服务，默认为no，回车即可</li>
+<li>new local network bridge：是否创建一个新的桥接网络，输入yes</li>
+<li>new bridge be called：命名新的网桥名称，默认即可</li>
+<li>IPv4：IPv4相关配置，默认为auto，回车即可</li>
+<li>IPv6：IPv6相关配置，默认为auto，回车即可</li>
+<li>would you like lxd to be available over the network：使用想通过网络访问LXD，默认为no，回车即可</li>
+<li>would you like stale cached images to be updated automatically：默认yes，回车即可</li>
+<li>YAML printed：是否打印出<code>lxd init</code>的配置信息，默认为no，回车即可</li>
+</ul>
+<h2 id="创建容器模板">创建容器模板 <a href="#%e5%88%9b%e5%bb%ba%e5%ae%b9%e5%99%a8%e6%a8%a1%e6%9d%bf" class="anchor">🔗</a></h2><p>创建容器模板的意义在于你可以设置一个基础配置的容器，然后基于这个容器进行复制出多个容器出来，而不用再针对每个容器进行重复的基础设置。 在使用前需要下载一个已打包的容器镜像，因为需要下载，所以可以使用清华大学的<a href="https://mirror.tuna.tsinghua.edu.cn/help/lxc-images/" target="_blank" rel="noopener">国内镜像</a>用于提升下载镜像的速度。 添加清华大学镜像源：<code>sudo lxc remote add tuna-images https://mirrors.tuna.tsinghua.edu.cn/lxc-images/ --protocol=simplestreams --public </code>通过查找镜像列表，找到对应镜像的ID：<code>sudo lxc image list tuna-images: | grep &quot;ubuntu/18&quot; </code>获取到列表后，选择对应的版本，这里我选择了id为<code>2c44d2a68b29</code>的ubuntu/18.04 (7 more)镜像，这是因为该版本标识了类型为容器<code>CONTAINER</code>。 确定好后远程的容器镜像id后，将其下载到本地并启动：```</p>
+<h1 id="origin为源这里使用上面添加的清华源fingerprint代表该源下载容器镜像idcontainername为创建的容器名称">origin为源，这里使用上面添加的清华源，FINGERPRINT代表该源下载容器镜像id，ContainerName为创建的容器名称 <a href="#origin%e4%b8%ba%e6%ba%90%e8%bf%99%e9%87%8c%e4%bd%bf%e7%94%a8%e4%b8%8a%e9%9d%a2%e6%b7%bb%e5%8a%a0%e7%9a%84%e6%b8%85%e5%8d%8e%e6%ba%90fingerprint%e4%bb%a3%e8%a1%a8%e8%af%a5%e6%ba%90%e4%b8%8b%e8%bd%bd%e5%ae%b9%e5%99%a8%e9%95%9c%e5%83%8fidcontainername%e4%b8%ba%e5%88%9b%e5%bb%ba%e7%9a%84%e5%ae%b9%e5%99%a8%e5%90%8d%e7%a7%b0" class="anchor">🔗</a></h1><p>sudo lxc launch origin:<FINGERPRINT> <ContainerName></p>
+<h1 id="我这里直接使用">我这里直接使用 <a href="#%e6%88%91%e8%bf%99%e9%87%8c%e7%9b%b4%e6%8e%a5%e4%bd%bf%e7%94%a8" class="anchor">🔗</a></h1><p>sudo lxc launch tuna-images:2c44d2a68b29 gpuTemplate
+```查看是否启动成功容器可以使用<code>sudo lxc list</code>。</p>
+<h2 id="创建公共目录">创建公共目录 <a href="#%e5%88%9b%e5%bb%ba%e5%85%ac%e5%85%b1%e7%9b%ae%e5%bd%95" class="anchor">🔗</a></h2><p>在准备阶段中宿主机的<code>/data</code>目录已挂载好了15T的分区，需要将其添加到上面创建的容器中：```
+sudo lxc config device add <ContainerName> <ShareName> disk source=&lt;host_dir_path&gt; path=&lt;Container_dir_path&gt;</p>
+<p>#实例：
+sudo lxc config device add gpuTemplate share_dir disk source=/data path=/data</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">容器配置</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">--</span><span style="color:#080;font-style:italic">--
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">因为将该容器作为基础模板，所以需要配置一些常用的依赖以及切换为国内apt源。 通过以下命令进入到容器内部：```
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>sudo<span style="color:#bbb"> </span>lxc<span style="color:#bbb"> </span>exec<span style="color:#bbb"> </span><span style="color:#666">&lt;</span>ContainerName<span style="color:#666">&gt;</span><span style="color:#bbb"> </span>bash<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">然后修改容器内部的</span>apt源<span style="">：</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>vi<span style="color:#bbb"> </span><span style="color:#666">/</span>etc<span style="color:#666">/</span>apt<span style="color:#666">/</span>sources.list<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">然后将国内源写入该文件后，运行</span><span style="color:#666">`</span>apt<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">update</span><span style="color:#666">`</span><span style="">更新列表即可。</span><span style="color:#bbb"> </span><span style="">安装</span><span style="color:#666">`</span>vim<span style="color:#666">`</span><span style="">、</span><span style="color:#666">`</span>gcc<span style="color:#666">`</span><span style="">、</span><span style="color:#666">`</span>g<span style="color:#666">++`</span><span style="">、</span><span style="color:#666">`</span>make<span style="color:#666">`</span><span style="">、</span><span style="color:#666">`</span>cmake<span style="color:#666">`</span><span style="">、</span><span style="color:#666">`</span>python<span style="color:#666">`</span><span style="">、</span><span style="color:#666">`</span>lspci<span style="color:#666">`</span><span style="">：</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>apt<span style="color:#bbb"> </span>install<span style="color:#bbb"> </span>vim<span style="color:#bbb"> </span>gcc<span style="color:#bbb"> </span>g<span style="color:#666">++</span><span style="color:#bbb"> </span>make<span style="color:#bbb"> </span>cmake<span style="color:#bbb"> </span>python3.<span style="color:#666">10</span><span style="color:#bbb"> </span>pciutils<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">安装</span>Python后<span style="">，将可执行文件放在</span><span style="color:#666">`/</span>usr<span style="color:#666">/</span>bin<span style="color:#666">/</span>python3.<span style="color:#666">10</span><span style="color:#666">`</span><span style="">，所以直接需要将</span>python3.<span style="color:#666">10</span><span style="">可执行文件软连接到当前目录为</span><span style="color:#666">`</span>python<span style="color:#666">`</span><span style="">，这样直接可以使用</span><span style="color:#666">`</span>python<span style="color:#666">`</span><span style="">命令。</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>ln<span style="color:#bbb"> </span><span style="color:#666">-</span>s<span style="color:#bbb"> </span><span style="color:#666">/</span>usr<span style="color:#666">/</span>bin<span style="color:#666">/</span>python3.<span style="color:#666">10</span><span style="color:#bbb"> </span><span style="color:#666">/</span>usr<span style="color:#666">/</span>bin<span style="color:#666">/</span>python<span style="color:#bbb"> 
+</span></span></span></code></pre></div><h2 id="添加gpu设备到容器中">添加GPU设备到容器中 <a href="#%e6%b7%bb%e5%8a%a0gpu%e8%ae%be%e5%a4%87%e5%88%b0%e5%ae%b9%e5%99%a8%e4%b8%ad" class="anchor">🔗</a></h2><p>为容器添加所有GPU:<code>sudo lxc config device add &lt;ContainerName&gt; gpu gpu </code>添加指定GPU：<code>sudo lxc config device add &lt;ContainerName&gt; gpu0 gpu id=0 </code>安装GPU驱动，网上教程中的GPU驱动安装比较麻烦，所以可以在宿主机中安装<code>ubuntu-drivers</code>：<code>apt install ubuntu-drivers-common </code>安装完成后使用以下命令，会得到显卡型号、推荐的显卡驱动：```
+ubuntu-drivers devices</p>
+<p>#返回
+== /sys/devices/pci0000:3a/0000:3a:02.0/0000:3b:00.0 ==
+modalias : pci:v000010DEd00002208sv000010DEsd00001535bc03sc00i00
+vendor   : NVIDIA Corporation
+model    : GA102 [GeForce RTX 3080 Ti]
+manual_install: True
+driver   : nvidia-driver-470-server - distro non-free
+driver   : nvidia-driver-470 - distro non-free
+driver   : nvidia-driver-515 - distro non-free
+driver   : nvidia-driver-510 - distro non-free
+driver   : nvidia-driver-510-server - distro non-free
+driver   : nvidia-driver-515-open - distro non-free recommended
+driver   : nvidia-driver-515-server - distro non-free
+driver   : xserver-xorg-video-nouveau - distro free builtin
+```在这里我选择的是<code>nvidia-driver-515-server</code>版，然后进行到容器内部后，使用<code>apt install nvidia-driver-515-server</code>进行安装，安装完成后，你在容器内部使用<code>nvidia-smi</code>即可看见相关信息表示安装成功。 关于如果要特定的<code>cuda</code>版本则需要根据具体情况选择对应的显卡驱动。</p>
+<h2 id="配置容器的远程登陆">配置容器的远程登陆 <a href="#%e9%85%8d%e7%bd%ae%e5%ae%b9%e5%99%a8%e7%9a%84%e8%bf%9c%e7%a8%8b%e7%99%bb%e9%99%86" class="anchor">🔗</a></h2><p>安装ssh：<code>apt install openssh-server </code>安装完成后可以通过以下命令查看是否启动：<code>systemctl status sshd </code>配置完成后，可以找一台内网的机器通过<code>ssh-keygen -t rsa</code>生成非对称加密的密钥，然后将公钥的内容复制到容器内部<code>/root/.ssh/authorized_keys</code>文件中，保存退出，最后重启ssh服务：<code>systemctl restart sshd </code>配置完成后，回到宿主机中，设置端口映射，目的在于当宿主机接到的目标端口的请求的时候，将数据传输到指定端口的容器内部中，在这里配置的是sshd远程连接，所以容器接收的端口为22，宿主机的监听端口则是设置为6001，当宿主机的6001端口接到数据就转发给容器内部的22端口。 设置命令可以通过下面的代码设置：```
+sudo lxc config device add <ContainerName> <name> proxy listen=tcp:&lt;host_ip&gt;:&lt;host_port&gt; connect=tcp:&lt;container_ip&gt;:&lt;container_port&gt; bind=host</p>
+<p>#这里我的设置为：
+sudo lxc config device add GPUTemplate testssh proxy listen=tcp:192.168.1.102:6001 connect=tcp:10.180.194.93:22 bind=host
+<code>如果后期要删除该条测试端口映射，则使用以下的命令：</code></p>
+<h1 id="查看配置项目">查看配置项目 <a href="#%e6%9f%a5%e7%9c%8b%e9%85%8d%e7%bd%ae%e9%a1%b9%e7%9b%ae" class="anchor">🔗</a></h1><p>sudo lxc config device list <ContainerName></p>
+<h1 id="找到需要删除的端口别称然后删除">找到需要删除的端口别称，然后删除 <a href="#%e6%89%be%e5%88%b0%e9%9c%80%e8%a6%81%e5%88%a0%e9%99%a4%e7%9a%84%e7%ab%af%e5%8f%a3%e5%88%ab%e7%a7%b0%e7%84%b6%e5%90%8e%e5%88%a0%e9%99%a4" class="anchor">🔗</a></h1><p>sudo lxc config device remove <ContainerName> &lt;config_name&gt;</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="">制作容器实例</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">------</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="">制作容器实例实际上就是基于现有运行的实例进行复制一份，然后再做一点基础的修改就可以让他人使用。</span> <span style="">复制容器：```</span>
+</span></span><span style="display:flex;"><span>sudo lxc copy <span style="color:#666">&lt;</span>ContainerTemplateName<span style="color:#666">&gt;</span> <span style="color:#666">&lt;</span>newContainerName<span style="color:#666">&gt;</span> 
+</span></span><span style="display:flex;"><span><span style="">```复制后，需要手动启动```</span>
+</span></span><span style="display:flex;"><span>sudo lxc start <span style="color:#666">&lt;</span>newContainerName<span style="color:#666">&gt;</span> 
+</span></span><span style="display:flex;"><span><span style="">```复制完成后，可以按照上述的步骤设置使用者的</span>ssh key和端口映射即可<span style="">。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="">参考文章</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">----</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#666">1.</span>  https:<span style="color:#666">//</span>shenxiaohai<span style="color:#666">.</span>me<span style="color:#666">/</span><span style="color:#666">2018</span><span style="color:#666">/</span><span style="color:#666">12</span><span style="color:#666">/</span><span style="color:#666">03</span><span style="color:#666">/</span>gpu<span style="color:#666">-</span>server<span style="color:#666">-</span>lab<span style="color:#666">/</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">2.</span>  https:<span style="color:#666">//</span>linuxcontainers<span style="color:#666">.</span>org<span style="color:#666">/</span>lxd<span style="color:#666">/</span>introduction<span style="color:#666">/</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">3.</span>  https:<span style="color:#666">//</span>zh<span style="color:#666">.</span>wikipedia<span style="color:#666">.</span>org<span style="color:#666">/</span>wiki<span style="color:#666">/</span>LXC
+</span></span><span style="display:flex;"><span><span style="color:#666">4.</span>  https:<span style="color:#666">//</span>linuxcontainers<span style="color:#666">.</span>org<span style="color:#666">/</span>lxd<span style="color:#666">/</span>docs<span style="color:#666">/</span>master<span style="color:#666">/</span>explanation<span style="color:#666">/</span>storage<span style="color:#666">/</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">5.</span>  https:<span style="color:#666">//</span>linuxcontainers<span style="color:#666">.</span>org<span style="color:#666">/</span>lxd<span style="color:#666">/</span>docs<span style="color:#666">/</span>master<span style="color:#666">/</span>explanation<span style="color:#666">/</span>networks<span style="color:#666">/</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">6.</span>  https:<span style="color:#666">//</span>blog<span style="color:#666">.</span>csdn<span style="color:#666">.</span>net<span style="color:#666">/</span>zhw864680355<span style="color:#666">/</span>article<span style="color:#666">/</span>details<span style="color:#666">/</span><span style="color:#666">90411288</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">7.</span>  https:<span style="color:#666">//</span>developer<span style="color:#666">.</span>nvidia<span style="color:#666">.</span>com<span style="color:#666">/</span>cuda<span style="color:#666">-</span>toolkit<span style="color:#666">-</span>archive
+</span></span><span style="display:flex;"><span><span style="color:#666">8.</span>  https:<span style="color:#666">//</span>www<span style="color:#666">.</span>cnblogs<span style="color:#666">.</span>com<span style="color:#666">/</span>booturbo<span style="color:#666">/</span>p<span style="color:#666">/</span><span style="color:#666">13960935.</span>html
+</span></span><span style="display:flex;"><span><span style="color:#666">9.</span>  https:<span style="color:#666">//</span>pytorch<span style="color:#666">.</span>org<span style="color:#666">/</span>get<span style="color:#666">-</span>started<span style="color:#666">/</span>locally<span style="color:#666">/</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">10.</span>  https:<span style="color:#666">//</span>www<span style="color:#666">.</span>jianshu<span style="color:#666">.</span>com<span style="color:#666">/</span>p<span style="color:#666">/</span><span style="color:#666">978</span>bc51029fa
+</span></span><span style="display:flex;"><span><span style="color:#666">11.</span>  https:<span style="color:#666">//</span>command<span style="color:#666">-</span><span style="color:#a2f;font-weight:bold">not</span><span style="color:#666">-</span>found<span style="color:#666">.</span>com<span style="color:#666">/</span>ubuntu<span style="color:#666">-</span>drivers
+</span></span><span style="display:flex;"><span><span style="color:#666">12.</span>  https:<span style="color:#666">//</span>www<span style="color:#666">.</span>myfreax<span style="color:#666">.</span>com<span style="color:#666">/</span>how<span style="color:#666">-</span>to<span style="color:#666">-</span>nvidia<span style="color:#666">-</span>drivers<span style="color:#666">-</span>on<span style="color:#666">-</span>ubuntu<span style="color:#666">-</span><span style="color:#666">20</span><span style="color:#666">-</span><span style="color:#666">04</span><span style="color:#666">/</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">13.</span>  https:<span style="color:#666">//</span>blog<span style="color:#666">.</span>csdn<span style="color:#666">.</span>net<span style="color:#666">/</span>Guzarish<span style="color:#666">/</span>article<span style="color:#666">/</span>details<span style="color:#666">/</span><span style="color:#666">118626384</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">14.</span>  https:<span style="color:#666">//</span>blog<span style="color:#666">.</span>csdn<span style="color:#666">.</span>net<span style="color:#666">/</span>dou3516<span style="color:#666">/</span>article<span style="color:#666">/</span>details<span style="color:#666">/</span><span style="color:#666">120823932</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">15.</span>  https:<span style="color:#666">//</span>developer<span style="color:#666">.</span>aliyun<span style="color:#666">.</span>com<span style="color:#666">/</span>article<span style="color:#666">/</span><span style="color:#666">971986</span>
+</span></span></code></pre></div>
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://example.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="your-github-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-stackoverflow-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>stackoverflow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
+            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-twitter-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+        © Copyright 2023 Yizhou
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

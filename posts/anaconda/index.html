@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Anaconda入门教程 | Yizhou&#39;s Website</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="Anaconda是什么？ 🔗Anaconda可以理解为Python的软件发行版，可以用来管理包、环境，但是Anaconda主要针对于数据科学。">
+<meta name="generator" content="Hugo 0.121.1">
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85 },
+          tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+          }
+        });
+    </script>
+    
+    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://example.com/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Anaconda入门教程</h1>
+
+    <div class="tip">
+        <time datetime="2018-05-29 10:24:42 &#43;0000 &#43;0000">2018年05月29日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1238字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          3分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#anaconda是什么">Anaconda是什么？</a></li>
+    <li><a href="#anaconda安装">Anaconda安装</a></li>
+    <li><a href="#anaconda-包管理命令">Anaconda 包管理命令</a></li>
+    <li><a href="#anaconda-环境管理命令">Anaconda 环境管理命令</a></li>
+    <li><a href="#导出和加载">导出和加载</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h2 id="anaconda是什么">Anaconda是什么？ <a href="#anaconda%e6%98%af%e4%bb%80%e4%b9%88" class="anchor">🔗</a></h2><p>Anaconda可以理解为Python的软件发行版，可以用来管理包、环境，但是Anaconda主要针对于数据科学。</p>
+<p>Anaconda附带了conda、Python以及150和科学有关的包及其依赖包，其中由conda负责管理包和环境，由conda安装的包会自动去安装依赖包，所以只知道需要安装的包叫什么名字，而不用去管这个包依赖的有哪些包。</p>
+<p>Conda和pip的区别在于都是包管理器，但是conda还提供了环境管理，什么是环境管理呢？</p>
+<p>你可以把它想象为虚拟机，每个虚拟机都有一个独立的环境，互相可以安装不同版本的软件，比如说我虚拟机1安装word2007，虚拟机2安装word2016。</p>
+<h2 id="anaconda安装">Anaconda安装 <a href="#anaconda%e5%ae%89%e8%a3%85" class="anchor">🔗</a></h2><p>首先需要到<a href="https://www.anaconda.com/download/" target="_blank" rel="noopener">官网下载</a>，然后根据自身的系统选择相应的版本进行安装，安装过后进入到终端就可以使用conda进行管理包和管理环境。</p>
+<p>但是第一次下载过后建议升级更新，因为从官网下载的软件包很有可能不是最新的，所以最好进行一次更新</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>conda upgrade --all 
+</span></span></code></pre></div><h2 id="anaconda-包管理命令">Anaconda 包管理命令 <a href="#anaconda-%e5%8c%85%e7%ae%a1%e7%90%86%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h2><p>conda提供了一些基本的包管理命令供用户使用：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>conda list    ---查看已安装的包列表
+</span></span><span style="display:flex;"><span>conda install package_name    ---安装指定的包，可以同时安装多个包，包名之间以逗号分隔开。
+</span></span><span style="display:flex;"><span>conda install package_name=version    ---安装指定版本的包，包后面跟随版本，适用于多个包安装
+</span></span><span style="display:flex;"><span>conda remove package_name   ---卸载已经安装的包
+</span></span><span style="display:flex;"><span>conda search search_name    ---搜索包 
+</span></span></code></pre></div><h2 id="anaconda-环境管理命令">Anaconda 环境管理命令 <a href="#anaconda-%e7%8e%af%e5%a2%83%e7%ae%a1%e7%90%86%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h2><p>假如你有这样的一个问题，你本机需要安装python2对老的代码进行运行，但是你又会用python3对新的代码进行运行，那这个时候就会很麻烦了，你会下载两个版本的python，并在系统中设置相应的命令别名，那如果还有其他的包呢？是不是都会为每一个包设置一个别名？所以环境管理就有很大的作用了。</p>
+<p>你可以把环境想象为虚拟机，每个虚拟机之间互相影响，可以安装不同的版本的包，你可以通过下面的代码来创建一个环境，并默认安装python为最新的版本：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>conda create -n env_name      env_name为你创建环境的名字 
+</span></span></code></pre></div><p>那如果我要安装其他的包呢？有两个办法，一个是通过下面的方式，还有一个就是进入到环境后通过<code>conda install package_name</code>安装：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>conda create -n env_name package_name,...      在环境名后面跟着你需要安装的包名，可以多个 
+</span></span></code></pre></div><p>那如果我需要指定python版本呢？通过在环境名字后加上python=2来指定版本：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>conda create -n env_name python=2 
+</span></span></code></pre></div><p>安装好环境过后，我们可以通过下面的代码来查看目前已经创建的所有环境：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>conda env list 
+</span></span></code></pre></div><p>现在安装好后可以进入环境中了，通过下面的代码进入环境，当你成功进入环境过后，你会看见终端提示符中有环境的名称<code>(env_name) ~ $</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Uinx/Linux/Mac: source activate env_name
+</span></span><span style="display:flex;"><span>Windows: activate env_name 
+</span></span></code></pre></div><p>退出当前的环境用下面的代码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Uinx/Linux/Mac: source deactivate
+</span></span><span style="display:flex;"><span>Windows: deactivate 
+</span></span></code></pre></div><p>删除环境：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>conda env remove -n env_name  env_name为你需要删除的环境名称 
+</span></span></code></pre></div><h2 id="导出和加载">导出和加载 <a href="#%e5%af%bc%e5%87%ba%e5%92%8c%e5%8a%a0%e8%bd%bd" class="anchor">🔗</a></h2><p>conda提供了一个导出当前环境配置和导入的功能，这样当别人拿着我们代码的时候就不用考虑依赖包和版本的问题就直接可以使用了。</p>
+<p>导出命令：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span>conda env <span style="color:#a2f;font-weight:bold">export</span> <span style="color:#666">&gt;</span> filename<span style="color:#666">.</span>yaml   <span style="">其中</span>filename为你需要导出环境配置的文件名<span style="">。</span> 
+</span></span></code></pre></div><p>导入命令：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>conda env create -f filename.yaml   其中filename为你需要导入的环境配置的文件名 
+</span></span></code></pre></div>
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://example.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="your-github-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-stackoverflow-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>stackoverflow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
+            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-twitter-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+        © Copyright 2023 Yizhou
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

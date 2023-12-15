@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Elasticsearch节点配置 | Yizhou&#39;s Website</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="节点配置 🔗配置Java 🔗因为Elasticsearch是Java编写的，所以在使用Elasticsearch之前，需要构建好Java的环境。">
+<meta name="generator" content="Hugo 0.121.1">
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85 },
+          tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+          }
+        });
+    </script>
+    
+    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://example.com/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Elasticsearch节点配置</h1>
+
+    <div class="tip">
+        <time datetime="2022-06-10 07:49:01 &#43;0000 &#43;0000">2022年06月10日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          4756字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          10分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#节点配置">节点配置</a>
+      <ul>
+        <li><a href="#配置java">配置Java</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#数据日志临时文件存放配置">数据、日志、临时文件存放配置</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h2 id="节点配置">节点配置 <a href="#%e8%8a%82%e7%82%b9%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h2><h3 id="配置java">配置Java <a href="#%e9%85%8d%e7%bd%aejava" class="anchor">🔗</a></h3><p>因为Elasticsearch是Java编写的，所以在使用Elasticsearch之前，需要构建好Java的环境。而Elasticsearch会在每个发行版中包含一个推荐JVM版本。同时官方也推荐使用捆绑的JVM版本。 所以有两种方式来配置JVM：</p>
+<ol>
+<li>使用捆绑JVM</li>
+<li>手动安装适配当前Elasticsearch的JVM版本</li>
+</ol>
+<p>如果是通过下载解压包，则解压后会在第一层目录中看见一个名为<code>jdk</code>的目录，这个就是自带的推荐JVM，默认情况下，如果环境中没有设置<code>ES_JAVA_HOME</code>在启动的时候，则会直接使用自带的JVM。 如果安装了JVM，但需要使用自带JVM或者使用指定的JVM，则可以找到<code>esdir/bin/Elasticsearch-env</code>文件，然后找到下面的内容：```</p>
+<h1 id="now-set-the-path-to-java">now set the path to java <a href="#now-set-the-path-to-java" class="anchor">🔗</a></h1><p>ES_JAVA_HOME=&quot;/home/elastic/Elasticsearch-8.2.0/jdk&quot;  # 添加这段内容，路径需要自行修改
+if [ ! -z &ldquo;$ES_JAVA_HOME&rdquo; ]; then
+JAVA=&quot;$ES_JAVA_HOME/bin/java&quot;
+JAVA_TYPE=&ldquo;ES_JAVA_HOME&rdquo;</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">### Java堆内存配置</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Elasticsearch使用Java编写的<span style="">，所以</span>Java的堆内存越大<span style="">，</span>Elasticsearch可用的堆内存越多<span style="">，缓存的数据也就越多。但是过于太大的堆内存，可能是垃圾回收暂停。</span> <span style="">除此之外，官方还建议堆内存的大小设置不要超过对象指针（</span>oops<span style="">）的阈值。不同的系统阈值有所不同，而在大多数系统上</span><span style="color:#666">26</span>GB是安全<span style="">，而有些可能可用高达</span><span style="color:#666">30</span>G<span style="">。</span> <span style="">查看是否超过了</span>oops阈值<span style="">，可用两种方法。第一种为</span>API<span style="">：```</span>
+</span></span><span style="display:flex;"><span>_nodes<span style="color:#666">/</span>_all<span style="color:#666">/</span>jvm
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#666">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#b44">&#34;using_compressed_ordinary_object_pointers&#34;</span>: <span style="color:#b44">&#34;true&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#666">...</span>
+</span></span><span style="display:flex;"><span>} 
+</span></span><span style="display:flex;"><span><span style="">```第二种为检查日志：```</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#666">2022</span><span style="color:#666">-</span><span style="color:#666">06</span><span style="color:#666">-</span><span style="color:#666">09</span>T06:<span style="color:#666">17</span>:<span style="color:#666">15</span>,<span style="color:#666">837</span>][INFO ][o<span style="color:#666">.</span>e<span style="color:#666">.</span>e<span style="color:#666">.</span>NodeEnvironment    ] [xxx<span style="color:#666">-</span>p1] heap size [<span style="color:#666">28</span>gb], compressed ordinary object
+</span></span><span style="display:flex;"><span> pointers [true] 
+</span></span><span style="display:flex;"><span><span style="">```设置堆内存大小通过设置</span>Elasticsearch配置文件中的<span style="">`</span>jvm<span style="color:#666">.</span>options<span style="">`文件，但在生产环境中尽量不要使用该文件直接修改，而是在`</span>java<span style="color:#666">.</span>options<span style="color:#666">.</span>d<span style="">`目录中新添加一个后缀为`</span><span style="color:#666">.</span>options<span style="">`的文件。</span> <span style="">配置文件中通过`</span><span style="color:#666">-</span>Xms<span style="">`和`</span><span style="color:#666">-</span>Xmx<span style="">`来设置最小和最大的堆内存：```</span>
+</span></span><span style="display:flex;"><span>esdir<span style="color:#666">/</span>config<span style="color:#666">/</span>jvm<span style="color:#666">.</span>options<span style="color:#666">.</span>d<span style="color:#666">/</span>heap<span style="color:#666">.</span>options
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#666">-</span>Xms16g
+</span></span><span style="display:flex;"><span><span style="color:#666">-</span>Xmx16g 
+</span></span><span style="display:flex;"><span><span style="">```官方建议将该值设置为一致的，并且该值应该小于物理内存的</span><span style="color:#666">50</span><span style="color:#666">%</span><span style="">。因为除了堆内存，</span>JVM本身也需要一定的内存<span style="">，除此之外，</span>Elasticsearch底层使用的Lucence<span style="">，</span>Lucence段存放在单独的文件中<span style="">，而</span>OS会将部分常用段进行缓存<span style="">（热段），便于加快应用的访问性能，所以没有足够的内存给</span>OS进行缓存<span style="">，那么同样会降低</span>Elasticsearch的性能<span style="">。</span> <span style="">下面是因为堆内存设置过大，导致</span>JVM内存不够的报错<span style="">：```</span>
+</span></span><span style="display:flex;"><span>Exception <span style="color:#a2f;font-weight:bold">in</span> thread <span style="color:#b44">&#34;main&#34;</span> java<span style="color:#666">.</span>lang<span style="color:#666">.</span>RuntimeException: starting java failed with [<span style="color:#666">1</span>]
+</span></span><span style="display:flex;"><span>output:
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"># There is insufficient memory for the Java Runtime Environment to continue.</span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"># Native memory allocation (mmap) failed to map 33285996544 bytes for committing reserved memory.</span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"># An error report file with more information is saved as:</span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"># logs/hs_err_pid13775.log</span>
+</span></span><span style="display:flex;"><span>error:
+</span></span><span style="display:flex;"><span>OpenJDK <span style="color:#666">64</span><span style="color:#666">-</span>Bit Server VM warning: INFO: os::commit_memory(<span style="color:#666">0x0000001001000000</span>, <span style="color:#666">33285996544</span>, <span style="color:#666">0</span>) failed; error<span style="color:#666">=</span><span style="color:#b44">&#39;Not enough space&#39;</span> (errno<span style="color:#666">=</span><span style="color:#666">12</span>)
+</span></span><span style="display:flex;"><span>        at org<span style="color:#666">.</span>Elasticsearch<span style="color:#666">.</span>tools<span style="color:#666">.</span>launchers<span style="color:#666">.</span>JvmOption<span style="color:#666">.</span>flagsFinal(JvmOption<span style="color:#666">.</span>java:<span style="color:#666">114</span>)
+</span></span><span style="display:flex;"><span>        at org<span style="color:#666">.</span>Elasticsearch<span style="color:#666">.</span>tools<span style="color:#666">.</span>launchers<span style="color:#666">.</span>JvmOption<span style="color:#666">.</span>findFinalOptions(JvmOption<span style="color:#666">.</span>java:<span style="color:#666">79</span>)
+</span></span><span style="display:flex;"><span>        at org<span style="color:#666">.</span>Elasticsearch<span style="color:#666">.</span>tools<span style="color:#666">.</span>launchers<span style="color:#666">.</span>MachineDependentHeap<span style="color:#666">.</span>determineHeapSettings(MachineDependentHeap<span style="color:#666">.</span>java:<span style="color:#666">61</span>)
+</span></span><span style="display:flex;"><span>        at org<span style="color:#666">.</span>Elasticsearch<span style="color:#666">.</span>tools<span style="color:#666">.</span>launchers<span style="color:#666">.</span>JvmOptionsParser<span style="color:#666">.</span>jvmOptions(JvmOptionsParser<span style="color:#666">.</span>java:<span style="color:#666">135</span>)
+</span></span><span style="display:flex;"><span>        at org<span style="color:#666">.</span>Elasticsearch<span style="color:#666">.</span>tools<span style="color:#666">.</span>launchers<span style="color:#666">.</span>JvmOptionsParser<span style="color:#666">.</span>main(JvmOptionsParser<span style="color:#666">.</span>java:<span style="color:#666">87</span>) 
+</span></span></code></pre></div><h3 id="数据日志临时文件存放配置">数据、日志、临时文件存放配置 <a href="#%e6%95%b0%e6%8d%ae%e6%97%a5%e5%bf%97%e4%b8%b4%e6%97%b6%e6%96%87%e4%bb%b6%e5%ad%98%e6%94%be%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h3><p>Elasticsearch默认将索引的数据写入Elasticsearch主目录下的<code>data</code>目录，而集群和操作相关的日志则写入Elasticsearch主目录下的<code>logs</code>目录。而这些目录在Elasticsearch升级的过程中可能会造成丢失或者删除。 所以在配置文件中<code>config/Elasticsearch.yml</code>设置<code>path.data</code>和<code>path.logs</code>来设置指定存放路径尤为重要。 比如下面的目录则设置了将数据存放在<code>/var/es-data</code>和<code>/var/es-logs</code>。<code>... path.data: /var/es-data path.logs: /var/es-logs ... </code>同时Elasticsearch在启动的时候会在系统的临时目录下创建私有的临时目录，而某些Linux的发行中的系统程序会删除掉临时目录<code>/tmp</code>中最近未访问的文件和目录，如果Elasticsearch长时间不使用私有的临时目录，那么将被系统可能删除掉，进而引发Elasticsearch的错误。 而指定这个临时的私有目录的路径方法可用通过在运行前提供环境变量<code>$ES_TMPDIR</code>。也可用通过修改Elasticsearch主目录<code>bin/Elasticsearch-env</code>文件，在<code>ES_HOME</code>上一行添加：```
+&hellip;
+ES_TMPDIR: /var/es-tmp  # 添加
+ES_HOME=<code>dirname &quot;SCRIPT&quot;</code>
+&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">### 禁用交换区
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">操作系统会尽可能的将内存用于文件系统缓存，因此应用程序的数据可能会被交换到</span><span style="color:#666">`</span>swap<span style="color:#666">`</span><span style="">区，这可能导致</span>JVM堆数据也被交换到磁盘去<span style="">，对于</span>Elasticsearch来说<span style="">，这可能会导致性能和稳定性，这在真正的生产环境中一定要避免的。</span><span style="color:#bbb"> </span><span style="">而如果运行</span>Elasticsearch的机器仅是用于Elasticsearch服务<span style="">，那么可用通过在</span><span style="color:#666">`/</span>etc<span style="color:#666">/</span>sysctl.conf<span style="color:#666">`</span><span style="">中设置</span><span style="color:#666">`</span>vm.swappiness<span style="color:#666">=</span><span style="color:#666">1</span><span style="color:#666">`</span><span style="">，这个值是告诉系统交换内存的权重，值越高，代表希望越积极的使用交换分区，值越低则反之，设置为</span><span style="color:#666">`</span><span style="color:#666">1</span><span style="color:#666">`</span><span style="">的意义在于来告诉系统除仅仅在系统紧急情况下才进行交换。</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">### 文件描述符
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">在</span>Linux<span style="color:#666">/</span>Unix系统中<span style="">，一切都是文件。所有文件可以是物理文件、虚拟文件、网络套接字文件，而</span>Elasticsearch需要大量的文件描述符<span style="">（文件句柄），如每个分片由多个段、与其他节点连接等。所以需要确保</span>Elasticsearch能够有足够多的文件描述符<span style="">，如果文件描述符不够，可能对于</span>Elasticsearch是灾难性的<span style="">，而且很有可能造成数据丢失。</span><span style="color:#bbb"> </span><span style="">在</span>Linux中<span style="">，可以通过</span><span style="color:#666">`</span>ulimit<span style="color:#bbb"> </span><span style="color:#666">-</span>a<span style="color:#666">`</span><span style="">来查看当前用户的限制：</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>core<span style="color:#bbb"> </span>file<span style="color:#bbb"> </span><span style="color:#00a000">size</span><span style="color:#bbb">          </span>(blocks,<span style="color:#bbb"> </span><span style="color:#666">-</span>c)<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>data<span style="color:#bbb"> </span>seg<span style="color:#bbb"> </span><span style="color:#00a000">size</span><span style="color:#bbb">           </span>(kbytes,<span style="color:#bbb"> </span><span style="color:#666">-</span>d)<span style="color:#bbb"> </span>unlimited<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>scheduling<span style="color:#bbb"> </span><span style="color:#00a000">priority</span><span style="color:#bbb">             </span>(<span style="color:#666">-</span>e)<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>file<span style="color:#bbb"> </span><span style="color:#00a000">size</span><span style="color:#bbb">               </span>(blocks,<span style="color:#bbb"> </span><span style="color:#666">-</span>f)<span style="color:#bbb"> </span>unlimited<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>pending<span style="color:#bbb"> </span><span style="color:#00a000">signals</span><span style="color:#bbb">                 </span>(<span style="color:#666">-</span>i)<span style="color:#bbb"> </span><span style="color:#666">128616</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>max<span style="color:#bbb"> </span>locked<span style="color:#bbb"> </span><span style="color:#00a000">memory</span><span style="color:#bbb">       </span>(kbytes,<span style="color:#bbb"> </span><span style="color:#666">-</span>l)<span style="color:#bbb"> </span><span style="color:#666">65536</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>max<span style="color:#bbb"> </span>memory<span style="color:#bbb"> </span><span style="color:#00a000">size</span><span style="color:#bbb">         </span>(kbytes,<span style="color:#bbb"> </span><span style="color:#666">-</span>m)<span style="color:#bbb"> </span>unlimited<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>open<span style="color:#bbb"> </span><span style="color:#00a000">files</span><span style="color:#bbb">                      </span>(<span style="color:#666">-</span>n)<span style="color:#bbb"> </span><span style="color:#666">1024</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>pipe<span style="color:#bbb"> </span><span style="color:#00a000">size</span><span style="color:#bbb">            </span>(<span style="color:#666">512</span><span style="color:#bbb"> </span>bytes,<span style="color:#bbb"> </span><span style="color:#666">-</span>p)<span style="color:#bbb"> </span><span style="color:#666">8</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>POSIX<span style="color:#bbb"> </span>message<span style="color:#bbb"> </span><span style="color:#00a000">queues</span><span style="color:#bbb">     </span>(bytes,<span style="color:#bbb"> </span><span style="color:#666">-</span>q)<span style="color:#bbb"> </span><span style="color:#666">819200</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#0b0;font-weight:bold">real</span><span style="color:#666">-</span><span style="color:#0b0;font-weight:bold">time</span><span style="color:#bbb"> </span><span style="color:#00a000">priority</span><span style="color:#bbb">              </span>(<span style="color:#666">-</span>r)<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>stack<span style="color:#bbb"> </span><span style="color:#00a000">size</span><span style="color:#bbb">              </span>(kbytes,<span style="color:#bbb"> </span><span style="color:#666">-</span>s)<span style="color:#bbb"> </span><span style="color:#666">8192</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>cpu<span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">time</span><span style="color:#bbb">               </span>(seconds,<span style="color:#bbb"> </span><span style="color:#666">-</span>t)<span style="color:#bbb"> </span>unlimited<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>max<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">user</span><span style="color:#bbb"> </span><span style="color:#00a000">processes</span><span style="color:#bbb">              </span>(<span style="color:#666">-</span>u)<span style="color:#bbb"> </span><span style="color:#666">128616</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>virtual<span style="color:#bbb"> </span><span style="color:#00a000">memory</span><span style="color:#bbb">          </span>(kbytes,<span style="color:#bbb"> </span><span style="color:#666">-</span>v)<span style="color:#bbb"> </span>unlimited<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>file<span style="color:#bbb"> </span><span style="color:#00a000">locks</span><span style="color:#bbb">                      </span>(<span style="color:#666">-</span>x)<span style="color:#bbb"> </span>unlimited<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">其中</span><span style="color:#666">`</span>open<span style="color:#bbb"> </span><span style="color:#00a000">files</span><span style="color:#bbb"> </span>(<span style="color:#666">-</span>n)<span style="color:#bbb"> </span><span style="color:#666">1024</span><span style="color:#666">`</span><span style="">则是</span>Linux系统限制的当前用户一个进程最大文件描述符有多少<span style="">，对于</span>[Elasticsearch官方](https:<span style="color:#666">//</span>www.elastic.co<span style="color:#666">/</span>guide<span style="color:#666">/</span>en<span style="color:#666">/</span>Elasticsearch<span style="color:#666">/</span>reference<span style="color:#666">/</span>current<span style="color:#666">/</span>file<span style="color:#666">-</span>descriptors.html)<span style="">介绍，其值应该为</span><span style="color:#666">65</span>,<span style="color:#666">535</span><span style="">或者更高，设置这个值有两种方式。</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">*</span><span style="color:#bbb">   </span><span style="">第一种：为临时设置，在启动</span>Elasticsearch之前<span style="">，切换至</span>Root用户<span style="">，使用</span><span style="color:#666">`</span>ulimit<span style="color:#bbb"> </span><span style="color:#666">-</span>n<span style="color:#bbb"> </span><span style="color:#666">65535</span><span style="color:#666">`</span><span style="">，然后切回</span>ES用户启动<span style="">。</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">*</span><span style="color:#bbb">   </span><span style="">第二种：为永久设置，在启动</span>Elasticsearch之前<span style="">，切换至</span>Root用户<span style="">，修改</span><span style="color:#666">`/</span>etc<span style="color:#666">/</span>security<span style="color:#666">/</span>limits.conf<span style="color:#666">`</span><span style="">添加内容</span><span style="color:#666">`</span>elastic<span style="color:#bbb"> </span><span style="color:#666">-</span><span style="color:#bbb"> </span>nofile<span style="color:#bbb"> </span><span style="color:#666">65535</span><span style="color:#666">`</span><span style="">，该行内容具体的含义可以看该文件的注释，注释有比较清楚的解释。</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">### 最大文件大小
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">在</span>Elasticsearch中的段文件和一些log文件会变得越来越大<span style="">，</span><span style="color:#bbb"> </span><span style="">如果</span>Elasticsearch受到操作系统的最大文件限制的情况下进行写入操作<span style="">，则可能导致写入失败。而在</span>Linux环境下<span style="">，</span>Elasticsearch启动的时候<span style="">，将检查是否有限制。</span><span style="color:#bbb"> </span><span style="">查看最大文件大小的限制通过</span><span style="color:#666">`</span>ulimit<span style="color:#bbb"> </span><span style="color:#666">-</span>a<span style="color:#666">`</span><span style="">中的</span><span style="color:#666">`</span>file<span style="color:#bbb"> </span>size<span style="color:#666">`</span><span style="">查看。</span><span style="color:#bbb"> </span><span style="">如果有相关限制，通过修改修改</span><span style="color:#666">`/</span>etc<span style="color:#666">/</span>security<span style="color:#666">/</span>limits.conf<span style="color:#666">`</span><span style="">文件，并添加内容</span><span style="color:#666">`</span>elastic<span style="color:#bbb"> </span><span style="color:#666">-</span><span style="color:#bbb"> </span>fsize<span style="color:#bbb"> </span>unlimited<span style="color:#666">`</span><span style="">。</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">### 虚拟内存区域映射数量
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>Elasticsearch会默认根据操作系统选择最优的虚拟内存映射实现<span style="">，作用将索引的一部分文件映射</span>Elasticsearch内存当中<span style="">，以便提供高性能，而每个操作系统对于进程所能映射的虚拟内存区域是有个数限制。默认的操作系统限制太低，可能导致内存不足。而在</span>Linux环境下<span style="">，</span>Elasticsearch启动的时候<span style="">，将检查是否具备最低</span><span style="color:#666">`</span><span style="color:#666">262</span>,<span style="color:#666">144</span><span style="color:#666">`</span><span style="">个内存映射区域。</span><span style="color:#bbb"> </span><span style="">设置这个值可以通过</span>Root用户修改<span style="color:#666">`/</span>etc<span style="color:#666">/</span>sysctl.conf<span style="color:#666">`</span><span style="">，并添加</span><span style="color:#666">`</span>vm.max_map_count<span style="color:#666">=</span><span style="color:#666">262144</span><span style="color:#666">`</span><span style="">。修改完成后再启动前执行</span><span style="color:#666">`</span>sysctl<span style="color:#bbb"> </span><span style="color:#666">-</span>p<span style="color:#666">`</span><span style="">命令使其生效。</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">### 最大虚拟内存
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>Elasticsearch和Lucence通过mmap机制将索引的一部分数据映射到Elasticsearch进程的内存空间来提高性能<span style="">，而在</span>Linux下启动Elasticsearch的时候<span style="">，会进行检查</span>Elasticsearch进程是否具备无限地址空间的能力<span style="">。</span><span style="color:#bbb"> </span><span style="">查看最大文件大小的限制通过</span><span style="color:#666">`</span>ulimit<span style="color:#bbb"> </span><span style="color:#666">-</span>a<span style="color:#666">`</span><span style="">中的</span><span style="color:#666">`</span>virtual<span style="color:#bbb"> </span>memory<span style="color:#666">`</span><span style="">查看。</span><span style="color:#bbb"> </span><span style="">如果有相关限制，通过修改修改</span><span style="color:#666">`/</span>etc<span style="color:#666">/</span>security<span style="color:#666">/</span>limits.conf<span style="color:#666">`</span><span style="">文件，并添加内容</span><span style="color:#666">`</span>elastic<span style="color:#bbb"> </span><span style="color:#666">-</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">as</span><span style="color:#bbb"> </span>unlimited<span style="color:#666">`</span><span style="">。</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">### 线程数量
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>Elasticsearch使用不同的线程池来执行不同类型的操作<span style="">，所以要保证</span>Elasticsearch在需要的时候<span style="">，能够创建新的线程，这个至应该至少为</span><span style="color:#666">`</span><span style="color:#666">4096</span><span style="color:#666">`</span><span style="">，如果低于这个值将启动失败。检查这个至可以通过</span><span style="color:#666">`</span>ulimit<span style="color:#bbb"> </span><span style="color:#666">-</span>a<span style="color:#666">`</span><span style="">来查看。</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>core<span style="color:#bbb"> </span>file<span style="color:#bbb"> </span><span style="color:#00a000">size</span><span style="color:#bbb">          </span>(blocks,<span style="color:#bbb"> </span><span style="color:#666">-</span>c)<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>data<span style="color:#bbb"> </span>seg<span style="color:#bbb"> </span><span style="color:#00a000">size</span><span style="color:#bbb">           </span>(kbytes,<span style="color:#bbb"> </span><span style="color:#666">-</span>d)<span style="color:#bbb"> </span>unlimited<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>scheduling<span style="color:#bbb"> </span><span style="color:#00a000">priority</span><span style="color:#bbb">             </span>(<span style="color:#666">-</span>e)<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>file<span style="color:#bbb"> </span><span style="color:#00a000">size</span><span style="color:#bbb">               </span>(blocks,<span style="color:#bbb"> </span><span style="color:#666">-</span>f)<span style="color:#bbb"> </span>unlimited<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>pending<span style="color:#bbb"> </span><span style="color:#00a000">signals</span><span style="color:#bbb">                 </span>(<span style="color:#666">-</span>i)<span style="color:#bbb"> </span><span style="color:#666">128616</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>max<span style="color:#bbb"> </span>locked<span style="color:#bbb"> </span><span style="color:#00a000">memory</span><span style="color:#bbb">       </span>(kbytes,<span style="color:#bbb"> </span><span style="color:#666">-</span>l)<span style="color:#bbb"> </span><span style="color:#666">65536</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>max<span style="color:#bbb"> </span>memory<span style="color:#bbb"> </span><span style="color:#00a000">size</span><span style="color:#bbb">         </span>(kbytes,<span style="color:#bbb"> </span><span style="color:#666">-</span>m)<span style="color:#bbb"> </span>unlimited<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>open<span style="color:#bbb"> </span><span style="color:#00a000">files</span><span style="color:#bbb">                      </span>(<span style="color:#666">-</span>n)<span style="color:#bbb"> </span><span style="color:#666">1024</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>pipe<span style="color:#bbb"> </span><span style="color:#00a000">size</span><span style="color:#bbb">            </span>(<span style="color:#666">512</span><span style="color:#bbb"> </span>bytes,<span style="color:#bbb"> </span><span style="color:#666">-</span>p)<span style="color:#bbb"> </span><span style="color:#666">8</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>POSIX<span style="color:#bbb"> </span>message<span style="color:#bbb"> </span><span style="color:#00a000">queues</span><span style="color:#bbb">     </span>(bytes,<span style="color:#bbb"> </span><span style="color:#666">-</span>q)<span style="color:#bbb"> </span><span style="color:#666">819200</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#0b0;font-weight:bold">real</span><span style="color:#666">-</span><span style="color:#0b0;font-weight:bold">time</span><span style="color:#bbb"> </span><span style="color:#00a000">priority</span><span style="color:#bbb">              </span>(<span style="color:#666">-</span>r)<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>stack<span style="color:#bbb"> </span><span style="color:#00a000">size</span><span style="color:#bbb">              </span>(kbytes,<span style="color:#bbb"> </span><span style="color:#666">-</span>s)<span style="color:#bbb"> </span><span style="color:#666">8192</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>cpu<span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">time</span><span style="color:#bbb">               </span>(seconds,<span style="color:#bbb"> </span><span style="color:#666">-</span>t)<span style="color:#bbb"> </span>unlimited<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>max<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">user</span><span style="color:#bbb"> </span><span style="color:#00a000">processes</span><span style="color:#bbb">              </span>(<span style="color:#666">-</span>u)<span style="color:#bbb"> </span><span style="color:#666">128616</span><span style="color:#bbb">  </span><span style="color:#080;font-style:italic"># 用户最大线程限制
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span>virtual<span style="color:#bbb"> </span><span style="color:#00a000">memory</span><span style="color:#bbb">          </span>(kbytes,<span style="color:#bbb"> </span><span style="color:#666">-</span>v)<span style="color:#bbb"> </span>unlimited<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>file<span style="color:#bbb"> </span><span style="color:#00a000">locks</span><span style="color:#bbb">                      </span>(<span style="color:#666">-</span>x)<span style="color:#bbb"> </span>unlimited<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">如果低于这个</span><span style="color:#666">4096</span><span style="">，可以通过修改</span><span style="color:#666">`/</span>etc<span style="color:#666">/</span>security<span style="color:#666">/</span>limits.conf<span style="color:#666">`</span><span style="">设置指定用户的最大线程数量。如</span><span style="color:#666">`</span>elastic<span style="color:#bbb"> </span><span style="color:#666">-</span><span style="color:#bbb"> </span>nproc<span style="color:#bbb"> </span><span style="color:#666">4096</span><span style="color:#666">`</span><span style="">，或者设置为无限制</span><span style="color:#666">`</span>elastic<span style="color:#bbb"> </span><span style="color:#666">-</span><span style="color:#bbb"> </span>nproc<span style="color:#bbb"> </span>unlimited<span style="color:#666">`</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">集群配置</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">--</span><span style="color:#080;font-style:italic">--
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">### 设置集群名称和节点名称
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">启动一个</span>Elasticsearch实例<span style="">，就相当于启动了一个节点。</span>Elasticsearch集群则是多个具有相同<span style="color:#666">`</span>cluster.name<span style="color:#666">`</span><span style="">值的节点组成的，当节点加入或者离开的时候，</span>Elasticsearch集群会自动重新组织<span style="">。</span><span style="color:#bbb"> </span><span style="">而节点名称在单节点集群中显得不太重要，而在多节点集群中，有助于标识和快速识别节点，节点名称通过</span><span style="color:#666">`</span>elasticsearch.yml<span style="color:#666">`</span><span style="">文件的</span><span style="color:#666">`</span>node.name<span style="color:#666">`</span><span style="">设置。</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">### 网络设置
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">在未设置网络的情况下，</span>Elasticsearch会默认把<span style="color:#666">`</span>elasticsearch.yml<span style="color:#666">`</span><span style="">中的</span><span style="color:#666">`</span>network.host<span style="color:#666">`</span><span style="">绑定到</span>[<span style="">环回地址</span>](https:<span style="color:#666">//</span>blog.csdn.net<span style="color:#666">/</span>liulang68<span style="color:#666">/</span>article<span style="color:#666">/</span>details<span style="color:#666">/</span><span style="color:#666">106988890</span>)<span style="">上，即</span><span style="color:#666">`</span><span style="color:#666">127</span>.<span style="color:#666">0</span>.<span style="color:#666">0</span>.<span style="color:#666">1</span><span style="color:#666">`</span><span style="">，这主要的作用是用于在单机上进行测试和开发。</span><span style="color:#bbb"> </span><span style="">而一旦设置了</span><span style="color:#666">`</span>network.host<span style="color:#666">`</span><span style="">的值后，</span>Elasticsearch就会假定当前由开发模式转为了生产模式<span style="">，并且将启动检查过程中的警告转变为了异常。</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">### 发现和集群形成设置
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">发现和集群形成设置主要指通过</span><span style="color:#666">`</span>elasticsearch.yml<span style="color:#666">`</span><span style="">文件中配置</span><span style="color:#666">`</span>discovery.seed_hosts<span style="color:#666">`</span><span style="">和</span><span style="color:#666">`</span>cluster.initial_master_nodes<span style="color:#666">`</span><span style="">两个参数。其中</span><span style="color:#666">`</span>discovery.seed_hosts<span style="color:#666">`</span><span style="">需要设置复位主节点条件的候选主节点，用于选举和投票新主节点。而</span><span style="color:#666">`</span>cluster.initial_master_nodes<span style="color:#666">`</span><span style="">参数则是用于在第一次启动集群的时候，将符合主节点的节点找到，然后引导集群启动。</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">引用</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">--
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">1.  [JVM优化之压缩普通对象指针（CompressedOops）](https://zhuanlan.zhihu.com/p/102342581)
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#666">2</span>.<span style="color:#bbb">  </span>[Important<span style="color:#bbb"> </span>Elasticsearch<span style="color:#bbb"> </span>configuration](https:<span style="color:#666">//</span>www.elastic.co<span style="color:#666">/</span>guide<span style="color:#666">/</span>en<span style="color:#666">/</span>Elasticsearch<span style="color:#666">/</span>reference<span style="color:#666">/</span>current<span style="color:#666">/</span>important<span style="color:#666">-</span>settings.html)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">3</span>.<span style="color:#bbb">  </span>[Elasticsearch<span style="color:#bbb"> </span><span style="">生产环境集群部署最佳实践</span>](https:<span style="color:#666">//</span>zhuanlan.zhihu.com<span style="color:#666">/</span>p<span style="color:#666">/</span><span style="color:#666">366789485</span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">4</span>.<span style="color:#bbb">  </span>[File<span style="color:#bbb"> </span>Descriptors](https:<span style="color:#666">//</span>www.elastic.co<span style="color:#666">/</span>guide<span style="color:#666">/</span>en<span style="color:#666">/</span>Elasticsearch<span style="color:#666">/</span>reference<span style="color:#666">/</span>current<span style="color:#666">/</span>file<span style="color:#666">-</span>descriptors.html<span style="color:#080;font-style:italic">#file-descriptors)
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#666">5</span>.<span style="color:#bbb">  </span>[ES报错too<span style="color:#666">-</span>many<span style="color:#666">-</span>open<span style="color:#666">-</span>files解决](https:<span style="color:#666">//</span>blog.csdn.net<span style="color:#666">/</span>zoubf<span style="color:#666">/</span>article<span style="color:#666">/</span>details<span style="color:#666">/</span><span style="color:#666">72643185</span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">6</span>.<span style="color:#bbb">  </span>[ES6.x默认store为mmapfs<span style="">（</span>Linux<span style="color:#bbb"> </span><span style="color:#666">64</span><span style="">位），</span>mmap性能相关分析](https:<span style="color:#666">//</span>blog.csdn.net<span style="color:#666">/</span>qq_33999844<span style="color:#666">/</span>article<span style="color:#666">/</span>details<span style="color:#666">/</span><span style="color:#666">120504291</span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">7</span>.<span style="color:#bbb">  </span>[File<span style="color:#bbb"> </span>system<span style="color:#bbb"> </span>storage<span style="color:#bbb"> </span>type](https:<span style="color:#666">//</span>www.elastic.co<span style="color:#666">/</span>guide<span style="color:#666">/</span>en<span style="color:#666">/</span>Elasticsearch<span style="color:#666">/</span>reference<span style="color:#666">/</span>current<span style="color:#666">/</span><span style="color:#a2f;font-weight:bold">index</span><span style="color:#666">-</span>modules<span style="color:#666">-</span>store.html<span style="color:#080;font-style:italic">#file-system)
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#666">8</span>.<span style="color:#bbb">  </span>[<span style="color:#a2f;font-weight:bold">User</span><span style="color:#bbb"> </span>Address<span style="color:#bbb"> </span>Space<span style="color:#bbb"> </span>Limits](https:<span style="color:#666">//</span>www.vertica.com<span style="color:#666">/</span>docs<span style="color:#666">/</span><span style="color:#666">9</span>.<span style="color:#666">2</span>.x<span style="color:#666">/</span>HTML<span style="color:#666">/</span>Content<span style="color:#666">/</span>Authoring<span style="color:#666">/</span>InstallationGuide<span style="color:#666">/</span>BeforeYouInstall<span style="color:#666">/</span>addressspacelimit.htm)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">9</span>.<span style="color:#bbb">  </span>[Elasticsearch<span style="color:#bbb"> </span><span style="color:#666">8</span>.X<span style="color:#bbb"> </span><span style="">节点角色划分深入详解</span>](https:<span style="color:#666">//</span>mp.weixin.qq.com<span style="color:#666">/</span>s<span style="color:#666">/</span><span style="color:#666">3486</span>iH3VH7TV6lza<span style="color:#666">-</span>a7adQ)<span style="color:#bbb">
+</span></span></span></code></pre></div>
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://example.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="your-github-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-stackoverflow-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>stackoverflow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
+            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-twitter-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+        © Copyright 2023 Yizhou
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

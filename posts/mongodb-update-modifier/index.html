@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Mongodb更新修改器 | Yizhou&#39;s Website</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="参考 🔗MongoDB权威指南(第2版) 前言 🔗在Mongodb中我们使用的是update方法去更新我们需要更新的文档，比如下面的一个文档结构：">
+<meta name="generator" content="Hugo 0.121.1">
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85 },
+          tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+          }
+        });
+    </script>
+    
+    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://example.com/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Mongodb更新修改器</h1>
+
+    <div class="tip">
+        <time datetime="2017-08-03 07:45:26 &#43;0000 &#43;0000">2017年08月03日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1948字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          4分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#参考">参考</a></li>
+        <li><a href="#前言">前言</a></li>
+        <li><a href="#inc修改器">$inc修改器</a></li>
+        <li><a href="#set修改器-和-unset修改器">$set修改器 和 $unset修改器</a></li>
+        <li><a href="#setoninsert修改器">$setOnInsert修改器</a></li>
+        <li><a href="#数组修改器">数组修改器</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h3 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h3><p><a href="https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B00HLX035Q/ref=sr_1_1?ie=UTF8&amp;qid=1501597098&amp;sr=8-1&amp;keywords=mongodb" target="_blank" rel="noopener">MongoDB权威指南(第2版)</a></p>
+<h3 id="前言">前言 <a href="#%e5%89%8d%e8%a8%80" class="anchor">🔗</a></h3><p>在Mongodb中我们使用的是<code>update</code>方法去更新我们需要更新的文档，比如下面的一个文档结构：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    a: 1,
+</span></span><span style="display:flex;"><span>    b: 2,
+</span></span><span style="display:flex;"><span>    c: 3
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>我们想通过<code>update</code>方法来更新里面的键值对<code>a: 1</code>为<code>a: 2</code>，或者是只对文档里面的一个键的值进行更改，按照代码所示我们会像下面这样来写代码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.test.update({
+</span></span><span style="display:flex;"><span>    a: 1
+</span></span><span style="display:flex;"><span>},{
+</span></span><span style="display:flex;"><span>    a: 2
+</span></span><span style="display:flex;"><span>}); 
+</span></span></code></pre></div><p>但是真的如我们所示吗？其实结果并不是我们想要的，上面的代码执行后，其实文档更新后的结果为：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    a: 2
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>上面的执行代码覆盖了我们整个文档，当然这不是我们想要的结果。如果想要达到我们理想的结果，我们需要使用Mongodb提供的更新修改器(Update Modifier)。</p>
+<blockquote>
+<p>一个键只能存在一个更新修改器</p>
+</blockquote>
+<h3 id="inc修改器">$inc修改器 <a href="#inc%e4%bf%ae%e6%94%b9%e5%99%a8" class="anchor">🔗</a></h3><p><code>$inc</code>修改器主要是增对指定键的值进行增加值，<code>$inc</code>修改器是能操作数值类型值，这个修改器非常有用。比如下面，通过<code>$inc</code>修改器来计数访问统计。</p>
+<p>文档：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    title: &#39;analytics&#39;,
+</span></span><span style="display:flex;"><span>    analyticsCount: 1
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>代码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.blog.update({
+</span></span><span style="display:flex;"><span>    title: &#39;analytics&#39;
+</span></span><span style="display:flex;"><span>},{
+</span></span><span style="display:flex;"><span>    $inc: {
+</span></span><span style="display:flex;"><span>        analyticsCount: 1 //这里代表的是给analyticsCount键的值增加1
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}); 
+</span></span></code></pre></div><p>执行代码后文档为：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    title: &#39;analytics&#39;,
+</span></span><span style="display:flex;"><span>    analyticsCount: 2
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><h3 id="set修改器-和-unset修改器">$set修改器 和 $unset修改器 <a href="#set%e4%bf%ae%e6%94%b9%e5%99%a8-%e5%92%8c-unset%e4%bf%ae%e6%94%b9%e5%99%a8" class="anchor">🔗</a></h3><p><code>$set</code>修改器的作用是重写一个键的值，注意这里是重写这个键的值，并不是增加。如果没有这个键则添加并设置值，比如给下面的文档添加一个page键并设置值为&rsquo;index&rsquo;。</p>
+<p>文档</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    title: &#39;analytics&#39;,
+</span></span><span style="display:flex;"><span>    analyticsCount: 1
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.blog.update({
+</span></span><span style="display:flex;"><span>    title: &#39;analytics&#39;
+</span></span><span style="display:flex;"><span>}, {
+</span></span><span style="display:flex;"><span>    $set: {
+</span></span><span style="display:flex;"><span>        page: &#39;index&#39;
+</span></span><span style="display:flex;"><span>    }   
+</span></span><span style="display:flex;"><span>}); 
+</span></span></code></pre></div><p>执行后的文档</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    title: &#39;analytics&#39;,
+</span></span><span style="display:flex;"><span>    analyticsCount: 1,
+</span></span><span style="display:flex;"><span>    page: &#39;index&#39;
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p><code>$unset</code>修改器的作用是删除文档中的一个键值，比如上面的文档我不想要<code>page</code>键值了，那么通过下面代码可以删除<code>page</code>键值，而不影响这个文档中的其他数据</p>
+<p>代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.blog.update({
+</span></span><span style="display:flex;"><span>    title: &#39;analytics&#39;
+</span></span><span style="display:flex;"><span>}, {
+</span></span><span style="display:flex;"><span>    $unset: {
+</span></span><span style="display:flex;"><span>        page: 1 //这里意思是删除page键值后面跟着的可以为1也可以为true，表示确认删除
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}); 
+</span></span></code></pre></div><h3 id="setoninsert修改器">$setOnInsert修改器 <a href="#setoninsert%e4%bf%ae%e6%94%b9%e5%99%a8" class="anchor">🔗</a></h3><p><code>$setOnInsert</code>修改器配合<code>update</code>方法的第三个参数使用<code>upsert</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.test.update({a: 1}, {b: 1}, {upsert: true}) 
+</span></span></code></pre></div><p>上面的代码执行后会首先会查找是否有<code>a: 1</code>匹配的文档，如果有则替换整个文档内容为<code>b: 1</code>，如果没有则新建一个文档内容为<code>b: 1</code>。而<code>$setOnInsert</code>修改器就是如果遇见没有找到的匹配的文档就新建一个文档并插入后面的值，如果匹配到相应的文档则什么都不做，这个功能相当于设置了一个默认值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.test.update({a: 1}, {$setOnInsert: {b: 1}}, {upsert: true}) 
+</span></span></code></pre></div><p>还需要注意的是<code>update</code>方法默认是只对匹配到的第一个文档执行操作，如果需要对所有匹配到的文档进行操作，那么就需要在第三个参数设置<code>multi</code>的值为<code>true</code>，比如下面这样：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.test.update({a: 1}, {$setOnInsert: {b: 1}}, {upsert: true, multi: true}); 
+</span></span></code></pre></div><h3 id="数组修改器">数组修改器 <a href="#%e6%95%b0%e7%bb%84%e4%bf%ae%e6%94%b9%e5%99%a8" class="anchor">🔗</a></h3><h5 id="push修改器">$push修改器 <a href="#push%e4%bf%ae%e6%94%b9%e5%99%a8" class="anchor">🔗</a></h5><p><code>$push</code>修改器的作用是向一个键的值为数组类型的值末尾添加数据，如果没有这个键则创建一个，但是如果这个键已经存在了，它的值就必须是数组类型，否则会像下面一样报错：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>The field &#39;page&#39; must be an array but 
+</span></span><span style="display:flex;"><span>is of type bool in document xxxxx 
+</span></span></code></pre></div><p>下面的代码是使用<code>$push</code>修改器给文档增加了一个b键，值为一个对象</p>
+<p>文档</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    a: 1
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.blog.update({
+</span></span><span style="display:flex;"><span>    a: 1
+</span></span><span style="display:flex;"><span>}, {
+</span></span><span style="display:flex;"><span>    $push: {
+</span></span><span style="display:flex;"><span>        b: {c: 1}
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}) 
+</span></span></code></pre></div><p>执行后的文档</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    a: 1,
+</span></span><span style="display:flex;"><span>    b: [{c: 1}]
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><h5 id="each子修改器">$each子修改器 <a href="#each%e5%ad%90%e4%bf%ae%e6%94%b9%e5%99%a8" class="anchor">🔗</a></h5><p><code>$push</code>一次性只能增加一个数据，如果有大量数据需要写入，每次调用<code>$push</code>修改器那么性能会大大的降低，<code>$each</code>子修改器的出现解决了这个问题，它后面跟一个数组，这个数组的所有值将被依次添加到末尾。</p>
+<p>文档</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    a: 1,
+</span></span><span style="display:flex;"><span>    b: [{c:1}]
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.blog.update({
+</span></span><span style="display:flex;"><span>    a: 1
+</span></span><span style="display:flex;"><span>}, {
+</span></span><span style="display:flex;"><span>    $push: {
+</span></span><span style="display:flex;"><span>        pa:{
+</span></span><span style="display:flex;"><span>            $each: [{b:1}, {c:1}, {d:1}]
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}) 
+</span></span></code></pre></div><p>执行后的文档</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    a: 1,
+</span></span><span style="display:flex;"><span>    b: [{c: 1}, {b:1}, {c:1}, {d:1}]
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><h5 id="slice修改器">$slice修改器 <a href="#slice%e4%bf%ae%e6%94%b9%e5%99%a8" class="anchor">🔗</a></h5><p><code>$slice</code>修改器配合<code>$each</code>能够限制对操作的键值限制能够写入的最大数据，<code>$slice</code>后面跟着一个数字，可以是负数也可以是正数，比如是正数2则取出<code>$each</code>数组中从取出前两个成员重写操作的键的值，负数相反。注意这个方法影响操作键的原始数据。</p>
+<p>文档</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    a: 1,
+</span></span><span style="display:flex;"><span>    b: [{c:1}]
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.blog.update({a: 1}, {
+</span></span><span style="display:flex;"><span>        $push: {
+</span></span><span style="display:flex;"><span>          b: {
+</span></span><span style="display:flex;"><span>            $each: [5,6,7,5,4,3],
+</span></span><span style="display:flex;"><span>            $slice: 2
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>}); 
+</span></span></code></pre></div><p>执行后的文档</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    a: 1,
+</span></span><span style="display:flex;"><span>    b: [5, 6]
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><h5 id="addtoset修改器">$addToSet修改器 <a href="#addtoset%e4%bf%ae%e6%94%b9%e5%99%a8" class="anchor">🔗</a></h5><p><code>$addToSet</code>修改器可以向数组添加不重复的内容，意思是如果数组中有重复数据，就不在添加。如果<code>$addToSet</code>修改器操作的键不存在，则添加这个键，并且这个键的值为数组，添加的数据为这个数组的成员。</p>
+<p>比如下面的代码，执行了两次添加字符串<code>one</code>,执行了一次添加<code>two</code>，在最终的文档中只有两个成员，<code>one</code>和<code>two</code></p>
+<p>文档</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    a: 1
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.blog.update({a: 1}, {
+</span></span><span style="display:flex;"><span>    $addToSet: {
+</span></span><span style="display:flex;"><span>        c: &#39;one&#39;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>db.blog.update({a: 1}, {
+</span></span><span style="display:flex;"><span>    $addToSet: {
+</span></span><span style="display:flex;"><span>        c: &#39;one&#39;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>db.blog.update({a: 1}, {
+</span></span><span style="display:flex;"><span>    $addToSet: {
+</span></span><span style="display:flex;"><span>        c: &#39;two&#39;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}); 
+</span></span></code></pre></div><p>执行后的文档</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    a: 1,
+</span></span><span style="display:flex;"><span>    c: [&#39;one&#39;]
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><h5 id="pop修改器">$pop修改器 <a href="#pop%e4%bf%ae%e6%94%b9%e5%99%a8" class="anchor">🔗</a></h5><p><code>$pop</code>修改器用于对数组删除成员，对需要删除的键设置为<code>1</code>则把最后一个成员删除，<code>-1</code>则从正序开始删除第一个成员，如果操作一个不存在的键，还是会返回执行成功。</p>
+<p>文档</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    a: 1
+</span></span><span style="display:flex;"><span>    b: [1,2,3]
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.blog.update({a: 1}, {
+</span></span><span style="display:flex;"><span>    $pop: {
+</span></span><span style="display:flex;"><span>        b: -1
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}) 
+</span></span></code></pre></div><p>执行结果</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    a: 1,
+</span></span><span style="display:flex;"><span>    b: [1,2]
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><h5 id="pull修改器">$pull修改器 <a href="#pull%e4%bf%ae%e6%94%b9%e5%99%a8" class="anchor">🔗</a></h5><p><code>$pull</code>修改器用于删除数组中特定的成员，这样很方便我们控制数组里的成员，不用通过循环和索引来删除，比如下面的代码：</p>
+<p>文档</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    a: 1
+</span></span><span style="display:flex;"><span>    b: [1,2,3]
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.blog.update({a: 1}, {
+</span></span><span style="display:flex;"><span>    $pull: {
+</span></span><span style="display:flex;"><span>        b: 2
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}) 
+</span></span></code></pre></div><p>执行后的文档</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    a: 1
+</span></span><span style="display:flex;"><span>    b: [1,3]
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>文完</p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://example.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="your-github-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-stackoverflow-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>stackoverflow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
+            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-twitter-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+        © Copyright 2023 Yizhou
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

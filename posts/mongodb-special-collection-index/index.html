@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Mongodb特殊索引和集合 | Yizhou&#39;s Website</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="参考 🔗MongoDB权威指南(第2版) Mongodb Docs 特殊集合 🔗封顶集合 🔗封顶集合和普通集合不一样，普通集合的大小是可以随着数据的增加而增加的，封顶集合">
+<meta name="generator" content="Hugo 0.121.1">
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85 },
+          tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+          }
+        });
+    </script>
+    
+    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://example.com/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Mongodb特殊索引和集合</h1>
+
+    <div class="tip">
+        <time datetime="2017-08-09 07:43:18 &#43;0000 &#43;0000">2017年08月09日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1775字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          4分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#参考">参考</a></li>
+    <li><a href="#特殊集合">特殊集合</a>
+      <ul>
+        <li><a href="#封顶集合">封顶集合</a></li>
+        <li><a href="#文档验证集合">文档验证集合</a></li>
+      </ul>
+    </li>
+    <li><a href="#特殊索引">特殊索引</a>
+      <ul>
+        <li><a href="#ttl索引">TTL索引</a></li>
+        <li><a href="#文本索引">文本索引</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h2 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h2><p><a href="https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B00HLX035Q/ref=sr_1_1?ie=UTF8&amp;qid=1501597098&amp;sr=8-1&amp;keywords=mongodb" target="_blank" rel="noopener">MongoDB权威指南(第2版)</a></p>
+<p><a href="https://docs.mongodb.com/manual/" target="_blank" rel="noopener">Mongodb Docs</a></p>
+<h2 id="特殊集合">特殊集合 <a href="#%e7%89%b9%e6%ae%8a%e9%9b%86%e5%90%88" class="anchor">🔗</a></h2><h3 id="封顶集合">封顶集合 <a href="#%e5%b0%81%e9%a1%b6%e9%9b%86%e5%90%88" class="anchor">🔗</a></h3><p>封顶集合和普通集合不一样，普通集合的大小是可以随着数据的增加而增加的，封顶集合是在创建的时候就已经设置了集合的大小。</p>
+<p>封顶集合的大小已经满了后，当再次插入数据的时候，它会把最老的数据丢掉，然后写入新数据，封顶集合不难看出很适合当<code>log</code>型数据库。</p>
+<h4 id="创建封顶集合">创建封顶集合 <a href="#%e5%88%9b%e5%bb%ba%e5%b0%81%e9%a1%b6%e9%9b%86%e5%90%88" class="anchor">🔗</a></h4><p>创建封顶集合我们需要显式的创建集合，因为需要在显式创建的方法中设置一些选项，同时我们需要在选项中设置两个选项<code>capped</code>和<code>size</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.createCollection(&#39;test&#39;, {
+</span></span><span style="display:flex;"><span>    capped: true,
+</span></span><span style="display:flex;"><span>    size: 10485760
+</span></span><span style="display:flex;"><span>}) 
+</span></span></code></pre></div><p>上面的代码中<code>capped</code>设置为<code>true</code>代表创建的文档是一个封顶文档，而设置了<code>capped</code>为<code>true</code>后，必须指定<code>size</code>选项，<code>size</code>选项是指定的固定集合的大小，单位为字节(Byte)。</p>
+<p>除此这两个设置外，还可以指定<code>max</code>选项，设置它过后，可以控制总体文档的数量，如果超过设置的数量，就把最老的数据丢掉，写入新数据。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.createCollection(&#39;test&#39;, {
+</span></span><span style="display:flex;"><span>    capped: true,
+</span></span><span style="display:flex;"><span>    size: 10485760,
+</span></span><span style="display:flex;"><span>    max: 5000
+</span></span><span style="display:flex;"><span>}) 
+</span></span></code></pre></div><p>上面的代码设置了三个选项，其中一个表示创建封顶集合，一个是封顶集合的大小，还有一个是封顶集合的最大文档数量。集合的大小和集合的文档数量，只要其中一个条件满足都会从最老的数据位置开始覆盖写入。</p>
+<p>需要注意的是封顶集合一旦创建就不能在改变，只有通过删除此集合然后在新建。</p>
+<p>封顶集合的自然排序是由旧到新的，如果我们需要由新到旧的顺序查询我们的文档，我们可以通过下面的代码来执行：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.test.find({}).sort({$natural: -1}); 
+</span></span></code></pre></div><h3 id="文档验证集合">文档验证集合 <a href="#%e6%96%87%e6%a1%a3%e9%aa%8c%e8%af%81%e9%9b%86%e5%90%88" class="anchor">🔗</a></h3><p>我们在创建集合的时候可以通过设置一个或多个键的值验证机制，这样当写入数据的时候，Mongodb会进行验证，如果通过则写入，如果没有通过则抛出错误，设置验证文档通过<code>validator</code>选项，它接受一个对象，在里面可以使用元操作符<code>$</code>。</p>
+<p>比如下面的代码我设置了一个文档必须设置一个<code>name</code>值，并且值必须为<code>String</code>类型：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.createCollection(&#39;blog&#39;, {
+</span></span><span style="display:flex;"><span>    validator: {
+</span></span><span style="display:flex;"><span>        name: { $type: &#39;string&#39; }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}); 
+</span></span></code></pre></div><p>然后我们试着插入一个带name的文档但值为数值和插入一个带name的文档值为字符串类型。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; db.blog.insert({name: 123, age: 18})
+</span></span><span style="display:flex;"><span>WriteResult({
+</span></span><span style="display:flex;"><span>    &#34;nInserted&#34; : 0,
+</span></span><span style="display:flex;"><span>    &#34;writeError&#34; : {
+</span></span><span style="display:flex;"><span>        &#34;code&#34; : 121,
+</span></span><span style="display:flex;"><span>        &#34;errmsg&#34; : &#34;Document failed validation&#34;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}) 
+</span></span></code></pre></div><p>从上面的返回中可以看到错误消息提示的是文档验证失败，而我们试着插入一个合法的数据看看返回的是什么：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; db.blog.insert({name: &#39;123&#39;, age: 18})
+</span></span><span style="display:flex;"><span>WriteResult({ &#34;nInserted&#34; : 1 }) 
+</span></span></code></pre></div><h4 id="查看集合验证">查看集合验证 <a href="#%e6%9f%a5%e7%9c%8b%e9%9b%86%e5%90%88%e9%aa%8c%e8%af%81" class="anchor">🔗</a></h4><p>设置了验证后，我们可以通过官方提供的<code>getCollectionInfos()</code>方法来查看数据库上面哪些集合设置了文档验证，它有一个可选参数，接受一个对象，其中<code>name</code>的值代表集合名称，可以获取指定集合的文档验证：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.getCollectionInfos(); 
+</span></span></code></pre></div><p>它返回的大概内容为：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        &#34;name&#34; : &#34;blog&#34;,
+</span></span><span style="display:flex;"><span>        &#34;type&#34; : &#34;collection&#34;,
+</span></span><span style="display:flex;"><span>        &#34;options&#34; : {
+</span></span><span style="display:flex;"><span>            &#34;validator&#34; : {
+</span></span><span style="display:flex;"><span>                &#34;name&#34; : {
+</span></span><span style="display:flex;"><span>                    &#34;$type&#34; : &#34;string&#34;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        &#34;info&#34; : {
+</span></span><span style="display:flex;"><span>            &#34;readOnly&#34; : false
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        &#34;idIndex&#34; : {
+</span></span><span style="display:flex;"><span>            &#34;v&#34; : 2,
+</span></span><span style="display:flex;"><span>            &#34;key&#34; : {
+</span></span><span style="display:flex;"><span>                &#34;_id&#34; : 1
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            &#34;name&#34; : &#34;_id_&#34;,
+</span></span><span style="display:flex;"><span>            &#34;ns&#34; : &#34;blog.blog&#34;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        &#34;name&#34; : &#34;test&#34;,
+</span></span><span style="display:flex;"><span>        &#34;type&#34; : &#34;collection&#34;,
+</span></span><span style="display:flex;"><span>        &#34;options&#34; : {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        &#34;info&#34; : {
+</span></span><span style="display:flex;"><span>            &#34;readOnly&#34; : false
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        &#34;idIndex&#34; : {
+</span></span><span style="display:flex;"><span>            &#34;v&#34; : 2,
+</span></span><span style="display:flex;"><span>            &#34;key&#34; : {
+</span></span><span style="display:flex;"><span>                &#34;_id&#34; : 1
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            &#34;name&#34; : &#34;_id_&#34;,
+</span></span><span style="display:flex;"><span>            &#34;ns&#34; : &#34;blog.test&#34;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>] 
+</span></span></code></pre></div><p>其中我们可以看见<code>options</code>里面的<code>validator</code>中含有我们的验证信息，我们可以获取指定集合的文档验证信息：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.getCollectionInfos({name: &#39;blog&#39;}); 
+</span></span></code></pre></div><p>返回的信息：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        &#34;name&#34; : &#34;blog&#34;,
+</span></span><span style="display:flex;"><span>        &#34;type&#34; : &#34;collection&#34;,
+</span></span><span style="display:flex;"><span>        &#34;options&#34; : {
+</span></span><span style="display:flex;"><span>            &#34;validator&#34; : {
+</span></span><span style="display:flex;"><span>                &#34;name&#34; : {
+</span></span><span style="display:flex;"><span>                    &#34;$type&#34; : &#34;string&#34;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        &#34;info&#34; : {
+</span></span><span style="display:flex;"><span>            &#34;readOnly&#34; : false
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        &#34;idIndex&#34; : {
+</span></span><span style="display:flex;"><span>            &#34;v&#34; : 2,
+</span></span><span style="display:flex;"><span>            &#34;key&#34; : {
+</span></span><span style="display:flex;"><span>                &#34;_id&#34; : 1
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            &#34;name&#34; : &#34;_id_&#34;,
+</span></span><span style="display:flex;"><span>            &#34;ns&#34; : &#34;blog.blog&#34;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>] 
+</span></span></code></pre></div><p>如果你需要禁用这个文档的验证，你可以通过执行命令来设置<code>validationLevel</code>的值为<code>off</code>，如果<code>validationLevel</code>的值为<code>strict</code>，则默认开始所有文档验证，其中<code>collMod</code>的值是集合的名称，可以把这个理解为<code>collection mod集合修改</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.runCommand({collMod: &#39;blog&#39;, validationLevel: &#39;off&#39;}); 
+</span></span></code></pre></div><p>在创建集合中还有很多选项，我这里只是拿出了一小部分常用的、容易理解的选项出来说，如果对其他选项有兴趣可以查看<a href="https://docs.mongodb.com/manual/reference/method/db.createCollection/" target="_blank" rel="noopener">官方文档</a></p>
+<h2 id="特殊索引">特殊索引 <a href="#%e7%89%b9%e6%ae%8a%e7%b4%a2%e5%bc%95" class="anchor">🔗</a></h2><h3 id="ttl索引">TTL索引 <a href="#ttl%e7%b4%a2%e5%bc%95" class="anchor">🔗</a></h3><p>TTL索引会给所有的文档设置一个过期时间，如果一旦过期，文档将会删除，设置一个TTL索引的方式如下：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.blog.createIndex({da: 1}, { expireAfterSeconds: 10 }); 
+</span></span></code></pre></div><p>文档内容：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    da: new Date(),
+</span></span><span style="display:flex;"><span>    s: 1
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>设置索引的键必须为日期类型的值，<code>expireAfterSeconds</code>键的值表示过期时间，以秒为单位。</p>
+<p>这个设置将影响集合中所有文档，包括之前的所有文档，比如上面设置的10秒后过期，那么所有的文档将在10秒后过期，如果需要<code>续期</code>，就可以更新TTL索引的键的值为最新时间即可，这个常用于会话。</p>
+<h3 id="文本索引">文本索引 <a href="#%e6%96%87%e6%9c%ac%e7%b4%a2%e5%bc%95" class="anchor">🔗</a></h3><p>文本索引需要将索引的键的值设置为字符串<code>text</code>，并且一个集合只能有一个文本索引，但是可以组合一个复合的文本索引，在查询的过程中，使用<code>$text</code>运算符对所有文本索引的键的值进行查询：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.blog.insert({a: &#39;asd789&#39;});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>db.blog.createIndex({a: &#39;text&#39;});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>db.blog.find({$text: {$search: &#39;asd789&#39;}}); 
+</span></span></code></pre></div><p>文本索引会造成当前的集合更加缓慢，因为它是把索引的键的值全部索引，所以尽可能的少用文本索引。</p>
+<p>文完</p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://example.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="your-github-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-stackoverflow-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>stackoverflow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
+            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-twitter-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+        © Copyright 2023 Yizhou
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Webpack快速入门教程 | Yizhou&#39;s Website</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="1、简介 🔗此教程涉及不深入，并除去了很多复杂的东西，记录也坚持以最简单为主，让初学者大概对webpack有一个简单的系统认识，更好的去进一步">
+<meta name="generator" content="Hugo 0.121.1">
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85 },
+          tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+          }
+        });
+    </script>
+    
+    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://example.com/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Webpack快速入门教程</h1>
+
+    <div class="tip">
+        <time datetime="2017-06-06 11:06:26 &#43;0000 &#43;0000">2017年06月06日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2278字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          5分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1简介">1、简介</a></li>
+        <li><a href="#2入口entry">2、入口(entry)</a></li>
+        <li><a href="#3输出output">3、输出(output)</a></li>
+        <li><a href="#4加载器loader">4、加载器(loader)</a></li>
+        <li><a href="#5插件plugin">5、插件(plugin)</a></li>
+        <li><a href="#6总结">6、总结</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h3 id="1简介">1、简介 <a href="#1%e7%ae%80%e4%bb%8b" class="anchor">🔗</a></h3><p>此教程涉及不深入，并除去了很多复杂的东西，记录也坚持以最简单为主，让初学者大概对webpack有一个简单的系统认识，更好的去进一步深入学习webpack。</p>
+<p>Webpack是一个Javscript的打包程序，webpack会自动分析每个模块之间的依赖，然后将这些依赖统一打包成一个或多个文件。</p>
+<p>webpack最强悍的地方是可以通过官方、第三方的插件以及加载器(loader)来实现对各种文件的解析、编译。</p>
+<p>Webpack最重要的四个核心概念：入口(entry)、输出(output)、加载器(loader)、插件(plugin)，下面我以做笔记的方式尽量说明几个概念的意思，如果想深入或者笔记中有不太明白的地方，可以到官方网站的文档中去查看。</p>
+<h3 id="2入口entry">2、入口(entry) <a href="#2%e5%85%a5%e5%8f%a3entry" class="anchor">🔗</a></h3><p>webpack的入口就相当于一个网页的index文件，有了入口文件，这样webpack才知道从何下手，webpack会根据这个入口文件去分析入口文件所依赖的所有文件，然后将这些所有的依赖文件打包成一个或者多个文件。</p>
+<p>webpack提供了单个入口语法、对象语法。单个入口语法也是最简单的一种，只有一个入口文件，即一个进一个出。比如下面的这一种。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>1 {
+</span></span><span style="display:flex;"><span>2   entry: &#39;./index.js&#39;
+</span></span><span style="display:flex;"><span>3 } 
+</span></span></code></pre></div><p>对象语法主要是针对多个页面的应用程序，告诉webpack有三个入口文件，当打包完成的时候也是三个文件，这三个文件相互独立，每个文件只包含自己所依赖的文件。比如下面这样：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  entry: {
+</span></span><span style="display:flex;"><span>   hello1: &#39;./hello1.js&#39;,
+</span></span><span style="display:flex;"><span>   hello2: &#39;./hello2.js&#39;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span> } 
+</span></span></code></pre></div><h3 id="3输出output">3、输出(output) <a href="#3%e8%be%93%e5%87%baoutput" class="anchor">🔗</a></h3><p>webpack提供了output属性，来控制webpack如何把编译好的文件写入到硬盘中，输入和输出是对应的，有输入就有输出。但是必须注意一点，可以存在多个输入，但是只能存在一个输出，那怎么来输出多个独立的编译好的文件呢？webpack中当然有应对的机制。</p>
+<p>webpack要求output属性为对象，并且必须包含两个属性：filename、path。顾名思义filename即输出文件的文件名，而path则为输出文件的绝对路径(注意,path必须为决定路径)。</p>
+<p>单个入口output属性写法：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    entry: &#39;./index.js&#39;,
+</span></span><span style="display:flex;"><span>    output: {
+</span></span><span style="display:flex;"><span>    　　path: path.resolve(__dirname, &#39;app&#39;), //path为nodejs自身的库。__dirname为nodejs在运行过程中的一个环境变量，里面是当前文件夹的完整目录名。resolve方法是把相对路径的app目录解析为一个决定路径。
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  　　　filename: &#39;bundle.js&#39;
+</span></span><span style="display:flex;"><span> }
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>webpack内置了多个变量来应对多个入口文件，如[name]、[hash]、[id]、[chunkhash]，通过变量来保证每个文件的唯一性来达到生成多个文件，在生成过程中webpack会把这几个变量替换为相应的字符串用于保证文件的唯一性。</p>
+<p>多个入口output属性写法：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    entry: &#39;./index.js&#39;,
+</span></span><span style="display:flex;"><span>    output: {
+</span></span><span style="display:flex;"><span>        path: path.resolve(__dirname, &#39;app&#39;),
+</span></span><span style="display:flex;"><span>        filename: [name]-[hash]-bundle.js
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><h3 id="4加载器loader">4、加载器(loader) <a href="#4%e5%8a%a0%e8%bd%bd%e5%99%a8loader" class="anchor">🔗</a></h3><p>loader可以对不同类型的文件进行编译转换，比如jsx、typescript直接拿在浏览器上运行是不能运行的，那么我们在编写程序的时候需要借助jsx以及typescript等高效的库来提高我们编写程序的效率，但是我们又需要能正常使用，如果每种文件类型我们都通过一种转换工具，那么就显的很麻烦，所以laoder就是来处理这样的工作。</p>
+<p>首先在使用loader的时候我们需要安装相应的插件，比如es2015，那我们安装babel-loader，如果是css，那我们安装css-loader，通过下面的module属性里面的rules数组来对需要转换的文件设置loader。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    entry: <span style="color:#b44">&#39;./index.js&#39;</span>,
+</span></span><span style="display:flex;"><span>    output: {
+</span></span><span style="display:flex;"><span>        path: path<span style="color:#666">.</span>resolve(__dirname, <span style="color:#b44">&#39;app&#39;</span>),
+</span></span><span style="display:flex;"><span>        filename: [name]<span style="color:#666">-</span>[<span style="color:#a2f">hash</span>]<span style="color:#666">-</span>bundle<span style="color:#666">.</span>js
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    module: {
+</span></span><span style="display:flex;"><span>        rules : [
+</span></span><span style="display:flex;"><span>            {test: <span style="color:#666">/.</span>js<span style="color:#666">$/</span>, use: <span style="color:#b44">&#39;babel-loader&#39;</span>}
+</span></span><span style="display:flex;"><span>         ]
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>上面的rules是一个数组，每个元素是一个对象，对象里面包含了两个属性test、use，test的值是一个正则表达式，它的作用是将当前loader用于什么文件，这里正则表达式就是用来匹配你需要转换的文件类型，use是当前匹配到的文件用什么加载器来转换、编译。</p>
+<p>有三种方式来使用loader加载器</p>
+<ol>
+<li>webpack配置文件</li>
+<li>require语句中使用</li>
+<li>通过命令行使用</li>
+</ol>
+<p>第一种上面我们已经说了，下面简单的介绍一下第二种和第三种，第二种使用方法是我们在require或者import文件的时候可以直接使用，比如下面的代码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span>require(<span style="color:#b44">&#39;babel-loader!./hello.js&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="">或者</span>
+</span></span><span style="display:flex;"><span>Import(<span style="color:#b44">&#39;babel-loader!./hello.js&#39;</span>) 
+</span></span></code></pre></div><p>第三种方式是直接通过webpack提供的命令行工具—module-bind使用，比如下面的代码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span>webpack <span style="">—</span>module<span style="color:#666">-</span>bind <span style="color:#b44">&#39;js=babel-loader&#39;</span> 
+</span></span></code></pre></div><h3 id="5插件plugin">5、插件(plugin) <a href="#5%e6%8f%92%e4%bb%b6plugin" class="anchor">🔗</a></h3><p>插件用于解决loader无法解决的事情，比如给每个js文件进行添加著作标记、压缩文件等功能，每个插件都可能有参数选项，每个插件在使用的时候也必须使用new操作符来建立一个插件的实例。插件通过plugins属性来设置，plugins是一个数组，每个元素代表一个插件的实例。因为插件有官方的还有第三方的，所以不会一一去说怎么使用，只是给大家简单演示一下，大家需要用到哪个插件再去查这个插件的api。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">const</span> HtmlWebpackPlugin <span style="color:#666">=</span> require(<span style="color:#b44">&#39;html-webpack-plugin&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#666">//</span><span style="">首先要使用插件，必须先引入插件</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>　　entry: <span style="color:#b44">&#39;./index.js&#39;</span>,
+</span></span><span style="display:flex;"><span>　　output: {
+</span></span><span style="display:flex;"><span>　　　path: path<span style="color:#666">.</span>resolve(__dirname, <span style="color:#b44">&#39;app&#39;</span>),
+</span></span><span style="display:flex;"><span>　　　filename: [name]<span style="color:#666">-</span>[<span style="color:#a2f">hash</span>]<span style="color:#666">-</span>bundle<span style="color:#666">.</span>js
+</span></span><span style="display:flex;"><span> 　　},
+</span></span><span style="display:flex;"><span>　 module: {
+</span></span><span style="display:flex;"><span>  　　rules : [
+</span></span><span style="display:flex;"><span>   　　　　{test: <span style="color:#666">/.</span>js<span style="color:#666">$/</span>, use: <span style="color:#b44">&#39;babel-loader&#39;</span>}
+</span></span><span style="display:flex;"><span>  　　]
+</span></span><span style="display:flex;"><span> 　　},
+</span></span><span style="display:flex;"><span> 　 plugins: [
+</span></span><span style="display:flex;"><span>  　　new HtmlWebpackPlugin({telmplate : <span style="color:#b44">&#39;./index.html&#39;</span>})  <span style="color:#666">//</span><span style="">通过</span>plugins来使用你需要使用插件<span style="">。</span>
+</span></span><span style="display:flex;"><span> 　　]
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><h3 id="6总结">6、总结 <a href="#6%e6%80%bb%e7%bb%93" class="anchor">🔗</a></h3><p>通过上面的学习，你可以了解到webpack的四个核心，入口、输出、加载器、插件，入口就是你要编译的是哪个文件，指定了过后webpack会自行寻找依赖的文件打包编译。输出就是编译转换好了过后把文件写入到硬盘的哪里。加载器就是对不同类型的文件转换，从而让浏览器能直接运行。插件做的是loader无法解决的事情。</p>
+<p>其实webpack的配置并没有想象中的那么复杂，webpack的配置文件就是一个js文件，只要对webpack有一个系统的认识后，你就知道我该从哪里下手，该从哪里入手了。</p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://example.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="your-github-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-stackoverflow-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>stackoverflow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
+            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-twitter-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+        © Copyright 2023 Yizhou
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

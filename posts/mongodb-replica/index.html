@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Mongodb 副本集 | Yizhou&#39;s Website</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="介绍 🔗Mongodb官方提供了一个复制功能，它提供冗余的功能，它可以将数据保存在不同服务器上，并保持多个服务器的数据一致性。 当主要提供数据的">
+<meta name="generator" content="Hugo 0.121.1">
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85 },
+          tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+          }
+        });
+    </script>
+    
+    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://example.com/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Mongodb 副本集</h1>
+
+    <div class="tip">
+        <time datetime="2017-08-21 12:22:01 &#43;0000 &#43;0000">2017年08月21日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1965字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          4分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#选举机制">选举机制</a></li>
+    <li><a href="#仲裁者">仲裁者</a></li>
+    <li><a href="#部署副本集">部署副本集</a></li>
+    <li><a href="#删除副本集">删除副本集</a></li>
+    <li><a href="#查询副本集配置">查询副本集配置</a></li>
+    <li><a href="#查询主节点">查询主节点</a></li>
+    <li><a href="#读取副节点">读取副节点</a></li>
+    <li><a href="#隐藏成员">隐藏成员</a></li>
+    <li><a href="#延迟复制">延迟复制</a></li>
+    <li><a href="#索引管理">索引管理</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h2 id="介绍">介绍 <a href="#%e4%bb%8b%e7%bb%8d" class="anchor">🔗</a></h2><p>Mongodb官方提供了一个复制功能，它提供冗余的功能，它可以将数据保存在不同服务器上，并保持多个服务器的数据一致性。</p>
+<p>当主要提供数据的服务器出现了问题不能访问等问题，副本集中的其他服务器会自动替代主要提供数据的服务器进行提供数据功能。</p>
+<p>副本集中有三个角色：</p>
+<ol>
+<li><strong>主节点</strong>：所有副节点的数据均来自于主节点，并且只能对主节点进行读写操作。</li>
+<li><strong>副节点</strong>：数据来自于主节点，可以进行读取操作，但是不能进行写操作。</li>
+<li><strong>仲裁者</strong>：不含数据也不与客户端交流，只在选举主节点的时候进行投票。</li>
+</ol>
+<h2 id="选举机制">选举机制 <a href="#%e9%80%89%e4%b8%be%e6%9c%ba%e5%88%b6" class="anchor">🔗</a></h2><p>Mongodb最多支持50个副本集成员以及最多7个选举成员，启动副本集后将开始第一次选举，在选举过程中，所有副本集成员都只能读取，直到选举出主节点后主节点才能进行读写，但是在这个期间副本成员可以提供查询服务。</p>
+<p><strong>而主节点要保持主节点的位置需要每两秒发送一个ping请求，如果10秒内没有得到响应则标记为不可访问，当一半以上的副本集成员不可访问，那么主节点将降级为副节点。</strong></p>
+<p>其中设置成员的<a href="https://docs.mongodb.com/manual/reference/replica-configuration/#rsconf.members[n].priority" target="_blank" rel="noopener">priority</a>值可以优先成员主节点，这个值介于0-1000之间，默认为1，<strong>如果这个值为0，那么它的<code>votes</code>值也为0，只要<code>votes</code>为0的成员不能投选举票，但是可以投否决票</strong>。但是我们也可以手动设置成员priority值为大于1的成员是否有<a href="https://docs.mongodb.com/manual/core/replica-set-elections/" target="_blank" rel="noopener">投票权利</a>。</p>
+<p>在进行选举的时候，其他成员会作以下几点判断来进行投票参与选举的成员是否能作为主节点，选举步骤：</p>
+<ol>
+<li>自己是否能与主节点通讯。</li>
+<li>参与选举的成员是否比其他参与选举的成员数据最新。</li>
+<li>如果参与选举的成员数据相等则尝试使用具有最高priority的值的成员。</li>
+</ol>
+<h2 id="仲裁者">仲裁者 <a href="#%e4%bb%b2%e8%a3%81%e8%80%85" class="anchor">🔗</a></h2><p>仲裁者的出现是为了避免只有两个成员的副本集，两个成员的副本集投票可能无法满足一半以上的投票情况。</p>
+<p>仲裁者不负责数据和客户端交流，只有参与选举的功能，需要注意的是仲裁者一旦设置过后就再也无法变为非仲裁者了。</p>
+<h2 id="部署副本集">部署副本集 <a href="#%e9%83%a8%e7%bd%b2%e5%89%af%e6%9c%ac%e9%9b%86" class="anchor">🔗</a></h2><p>首先部署一个副本集很简单，下面的代码是部署了一个本地含有三个成员的副本集。</p>
+<p>建立三个成员的副本集，首先你得建立三个数据库的存放目录：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>mkdir -p ./replDb/s0 ./replDb/s1 ./replDb/s2 
+</span></span></code></pre></div><p>然后我们启动三个副本集成员，其中<code>replSet</code>参数后面跟的是副本集的名称，将需要有关联的成员的副本集名称要一致。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>mongod --dbpath ./replDb/s0 --port 27017 --replSet s0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mongod --dbpath ./replDb/s0 --port 27018 --replSet s0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mongod --dbpath ./replDb/s0 --port 27019 --replSet s0 
+</span></span></code></pre></div><p>创建仲裁者也同样非常简单，建立一个空的数据目录，然后和其他副本集成员一样设置同样的副本集名称启动，最后通过<code>rs.add</code>方法的第二个参数设置为<code>true</code>：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>mongod --dbpath ./replDb/s5 --port 27020 --replSet s0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mongod --port 27017 --host localhost
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; rs.add(&#39;localhost:27020&#39;, true); 
+</span></span></code></pre></div><p>然后通过Mongo Shell进入到端口为27017的成员中，并配置副本集。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>mongod --port 27017 --host localhost 
+</span></span></code></pre></div><p>进入到Mongo Shell后通过<code>rs.initiate</code>方法来配置副本集。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#666">&gt;</span> <span style="color:#a2f;font-weight:bold">var</span> conf <span style="color:#666">=</span> {
+</span></span><span style="display:flex;"><span>    _id: <span style="color:#b44">&#39;r0&#39;</span>,
+</span></span><span style="display:flex;"><span>    version: <span style="color:#666">1</span>,
+</span></span><span style="display:flex;"><span>    members: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            _id: <span style="color:#666">0</span>,
+</span></span><span style="display:flex;"><span>            host: <span style="color:#b44">&#39;localhost:27017&#39;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            _id: <span style="color:#666">1</span>,
+</span></span><span style="display:flex;"><span>            host: <span style="color:#b44">&#39;localhost:27018&#39;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            _id: <span style="color:#666">2</span>,
+</span></span><span style="display:flex;"><span>            host: <span style="color:#b44">&#39;localhost:27019&#39;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            _id: <span style="color:#666">3</span>,
+</span></span><span style="display:flex;"><span>            host: <span style="color:#b44">&#39;localhost:27020&#39;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#666">&gt;</span> rs<span style="color:#666">.</span>initiate(conf); 
+</span></span></code></pre></div><p><code>initiate</code>接受一个对象，对象<code>_id</code>为副本集名称，必须和启动副本集设置的一致才能添加进来(本例为<code>rs0</code>)。<code>version</code>为版本号，每当我们修改副本集配置的时候这个版本号都会递加1，而<code>members</code>则为副本集成员，我们可以在这里一次性添加完，也可以只添加一个后面再通过<code>add</code>方法添加，比如下面这样：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; rs.add(&#39;localhost:27018&#39;);
+</span></span><span style="display:flex;"><span>&gt; rs.add(&#39;localhost:27019&#39;); 
+</span></span></code></pre></div><h2 id="删除副本集">删除副本集 <a href="#%e5%88%a0%e9%99%a4%e5%89%af%e6%9c%ac%e9%9b%86" class="anchor">🔗</a></h2><p>删除副本集通过<code>rs.remove</code>方法来删除，它接受一个<code>&lt;localhost&gt;:&lt;port&gt;</code>这样的字符串。下面是删除一个副本集成员：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; rs.remove(&#39;localhost:27019&#39;); 
+</span></span></code></pre></div><h2 id="查询副本集配置">查询副本集配置 <a href="#%e6%9f%a5%e8%af%a2%e5%89%af%e6%9c%ac%e9%9b%86%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h2><p>查看副本集配置是通过<code>rs.conf</code>方法查询，返回包含所有副本集的配置内容.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; rs.conf(); 
+</span></span></code></pre></div><h2 id="查询主节点">查询主节点 <a href="#%e6%9f%a5%e8%af%a2%e4%b8%bb%e8%8a%82%e7%82%b9" class="anchor">🔗</a></h2><p>每当使用<code>rs.add</code>方法添加成员的时候可能会影响选举来选择主节点是谁，查看主节点通过<code>rs.isMaster()</code>方法来查看。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; rs.isMaster(); 
+</span></span></code></pre></div><p>返回的内容中有几个可以了解</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    &#34;hosts&#34; : [  //副本集成员
+</span></span><span style="display:flex;"><span>        &#34;localhost:27017&#34;,
+</span></span><span style="display:flex;"><span>        &#34;localhost:27018&#34;,
+</span></span><span style="display:flex;"><span>        &#34;localhost:27019&#34;
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    &#34;setName&#34; : &#34;rs0&#34;, //副本集名称
+</span></span><span style="display:flex;"><span>    &#34;setVersion&#34; : 3, //副本集配置版本
+</span></span><span style="display:flex;"><span>    &#34;ismaster&#34; : true, //是否是主节点
+</span></span><span style="display:flex;"><span>    &#34;primary&#34; : &#34;localhost:27017&#34;,  //主节点成员的主机地址
+</span></span><span style="display:flex;"><span>    &#34;me&#34; : &#34;localhost:27017&#34;,   //当前所在主机
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><h2 id="读取副节点">读取副节点 <a href="#%e8%af%bb%e5%8f%96%e5%89%af%e8%8a%82%e7%82%b9" class="anchor">🔗</a></h2><p>副节点默认是无法读取的，我们可以通过<code>rs.setSlaveOk()</code>方法来设置Slave属性为true。下面是设置端口为27018的副节点可以进行读取</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>mongod --port 27018 --host localhost
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; rs.setSlaveOk(); 
+</span></span></code></pre></div><h2 id="隐藏成员">隐藏成员 <a href="#%e9%9a%90%e8%97%8f%e6%88%90%e5%91%98" class="anchor">🔗</a></h2><p>隐藏成员通过设置成员的<code>hidden</code>属性为<code>true</code>并且优先值<code>priority</code>为0则可以隐藏此成员，隐藏成员不能当主节点也不能当其他成员的复制源</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; rs.add({
+</span></span><span style="display:flex;"><span>&gt;   _id: 1,
+</span></span><span style="display:flex;"><span>&gt;   _host: &#39;localhost:27017&#39;,
+</span></span><span style="display:flex;"><span>&gt;   hidden: true,
+</span></span><span style="display:flex;"><span>&gt;   priority: 0
+</span></span><span style="display:flex;"><span>&gt; }) 
+</span></span></code></pre></div><h2 id="延迟复制">延迟复制 <a href="#%e5%bb%b6%e8%bf%9f%e5%a4%8d%e5%88%b6" class="anchor">🔗</a></h2><p>通过设置成员的<code>slaveDelay</code>的值并且优先值<code>priority</code>为0，来让当前成员滞后多少秒后才开始复制数据。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; rs.add({
+</span></span><span style="display:flex;"><span>&gt;   _id: 1,
+</span></span><span style="display:flex;"><span>&gt;   _host: &#39;localhost:27017&#39;,
+</span></span><span style="display:flex;"><span>&gt;   slaveDelay: 120,
+</span></span><span style="display:flex;"><span>&gt;   priority: 0
+</span></span><span style="display:flex;"><span>&gt; }) 
+</span></span></code></pre></div><h2 id="索引管理">索引管理 <a href="#%e7%b4%a2%e5%bc%95%e7%ae%a1%e7%90%86" class="anchor">🔗</a></h2><p>通过成员的<code>buildIndexes</code>的值并且优先值<code>priority</code>为0，来设置是否在备份机器上建立相同的索引，一般这个选项只用于纯粹备份的服务器。</p>
+<p>下面的代码设置添加的副本集成员不创建索引。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; rs.add({
+</span></span><span style="display:flex;"><span>&gt;   _id: 1,
+</span></span><span style="display:flex;"><span>&gt;   _host: &#39;localhost:27017&#39;,
+</span></span><span style="display:flex;"><span>&gt;   buildIndexes: false
+</span></span><span style="display:flex;"><span>&gt;   priority: 0
+</span></span><span style="display:flex;"><span>&gt; }) 
+</span></span></code></pre></div><h2 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h2><p><a href="https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B00HLX035Q/ref=sr_1_1?ie=UTF8&amp;qid=1501597098&amp;sr=8-1&amp;keywords=mongodb" target="_blank" rel="noopener">MongoDB权威指南(第2版)</a></p>
+<p><a href="https://docs.mongodb.com/manual/" target="_blank" rel="noopener">Mongodb Docs</a></p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://example.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="your-github-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-stackoverflow-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>stackoverflow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
+            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-twitter-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+        © Copyright 2023 Yizhou
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

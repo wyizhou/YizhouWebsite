@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>家庭NAS搭建 | Yizhou&#39;s Website</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="前言 🔗最近因为装了家庭影院买了盒子，再加上之前自己也想购买一个NAS，选过来选过去挑选了群晖NAS，但是无奈价格太贵，除了统一性、稳定性和群">
+<meta name="generator" content="Hugo 0.121.1">
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85 },
+          tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+          }
+        });
+    </script>
+    
+    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://example.com/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">家庭NAS搭建</h1>
+
+    <div class="tip">
+        <time datetime="2017-09-29 08:46:10 &#43;0000 &#43;0000">2017年09月29日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1919字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          4分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#环境">环境</a></li>
+    <li><a href="#方案">方案</a></li>
+    <li><a href="#准备工作">准备工作</a></li>
+    <li><a href="#samba搭建">samba搭建</a></li>
+    <li><a href="#time-machine搭建">Time Machine搭建</a></li>
+    <li><a href="#搭建seafile">搭建seafile</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h2 id="前言">前言 <a href="#%e5%89%8d%e8%a8%80" class="anchor">🔗</a></h2><p>最近因为装了家庭影院买了盒子，再加上之前自己也想购买一个NAS，选过来选过去挑选了群晖NAS，但是无奈价格太贵，除了统一性、稳定性和群晖自身开发的系统之外没有任何的性价比可言，四硬盘位的NAS卖的更是离谱。</p>
+<p>家里有一台淘汰掉的主机，然后再加上自己有几块闲置的硬盘，便想出了自己搭建NAS服务器，因为每个IT男家中总会有那么一台或几台淘汰下来的机器和硬盘，即使你要组装一台新的机器，性价比也非常高。</p>
+<p>再加上自行组建NAS可玩性、灵活度较高，所以就敲定了这个方案。</p>
+<p>在3年前自己玩弄树莓派写了一篇<a href="http://xsscript.com/2014/08/raspberrypi-timemachine-samba.html" target="_blank" rel="noopener">文章</a>，如今照着做了一遍感觉很多命令变化挺大的，所以也是重写一篇关于nas搭建的文章的动力。</p>
+<p>在配置的时候本来我想搭建一个下载服务器，找到mldonkey搭建，但是无奈配置了半天也没有搞定所以也就放弃了。最后我的解决方案是通过其他电脑下载然后拷贝到nas中。</p>
+<h2 id="环境">环境 <a href="#%e7%8e%af%e5%a2%83" class="anchor">🔗</a></h2><p>系统我采用了Ubuntu 16.04 Server，因为在稳定性和节省系统资源比desktop版更胜一筹。如果你是想通过无线网络搭建NAS，那么第一次你需要使用网线连接安装Wi-Fi相关的包，如果没有网线或者你只需要无线网络，那么你可以使用desktop版本，因为desktop版自带了无线网卡的驱动。</p>
+<h2 id="方案">方案 <a href="#%e6%96%b9%e6%a1%88" class="anchor">🔗</a></h2><ol>
+<li>搭建samba服务器，用于储存一些非私人资料，比如软件安装包、ISO镜像文件等，把samba共享给电视盒子，可以直接观看硬盘里面的电影。</li>
+<li>搭建Time Machine，因为本人常用的是MacBook笔记本，所以搭建Time Machine就显得非常必要了</li>
+<li>搭建seafile私有云服务，并提供给外网端口，用于外部访问。</li>
+</ol>
+<p>为什么要搭建seafile，虽然Time Machine可以备份我的资料，但是无法让我在外面没有带电脑的时候取得资料，并且搭建seafile也算是一个双备份，因为上面的三个服务都是单独的一块硬盘，即使Time Machine或者seafile其中一个硬盘损坏，也不会造成数据丢失。</p>
+<h2 id="准备工作">准备工作 <a href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c" class="anchor">🔗</a></h2><p>首先你可以查看你的硬盘情况，你可以通过<code>lsblk</code>命令查看，并通过<code>fdisk</code>命令进行分区。</p>
+<p>在三块硬盘分区好了后，我们开始格式化分区。我的环境中sda1用于samba，sdb1用于seafile，sdc1用于time machine，那么需要分别格式为不同的格式。</p>
+<p>因为time machine需要hfsplus格式，所以在格式化之前我们需要安装关于hfsplus的包。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; apt install hfsplus hfsutils hfsprogs 
+</span></span></code></pre></div><p>然后我们开始格式化三个分区。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; mkfs.ntfs -v /dev/sda1 &amp;&amp; mkfs.ext4 -v /dev/sdb1 &amp;&amp; mkfs.hfsplus -h /dev/sdc1 
+</span></span></code></pre></div><p>挂载三个分区</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#666">&gt;</span> mkdir <span style="color:#666">/</span><span style="color:#a2f;font-weight:bold">var</span><span style="color:#666">/</span>samba <span style="color:#666">&amp;&amp;</span> mkdir <span style="color:#666">/</span><span style="color:#a2f;font-weight:bold">var</span><span style="color:#666">/</span>seafile <span style="color:#666">&amp;&amp;</span> mkdir <span style="color:#666">/</span><span style="color:#a2f;font-weight:bold">var</span><span style="color:#666">/</span>timemachine
+</span></span><span style="display:flex;"><span><span style="color:#666">&gt;</span> mount <span style="color:#666">-</span>t ntfs <span style="color:#666">/</span>dev<span style="color:#666">/</span>sda1 <span style="color:#666">/</span><span style="color:#a2f;font-weight:bold">var</span><span style="color:#666">/</span>samba <span style="color:#666">&amp;&amp;</span> mount <span style="color:#666">-</span>t ext4 <span style="color:#666">/</span>dev<span style="color:#666">/</span>sdb1 <span style="color:#666">/</span><span style="color:#a2f;font-weight:bold">var</span><span style="color:#666">/</span>seafile <span style="color:#666">&amp;&amp;</span> mount <span style="color:#666">-</span>t hfsplus <span style="color:#666">/</span>dev<span style="color:#666">/</span>sdc1 <span style="color:#666">/</span><span style="color:#a2f;font-weight:bold">var</span><span style="color:#666">/</span>timemachine 
+</span></span></code></pre></div><p>然后通过<code>lsblk</code>命令检测三个分区是否挂载成功。</p>
+<h2 id="samba搭建">samba搭建 <a href="#samba%e6%90%ad%e5%bb%ba" class="anchor">🔗</a></h2><p>安装samba</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; apt install samba samba-common-bin 
+</span></span></code></pre></div><p>然后配置samba，在<code>etc/samba/smb.conf</code>最后添加</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>[共享名字]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>path  = 共享文件夹的路径
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>available = yes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>browseable = yes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>public = yes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>writable = yes 
+</span></span></code></pre></div><p>如果你需要让电视盒子发现你的共享目录你需要在<code>etc/samba/smb.conf</code>配置文件中的<code>[global]</code>项最后添加下面这段设置。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>follow symlinks = yes
+</span></span><span style="display:flex;"><span>wide links = yes
+</span></span><span style="display:flex;"><span>unix extensions = no 
+</span></span></code></pre></div><p>然后重启samba服务</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; /etc/init.d/samba restart 
+</span></span></code></pre></div><p>至此我们samba服务已搭建完成</p>
+<h2 id="time-machine搭建">Time Machine搭建 <a href="#time-machine%e6%90%ad%e5%bb%ba" class="anchor">🔗</a></h2><p>首先安装Netatalk，Netatalk 是一个开源的 AppleTalk 通信协议的实现，Linux 系统通过它可以充当 Mac 的文件服务器 、AppleTalk 路由、打印服务器等。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; apt install netatalk 
+</span></span></code></pre></div><p>配置netatalk</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; echo 你的timemachine挂载目录路径 TimeMacheine options:tm &gt;&gt; /etc/netatalk/AppleVolumes.default 
+</span></span></code></pre></div><p>或者可以直接通过修改配置文件<code>/etc/netatalk/AppleVolumes.default</code>再最后添加</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>你的timemachine挂载目录路径 TimeMacheine options:tm 
+</span></span></code></pre></div><p>然后重启netatalk服务</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; /etc/init.d/netatalk restart 
+</span></span></code></pre></div><p>安装avahi-daemon和libnss-mdns，添加Avahi和libnss可以让Mac电脑可以在Finder工具栏的共享里发现磁盘。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; apt install avahi-daemon libnss-mdns 
+</span></span></code></pre></div><p>配置nsswitch.conf文件，在原有的hosts行后面添加<code>mdns4 mdns</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4 mdns 
+</span></span></code></pre></div><p>修改Avahi的配置文件<code>/etc/avahi/services/afpd.service</code>，让nas主机能在局域网广播中AFP共享</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span> &lt;?xml version=”1.0″ standalone=’no’?&gt;
+</span></span><span style="display:flex;"><span> &lt;!-*-nxml-*-&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> &lt;service-group&gt;
+</span></span><span style="display:flex;"><span> &lt;name replace-wildcards=”yes”&gt;%h&lt;/name&gt;
+</span></span><span style="display:flex;"><span> &lt;service&gt;
+</span></span><span style="display:flex;"><span> &lt;type&gt;_afpovertcp._tcp&lt;/type&gt;
+</span></span><span style="display:flex;"><span> &lt;port&gt;548&lt;/port&gt;
+</span></span><span style="display:flex;"><span> &lt;/service&gt;
+</span></span><span style="display:flex;"><span> &lt;service&gt;
+</span></span><span style="display:flex;"><span> &lt;type&gt;_device-info._tcp&lt;/type&gt;
+</span></span><span style="display:flex;"><span> &lt;port&gt;0&lt;/port&gt;
+</span></span><span style="display:flex;"><span> &lt;txt-record&gt;model=Xserve&lt;/txt-record&gt;
+</span></span><span style="display:flex;"><span> &lt;/service&gt;
+</span></span><span style="display:flex;"><span> &lt;/service-group&gt; 
+</span></span></code></pre></div><p>重启avahi服务</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>&gt; /etc/init.d/avahi-daemon restart 
+</span></span></code></pre></div><p>至此，Time Machine搭建完成。</p>
+<h2 id="搭建seafile">搭建seafile <a href="#%e6%90%ad%e5%bb%baseafile" class="anchor">🔗</a></h2><p>目前<a href="https://www.seafile.com" target="_blank" rel="noopener">seafile</a>是我测试中觉得最好的一个开源的私有云服务，在测试中还有owncloud，但是对中文支持不太友好也就放弃了。</p>
+<p>关于seafile的搭建我这里就不进行阐述了，因为官方本身有<a href="http://manual-cn.seafile.com/" target="_blank" rel="noopener">中文文档</a>并且文档写的清晰明了。</p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://example.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="your-github-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-stackoverflow-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>stackoverflow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
+            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-twitter-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+        © Copyright 2023 Yizhou
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

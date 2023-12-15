@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>基于LXC容器的Openwrt搭建 | Yizhou&#39;s Website</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="前期工作 🔗环境和机器配置： 机器：5105v4 i226-v版本 pve： 7.1.2，内核Linux 5.13.19-2-pve 准备工作： 将网线连接到pve管理口，如果已安">
+<meta name="generator" content="Hugo 0.121.1">
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85 },
+          tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+          }
+        });
+    </script>
+    
+    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://example.com/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">基于LXC容器的Openwrt搭建</h1>
+
+    <div class="tip">
+        <time datetime="2022-09-06 05:02:51 &#43;0000 &#43;0000">2022年09月06日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2800字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          6分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前期工作">前期工作</a></li>
+    <li><a href="#pve直通配置">PVE直通配置</a></li>
+    <li><a href="#创建基础环境文件包">创建基础环境文件包</a></li>
+    <li><a href="#创建容器">创建容器</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h2 id="前期工作">前期工作 <a href="#%e5%89%8d%e6%9c%9f%e5%b7%a5%e4%bd%9c" class="anchor">🔗</a></h2><p>环境和机器配置：</p>
+<ul>
+<li>
+<p>机器：5105v4 i226-v版本</p>
+</li>
+<li>
+<p>pve： 7.1.2，内核Linux 5.13.19-2-pve</p>
+</li>
+</ul>
+<p>准备工作：</p>
+<ol>
+<li>
+<p>将网线连接到pve管理口，如果已安装openwrt，然后关闭原openwrt虚拟机，删除直通的网卡。</p>
+</li>
+<li>
+<p>准备一份没有引导的openwrt固件包，可以是img也可以是tar.gz，但一定是没有引导的包，可以看文件名中包含<code>rootfs</code>字符，比如<code>openwrt-x86-64-generic-ext4-rootfs.img</code>或<code>openwrt-21.02.0-x86-64-rootfs.tar.gz</code>（前者是我自己编译的，重点在于<code>rootfs</code>）。</p>
+</li>
+</ol>
+<h2 id="pve直通配置">PVE直通配置 <a href="#pve%e7%9b%b4%e9%80%9a%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h2><p>连接到PVE，输入命令：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>nano /etc/default/grub 
+</span></span><span style="display:flex;"><span>```找到下面这一行：```
+</span></span><span style="display:flex;"><span>GRUB_CMDLINE_LINUX_DEFAULT=&#34;quiet&#34; 
+</span></span><span style="display:flex;"><span>```然后添加&#34;intel\_iommu=on&#34;，这是英特尔的直通配置，AMD需要自行查找配置命令：```
+</span></span><span style="display:flex;"><span>GRUB_CMDLINE_LINUX_DEFAULT=&#34;quiet intel_iommu=on&#34; 
+</span></span><span style="display:flex;"><span>```然后更新引导：```
+</span></span><span style="display:flex;"><span>update-grub 
+</span></span><span style="display:flex;"><span>```修改`nano /etc/modules`内核模块文件，添加直通的驱动，让系统启动的时候载入这些驱动：```
+</span></span><span style="display:flex;"><span>vfio
+</span></span><span style="display:flex;"><span>vfio_iommu_type1
+</span></span><span style="display:flex;"><span>vfio_pci
+</span></span><span style="display:flex;"><span>vfio_virqfd 
+</span></span><span style="display:flex;"><span>```执行命令来更新内核：```
+</span></span><span style="display:flex;"><span>update-initramfs -u -k all. 
+</span></span></code></pre></div><h2 id="创建基础环境文件包">创建基础环境文件包 <a href="#%e5%88%9b%e5%bb%ba%e5%9f%ba%e7%a1%80%e7%8e%af%e5%a2%83%e6%96%87%e4%bb%b6%e5%8c%85" class="anchor">🔗</a></h2><ol>
+<li>tar.gz格式</li>
+</ol>
+<p>如果包后缀为<code>tar.gz</code>，则通过scp直接上传至pve，以下[]内的字符根据自己情况进行替换（包括[和]符号），然后跳至下一章节：```
+scp [固件路径.tar.gz] root@[pveIP地址]:/var/lib/vz/template/cache</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">2</span>.<span style="color:#bbb">  </span>img格式<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">上传固件：</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>scp<span style="color:#bbb"> </span>[<span style="">固件路径</span>.img]<span style="color:#bbb"> </span>root<span style="color:#666">@</span>[pveIP地址]:<span style="color:#666">/</span>root<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">这里需要注意，如果你的固件包是带</span><span style="color:#666">`</span>squashfs<span style="color:#666">`</span><span style="">字符，比如</span><span style="color:#666">`</span>openwrt<span style="color:#666">-</span>x86<span style="color:#666">-</span><span style="color:#666">64</span><span style="color:#666">-</span>generic<span style="color:#666">-</span>squashfs<span style="color:#666">-</span>rootfs.img<span style="color:#666">`</span><span style="">，你需要按照下面的方式进行解压。</span><span style="color:#bbb"> </span><span style="">安装解压包：</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>apt<span style="color:#bbb"> </span>install<span style="color:#bbb"> </span>squashfs<span style="color:#666">-</span>tools<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">解压镜像文件：</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>unsquashfs<span style="color:#bbb"> </span>[<span style="">固件路径</span>.img]<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">解压完成后你在同级目录下会得到</span><span style="color:#666">`</span>squashfs<span style="color:#666">-</span>root<span style="color:#666">`</span><span style="">文件夹，然后进入该文件夹，跳至</span><span style="color:#666">`</span><span style="color:#666">3</span><span style="color:#666">`</span><span style="">步骤。</span><span style="color:#bbb"> </span><span style="">如果你是不带</span><span style="color:#666">`</span>squashfs<span style="color:#666">`</span><span style="">字符，比如</span><span style="color:#666">`</span>openwrt<span style="color:#666">-</span>x86<span style="color:#666">-</span><span style="color:#666">64</span><span style="color:#666">-</span>generic<span style="color:#666">-</span>ext4<span style="color:#666">-</span>rootfs.img<span style="color:#666">`</span><span style="">，则需要通过挂载镜像，得到内部文件，首先创建一个挂载点（下面操作在</span>root目录中进行<span style="">）：</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>mkdir<span style="color:#bbb"> </span>op<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">然后挂载镜像：</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>mount<span style="color:#bbb"> </span><span style="color:#666">-</span>t<span style="color:#bbb"> </span>ext4<span style="color:#bbb"> </span><span style="color:#666">-</span>o<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">loop</span><span style="color:#bbb"> </span>[<span style="">固件路径</span>.img]<span style="color:#bbb"> </span><span style="color:#666">/</span>root<span style="color:#666">/</span>op<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">然后进入</span><span style="color:#666">`/</span>root<span style="color:#666">/</span>op<span style="color:#666">`</span><span style="">，跳至</span><span style="color:#666">`</span><span style="color:#666">3</span><span style="color:#666">`</span><span style="">步骤（完成后，通过使用</span><span style="color:#666">`</span>umount<span style="color:#bbb"> </span><span style="color:#666">/</span>root<span style="color:#666">/</span>op<span style="color:#666">`</span><span style="">进行卸载镜像）。</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">3</span>.<span style="color:#bbb">  </span><span style="">打包为</span>pve的CT模板包<span style="">：</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">进入上述</span><span style="color:#666">`</span><span style="color:#666">2</span><span style="color:#666">`</span><span style="">步骤中得到的文件夹中，然后使用下列命令进行打包，得到的文件下文称为</span>op<span style="color:#666">-</span>ct模版<span style="">：</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>tar<span style="color:#bbb"> </span>zcf<span style="color:#bbb"> </span><span style="color:#666">/</span>var<span style="color:#666">/</span>lib<span style="color:#666">/</span>vz<span style="color:#666">/</span>template<span style="color:#666">/</span>cache<span style="color:#666">/</span>[<span style="">固件名称</span>].tar.gz<span style="color:#bbb"> </span>.<span style="color:#080;font-style:italic">/* 
+</span></span></span></code></pre></div><h2 id="创建容器">创建容器 <a href="#%e5%88%9b%e5%bb%ba%e5%ae%b9%e5%99%a8" class="anchor">🔗</a></h2><p>准备工作做完后，就开始创建lxc容器，通过下列命令进行创建：<code>pct create 110 local:vztmpl/openwrt-x86-64-generic-ext4-rootfs.tar.gz --rootfs local-lvm:2 --ostype unmanaged --hostname openwrt-ct --arch amd64 --cores 2 --memory 1024 --swap 0 -net0 bridge=vmbr0,name=eth0 </code>这里详细说明一下每个参数的意思，使用的时候需要根据自己的情况进行更改：```
+pct create：容器创建命令</p>
+<p>110：容器ID，可根据自己情况设定</p>
+<p>local:vztmpl/openwrt-x86-64-generic-ext4-rootfs.tar.gz： 为第三步骤所得到的固件包名称</p>
+<p>&ndash;rootfs：模版为rootfs文件</p>
+<p>local-lvm:2 ：后面的数字代表分配的磁盘大小，比如我这里设置的为2，即为即将创建的容器分配2G的大小</p>
+<p>&ndash;ostype unmanaged：操作系统类型，这里没有填写指定的操作系统（不会影响）</p>
+<p>&ndash;hostname openwrt-ct：主机名，也就是虚拟机名称</p>
+<p>&ndash;arch amd64：设置为64位</p>
+<p>&ndash;cores 2：分配给容器的核心数（我不知道这里是不是和docker一样，为最大限制）</p>
+<p>&ndash;memory 1024：分配给容器最大的内存数量</p>
+<p>&ndash;swap 0：交换分区设置为0</p>
+<p>-net0 bridge=vmbr0,name=eth0：网卡，这里一定要设置，不然你的op没有办法连接到pve的虚拟交换机。
+<code>按照上述命令执行完成后，应该会得到如下的内容：</code>
+root@pve:/var/lib/vz/template/cache# pct create 110 local:vztmpl/openwrt-x86-64-generic-ext4-rootfs.tar.gz &ndash;rootfs local-lvm:2 &ndash;ostype unmanaged &ndash;hostname openwrt-ct &ndash;arch amd64 &ndash;cores 2 &ndash;memory 1024 &ndash;swap 0 -net0 bridge=vmbr0,name=eth0
+Logical volume &ldquo;vm-110-disk-0&rdquo; created.
+Creating filesystem with 524288 4k blocks and 131072 inodes
+Filesystem UUID: 15d6753a-ceb2-45d3-9dca-903f97f0f197
+Superblock backups stored on blocks:
+32768, 98304, 163840, 229376, 294912
+extracting archive &lsquo;/var/lib/vz/template/cache/openwrt-x86-64-generic-ext4-rootfs.tar.gz&rsquo;
+Total bytes read: 143063040 (137MiB, 86MiB/s)</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>网卡直通
+</span></span><span style="display:flex;"><span>----
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>1.  编辑lxc容器的配置文件，进行网卡直通：
+</span></span></code></pre></div><p>vim /etc/pve/lxc/[容器ID].conf
+<code>在最下面添加以下内容：</code></p>
+<h1 id="openwrtcommonconf是pve自带的openwrt配置文件示例内含一些基本设置">openwrt.common.conf是PVE自带的openwrt配置文件示例，内含一些基本设置 <a href="#openwrtcommonconf%e6%98%afpve%e8%87%aa%e5%b8%a6%e7%9a%84openwrt%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%a4%ba%e4%be%8b%e5%86%85%e5%90%ab%e4%b8%80%e4%ba%9b%e5%9f%ba%e6%9c%ac%e8%ae%be%e7%bd%ae" class="anchor">🔗</a></h1><p>lxc.include: /usr/share/lxc/config/openwrt.common.conf</p>
+<h1 id="devppp--pppoe拨号等功能需要用到">/dev/ppp  pppoe拨号等功能需要用到 <a href="#devppp--pppoe%e6%8b%a8%e5%8f%b7%e7%ad%89%e5%8a%9f%e8%83%bd%e9%9c%80%e8%a6%81%e7%94%a8%e5%88%b0" class="anchor">🔗</a></h1><p>lxc.cgroup.devices.allow: c 108:0 rwm</p>
+<h1 id="钩子脚本用于添加-devppp等设备">钩子脚本，用于添加 /dev/ppp等设备 <a href="#%e9%92%a9%e5%ad%90%e8%84%9a%e6%9c%ac%e7%94%a8%e4%ba%8e%e6%b7%bb%e5%8a%a0-devppp%e7%ad%89%e8%ae%be%e5%a4%87" class="anchor">🔗</a></h1><p>hookscript: local:snippets/hookscript.pl</p>
+<h1 id="这里是网卡直通重要的部分">这里是网卡直通重要的部分。 <a href="#%e8%bf%99%e9%87%8c%e6%98%af%e7%bd%91%e5%8d%a1%e7%9b%b4%e9%80%9a%e9%87%8d%e8%a6%81%e7%9a%84%e9%83%a8%e5%88%86" class="anchor">🔗</a></h1><p>lxc.net.1.type: phys
+lxc.net.1.link: enp3s0
+lxc.net.1.flags: up
+lxc.net.2.type: phys
+lxc.net.2.link: enp4s0
+lxc.net.2.flags: up
+lxc.net.3.type: phys
+lxc.net.3.link: enp5s0
+lxc.net.3.flags: up
+<code>需要注意，网卡直通部分里面的网卡名字，需要根据pve控制面板选择【pve】-【系统】-【网络】中查看，其中一定避免管理口，我这里是`enp2s0`为管理口，所以没有直通，而是在启动容器的时候，作为桥接接进来了。我的软路由为5105四口，所以这里排除了管理口，我直通了2-4网口。 除此之外，`lxc.cgroup.devices.allow: c 108:0 rwm`为ppp字符设备的主次设备编号，其中`108`为ppp设备主编号，`0`为设备次编号，获取这个编号可以通过`ls -al /dev/ppp`获取，大致返回如下的内容。</code>
+root@pve:~# ls -al /dev/ppp
+crw&mdash;&mdash;- 1 root root 108, 0 Sep  9 21:07 /dev/ppp</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2.  创建pve容器启动时的钩子脚本，用于配置ppp设备的添加等。
+</span></span></code></pre></div><p>mkdir /var/lib/vz/snippets
+cp /usr/share/pve-docs/examples/guest-example-hookscript.pl /var/lib/vz/snippets/hookscript.pl
+vim /var/lib/vz/snippets/hookscript.pl
+<code>然后修改内容：</code>
+在第36行可以找到以下内容
+# Second phase &lsquo;post-start&rsquo; will be executed after the guest
+# successfully started.</p>
+<pre><code>    print &quot;$vmid started successfully.\n&quot;;
+</code></pre>
+<p>修改为
+# Second phase &lsquo;post-start&rsquo; will be executed after the guest
+# successfully started.
+system(&ldquo;lxc-device add -n $vmid /dev/ppp&rdquo;);
+system(&ldquo;lxc-device add -n $vmid /dev/net/tun&rdquo;);
+print &ldquo;$vmid started successfully.\n&rdquo;;</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">设置防火墙</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">---</span><span style="color:#080;font-style:italic">--
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">在pve管理界面，选择创建的容器，然后切换至防火墙页面，点击添加，然后添加两次，每次只需要改动方向`in`和`out`和勾选`启用`。按照下面的教程中，设置端口好像报错，但不设置设备接入后又无法联网，但这样添加后，即可联网。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">重启</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">--
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">重启整个pve，如果不重启直接启动容器，这个网卡会提示找不到，具体原因暂不知道。重启后，即可启动容器，按照正常的openwrt配置即可。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">其他</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">--
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">1.  这里配置openwrt的时候需要注意，因为网卡是直通的，所以网卡名可能和虚拟机不一样，虚拟机中是eth0-3，而在容器里面，除了指定的eth0（管理口，也是网口1），剩余的网口名称为`enp3s0`、`enp4s0`、`enp5s0`，也就是对应的2、3、4口（我的环境下），所以根据自身情况选择对应的网口分配wan和lan口进行。
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#666">2</span>.<span style="color:#bbb">  </span><span style="">在设置完</span>wan口和防火墙后<span style="">，</span>openwrt拨号设置后<span style="">，你需要重启</span>pve<span style="">，才能生效。我猜测这是因为拨号配置是挂载的</span>pve的<span style="">，所以</span>pve将配置文件载入到内存中<span style="">，即使重启容器也还是从</span>pve内存中读<span style="">，应该有其他方法在</span>pve中重载入配置文件<span style="">，但目前我没有找到。</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">参考</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">--
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">1.  https://www.right.com.cn/forum/thread-8218119-1-1.html
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#666">2</span>.<span style="color:#bbb">  </span>https:<span style="color:#666">//</span>blog.csdn.net<span style="color:#666">/</span>kangzeru<span style="color:#666">/</span>article<span style="color:#666">/</span>details<span style="color:#666">/</span><span style="color:#666">115373587</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">3</span>.<span style="color:#bbb">  </span>https:<span style="color:#666">//</span><span style="color:#666">4</span>xu.net<span style="color:#666">/</span>posts<span style="color:#666">/</span>koolshare<span style="color:#666">-</span><span style="color:#666">2</span>.html<span style="color:#666">/</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">4</span>.<span style="color:#bbb">  </span>https:<span style="color:#666">//</span>pvecli.xuan2host.com<span style="color:#666">/</span>lxc<span style="color:#666">-</span>network<span style="color:#666">-</span>bypass<span style="color:#666">/</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">5</span>.<span style="color:#bbb">  </span>https:<span style="color:#666">//</span><span style="color:#666">39</span>.<span style="color:#666">108</span>.<span style="color:#666">190</span>.<span style="color:#666">212</span><span style="color:#666">/</span>archives<span style="color:#666">/</span><span style="color:#666">42</span>.html<span style="color:#bbb">
+</span></span></span></code></pre></div>
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://example.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="your-github-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-stackoverflow-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>stackoverflow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
+            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-twitter-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+        © Copyright 2023 Yizhou
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

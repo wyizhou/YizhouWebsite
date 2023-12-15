@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数据分析与机器学习 on Yizhou&#39;s Website</title>
+    <link>https://example.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link>
+    <description>Recent content in 数据分析与机器学习 on Yizhou&#39;s Website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 26 Jun 2021 06:48:33 +0000</lastBuildDate>
+    <atom:link href="https://example.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>人工智能基础名词理解</title>
+      <link>https://example.com/posts/inteliigence-terms/</link>
+      <pubDate>Sat, 26 Jun 2021 06:48:33 +0000</pubDate>
+      <guid>https://example.com/posts/inteliigence-terms/</guid>
+      <description>人工智能 🔗人工智能是一个比较广泛的概念，这个概念实际上指的是让机器像人一样思考，其最早由计算机科学之父阿兰图灵在1950年的一篇《计算机器与</description>
+    </item>
+  </channel>
+</rss>

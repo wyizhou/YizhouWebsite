@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Mongodb 聚合 | Yizhou&#39;s Website</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="参考 🔗MongoDB权威指南(第2版) Mongodb Docs 前言 🔗Mongodb提供了一个强大的处理框架，可以对集合中的文档进行各种组合、过滤、输出，如果你通">
+<meta name="generator" content="Hugo 0.121.1">
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85 },
+          tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+          }
+        });
+    </script>
+    
+    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://example.com/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Mongodb 聚合</h1>
+
+    <div class="tip">
+        <time datetime="2017-08-10 14:18:52 &#43;0000 &#43;0000">2017年08月10日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          3770字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          8分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#参考">参考</a></li>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#语法">语法</a></li>
+    <li><a href="#管道操作符">管道操作符</a>
+      <ul>
+        <li><a href="#match">$match</a></li>
+        <li><a href="#group">$group</a></li>
+        <li><a href="#sort">$sort</a></li>
+        <li><a href="#skip">$skip</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h2 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h2><p><a href="https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B00HLX035Q/ref=sr_1_1?ie=UTF8&amp;qid=1501597098&amp;sr=8-1&amp;keywords=mongodb" target="_blank" rel="noopener">MongoDB权威指南(第2版)</a></p>
+<p><a href="https://docs.mongodb.com/manual/" target="_blank" rel="noopener">Mongodb Docs</a></p>
+<h2 id="前言">前言 <a href="#%e5%89%8d%e8%a8%80" class="anchor">🔗</a></h2><p>Mongodb提供了一个强大的处理框架，可以对集合中的文档进行各种组合、过滤、输出，如果你通过Mongodb其他的查询方法无法处理你的查询或者查询难度很高，那么你可以试试聚合。</p>
+<p>这里我们只讲解一下常用的聚合管道操作符，其他的可以自行到<a href="https://docs.mongodb.com/manual/reference/method/db.collection.aggregate/#db.collection.aggregate" target="_blank" rel="noopener">官方文档</a>进行查询。</p>
+<h2 id="语法">语法 <a href="#%e8%af%ad%e6%b3%95" class="anchor">🔗</a></h2><p>官方文档的聚合语法是这样的：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.collection.aggregate（pipeline，options); 
+</span></span></code></pre></div><p>聚合：计算集合或视图中数据的聚合值，并且聚合接受一个数组，数组的每一个成员都是对象，对象里面子键都代表一个管道操作，按照顺序的从第一个管道操作到最后一个，每次操作完的文档返回给下一个管道操作。</p>
+<ul>
+<li>
+<p>pipeline： 一系列数据聚合操作或阶段。有关详细信息，请参阅 聚合管道运算，在版本2.6中更改：该方法仍然可以将流水线阶段接受为单独的参数，而不是数组中的元素; 但是，如果不指定pipeline为数组，则不能指定 options参数。</p>
+</li>
+<li>
+<p>options:可选的。aggregate()传递给aggregate命令的附加选项。版本2.6中的新功能，仅当您指定pipeline为数组时可用。</p>
+</li>
+</ul>
+<p>大概我们可以把聚合理解为对文档进行一系列的操作从而达到我们需要的查询文档，聚合提供了很多管道操作符，这些管道操作符就像一根一根的管道一些，而我们通过聚合操作的文档就像管道里面的水，这根管道流下来的水继续流到下一根管道，直到没有了管道，水就流出来了。 我将在下面讲解几个常用的管道操作符，你也可以单独使用其中任意的管道操作符，分别为：</p>
+<ul>
+<li>
+<p><code>match(过滤)</code>: 过滤文档流，只允许匹配的文档未修改地传递到下一个流水线阶段。$match 使用标准的MongoDB查询。对于每个输入文档，输出一个文档（匹配）或零个文档（不匹配）。</p>
+</li>
+<li>
+<p><code>$project(映射)</code>：重新整理流中的每个文档，例如添加新字段或删除现有字段。对于每个输入文档，输出一个文档。</p>
+</li>
+<li>
+<p><code>$group(分组)</code>：通过一些指定的<a href="https://docs.mongodb.com/manual/reference/operator/aggregation/group/#pipe._S_group" target="_blank" rel="noopener">累加器</a>将组文档输出到下一阶段，为每个不同的分组输出文档。</p>
+</li>
+<li>
+<p><code>$unwind(拆分)</code>：从输入文档中解构一个数组字段，以输出每个元素的文档。每个输出文档用元素值替换数组。对于每个输入文档，输出n个文档，其中n是数组元素的数量，对于空数组可以为零。</p>
+</li>
+<li>
+<p><code>$sort(排序)</code>：按指定的排序键重新排序文档流。</p>
+</li>
+<li>
+<p><code>$limit(限制)</code>：将前n个文档传递到管道，n是一个数字。</p>
+</li>
+<li>
+<p><code>$skip(跳过)</code>：将前n个文档丢弃，后面的部分传递到管道。</p>
+</li>
+</ul>
+<p>上面的顺序一般是我们常用的顺序，首先我们筛选一部分文档，然后从筛选中整理一份更加便于我们操作的文档，然后在对整理好的文档通过一些表达式来分组整理，然后通过排序、限制、跳过，得到我们最终的结果。 在管道操作符中如果需要指定文档中的某个键的时候，需要在键名前面加上<code>$</code>符号，比如文档中的<code>name</code>键，在管道操作中要指定它就得这样写<code>$name</code>。 并且我们所有的操作的文档都不是操作储存在硬盘中的数据，我们操作的文档都是储存在内存当中，所以不影响原始数据。</p>
+<h2 id="管道操作符">管道操作符 <a href="#%e7%ae%a1%e9%81%93%e6%93%8d%e4%bd%9c%e7%ac%a6" class="anchor">🔗</a></h2><h3 id="match">$match <a href="#match" class="anchor">🔗</a></h3><p><code>$match</code>应尽量放在聚合的最前面，因为<code>$match</code>使用的是Mongodb的标准查询，所以可以使用索引来提高我们的效率，其次是可以过滤掉不需要的文档，让后续的操作更加效率。 既然是标准的查询我们就可以使用标准查询里面所有<a href="http://xsscript.com/2017/08/04/mongodb-find/" target="_blank" rel="noopener">操作符</a>。 下面来大概演示一下<code>$match</code>的操作方法： 实例的文档结构如下:<code>{ &quot;_id&quot; : ObjectId(&quot;512bc95fe835e68f199c8686&quot;), &quot;author&quot; : &quot;dave&quot;, &quot;score&quot; : 80, &quot;views&quot; : 100 } { &quot;_id&quot; : ObjectId(&quot;512bc962e835e68f199c8687&quot;), &quot;author&quot; : &quot;dave&quot;, &quot;score&quot; : 85, &quot;views&quot; : 521 } { &quot;_id&quot; : ObjectId(&quot;55f5a192d4bede9ac365b257&quot;), &quot;author&quot; : &quot;ahn&quot;, &quot;score&quot; : 60, &quot;views&quot; : 1000 } { &quot;_id&quot; : ObjectId(&quot;55f5a192d4bede9ac365b258&quot;), &quot;author&quot; : &quot;li&quot;, &quot;score&quot; : 55, &quot;views&quot; : 5000 } { &quot;_id&quot; : ObjectId(&quot;55f5a1d3d4bede9ac365b259&quot;), &quot;author&quot; : &quot;annT&quot;, &quot;score&quot; : 60, &quot;views&quot; : 50 } { &quot;_id&quot; : ObjectId(&quot;55f5a1d3d4bede9ac365b25a&quot;), &quot;author&quot; : &quot;li&quot;, &quot;score&quot; : 94, &quot;views&quot; : 999 } { &quot;_id&quot; : ObjectId(&quot;55f5a1d3d4bede9ac365b25b&quot;), &quot;author&quot; : &quot;ty&quot;, &quot;score&quot; : 95, &quot;views&quot; : 1000 } </code>查询<code>author</code>键的值为<code>dave</code>的文档：<code>db.blog.aggregate([ { $match: { author: 'dave' } } ]); </code>返回的文档为：```
+{ &ldquo;_id&rdquo; : ObjectId(&ldquo;512bc95fe835e68f199c8686&rdquo;), &ldquo;author&rdquo; : &ldquo;dave&rdquo;, &ldquo;score&rdquo; : 80, &ldquo;views&rdquo; : 100 }
+{ &ldquo;_id&rdquo; : ObjectId(&ldquo;512bc962e835e68f199c8687&rdquo;), &ldquo;author&rdquo; : &ldquo;dave&rdquo;, &ldquo;score&rdquo; : 85, &ldquo;views&rdquo; : 521 }</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">### $project
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">映射管道操作就如最开始介绍的，整理文档便于我们后面更好的操作，它可以重新命名键，还可以去除不需要的键。</span><span style="color:#bbb"> </span><span style="">实例的文档结构如下</span>:<span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;512bc95fe835e68f199c8686&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;author&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;dave&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">80</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;views&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">100</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;512bc962e835e68f199c8687&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;author&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;dave&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">85</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;views&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">521</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;55f5a192d4bede9ac365b257&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;author&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;ahn&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">60</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;views&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">1000</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;55f5a192d4bede9ac365b258&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;author&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;li&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">55</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;views&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">5000</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;55f5a1d3d4bede9ac365b259&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;author&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;annT&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">60</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;views&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">50</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;55f5a1d3d4bede9ac365b25a&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;author&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;li&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">94</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;views&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">999</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;55f5a1d3d4bede9ac365b25b&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;author&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;ty&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">95</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;views&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">1000</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">重新命名</span><span style="color:#666">`</span>author<span style="color:#666">`</span><span style="">为</span><span style="color:#666">`</span>name<span style="color:#666">`</span><span style="">，这里需要注意的是重新命名键需要给文档中原始的键名前面加上一个</span><span style="color:#666">`</span><span style="">$</span><span style="color:#666">`</span><span style="">符号，并只输出</span><span style="color:#666">`</span>name<span style="color:#666">`</span><span style="">和</span><span style="color:#666">`</span>score<span style="color:#666">`</span><span style="">：</span><span style="color:#bbb"> </span><span style="">代码：</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>db.blog.<span style="color:#00a000">aggregate</span>([<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="">{</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">$</span>project:<span style="color:#bbb"> </span><span style="">{</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>name:<span style="color:#bbb"> </span><span style="color:#b44">&#39;$author&#39;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>score:<span style="color:#bbb"> </span><span style="color:#666">1</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>]);<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">返回的文档内容（</span>Mongodb中所有的文档是默认返回<span style="color:#666">`</span>_id<span style="color:#666">`</span><span style="">，除非显示的声明它不需要返回）：</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;512bc95fe835e68f199c8686&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">80</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;name&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;dave&#34;</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;512bc962e835e68f199c8687&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">85</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;name&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;dave&#34;</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;55f5a192d4bede9ac365b257&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">60</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;name&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;ahn&#34;</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;55f5a192d4bede9ac365b258&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">55</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;name&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;li&#34;</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;55f5a1d3d4bede9ac365b259&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">60</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;name&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;annT&#34;</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;55f5a1d3d4bede9ac365b25a&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">94</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;name&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;li&#34;</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;55f5a1d3d4bede9ac365b25b&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">95</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;name&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;ty&#34;</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">````</span><span style="">$</span>project<span style="color:#666">`</span><span style="">管道操作符同样支持</span>Mongodb规定的[<span style="">表达式</span>](https:<span style="color:#666">//</span>docs.mongodb.com<span style="color:#666">/</span>manual<span style="color:#666">/</span>meta<span style="color:#666">/</span>aggregation<span style="color:#666">-</span>quick<span style="color:#666">-</span>reference<span style="color:#666">/</span><span style="color:#080;font-style:italic">#aggregation-expressions)，大家有兴趣可以去看看。 通过表达式我们能更好的操作文档，比如下面，我想给下面的文档中`author`键为`dave`的文档中的`score`加上`10`分，那么需要用到表达式中的`$add`操作符，可以像下面这样来操作： 实例的文档结构如下:```
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;512bc95fe835e68f199c8686&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;author&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;dave&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">80</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;views&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">100</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;512bc962e835e68f199c8687&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;author&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;dave&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">85</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;views&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">521</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;55f5a192d4bede9ac365b257&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;author&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;ahn&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">60</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;views&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">1000</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;55f5a192d4bede9ac365b258&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;author&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;li&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">55</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;views&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">5000</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;55f5a1d3d4bede9ac365b259&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;author&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;annT&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">60</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;views&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">50</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;55f5a1d3d4bede9ac365b25a&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;author&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;li&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">94</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;views&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">999</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;55f5a1d3d4bede9ac365b25b&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;author&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;ty&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">95</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;views&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">1000</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">执行的代码：</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>db.blog.<span style="color:#00a000">aggregate</span>([<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="">{</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">$</span><span style="color:#a2f;font-weight:bold">match</span>:<span style="color:#bbb"> </span><span style="">{</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>author:<span style="color:#bbb"> </span><span style="color:#b44">&#39;dave&#39;</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="">}</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="">{</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">$</span>project:<span style="color:#bbb"> </span><span style="">{</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>score:<span style="color:#bbb"> </span><span style="">{</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span><span style="">$</span><span style="color:#a2f;font-weight:bold">add</span>:<span style="color:#bbb"> </span>[<span style="color:#b44">&#39;$score&#39;</span>,<span style="color:#bbb"> </span><span style="color:#666">10</span>]<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="">}</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>author:<span style="color:#bbb"> </span><span style="color:#666">1</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>_id:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>]);<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">返回的文档内容：</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;author&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;dave&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">90</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;author&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#b44">&#34;dave&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;score&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">95</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb"> 
+</span></span></span></code></pre></div><h3 id="group">$group <a href="#group" class="anchor">🔗</a></h3><p>分组的作用是将文档中键的值，分成不同的组，然后通过<a href="https://docs.mongodb.com/manual/reference/operator/aggregation/group/#pipe._S_group" target="_blank" rel="noopener">累加器</a>操作，然后输出文档，在进行<code>$group</code>管道操作中，<code>_id</code>键是必须存在的。 比如下面我需要将文档中<code>author</code>键的值相同的文档作一个统计： 实例的文档结构如下:<code>{ &quot;_id&quot; : ObjectId(&quot;512bc95fe835e68f199c8686&quot;), &quot;author&quot; : &quot;dave&quot;, &quot;score&quot; : 80, &quot;views&quot; : 100 } { &quot;_id&quot; : ObjectId(&quot;512bc962e835e68f199c8687&quot;), &quot;author&quot; : &quot;dave&quot;, &quot;score&quot; : 85, &quot;views&quot; : 521 } { &quot;_id&quot; : ObjectId(&quot;55f5a192d4bede9ac365b257&quot;), &quot;author&quot; : &quot;ahn&quot;, &quot;score&quot; : 60, &quot;views&quot; : 1000 } { &quot;_id&quot; : ObjectId(&quot;55f5a192d4bede9ac365b258&quot;), &quot;author&quot; : &quot;li&quot;, &quot;score&quot; : 55, &quot;views&quot; : 5000 } { &quot;_id&quot; : ObjectId(&quot;55f5a1d3d4bede9ac365b259&quot;), &quot;author&quot; : &quot;annT&quot;, &quot;score&quot; : 60, &quot;views&quot; : 50 } { &quot;_id&quot; : ObjectId(&quot;55f5a1d3d4bede9ac365b25a&quot;), &quot;author&quot; : &quot;li&quot;, &quot;score&quot; : 94, &quot;views&quot; : 999 } { &quot;_id&quot; : ObjectId(&quot;55f5a1d3d4bede9ac365b25b&quot;), &quot;author&quot; : &quot;ty&quot;, &quot;score&quot; : 95, &quot;views&quot; : 1000 } </code>执行的代码：<code>db.blog.aggregate([ { $group: { _id: '$author', total: { $sum: 1 } } } ]); </code>返回的文档内容：```
+{ &ldquo;_id&rdquo; : &ldquo;ty&rdquo;, &ldquo;total&rdquo; : 1 }
+{ &ldquo;_id&rdquo; : &ldquo;annT&rdquo;, &ldquo;total&rdquo; : 1 }
+{ &ldquo;_id&rdquo; : &ldquo;li&rdquo;, &ldquo;total&rdquo; : 2 }
+{ &ldquo;_id&rdquo; : &ldquo;ahn&rdquo;, &ldquo;total&rdquo; : 1 }
+{ &ldquo;_id&rdquo; : &ldquo;dave&rdquo;, &ldquo;total&rdquo; : 2 }</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">### $unwind
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">`</span><span style="">$</span>unwind<span style="color:#666">`</span><span style="">管道操作符可以将数组中的每个成员拆分为一个单独的文档，并输出给下一个管道操作。</span><span style="color:#bbb"> </span><span style="">比如下面的文档中</span><span style="color:#666">`</span>a<span style="color:#666">`</span><span style="">键包含了</span><span style="color:#666">3</span><span style="">个数组，使用</span><span style="color:#666">`</span><span style="">$</span>unwind<span style="color:#666">`</span><span style="">管道操作符将成员拆分为单独的文档并输出。</span><span style="color:#bbb"> </span><span style="">实例的文档结构如下</span>:<span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>a:<span style="color:#bbb"> </span>[<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">{</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>b:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">}</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">{</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>b:<span style="color:#bbb"> </span><span style="color:#666">2</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">}</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">{</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>b:<span style="color:#bbb"> </span><span style="color:#666">3</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>]<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">}</span><span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">执行的代码：</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>db.blog.<span style="color:#00a000">aggregate</span>([<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="">{</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">$</span>unwind:<span style="color:#bbb"> </span><span style="color:#b44">&#39;$a&#39;</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>]);<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">返回的文档内容：</span><span style="color:#666">```</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;598c5807841dccce335a0e98&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;a&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;b&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;598c5807841dccce335a0e98&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;a&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;b&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">2</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;_id&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#00a000">ObjectId</span>(<span style="color:#b44">&#34;598c5807841dccce335a0e98&#34;</span>),<span style="color:#bbb"> </span><span style="color:#b44">&#34;a&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="">{</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;b&#34;</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> </span><span style="color:#666">3</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb"> 
+</span></span></span></code></pre></div><h3 id="sort">$sort <a href="#sort" class="anchor">🔗</a></h3><p>排序是将上一个管道操作符输入进来的文档进行排序，它指定排序的键然后值为升序<code>1</code>和降序<code>-1</code>。 比如需要对下面的文档中的<code>score</code>键的值进行降序排序： 实例的文档结构如下:<code>{ &quot;_id&quot; : ObjectId(&quot;512bc95fe835e68f199c8686&quot;), &quot;author&quot; : &quot;dave&quot;, &quot;score&quot; : 80, &quot;views&quot; : 100 } { &quot;_id&quot; : ObjectId(&quot;512bc962e835e68f199c8687&quot;), &quot;author&quot; : &quot;dave&quot;, &quot;score&quot; : 85, &quot;views&quot; : 521 } { &quot;_id&quot; : ObjectId(&quot;55f5a192d4bede9ac365b257&quot;), &quot;author&quot; : &quot;ahn&quot;, &quot;score&quot; : 60, &quot;views&quot; : 1000 } { &quot;_id&quot; : ObjectId(&quot;55f5a192d4bede9ac365b258&quot;), &quot;author&quot; : &quot;li&quot;, &quot;score&quot; : 55, &quot;views&quot; : 5000 } { &quot;_id&quot; : ObjectId(&quot;55f5a1d3d4bede9ac365b259&quot;), &quot;author&quot; : &quot;annT&quot;, &quot;score&quot; : 60, &quot;views&quot; : 50 } { &quot;_id&quot; : ObjectId(&quot;55f5a1d3d4bede9ac365b25a&quot;), &quot;author&quot; : &quot;li&quot;, &quot;score&quot; : 94, &quot;views&quot; : 999 } { &quot;_id&quot; : ObjectId(&quot;55f5a1d3d4bede9ac365b25b&quot;), &quot;author&quot; : &quot;ty&quot;, &quot;score&quot; : 95, &quot;views&quot; : 1000 } </code>执行的代码：<code>db.blog.aggregate([ { $sort: { score: -1 } } ]); </code>返回的文档：```
+{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b25b&rdquo;), &ldquo;author&rdquo; : &ldquo;ty&rdquo;, &ldquo;score&rdquo; : 95, &ldquo;views&rdquo; : 1000 }
+{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b25a&rdquo;), &ldquo;author&rdquo; : &ldquo;li&rdquo;, &ldquo;score&rdquo; : 94, &ldquo;views&rdquo; : 999 }
+{ &ldquo;_id&rdquo; : ObjectId(&ldquo;512bc962e835e68f199c8687&rdquo;), &ldquo;author&rdquo; : &ldquo;dave&rdquo;, &ldquo;score&rdquo; : 85, &ldquo;views&rdquo; : 521 }
+{ &ldquo;_id&rdquo; : ObjectId(&ldquo;512bc95fe835e68f199c8686&rdquo;), &ldquo;author&rdquo; : &ldquo;dave&rdquo;, &ldquo;score&rdquo; : 80, &ldquo;views&rdquo; : 100 }
+{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a192d4bede9ac365b257&rdquo;), &ldquo;author&rdquo; : &ldquo;ahn&rdquo;, &ldquo;score&rdquo; : 60, &ldquo;views&rdquo; : 1000 }
+{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b259&rdquo;), &ldquo;author&rdquo; : &ldquo;annT&rdquo;, &ldquo;score&rdquo; : 60, &ldquo;views&rdquo; : 50 }
+{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a192d4bede9ac365b258&rdquo;), &ldquo;author&rdquo; : &ldquo;li&rdquo;, &ldquo;score&rdquo; : 55, &ldquo;views&rdquo; : 5000 }</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>### $limit
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>`$limint`管道操作符接受一个数字，将前n个文档输出。 比如下面输出下面文档的前3个文档：```
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc95fe835e68f199c8686&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 80, &#34;views&#34; : 100 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc962e835e68f199c8687&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 85, &#34;views&#34; : 521 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b257&#34;), &#34;author&#34; : &#34;ahn&#34;, &#34;score&#34; : 60, &#34;views&#34; : 1000 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b258&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 55, &#34;views&#34; : 5000 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b259&#34;), &#34;author&#34; : &#34;annT&#34;, &#34;score&#34; : 60, &#34;views&#34; : 50 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25a&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 94, &#34;views&#34; : 999 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25b&#34;), &#34;author&#34; : &#34;ty&#34;, &#34;score&#34; : 95, &#34;views&#34; : 1000 } 
+</span></span><span style="display:flex;"><span>```执行的代码：```
+</span></span><span style="display:flex;"><span>db.blog.aggregate([
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        $limit: 3
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>]); 
+</span></span><span style="display:flex;"><span>```返回的文档内容：```
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc95fe835e68f199c8686&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 80, &#34;views&#34; : 100 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc962e835e68f199c8687&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 85, &#34;views&#34; : 521 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b257&#34;), &#34;author&#34; : &#34;ahn&#34;, &#34;score&#34; : 60, &#34;views&#34; : 1000 } 
+</span></span></code></pre></div><h3 id="skip">$skip <a href="#skip" class="anchor">🔗</a></h3><p><code>$limint</code>管道操作符接受一个数字，将前n个文档后的文档输出到下一个管道。 比如下面输出下面文档的后2个文档：<code>{ &quot;_id&quot; : ObjectId(&quot;512bc95fe835e68f199c8686&quot;), &quot;author&quot; : &quot;dave&quot;, &quot;score&quot; : 80, &quot;views&quot; : 100 } { &quot;_id&quot; : ObjectId(&quot;512bc962e835e68f199c8687&quot;), &quot;author&quot; : &quot;dave&quot;, &quot;score&quot; : 85, &quot;views&quot; : 521 } { &quot;_id&quot; : ObjectId(&quot;55f5a192d4bede9ac365b257&quot;), &quot;author&quot; : &quot;ahn&quot;, &quot;score&quot; : 60, &quot;views&quot; : 1000 } { &quot;_id&quot; : ObjectId(&quot;55f5a192d4bede9ac365b258&quot;), &quot;author&quot; : &quot;li&quot;, &quot;score&quot; : 55, &quot;views&quot; : 5000 } { &quot;_id&quot; : ObjectId(&quot;55f5a1d3d4bede9ac365b259&quot;), &quot;author&quot; : &quot;annT&quot;, &quot;score&quot; : 60, &quot;views&quot; : 50 } { &quot;_id&quot; : ObjectId(&quot;55f5a1d3d4bede9ac365b25a&quot;), &quot;author&quot; : &quot;li&quot;, &quot;score&quot; : 94, &quot;views&quot; : 999 } { &quot;_id&quot; : ObjectId(&quot;55f5a1d3d4bede9ac365b25b&quot;), &quot;author&quot; : &quot;ty&quot;, &quot;score&quot; : 95, &quot;views&quot; : 1000 } </code>执行的代码：<code>db.blog.aggregate([ { $skip: 5 } ]); </code>返回的文档内容：```
+{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b25a&rdquo;), &ldquo;author&rdquo; : &ldquo;li&rdquo;, &ldquo;score&rdquo; : 94, &ldquo;views&rdquo; : 999 }
+{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b25b&rdquo;), &ldquo;author&rdquo; : &ldquo;ty&rdquo;, &ldquo;score&rdquo; : 95, &ldquo;views&rdquo; : 1000 }</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>### 其他
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mongodb不允许单一聚合操作符占用超过20%的内存，如果超过了就会直接抛出错误，并且尽可能的让`$match`管道操作符在前面，因为它可以使用索引，然后通过`$project`、`$group`尽可能的过滤掉不需要的数据。
+</span></span></code></pre></div>
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://example.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="your-github-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-stackoverflow-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>stackoverflow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
+            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-twitter-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+        © Copyright 2023 Yizhou
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

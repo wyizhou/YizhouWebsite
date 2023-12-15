@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>HTML表单脚本 | Yizhou&#39;s Website</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="在HTML中，表单由标签构成。在javascript中，是由HTMLFormElement类型构成，这个类型继承自HTMLElement类型">
+<meta name="generator" content="Hugo 0.121.1">
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85 },
+          tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+          }
+        });
+    </script>
+    
+    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://example.com/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">HTML表单脚本</h1>
+
+    <div class="tip">
+        <time datetime="2015-01-07 01:41:00 &#43;0000 &#43;0000">2015年01月07日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2595字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          6分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#documentform属性">document.form属性</a></li>
+        <li><a href="#elements属性">elements属性</a></li>
+        <li><a href="#submitreset">submit()、reset()</a></li>
+        <li><a href="#focusblur方法">focus()、blur()方法</a></li>
+        <li><a href="#表单字段事件">表单字段事件</a></li>
+        <li><a href="#select方法select选择事件selectionstartselectionend">select()方法、select选择事件、selectionStart、selectionEnd</a></li>
+        <li><a href="#剪贴板事件">剪贴板事件</a></li>
+        <li><a href="#clipboarddata对象">clipboardData对象</a></li>
+        <li><a href="#html5约束验证api">HTML5约束验证API</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <p>在HTML中，表单由标签构成。在javascript中，是由HTMLFormElement类型构成，这个类型继承自HTMLElement类型。</p>
+<p>HTMLFormElement类型具有以下单独的属性和方法：</p>
+<ul>
+<li>acceptCharset: 服务器能够处理的字符集（HTML中的accept-charset）</li>
+<li>action：请求的URL地址（HTML中的action）</li>
+<li>method：请求的http类型，是为POST还是为GET（HTML中的method）</li>
+<li>elements：表单里的所有组件的集合，类型为HTMLCollection</li>
+<li>length：表单里所有组件的数量</li>
+<li>enctype：请求编码的类型（HTML中的enctype）</li>
+<li>name：表单的名称（HTML中表单的name）</li>
+<li>submit()：用编程方式提交表单</li>
+<li>reset()：将表单里所有可填写的组件内容置空</li>
+<li>target：用于发送请求和接收响应的窗口名字（HTML中的target）</li>
+</ul>
+<h3 id="documentform属性">document.form属性 <a href="#documentform%e5%b1%9e%e6%80%a7" class="anchor">🔗</a></h3><p>可以通过document.form来获取整个页面的form表单，返回一个集合，可以通过数值的索引活着name值来查找特定的表单：</p>
+<blockquote>
+<p>var oneform = document.form[0];</p>
+</blockquote>
+<p>var twoform = document.form[twoform];</p>
+<h3 id="elements属性">elements属性 <a href="#elements%e5%b1%9e%e6%80%a7" class="anchor">🔗</a></h3><p>每个表单都会有一个elements属性，里面包含了表单内所有组件的集合，它是一个有序的列表，里面包含了按顺序的组件索引，可以通过数值索引和name值来访问里面的组件。</p>
+<blockquote>
+<p>var oneform = document.form[0];</p>
+</blockquote>
+<p>var oneinput = oneform.elements[0];</p>
+<h3 id="submitreset">submit()、reset() <a href="#submitreset" class="anchor">🔗</a></h3><p>可以通过编程方式提交表单，在表单的引用上调用submit()方法可以提交表单，但是不触发submit事件。相对于reset()方法，可以通过调用执行置空，但是它会触发reset事件。</p>
+<h3 id="focusblur方法">focus()、blur()方法 <a href="#focusblur%e6%96%b9%e6%b3%95" class="anchor">🔗</a></h3><p>focus()方法用户将浏览器的焦点设置到当前表单组件，而blur()方法则是将当前表单组件的焦点移开。</p>
+<h3 id="表单字段事件">表单字段事件 <a href="#%e8%a1%a8%e5%8d%95%e5%ad%97%e6%ae%b5%e4%ba%8b%e4%bb%b6" class="anchor">🔗</a></h3><ul>
+<li>blur：当组件失去焦点的时候触发事件</li>
+<li>change：值产生变化的时候触发事件</li>
+<li>focus：当组件获得焦点的时候触发事件</li>
+</ul>
+<h3 id="select方法select选择事件selectionstartselectionend">select()方法、select选择事件、selectionStart、selectionEnd <a href="#select%e6%96%b9%e6%b3%95select%e9%80%89%e6%8b%a9%e4%ba%8b%e4%bb%b6selectionstartselectionend" class="anchor">🔗</a></h3><p>在和文本框的引用上调用此方法可以选择文本框的全部内容。</p>
+<blockquote>
+<p>var inp = document.getElementsByTagName(&ldquo;input&rdquo;)[0];</p>
+</blockquote>
+<p>input.addEventListener(&ldquo;focus&rdquo;,function(event){</p>
+<p>event.target.select();</p>
+<p>},false);select事件，当发生选择文本或者select()方法的时候发生</p>
+<blockquote>
+<p>var inp = document.getElementsByTagName(&ldquo;input&rdquo;)[0];</p>
+</blockquote>
+<p>input.addEventListener(&ldquo;select&rdquo;,function(event){</p>
+<p>alert(this.type);</p>
+<p>},false); </p>
+<p>selectionStart属性和selectionEnd属性表示在文本框里面选择的文本开始位置和结束位置。</p>
+<blockquote>
+<p>var area123 = document.getElementsByTagName(&ldquo;area&rdquo;)[0];</p>
+</blockquote>
+<p>area123.value.substring(area123.selectionStart,area123.selectionEnd);substring()方法是基于字符串偏移量执行的操作。所以这里直接给这两个值可以获得文本。</p>
+<h3 id="剪贴板事件">剪贴板事件 <a href="#%e5%89%aa%e8%b4%b4%e6%9d%bf%e4%ba%8b%e4%bb%b6" class="anchor">🔗</a></h3><p>HTML5把剪贴板事件纳入了规范，纳入规范的几个事件为：</p>
+<ul>
+<li>beforecopy：在发生复制操作前发触发</li>
+<li>copy：在发生复制操作时触发</li>
+<li>beforecut：在发生剪切操作前触发</li>
+<li>cut：在发生剪切时出发</li>
+<li>beforepaste：在发生粘贴操作前触发</li>
+<li>paste：在发生粘贴时触发</li>
+</ul>
+<p>Safari、chrome、firefox浏览器在三个操作前发生事件表现在针对文本框的上下文菜单中，而ie则是在触发copy、cut、paste事件前触发其他三个事件。</p>
+<h3 id="clipboarddata对象">clipboardData对象 <a href="#clipboarddata%e5%af%b9%e8%b1%a1" class="anchor">🔗</a></h3><p>访问剪贴板中的数据可以访问clipboardData对象，此对象在ie中是window的属性，而在Safari、chrome、firefox中是在当前事件对象event的属性。</p>
+<p>此对象有三个方法分别为：</p>
+<ul>
+<li>getData()</li>
+<li>setData()</li>
+<li>clearData()</li>
+</ul>
+<p>getData()方法在接受一个参数，在ie中接受一个参数（数据格式），有两种数据格式&quot;text&quot;,&ldquo;url&rdquo;，在Safari、chrome、firefox中接受的参数为MIME类型，text类型表示为&quot;text/plain&quot;。</p>
+<p>setData()方法接受两个参数，一个是数据格式(ie和Safari、chrome、firefox不一样)，一个是要放在剪贴板的文字。如果成功返回true反之为false。</p>
+<p>clearData()方法不需要参数，执行过后清空剪贴板里的内容。</p>
+<h3 id="html5约束验证api">HTML5约束验证API <a href="#html5%e7%ba%a6%e6%9d%9f%e9%aa%8c%e8%af%81api" class="anchor">🔗</a></h3><p><strong>required属性</strong></p>
+<p>在表单组件中添加一个required属性，就可以让支持html5的浏览器让此组件不能为空。</p>
+<p><strong>stepDown()</strong></p>
+<p>接受一个参数，既在调用的组件上的数值减去传递的数值</p>
+<p>document.getElementById(&ldquo;kname&rdquo;).stepDown(5);<strong>stepUp()</strong></p>
+<p>接受一个参数，既在调用的组件上的数值加上传递的数值</p>
+<p>document.getElementById(&ldquo;kname&rdquo;).stepUp(5);<strong>pattern属性</strong></p>
+<p>pattern属性的值是一个正则表达式，用于匹配文本框中的值。如果只想输入数值，那么可以这样：</p>
+<p><strong>checkValidity()方法</strong></p>
+<p>checkValidity()方法可以检测整个表单是否的组件值是否有效，有效则返回true反之为false。</p>
+<p>还可以在组件本身调用checkValidity()方法，如果组件的内容有效则返回true反之false。</p>
+<p><strong>validity属性</strong></p>
+<p>validity属性可以想象成是checkvalidity()方法的增强版，它里面提供了很多详细信息，比如说为什么无效。它里面包含了一些属性，每个属性都返回一个布尔值。</p>
+<ul>
+<li>customError：如果设置了setCustomValidity()返回true反之为false</li>
+<li>pattenrnMismatch：如果值与指定的pattern属性不匹配，返回true。</li>
+<li>rangeOverflow：如果值比max值大，返回true</li>
+<li>rangeUnderflow：如果值比min小，返回true</li>
+<li>stepMisMatch：如果min和max之间的步长值不合理，返回true</li>
+<li>tooLong：如果值的长度超过了maxlength属性制定的长度，返回true</li>
+<li>typeMismatch：如果值不是&quot;mail&quot;或&quot;url&quot;要求的格式，返回true</li>
+<li>valid：如果这里的其他属性为false。它就返回true</li>
+<li>valueMissing：如果标注了为required属性的组件中没有值，那么返回true</li>
+</ul>
+<p><strong>novalidate属性</strong></p>
+<p>此属性可以告诉表单不验证，即使是空的也不会进行验证。</p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://example.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="your-github-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-stackoverflow-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>stackoverflow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
+            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-twitter-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+        © Copyright 2023 Yizhou
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

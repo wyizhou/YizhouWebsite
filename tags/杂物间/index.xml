@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>杂物间 on Yizhou&#39;s Website</title>
+    <link>https://example.com/tags/%E6%9D%82%E7%89%A9%E9%97%B4/</link>
+    <description>Recent content in 杂物间 on Yizhou&#39;s Website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 11 Oct 2022 01:52:49 +0000</lastBuildDate>
+    <atom:link href="https://example.com/tags/%E6%9D%82%E7%89%A9%E9%97%B4/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Google Hacking Test</title>
+      <link>https://example.com/posts/google-hacking-test/</link>
+      <pubDate>Tue, 11 Oct 2022 01:52:49 +0000</pubDate>
+      <guid>https://example.com/posts/google-hacking-test/</guid>
+      <description>前言 🔗学习Google搜索，其目的是用于让自己得到更精准的信息，所以善用Google搜索对于信息收集、安全测试、查找答案等都有着非常大的帮助</description>
+    </item>
+    <item>
+      <title>Mac软件推荐-Mounty</title>
+      <link>https://example.com/posts/mounty-software/</link>
+      <pubDate>Tue, 18 Jul 2017 13:32:33 +0000</pubDate>
+      <guid>https://example.com/posts/mounty-software/</guid>
+      <description>前言 🔗在Mac上面访问NTFS格式的移动设备或者分区很简单，但是如果你要对NTFS进行写操作，就得使用其他的方式，比如打开Mac自身支持NT</description>
+    </item>
+    <item>
+      <title>Mac支付宝插件风波</title>
+      <link>https://example.com/posts/mac-alipay-plugins/</link>
+      <pubDate>Tue, 27 Jan 2015 19:34:00 +0000</pubDate>
+      <guid>https://example.com/posts/mac-alipay-plugins/</guid>
+      <description>1、前言 🔗首先我喜欢看一些创业的书，很多书里都会有马云的身影，马云也算是对我有一定的影响，从而我对淘宝也产生了一定的好感。但是关于这次插件事</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>理财与投资 on Yizhou&#39;s Website</title>
+    <link>https://example.com/tags/%E7%90%86%E8%B4%A2%E4%B8%8E%E6%8A%95%E8%B5%84/</link>
+    <description>Recent content in 理财与投资 on Yizhou&#39;s Website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 11 Dec 2023 13:53:48 +0000</lastBuildDate>
+    <atom:link href="https://example.com/tags/%E7%90%86%E8%B4%A2%E4%B8%8E%E6%8A%95%E8%B5%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>4-极光计划实证：经历了熊市才算成长</title>
+      <link>https://example.com/posts/aurora-project-4/</link>
+      <pubDate>Mon, 11 Dec 2023 13:53:48 +0000</pubDate>
+      <guid>https://example.com/posts/aurora-project-4/</guid>
+      <description>前言 🔗最近两个月A股反反复复，10月份跌破3000点后又回到了3000，最近又跌下去了，第二次跌破3000的我反而心态比一次更好了，所以说经</description>
+    </item>
+    <item>
+      <title>#3-极光计划实证：小起小落</title>
+      <link>https://example.com/posts/aurora-project-3/</link>
+      <pubDate>Wed, 08 Nov 2023 13:37:34 +0000</pubDate>
+      <guid>https://example.com/posts/aurora-project-3/</guid>
+      <description>前言 🔗最近一个月算是第一次关注投资以来经历的第一次“小起小落”，上证下到了3000点以下，自己的基金也最高亏到了190元，目前仍然浮亏。 为什</description>
+    </item>
+    <item>
+      <title>#2-极光计划实证：当头一棒</title>
+      <link>https://example.com/posts/aurora-project-2/</link>
+      <pubDate>Sun, 08 Oct 2023 13:54:12 +0000</pubDate>
+      <guid>https://example.com/posts/aurora-project-2/</guid>
+      <description>前言 🔗最近想了一个方式，找了一些基金的历史数据，并且做了一些回测，下面是我做了回测后在也大的知识星球上提出的提问以及也大回复的内容。 也大，最</description>
+    </item>
+    <item>
+      <title>#1-极光计划实证：启航</title>
+      <link>https://example.com/posts/aurora-project-1/</link>
+      <pubDate>Fri, 08 Sep 2023 15:55:07 +0000</pubDate>
+      <guid>https://example.com/posts/aurora-project-1/</guid>
+      <description>前言 🔗这是一篇关于投资的文章，也是第一期（较为啰嗦），记录了一个30岁的男人，通过理财、投资，在45岁之前达到”财务自由“，对于财务自由，我</description>
+    </item>
+  </channel>
+</rss>

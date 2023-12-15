@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>es6新特性:Set和WeakSet | Yizhou&#39;s Website</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="书籍参考：《ECMAScript 6入门》 作者：阮一峰 文档参考：MDN ES6提供了两个新的数据结构：Set和WeakSet数据结构，两个结构很">
+<meta name="generator" content="Hugo 0.121.1">
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85 },
+          tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+          }
+        });
+    </script>
+    
+    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://example.com/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">es6新特性:Set和WeakSet</h1>
+
+    <div class="tip">
+        <time datetime="2017-07-10 07:43:42 &#43;0000 &#43;0000">2017年07月10日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1429字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          3分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#set数据结构">Set数据结构</a></li>
+        <li><a href="#weakset数据结构">WeakSet数据结构</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <p>书籍参考：<a href="http://es6.ruanyifeng.com/" target="_blank" rel="noopener">《ECMAScript 6入门》</a> 作者：<a href="http://ruanyifeng.com" target="_blank" rel="noopener">阮一峰</a></p>
+<p>文档参考：<a href="developer.mozilla.org">MDN</a></p>
+<p>ES6提供了两个新的数据结构：Set和WeakSet数据结构，两个结构很相识，但是有一点区别。</p>
+<h3 id="set数据结构">Set数据结构 <a href="#set%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h3><p>Set数据结构是一个类数组数据结构，但是它和数组有一点区别不同的是，Set数据结构的值是唯一的，也就是说没有重复值，Set数据结构内部判断两个值是否相等类似于我们使用的精确等运算符(<code>===</code>)，所以<code>&quot;1&quot; 不等于 1</code>但是区别在于NaN相等。Set的参数接受一个数组或类似数组的对象，它将所有元素添加进新的Set中：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">var</span> c <span style="color:#666">=</span> new Set([<span style="color:#666">1</span>,<span style="color:#666">2</span>,<span style="color:#666">3</span>,<span style="color:#666">4</span>,<span style="color:#666">4</span>]); <span style="color:#666">//</span><span style="">注意这里添加了两个</span><span style="color:#666">4</span>
+</span></span><span style="display:flex;"><span>c;  <span style="color:#666">//</span> {<span style="color:#666">1</span>,<span style="color:#666">2</span>,<span style="color:#666">3</span>,<span style="color:#666">4</span>}  <span style="">只添加了一个</span><span style="color:#666">4</span><span style="">，这也就说明了</span>Set数据结构的值唯一性<span style="">。</span> 
+</span></span></code></pre></div><p>由于Set数据结构的值是唯一值，那么我们可以通过这样的特性来去除数组值的重复性</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">var</span> a <span style="color:#666">=</span> [<span style="color:#666">1</span>,<span style="color:#666">2</span>,<span style="color:#666">3</span>,<span style="color:#666">4</span>,<span style="color:#666">5</span>,<span style="color:#666">4</span>,<span style="color:#666">5</span>];
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">var</span> b <span style="color:#666">=</span> [<span style="color:#666">...</span>new Set(a)];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>b; <span style="color:#666">//</span> [<span style="color:#666">1</span>,<span style="color:#666">2</span>,<span style="color:#666">3</span>,<span style="color:#666">4</span>,<span style="color:#666">5</span>] 
+</span></span></code></pre></div><h4 id="set有四个操作数据的方法和四个遍历数据的方法首先来看看四个操作数据的方法">Set有四个操作数据的方法和四个遍历数据的方法，首先来看看四个操作数据的方法： <a href="#set%e6%9c%89%e5%9b%9b%e4%b8%aa%e6%93%8d%e4%bd%9c%e6%95%b0%e6%8d%ae%e7%9a%84%e6%96%b9%e6%b3%95%e5%92%8c%e5%9b%9b%e4%b8%aa%e9%81%8d%e5%8e%86%e6%95%b0%e6%8d%ae%e7%9a%84%e6%96%b9%e6%b3%95%e9%a6%96%e5%85%88%e6%9d%a5%e7%9c%8b%e7%9c%8b%e5%9b%9b%e4%b8%aa%e6%93%8d%e4%bd%9c%e6%95%b0%e6%8d%ae%e7%9a%84%e6%96%b9%e6%b3%95" class="anchor">🔗</a></h4><p><code>add(value)</code>:添加某个值，返回该Set本身。</p>
+<p><code>delete(value)</code>:删除Set数据结构中的一个值，如果删除成功则返回<code>true</code>,不成功则返回<code>false</code>。</p>
+<p><code>has(value)</code>: 检查Set中是否含有某个值，返回<code>true</code>和<code>false</code>。</p>
+<p><code>clear()</code>:移除Set数据结构中的所有值，没有返回结构</p>
+<p>上面的四个方法都属于字面意思很容易理解，其中的add方法添加的数据同样会保证Set结构的数值唯一性.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">var</span> a <span style="color:#666">=</span> new Set([<span style="color:#666">1</span>,<span style="color:#666">2</span>,<span style="color:#666">3</span>,<span style="color:#666">4</span>]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>a<span style="color:#666">.</span>add(<span style="color:#666">5</span>);
+</span></span><span style="display:flex;"><span>a<span style="color:#666">.</span>add(<span style="color:#666">5</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>a; <span style="color:#666">//</span> {<span style="color:#666">1</span>,<span style="color:#666">2</span>,<span style="color:#666">3</span>,<span style="color:#666">4</span>,<span style="color:#666">5</span>} <span style="">只添加了一个数值</span><span style="color:#666">5</span> 
+</span></span></code></pre></div><p>Set的四个遍历数据的方法：</p>
+<p><code>keys()</code>:返回一个新的键名遍历器，由于Set结构没有键名，所以<code>keys()</code>返回的是一个键值与<code>value()</code>遍历器结果一样。</p>
+<p><code>values()()</code>:返回一个新的键值遍历器</p>
+<p><code>entries()</code>：返回一个键值对遍历器</p>
+<p><code>forEach(callback,this)</code>：按照插入顺序对每个值调用callback函数进行处理，第二个参数为绑定的this对象。Callback函数接受三个参数，分别为：键名、键值、集合本身</p>
+<p><code>size</code>:size为属性，返回Set数据结构有多少个值。</p>
+<p>由于Set结构的存储顺序是按照我们插入的顺序就行存储的，所以这样就很方便我们储存<code>中间件</code>函数。</p>
+<h3 id="weakset数据结构">WeakSet数据结构 <a href="#weakset%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h3><p>WeakSet数据结构同样是不能重复值的集合，但是WeakSet数据结构的成员只能是对象，不能是其他类型的值，并且WeakSet数据结构是弱引用，不会影响垃圾回收器的回收。比如我们新声明一个对象并把这个对象赋值给变量a，那么这个对象当前的引用为1，即使我们没有使用这个对象了，但垃圾回收器不会回收此对象，我们必须手动解除变量a对于此对象的引用(<code>a = null</code>)才能触发垃圾回收器的回收。</p>
+<p>WeakSet有四个方法：</p>
+<p><code>add(value)</code>:添加一个对象到WeakSet中，返回WeakSet本身 <code>delete(value)</code>:从WeakSet中删除一个对象，返回true和false <code>has(value)</code>: 判断一个对象是否存在于WeakSet中，返回true和false</p>
+<p>WeakSet没有办法来遍历成员，因为说不定在你遍历的时候，垃圾回收器就已经回收了成员中的对象。简单的使用：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">var</span> b <span style="color:#666">=</span> [<span style="color:#666">1</span>,<span style="color:#666">2</span>];
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">var</span> ws <span style="color:#666">=</span> new WeakSet();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ws<span style="color:#666">.</span>add(<span style="color:#666">1</span>); <span style="color:#666">//</span><span style="">报错，因为不是一个对象</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ws<span style="color:#666">.</span>add(b); <span style="color:#666">//</span><span style="">返回</span>WeakSet本身
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ws<span style="color:#666">.</span>has(b); <span style="color:#666">//</span> true
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ws<span style="color:#666">.</span>delete(b); <span style="color:#666">//</span> false 
+</span></span></code></pre></div><p>WeakSet有很多临时的用处，在阮一峰写的<a href="http://es6.ruanyifeng.com/" target="_blank" rel="noopener">ECMAScript6入门</a>中有一个很好WeakSet使用例子：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">const</span> foos <span style="color:#666">=</span> new WeakSet();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">class</span> Foo {
+</span></span><span style="display:flex;"><span>    constructor() { 
+</span></span><span style="display:flex;"><span>        foos<span style="color:#666">.</span>add(this)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    method () {
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">if</span> (<span style="color:#666">!</span>foos<span style="color:#666">.</span>has(this)) {
+</span></span><span style="display:flex;"><span>            throw new TypeError(<span style="color:#b44">&#39;Foo.prototype.method 只能在Foo的实例上调用!&#39;</span>);
+</span></span><span style="display:flex;"><span>        } 
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Foo<span style="color:#666">.</span>prototype<span style="color:#666">.</span>method(); <span style="color:#666">//</span>Foo<span style="color:#666">.</span>prototype<span style="color:#666">.</span>method <span style="">只能在</span>Foo的实例上调用<span style="color:#666">!</span> 
+</span></span></code></pre></div><p>文完</p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://example.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="your-github-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-stackoverflow-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>stackoverflow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
+            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-twitter-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+        © Copyright 2023 Yizhou
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>

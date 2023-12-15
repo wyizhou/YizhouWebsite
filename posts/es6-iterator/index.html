@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>ES6-iterator遍历接口 | Yizhou&#39;s Website</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="书籍参考：《ECMAScript 6入门》 作者：阮一峰 Iterator概念 🔗ES6发布后Javascript的数据集合对象有Array、Obj">
+<meta name="generator" content="Hugo 0.121.1">
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85 },
+          tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            processEscapes: true
+          }
+        });
+    </script>
+    
+    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>首页</a>
+	
+	<a href="/posts">归档</a>
+	<a href="/tags">标签</a>
+	<a href="/about">关于</a>
+
+	
+
+	
+	  <a class="button" href="https://example.com/index.xml">订阅</a>
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">ES6-iterator遍历接口</h1>
+
+    <div class="tip">
+        <time datetime="2017-07-15 13:43:25 &#43;0000 &#43;0000">2017年07月15日</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2120字
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          5分钟
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#iterator概念">Iterator概念</a></li>
+        <li><a href="#遍历器对象-returnthrow">遍历器对象 return(),throw()</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <p>书籍参考：<a href="http://es6.ruanyifeng.com/" target="_blank" rel="noopener">《ECMAScript 6入门》</a> 作者：<a href="http://ruanyifeng.com" target="_blank" rel="noopener">阮一峰</a></p>
+<h3 id="iterator概念">Iterator概念 <a href="#iterator%e6%a6%82%e5%bf%b5" class="anchor">🔗</a></h3><p>ES6发布后Javascript的数据集合对象有<code>Array</code>、<code>Object</code>、<code>Map</code>和<code>Set</code>四种，我们同时知道在<code>Array</code>中，我们可以放对象，<code>Object</code>中我们一样可以放<code>Array</code>，四种数据集合对象都可以相互交叉使用。</p>
+<p>那么问题来了，如果在一个数据集合对象中含有多个不同数据集合对象的类型，那么这时候就需要一种接口的机制，来处理不同的数据集合了。</p>
+<p><strong>Iterator有三个作用：</strong></p>
+<ol>
+<li>为各种数据接口提供一个统一的访问接口</li>
+<li>使数据接口的成员能够按照某种次序排序</li>
+<li>ES6新遍历名利 for&hellip;of循环</li>
+</ol>
+<p>按照<a href="http://es6.ruanyifeng.com/#docs/iterator" target="_blank" rel="noopener">《ECMAScript 6入门》</a>这本书中的4个步骤就能很好的解释Iterator遍历过程</p>
+<ol>
+<li>
+<p>创建一个指针对象，指向当前数据结构的起始位置。也就是说，遍历器对象本质上，就是一个指针对象。</p>
+</li>
+<li>
+<p>第一次调用指针对象的next方法，可以将指针指向数据结构的第一个成员。</p>
+</li>
+<li>
+<p>第二次调用指针对象的next方法，指针就指向数据结构的第二个成员。</p>
+</li>
+<li>
+<p>不断调用指针对象的next方法，直到它指向数据结构的结束位置。</p>
+</li>
+</ol>
+<p>用一个代码段来实现上面的4个点，也就是来实现一个Iterator遍历器</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span>function iter(arr) {
+</span></span><span style="display:flex;"><span>    let index <span style="color:#666">=</span> <span style="color:#666">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">return</span> {
+</span></span><span style="display:flex;"><span>        next() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a2f;font-weight:bold">return</span> index <span style="color:#666">&lt;=</span> arr<span style="color:#666">.</span>length <span style="">?</span> 
+</span></span><span style="display:flex;"><span>            { value: arr[index<span style="color:#666">++</span>], done: false } : 
+</span></span><span style="display:flex;"><span>            { value: undefined,  done: true}
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>let test  <span style="color:#666">=</span> iter([<span style="color:#666">1</span>, <span style="color:#666">2</span>]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>test<span style="color:#666">.</span>next(); <span style="color:#666">//</span> <span style="">第一次运行</span>next方法<span style="">。返回</span><span style="color:#d2413a;font-weight:bold">Object</span> {value: <span style="color:#666">1</span>, done: false}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>test<span style="color:#666">.</span>next(); <span style="color:#666">//</span> <span style="">第二次运行</span>next方法<span style="">。返回</span><span style="color:#d2413a;font-weight:bold">Object</span> {value: <span style="color:#666">2</span>, done: false}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>test<span style="color:#666">.</span>next(); <span style="color:#666">//</span> <span style="">第三次运行</span>next方法<span style="">。返回</span><span style="color:#d2413a;font-weight:bold">Object</span> {value: undefined, done: false} 
+</span></span><span style="display:flex;"><span><span style="">```上面的代码实现了一个遍历器生成函数，每次传入数组或者类数组或者是含有`</span>length<span style="">`属性的并可遍历数据，都可以返回一个遍历器。遍历器生成函数在内部定义了一个变量</span>index用于数据指针<span style="">，指向当前遍历位置的成员，然后返回了一个对象，用指针去判断如果指针已经大于数组最大的成员数，那么返回值为空和返回一个`</span>done<span style="">`属性并值为`</span>true<span style="">`表示已经结束遍历，反之，返回相应的值。其中用</span>done来判断是否遍历结束<span style="">。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">### Iterator接口原生的数据结构</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="">数组、类数组、</span>Map<span style="">、</span>Set几种数据结构是具备原生的Iterator接口<span style="">，也就是说我们不需要任何的处理就可以使用遍历器、以及调用遍历器接口循环的</span><span style="color:#a2f;font-weight:bold">for</span><span style="color:#666">...</span>of命令<span style="">。如何知道一个数据结构是否具备</span>Iterator接口<span style="">？通过</span>Symbol<span style="color:#666">.</span>iterator这个属性来确定是否部署了iterator接口<span style="">，</span>Symbol<span style="color:#666">.</span>iterator是[Symbol](http:<span style="color:#666">//</span>xsscript<span style="color:#666">.</span>com<span style="color:#666">//</span><span style="color:#666">2017</span><span style="color:#666">/</span><span style="color:#666">07</span><span style="color:#666">/</span><span style="color:#666">06</span><span style="color:#666">/</span>es6<span style="color:#666">-</span>symbol<span style="color:#666">/</span>)<span style="">对象下面的</span>iterator属性<span style="">，它返回一个独一无二的</span>Symbol值<span style="">，如果一个数据结构通过此属性访问会返回一个函数，说明这个数据结构已经部署了遍历器。```</span>
+</span></span><span style="display:flex;"><span>let arr <span style="color:#666">=</span> [<span style="color:#666">1</span>, <span style="color:#666">2</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>arr[Symbol<span style="color:#666">.</span>iterator]; <span style="color:#666">//</span> function values() { [native code] }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>let arrIt <span style="color:#666">=</span> arr[Symbol<span style="color:#666">.</span>iterator](); <span style="color:#666">//</span> <span style="">得到一个遍历器</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>arrIt<span style="color:#666">.</span>next(); <span style="color:#666">//</span> <span style="color:#d2413a;font-weight:bold">Object</span> {value: <span style="color:#666">1</span>, done: false}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>arrIt<span style="color:#666">.</span>next(); <span style="color:#666">//</span> <span style="color:#d2413a;font-weight:bold">Object</span> {value: <span style="color:#666">2</span>, done: false}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>arrIt<span style="color:#666">.</span>next(); <span style="color:#666">//</span> <span style="color:#d2413a;font-weight:bold">Object</span> {value: undefined, done: true} 
+</span></span><span style="display:flex;"><span><span style="">```上面提到的是具备原生</span>iterator接口的数据结构<span style="">，那没有的数据结构呢？比如对象，</span>[<span style="">《</span>ECMAScript <span style="color:#666">6</span><span style="">入门》</span>](http:<span style="color:#666">//</span>es6<span style="color:#666">.</span>ruanyifeng<span style="color:#666">.</span>com<span style="color:#666">/</span><span style="color:#080;font-style:italic">#docs/iterator)这本书中提到了一段话来说明为什么对象没有部署原生的iterator接口.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#666">&gt;</span> <span style="">对象</span>(<span style="color:#d2413a;font-weight:bold">Object</span>)<span style="">之所以没有默认部署</span>Iterator接口<span style="">，是因为对象的哪个属性先遍历，哪个属性后遍历是不确定的，需要开发者手动指定。本质上，遍历</span> <span style="">器是一种线性处理，对于任何非线性的数据结构，部署遍历器接口，就等于部署一种线性转换。不过，严格地说，对象部署遍历器接口并不是很必</span> <span style="">要，因为这时对象实际上被当作</span>Map结构使用<span style="">，</span>ES5没有Map结构<span style="">，而</span>ES6原生提供了<span style="">。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="">如果我们真的需要给没有部署</span>Iterator接口的数据结构就只需要在这个数据结构的Symbol<span style="color:#666">.</span>iterator属性上面部署一个iterator接口就可以实现了<span style="">：```</span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">const</span> obj <span style="color:#666">=</span> {
+</span></span><span style="display:flex;"><span>    data: [<span style="color:#666">1</span>, <span style="color:#666">2</span>, <span style="color:#666">3</span>],
+</span></span><span style="display:flex;"><span>    [Symbol<span style="color:#666">.</span>iterator](it) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">const</span> self <span style="color:#666">=</span> this;
+</span></span><span style="display:flex;"><span>        let index <span style="color:#666">=</span> <span style="color:#666">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">return</span> {
+</span></span><span style="display:flex;"><span>            next() {
+</span></span><span style="display:flex;"><span>                <span style="color:#a2f;font-weight:bold">if</span>(index <span style="color:#666">&lt;=</span> self[it]<span style="color:#666">.</span>length ) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a2f;font-weight:bold">return</span> {value: self[it][index<span style="color:#666">++</span>], done: false }
+</span></span><span style="display:flex;"><span>                } <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a2f;font-weight:bold">return</span> {value: undefined, done: true}
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>let objIt <span style="color:#666">=</span> obj[Symbol<span style="color:#666">.</span>iterator](<span style="color:#b44">&#39;data&#39;</span>); <span style="color:#666">//</span><span style="">返回</span>obj对象data属性中数组的iterator遍历器
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>obj<span style="color:#666">.</span>pubData <span style="color:#666">=</span> [<span style="color:#b44">&#39;1&#39;</span>, <span style="color:#b44">&#39;b&#39;</span>, <span style="color:#b44">&#39;bbx&#39;</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>objIt <span style="color:#666">=</span> obj[Symbol<span style="color:#666">.</span>iterator](<span style="color:#b44">&#39;pubData&#39;</span>); <span style="color:#666">//</span><span style="">返回</span>obj对象pubData属性中数组的iterator遍历器 
+</span></span><span style="display:flex;"><span><span style="">```通过上面的代码我们可以给</span>obj对象部署一个iterator接口<span style="">，并且在调用</span>Symbol<span style="color:#666">.</span>iterator的属性方法的时候传入的一个值<span style="">，可以用来便利对象中的自定义数组</span>,<span style="">当然这个方法我们一样可以定义在原型上面，方便所有对象来生成</span>iterator遍历器<span style="">。```</span>
+</span></span><span style="display:flex;"><span><span style="color:#d2413a;font-weight:bold">Object</span><span style="color:#666">.</span>prototype[Symbol<span style="color:#666">.</span>iterator] <span style="color:#666">=</span> function(it){
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">const</span> self <span style="color:#666">=</span> this;
+</span></span><span style="display:flex;"><span>        let index <span style="color:#666">=</span> <span style="color:#666">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">return</span> {
+</span></span><span style="display:flex;"><span>            next() {
+</span></span><span style="display:flex;"><span>                <span style="color:#a2f;font-weight:bold">if</span>(index <span style="color:#666">&lt;=</span> self[it]<span style="color:#666">.</span>length ) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a2f;font-weight:bold">return</span> {value: self[it][index<span style="color:#666">++</span>], done: false }
+</span></span><span style="display:flex;"><span>                } <span style="color:#a2f;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a2f;font-weight:bold">return</span> {value: undefined, done: true}
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">const</span> obj <span style="color:#666">=</span> {
+</span></span><span style="display:flex;"><span>    data: [<span style="color:#666">1</span>, <span style="color:#666">2</span>, <span style="color:#666">3</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>let objIt <span style="color:#666">=</span> obj[Symbol<span style="color:#666">.</span>iterator](<span style="color:#b44">&#39;data&#39;</span>); <span style="color:#666">//</span><span style="">返回</span>obj对象data属性数组的遍历器 
+</span></span></code></pre></div><h3 id="遍历器对象-returnthrow">遍历器对象 return(),throw() <a href="#%e9%81%8d%e5%8e%86%e5%99%a8%e5%af%b9%e8%b1%a1-returnthrow" class="anchor">🔗</a></h3><p>遍历器的<code>next()</code>方法是必须具备的，而<code>return()</code>和<code>throw()</code>方法是可选的，其中<code>return()</code>方法的作用是在循环的时候提前退出，包括出错、break、contiune等命令就会触发<code>return()</code>方法，<code>return()</code>方法在出错或者提前退出循环的时候清空不需要的资源，<code>return()</code>方法由Generator规格规定返回必须为一个对象，而<code>throw()</code>方法主要是配合Generator函数使用。 文完</p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://example.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="your-github-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-stackoverflow-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>stackoverflow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
+            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="your-twitter-link" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+        © Copyright 2023 Yizhou
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-mini'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>
