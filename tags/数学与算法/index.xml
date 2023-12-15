@@ -2,38 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>数学与算法 on Yizhou&#39;s Website</title>
-    <link>https://example.com/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95/</link>
+    <link>https://wuyizhou.com/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95/</link>
     <description>Recent content in 数学与算法 on Yizhou&#39;s Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 18 Nov 2020 08:51:13 +0000</lastBuildDate>
-    <atom:link href="https://example.com/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://wuyizhou.com/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>(二)漫话中文分词：Trie、KMP、AC自动机</title>
-      <link>https://example.com/posts/chinesecutwords-2/</link>
+      <link>https://wuyizhou.com/posts/chinesecutwords-2/</link>
       <pubDate>Wed, 18 Nov 2020 08:51:13 +0000</pubDate>
-      <guid>https://example.com/posts/chinesecutwords-2/</guid>
+      <guid>https://wuyizhou.com/posts/chinesecutwords-2/</guid>
       <description>Trie树 🔗在上一篇文章当中，说到了一些匹配的算法，但是算法有了，还得需要一个高效的数据结构，不能只是通过[&amp;lsquo;中国人&amp;rsquo</description>
     </item>
     <item>
       <title>(一)漫话中文分词：最大匹配,双向最大,最小词数</title>
-      <link>https://example.com/posts/chinesecutwords-1/</link>
+      <link>https://wuyizhou.com/posts/chinesecutwords-1/</link>
       <pubDate>Sun, 08 Nov 2020 10:36:34 +0000</pubDate>
-      <guid>https://example.com/posts/chinesecutwords-1/</guid>
+      <guid>https://wuyizhou.com/posts/chinesecutwords-1/</guid>
       <description>中文分词是指将文本拆分为单词的过程，而结果集合连接起来是等于原始的文本，而中文分词一直作为NLP领域的比较重要的领域，而大多数的文本挖掘都是</description>
     </item>
     <item>
       <title>理解条件概率</title>
-      <link>https://example.com/posts/learning-conditional-probability/</link>
+      <link>https://wuyizhou.com/posts/learning-conditional-probability/</link>
       <pubDate>Tue, 03 Nov 2020 09:03:53 +0000</pubDate>
-      <guid>https://example.com/posts/learning-conditional-probability/</guid>
+      <guid>https://wuyizhou.com/posts/learning-conditional-probability/</guid>
       <description>样本空间（Ω） 🔗样本空间通常指实验或随机所有可能的集合，我们常在说一个概率的时候，实际上是默认忽略掉了样本空间，比如说事件A的概率，实际上指</description>
     </item>
     <item>
       <title>理解连续数据和离散数据</title>
-      <link>https://example.com/posts/continuous-data-and-discrete-data/</link>
+      <link>https://wuyizhou.com/posts/continuous-data-and-discrete-data/</link>
       <pubDate>Tue, 27 Oct 2020 07:35:35 +0000</pubDate>
-      <guid>https://example.com/posts/continuous-data-and-discrete-data/</guid>
+      <guid>https://wuyizhou.com/posts/continuous-data-and-discrete-data/</guid>
       <description>统计学中，将一种类型的数据总称为变量，而变量的数据称为观测，而变量的具体取值为观测值，比如下面的数据中，age和name都是变量，而18和’</description>
     </item>
   </channel>

@@ -2,206 +2,206 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>服务和运维 on Yizhou&#39;s Website</title>
-    <link>https://example.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/</link>
+    <link>https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/</link>
     <description>Recent content in 服务和运维 on Yizhou&#39;s Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 19 Oct 2023 13:24:56 +0000</lastBuildDate>
-    <atom:link href="https://example.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>最近搭建了一台家用Nas</title>
-      <link>https://example.com/posts/home-nas-2023/</link>
+      <link>https://wuyizhou.com/posts/home-nas-2023/</link>
       <pubDate>Thu, 19 Oct 2023 13:24:56 +0000</pubDate>
-      <guid>https://example.com/posts/home-nas-2023/</guid>
+      <guid>https://wuyizhou.com/posts/home-nas-2023/</guid>
       <description>从两个月前，我着手搭建了一套家用Nas，起因之前自己的资料一直存放在ICloud，因为自己的资料比较多，在600多G，所以自己一直购买的国区</description>
     </item>
     <item>
       <title>GPU服务器的多人环境搭建</title>
-      <link>https://example.com/posts/gpu-server-lxd-multiplexing/</link>
+      <link>https://wuyizhou.com/posts/gpu-server-lxd-multiplexing/</link>
       <pubDate>Fri, 21 Oct 2022 04:52:07 +0000</pubDate>
-      <guid>https://example.com/posts/gpu-server-lxd-multiplexing/</guid>
+      <guid>https://wuyizhou.com/posts/gpu-server-lxd-multiplexing/</guid>
       <description>环境 🔗CPU: Intel(R) Xeon(R) Gold 6154* 2 Momery: 128G GPU: 3080TI * 2 Disk: 16T HD &amp;amp; 512 SSD System: Ubuntu 22.04 Server 前言 🔗因为最近团队对于GPU的需求量增加，但之前都是在工作电脑上直接使用GPU进行训</description>
     </item>
     <item>
       <title>基于LXC容器的Openwrt搭建</title>
-      <link>https://example.com/posts/lxc-openwrt/</link>
+      <link>https://wuyizhou.com/posts/lxc-openwrt/</link>
       <pubDate>Tue, 06 Sep 2022 05:02:51 +0000</pubDate>
-      <guid>https://example.com/posts/lxc-openwrt/</guid>
+      <guid>https://wuyizhou.com/posts/lxc-openwrt/</guid>
       <description>前期工作 🔗环境和机器配置： 机器：5105v4 i226-v版本 pve： 7.1.2，内核Linux 5.13.19-2-pve 准备工作： 将网线连接到pve管理口，如果已安</description>
     </item>
     <item>
       <title>Elasticsearch节点配置</title>
-      <link>https://example.com/posts/elasticsearch-config-node/</link>
+      <link>https://wuyizhou.com/posts/elasticsearch-config-node/</link>
       <pubDate>Fri, 10 Jun 2022 07:49:01 +0000</pubDate>
-      <guid>https://example.com/posts/elasticsearch-config-node/</guid>
+      <guid>https://wuyizhou.com/posts/elasticsearch-config-node/</guid>
       <description>节点配置 🔗配置Java 🔗因为Elasticsearch是Java编写的，所以在使用Elasticsearch之前，需要构建好Java的环境。</description>
     </item>
     <item>
       <title>Apache2-https安装教程</title>
-      <link>https://example.com/posts/apache2-https/</link>
+      <link>https://wuyizhou.com/posts/apache2-https/</link>
       <pubDate>Mon, 25 Jun 2018 03:46:41 +0000</pubDate>
-      <guid>https://example.com/posts/apache2-https/</guid>
+      <guid>https://wuyizhou.com/posts/apache2-https/</guid>
       <description>环境 🔗 CentOS Linux release 7.5.1804 Apache/2.4.6 (CentOS) root用户 前言 🔗首先我们需要建立vhost文件，在目前的环境中安装的Apache会自动把目录为/etc/httpd/co</description>
     </item>
     <item>
       <title>MariaDB swap空间没有配置导致的出错问题</title>
-      <link>https://example.com/posts/mariadb-swap/</link>
+      <link>https://wuyizhou.com/posts/mariadb-swap/</link>
       <pubDate>Thu, 05 Oct 2017 08:26:39 +0000</pubDate>
-      <guid>https://example.com/posts/mariadb-swap/</guid>
+      <guid>https://wuyizhou.com/posts/mariadb-swap/</guid>
       <description>之前自己写的一篇关于搭建lamp的文章，在运行过程中会出现一些莫名其妙的错误导致mariadb错误，然后必须手动重启mariadb才能正常启</description>
     </item>
     <item>
       <title>家庭NAS搭建</title>
-      <link>https://example.com/posts/homenas/</link>
+      <link>https://wuyizhou.com/posts/homenas/</link>
       <pubDate>Fri, 29 Sep 2017 08:46:10 +0000</pubDate>
-      <guid>https://example.com/posts/homenas/</guid>
+      <guid>https://wuyizhou.com/posts/homenas/</guid>
       <description>前言 🔗最近因为装了家庭影院买了盒子，再加上之前自己也想购买一个NAS，选过来选过去挑选了群晖NAS，但是无奈价格太贵，除了统一性、稳定性和群</description>
     </item>
     <item>
       <title>LAMP环境搭建</title>
-      <link>https://example.com/posts/lamp/</link>
+      <link>https://wuyizhou.com/posts/lamp/</link>
       <pubDate>Sun, 24 Sep 2017 06:43:23 +0000</pubDate>
-      <guid>https://example.com/posts/lamp/</guid>
+      <guid>https://wuyizhou.com/posts/lamp/</guid>
       <description>环境 🔗系统版本：Centos 7.3 64位 服务器：阿里云香港 当前用户：root 目标：搭建wordpress执行环境 准备工作 🔗如果你是在一个新的环境</description>
     </item>
     <item>
       <title>Mongodb 身份验证</title>
-      <link>https://example.com/posts/mongodb-auth/</link>
+      <link>https://wuyizhou.com/posts/mongodb-auth/</link>
       <pubDate>Sat, 26 Aug 2017 10:08:26 +0000</pubDate>
-      <guid>https://example.com/posts/mongodb-auth/</guid>
+      <guid>https://wuyizhou.com/posts/mongodb-auth/</guid>
       <description>介绍 🔗不管数据库是在多安全的环境或者本地环境，给数据库建立一个安全的环境是很有必要的。 Mongodb提供了一系列的安全功能，这里介绍一种很常</description>
     </item>
     <item>
       <title>Mongodb 备份及恢复</title>
-      <link>https://example.com/posts/mongodb-backup/</link>
+      <link>https://wuyizhou.com/posts/mongodb-backup/</link>
       <pubDate>Sat, 26 Aug 2017 09:42:07 +0000</pubDate>
-      <guid>https://example.com/posts/mongodb-backup/</guid>
+      <guid>https://wuyizhou.com/posts/mongodb-backup/</guid>
       <description>介绍 🔗无论在什么情况下都应该进行数据备份，才能避免灾难性的数据损坏，下面将介绍两种备份方式，两种备份方式使用的场景也不一样，可以根据自身的使</description>
     </item>
     <item>
       <title>Mongodb 数据修复</title>
-      <link>https://example.com/posts/mongodb-data-repair/</link>
+      <link>https://wuyizhou.com/posts/mongodb-data-repair/</link>
       <pubDate>Sat, 26 Aug 2017 09:17:22 +0000</pubDate>
-      <guid>https://example.com/posts/mongodb-data-repair/</guid>
+      <guid>https://wuyizhou.com/posts/mongodb-data-repair/</guid>
       <description>介绍 🔗很多时候我们看见数据目录下有一个mongodb.lock文件，这个文件在开启了日志系统后不会出现，在没有开启日志系统的情况下非常重要，</description>
     </item>
     <item>
       <title>Mongodb 监测</title>
-      <link>https://example.com/posts/mongodb-monitoring/</link>
+      <link>https://wuyizhou.com/posts/mongodb-monitoring/</link>
       <pubDate>Fri, 25 Aug 2017 13:14:20 +0000</pubDate>
-      <guid>https://example.com/posts/mongodb-monitoring/</guid>
+      <guid>https://wuyizhou.com/posts/mongodb-monitoring/</guid>
       <description>介绍 🔗为什么要进行监控状态，因为在实际的情况中可能会发生一下无法预计的情况，比如阻塞的问题，阻塞的原因会有很多种情况造成，如果当我们查询文档</description>
     </item>
     <item>
       <title>Mongodb 分片</title>
-      <link>https://example.com/posts/mongodb-shares/</link>
+      <link>https://wuyizhou.com/posts/mongodb-shares/</link>
       <pubDate>Wed, 23 Aug 2017 12:03:05 +0000</pubDate>
-      <guid>https://example.com/posts/mongodb-shares/</guid>
+      <guid>https://wuyizhou.com/posts/mongodb-shares/</guid>
       <description>介绍 🔗分片是指将数据拆分，并分散放在多个服务器中组成一个集群，这可以将N台服务器的性能集中到一起来处理数据，这将很大程度的提高数据处理的速度</description>
     </item>
     <item>
       <title>Mongodb 副本集</title>
-      <link>https://example.com/posts/mongodb-replica/</link>
+      <link>https://wuyizhou.com/posts/mongodb-replica/</link>
       <pubDate>Mon, 21 Aug 2017 12:22:01 +0000</pubDate>
-      <guid>https://example.com/posts/mongodb-replica/</guid>
+      <guid>https://wuyizhou.com/posts/mongodb-replica/</guid>
       <description>介绍 🔗Mongodb官方提供了一个复制功能，它提供冗余的功能，它可以将数据保存在不同服务器上，并保持多个服务器的数据一致性。 当主要提供数据的</description>
     </item>
     <item>
       <title>Mongodb MapReduce</title>
-      <link>https://example.com/posts/mongodb-mapreduce/</link>
+      <link>https://wuyizhou.com/posts/mongodb-mapreduce/</link>
       <pubDate>Sun, 20 Aug 2017 15:17:26 +0000</pubDate>
-      <guid>https://example.com/posts/mongodb-mapreduce/</guid>
+      <guid>https://wuyizhou.com/posts/mongodb-mapreduce/</guid>
       <description>前言 🔗在上一节中说到了appregate聚合功能，聚合功能已经非常强大了，但是如果你还是无法通过聚合解决问题的话，那么你可能需要使用MapR</description>
     </item>
     <item>
       <title>Mongodb 聚合</title>
-      <link>https://example.com/posts/mongodb-aggregate/</link>
+      <link>https://wuyizhou.com/posts/mongodb-aggregate/</link>
       <pubDate>Thu, 10 Aug 2017 14:18:52 +0000</pubDate>
-      <guid>https://example.com/posts/mongodb-aggregate/</guid>
+      <guid>https://wuyizhou.com/posts/mongodb-aggregate/</guid>
       <description>参考 🔗MongoDB权威指南(第2版) Mongodb Docs 前言 🔗Mongodb提供了一个强大的处理框架，可以对集合中的文档进行各种组合、过滤、输出，如果你通</description>
     </item>
     <item>
       <title>Mongodb GridFS</title>
-      <link>https://example.com/posts/mongodb-gridfs/</link>
+      <link>https://wuyizhou.com/posts/mongodb-gridfs/</link>
       <pubDate>Wed, 09 Aug 2017 08:27:12 +0000</pubDate>
-      <guid>https://example.com/posts/mongodb-gridfs/</guid>
+      <guid>https://wuyizhou.com/posts/mongodb-gridfs/</guid>
       <description>参考 🔗MongoDB权威指南(第2版) Mongodb Docs 前言 🔗Mongodb提供了一个轻量级的文件系统来专门处理超过16MB的文件，这个文件系统叫Grid</description>
     </item>
     <item>
       <title>Mongodb特殊索引和集合</title>
-      <link>https://example.com/posts/mongodb-special-collection-index/</link>
+      <link>https://wuyizhou.com/posts/mongodb-special-collection-index/</link>
       <pubDate>Wed, 09 Aug 2017 07:43:18 +0000</pubDate>
-      <guid>https://example.com/posts/mongodb-special-collection-index/</guid>
+      <guid>https://wuyizhou.com/posts/mongodb-special-collection-index/</guid>
       <description>参考 🔗MongoDB权威指南(第2版) Mongodb Docs 特殊集合 🔗封顶集合 🔗封顶集合和普通集合不一样，普通集合的大小是可以随着数据的增加而增加的，封顶集合</description>
     </item>
     <item>
       <title>Mongodb索引</title>
-      <link>https://example.com/posts/mongodb-index/</link>
+      <link>https://wuyizhou.com/posts/mongodb-index/</link>
       <pubDate>Tue, 08 Aug 2017 12:28:45 +0000</pubDate>
-      <guid>https://example.com/posts/mongodb-index/</guid>
+      <guid>https://wuyizhou.com/posts/mongodb-index/</guid>
       <description>参考 🔗MongoDB权威指南(第2版) Mongodb Docs 前言 🔗建立索引对于任何需要提高查询速度的数据库来说都非常重要，那么索引究竟是一个什么？首先来看看下</description>
     </item>
     <item>
       <title>Mongodb查询</title>
-      <link>https://example.com/posts/mongodb-find/</link>
+      <link>https://wuyizhou.com/posts/mongodb-find/</link>
       <pubDate>Fri, 04 Aug 2017 08:07:53 +0000</pubDate>
-      <guid>https://example.com/posts/mongodb-find/</guid>
+      <guid>https://wuyizhou.com/posts/mongodb-find/</guid>
       <description>参考 🔗MongoDB权威指南(第2版) Mongodb Documentation 前言 🔗在Mongodb中查询的方法常用的有两个find和findOne，前者返回所有匹配的文档，而</description>
     </item>
     <item>
       <title>Mongodb更新修改器</title>
-      <link>https://example.com/posts/mongodb-update-modifier/</link>
+      <link>https://wuyizhou.com/posts/mongodb-update-modifier/</link>
       <pubDate>Thu, 03 Aug 2017 07:45:26 +0000</pubDate>
-      <guid>https://example.com/posts/mongodb-update-modifier/</guid>
+      <guid>https://wuyizhou.com/posts/mongodb-update-modifier/</guid>
       <description>参考 🔗MongoDB权威指南(第2版) 前言 🔗在Mongodb中我们使用的是update方法去更新我们需要更新的文档，比如下面的一个文档结构：</description>
     </item>
     <item>
       <title>Mongodb Shell</title>
-      <link>https://example.com/posts/mongodb-shell/</link>
+      <link>https://wuyizhou.com/posts/mongodb-shell/</link>
       <pubDate>Wed, 02 Aug 2017 11:48:04 +0000</pubDate>
-      <guid>https://example.com/posts/mongodb-shell/</guid>
+      <guid>https://wuyizhou.com/posts/mongodb-shell/</guid>
       <description>前言 🔗在前一章文章中提到了Mongodb提供了一个Javascript运行环境，这个运行环境我们通过mongo或者mongo.exe打开，这</description>
     </item>
     <item>
       <title>Mongodb基础知识</title>
-      <link>https://example.com/posts/mongodb/</link>
+      <link>https://wuyizhou.com/posts/mongodb/</link>
       <pubDate>Tue, 01 Aug 2017 15:36:33 +0000</pubDate>
-      <guid>https://example.com/posts/mongodb/</guid>
+      <guid>https://wuyizhou.com/posts/mongodb/</guid>
       <description>参考 🔗MongoDB权威指南(第2版) 前言 🔗Mongodb是一种面向文档的数据库，并非关系型数据库(如Mysql等)，Mongodb的出现也</description>
     </item>
     <item>
       <title>Kail安装Parallels tools</title>
-      <link>https://example.com/posts/kail-install-parallels-tools/</link>
+      <link>https://wuyizhou.com/posts/kail-install-parallels-tools/</link>
       <pubDate>Fri, 09 Jan 2015 07:57:00 +0000</pubDate>
-      <guid>https://example.com/posts/kail-install-parallels-tools/</guid>
+      <guid>https://wuyizhou.com/posts/kail-install-parallels-tools/</guid>
       <description>今天在安装虚拟机里面安装kail，在安装虚拟机提供的tools时候提示没有权限，如图： 后面经过自己证实首先tools是挂载的cdrom，在这</description>
     </item>
     <item>
       <title>Mac下修改默认的Java版本</title>
-      <link>https://example.com/posts/mac-java-version/</link>
+      <link>https://wuyizhou.com/posts/mac-java-version/</link>
       <pubDate>Thu, 09 Oct 2014 07:35:00 +0000</pubDate>
-      <guid>https://example.com/posts/mac-java-version/</guid>
+      <guid>https://wuyizhou.com/posts/mac-java-version/</guid>
       <description>今天在安装Elicpse IDE的时候，发现提示安装的Java版本不支持，于是在官方去下载了Jre最新版本并安装，在安装完过后再次打开Elic</description>
     </item>
     <item>
       <title>树莓派实现TimeMachine以及samba服务</title>
-      <link>https://example.com/posts/raspberrypi-timemachine-samba/</link>
+      <link>https://wuyizhou.com/posts/raspberrypi-timemachine-samba/</link>
       <pubDate>Sun, 17 Aug 2014 20:28:00 +0000</pubDate>
-      <guid>https://example.com/posts/raspberrypi-timemachine-samba/</guid>
+      <guid>https://wuyizhou.com/posts/raspberrypi-timemachine-samba/</guid>
       <description>最近一段时间感觉用移动硬盘备份Mac电脑很不方便，因为要把移动硬盘拿出来，还要插上电脑备份，看了一下AirPort，但是价钱太贵，况且只能用</description>
     </item>
     <item>
       <title>服务器设置Apache对htaccess支持</title>
-      <link>https://example.com/posts/apache-setting-access/</link>
+      <link>https://wuyizhou.com/posts/apache-setting-access/</link>
       <pubDate>Wed, 16 Apr 2014 21:16:00 +0000</pubDate>
-      <guid>https://example.com/posts/apache-setting-access/</guid>
+      <guid>https://wuyizhou.com/posts/apache-setting-access/</guid>
       <description>root权限下运行a2enmod（a2enmod是一个可以配置Apache的工具，a2enmod是属于apache2.2-common包下的</description>
     </item>
     <item>
       <title>配置Apache&#43;Mysql&#43;Php</title>
-      <link>https://example.com/posts/apache-mysql-php-server/</link>
+      <link>https://wuyizhou.com/posts/apache-mysql-php-server/</link>
       <pubDate>Sun, 13 Apr 2014 07:25:00 +0000</pubDate>
-      <guid>https://example.com/posts/apache-mysql-php-server/</guid>
+      <guid>https://wuyizhou.com/posts/apache-mysql-php-server/</guid>
       <description>以下操作均在Debian 6.0 64bit 环境root权限下进行，如果提示权限不足请切换至root用户或者sudo，本人比较喜欢自行安装，因为安装的过程中</description>
     </item>
   </channel>
