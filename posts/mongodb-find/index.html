@@ -256,21 +256,19 @@
 </span></span><span style="display:flex;"><span>        {c: &#39;two&#39;}
 </span></span><span style="display:flex;"><span>    ]
 </span></span><span style="display:flex;"><span>} 
-</span></span></code></pre></div><p>db.test.find({
-&lsquo;a.b&rsquo; : &lsquo;one&rsquo;
-}, {
-&lsquo;a.$.b&rsquo; 1
-})</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>上面的代码返回的文档就会正确了
-</span></span></code></pre></div><p>{
-a: [
-{b: &lsquo;one&rsquo;}
-]
-}</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>文完
-</span></span></code></pre></div>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.test.find({
+</span></span><span style="display:flex;"><span>    &#39;a.b&#39; : &#39;one&#39;
+</span></span><span style="display:flex;"><span>}, {
+</span></span><span style="display:flex;"><span>    &#39;a.$.b&#39; 1
+</span></span><span style="display:flex;"><span>}) 
+</span></span></code></pre></div><p>上面的代码返回的文档就会正确了</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    a: [
+</span></span><span style="display:flex;"><span>        {b: &#39;one&#39;}
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>文完</p>
+
     </div>
 
     

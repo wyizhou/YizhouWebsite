@@ -75,13 +75,13 @@
           ·
         </span>
         <span>
-          3531字
+          3492字
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          8分钟
+          7分钟
         </span>
     </div>
 
@@ -102,9 +102,13 @@
     <li><a href="#管道操作符">管道操作符</a>
       <ul>
         <li><a href="#match">$match</a></li>
+        <li><a href="#project">$project</a></li>
         <li><a href="#group">$group</a></li>
+        <li><a href="#unwind">$unwind</a></li>
         <li><a href="#sort">$sort</a></li>
+        <li><a href="#limit">$limit</a></li>
         <li><a href="#skip">$skip</a></li>
+        <li><a href="#其他">其他</a></li>
       </ul>
     </li>
   </ul>
@@ -159,32 +163,27 @@
 </li>
 </ul>
 <p>上面的顺序一般是我们常用的顺序，首先我们筛选一部分文档，然后从筛选中整理一份更加便于我们操作的文档，然后在对整理好的文档通过一些表达式来分组整理，然后通过排序、限制、跳过，得到我们最终的结果。 在管道操作符中如果需要指定文档中的某个键的时候，需要在键名前面加上<code>$</code>符号，比如文档中的<code>name</code>键，在管道操作中要指定它就得这样写<code>$name</code>。 并且我们所有的操作的文档都不是操作储存在硬盘中的数据，我们操作的文档都是储存在内存当中，所以不影响原始数据。</p>
-<h2 id="管道操作符">管道操作符 <a href="#%e7%ae%a1%e9%81%93%e6%93%8d%e4%bd%9c%e7%ac%a6" class="anchor">🔗</a></h2><h3 id="match">$match <a href="#match" class="anchor">🔗</a></h3><p><code>$match</code>应尽量放在聚合的最前面，因为<code>$match</code>使用的是Mongodb的标准查询，所以可以使用索引来提高我们的效率，其次是可以过滤掉不需要的文档，让后续的操作更加效率。 既然是标准的查询我们就可以使用标准查询里面所有<a href="http://xsscript.com/2017/08/04/mongodb-find/" target="_blank" rel="noopener">操作符</a>。 下面来大概演示一下<code>$match</code>的操作方法： 实例的文档结构如下:```
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;512bc95fe835e68f199c8686&rdquo;), &ldquo;author&rdquo; : &ldquo;dave&rdquo;, &ldquo;score&rdquo; : 80, &ldquo;views&rdquo; : 100 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;512bc962e835e68f199c8687&rdquo;), &ldquo;author&rdquo; : &ldquo;dave&rdquo;, &ldquo;score&rdquo; : 85, &ldquo;views&rdquo; : 521 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a192d4bede9ac365b257&rdquo;), &ldquo;author&rdquo; : &ldquo;ahn&rdquo;, &ldquo;score&rdquo; : 60, &ldquo;views&rdquo; : 1000 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a192d4bede9ac365b258&rdquo;), &ldquo;author&rdquo; : &ldquo;li&rdquo;, &ldquo;score&rdquo; : 55, &ldquo;views&rdquo; : 5000 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b259&rdquo;), &ldquo;author&rdquo; : &ldquo;annT&rdquo;, &ldquo;score&rdquo; : 60, &ldquo;views&rdquo; : 50 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b25a&rdquo;), &ldquo;author&rdquo; : &ldquo;li&rdquo;, &ldquo;score&rdquo; : 94, &ldquo;views&rdquo; : 999 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b25b&rdquo;), &ldquo;author&rdquo; : &ldquo;ty&rdquo;, &ldquo;score&rdquo; : 95, &ldquo;views&rdquo; : 1000 }</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">查询</span><span style="color:#666">`</span>author<span style="color:#666">`</span><span style="">键的值为</span><span style="color:#666">`</span>dave<span style="color:#666">`</span><span style="">的文档：</span><span style="color:#bbb">
-</span></span></span></code></pre></div><p>db.blog.aggregate([
-{
-$match: {
-author: &lsquo;dave&rsquo;
-}
-}
-]);</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>返回的文档为：
-</span></span></code></pre></div><p>{ &ldquo;_id&rdquo; : ObjectId(&ldquo;512bc95fe835e68f199c8686&rdquo;), &ldquo;author&rdquo; : &ldquo;dave&rdquo;, &ldquo;score&rdquo; : 80, &ldquo;views&rdquo; : 100 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;512bc962e835e68f199c8687&rdquo;), &ldquo;author&rdquo; : &ldquo;dave&rdquo;, &ldquo;score&rdquo; : 85, &ldquo;views&rdquo; : 521 }</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>### $project
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>映射管道操作就如最开始介绍的，整理文档便于我们后面更好的操作，它可以重新命名键，还可以去除不需要的键。 实例的文档结构如下:```
-</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc95fe835e68f199c8686&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 80, &#34;views&#34; : 100 }
+<h2 id="管道操作符">管道操作符 <a href="#%e7%ae%a1%e9%81%93%e6%93%8d%e4%bd%9c%e7%ac%a6" class="anchor">🔗</a></h2><h3 id="match">$match <a href="#match" class="anchor">🔗</a></h3><p><code>$match</code>应尽量放在聚合的最前面，因为<code>$match</code>使用的是Mongodb的标准查询，所以可以使用索引来提高我们的效率，其次是可以过滤掉不需要的文档，让后续的操作更加效率。 既然是标准的查询我们就可以使用标准查询里面所有<a href="http://xsscript.com/2017/08/04/mongodb-find/" target="_blank" rel="noopener">操作符</a>。 下面来大概演示一下<code>$match</code>的操作方法： 实例的文档结构如下:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc95fe835e68f199c8686&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 80, &#34;views&#34; : 100 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc962e835e68f199c8687&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 85, &#34;views&#34; : 521 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b257&#34;), &#34;author&#34; : &#34;ahn&#34;, &#34;score&#34; : 60, &#34;views&#34; : 1000 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b258&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 55, &#34;views&#34; : 5000 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b259&#34;), &#34;author&#34; : &#34;annT&#34;, &#34;score&#34; : 60, &#34;views&#34; : 50 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25a&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 94, &#34;views&#34; : 999 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25b&#34;), &#34;author&#34; : &#34;ty&#34;, &#34;score&#34; : 95, &#34;views&#34; : 1000 } 
+</span></span></code></pre></div><p>查询<code>author</code>键的值为<code>dave</code>的文档：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.blog.aggregate([
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    $match: {
+</span></span><span style="display:flex;"><span>      author: &#39;dave&#39;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]); 
+</span></span></code></pre></div><p>返回的文档为：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc95fe835e68f199c8686&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 80, &#34;views&#34; : 100 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc962e835e68f199c8687&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 85, &#34;views&#34; : 521 } 
+</span></span></code></pre></div><h3 id="project">$project <a href="#project" class="anchor">🔗</a></h3><p>映射管道操作就如最开始介绍的，整理文档便于我们后面更好的操作，它可以重新命名键，还可以去除不需要的键。 实例的文档结构如下:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc95fe835e68f199c8686&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 80, &#34;views&#34; : 100 }
 </span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc962e835e68f199c8687&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 85, &#34;views&#34; : 521 }
 </span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b257&#34;), &#34;author&#34; : &#34;ahn&#34;, &#34;score&#34; : 60, &#34;views&#34; : 1000 }
 </span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b258&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 55, &#34;views&#34; : 5000 }
@@ -238,51 +237,46 @@ author: &lsquo;dave&rsquo;
 </span></span></code></pre></div><p>返回的文档内容：</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{ &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 90 }
 </span></span><span style="display:flex;"><span>{ &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 95 } 
-</span></span></code></pre></div><h3 id="group">$group <a href="#group" class="anchor">🔗</a></h3><p>分组的作用是将文档中键的值，分成不同的组，然后通过<a href="https://docs.mongodb.com/manual/reference/operator/aggregation/group/#pipe._S_group" target="_blank" rel="noopener">累加器</a>操作，然后输出文档，在进行<code>$group</code>管道操作中，<code>_id</code>键是必须存在的。 比如下面我需要将文档中<code>author</code>键的值相同的文档作一个统计： 实例的文档结构如下:```
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;512bc95fe835e68f199c8686&rdquo;), &ldquo;author&rdquo; : &ldquo;dave&rdquo;, &ldquo;score&rdquo; : 80, &ldquo;views&rdquo; : 100 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;512bc962e835e68f199c8687&rdquo;), &ldquo;author&rdquo; : &ldquo;dave&rdquo;, &ldquo;score&rdquo; : 85, &ldquo;views&rdquo; : 521 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a192d4bede9ac365b257&rdquo;), &ldquo;author&rdquo; : &ldquo;ahn&rdquo;, &ldquo;score&rdquo; : 60, &ldquo;views&rdquo; : 1000 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a192d4bede9ac365b258&rdquo;), &ldquo;author&rdquo; : &ldquo;li&rdquo;, &ldquo;score&rdquo; : 55, &ldquo;views&rdquo; : 5000 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b259&rdquo;), &ldquo;author&rdquo; : &ldquo;annT&rdquo;, &ldquo;score&rdquo; : 60, &ldquo;views&rdquo; : 50 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b25a&rdquo;), &ldquo;author&rdquo; : &ldquo;li&rdquo;, &ldquo;score&rdquo; : 94, &ldquo;views&rdquo; : 999 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b25b&rdquo;), &ldquo;author&rdquo; : &ldquo;ty&rdquo;, &ldquo;score&rdquo; : 95, &ldquo;views&rdquo; : 1000 }</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>执行的代码：
-</span></span></code></pre></div><p>db.blog.aggregate([
-{
-$group: {
-_id: &lsquo;$author&rsquo;,
-total: {
-$sum: 1
-}
-}
-}
-]);</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>返回的文档内容：
-</span></span></code></pre></div><p>{ &ldquo;_id&rdquo; : &ldquo;ty&rdquo;, &ldquo;total&rdquo; : 1 }
-{ &ldquo;_id&rdquo; : &ldquo;annT&rdquo;, &ldquo;total&rdquo; : 1 }
-{ &ldquo;_id&rdquo; : &ldquo;li&rdquo;, &ldquo;total&rdquo; : 2 }
-{ &ldquo;_id&rdquo; : &ldquo;ahn&rdquo;, &ldquo;total&rdquo; : 1 }
-{ &ldquo;_id&rdquo; : &ldquo;dave&rdquo;, &ldquo;total&rdquo; : 2 }</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">### $unwind
-</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">`</span><span style="">$</span>unwind<span style="color:#666">`</span><span style="">管道操作符可以将数组中的每个成员拆分为一个单独的文档，并输出给下一个管道操作。</span><span style="color:#bbb"> </span><span style="">比如下面的文档中</span><span style="color:#666">`</span>a<span style="color:#666">`</span><span style="">键包含了</span><span style="color:#666">3</span><span style="">个数组，使用</span><span style="color:#666">`</span><span style="">$</span>unwind<span style="color:#666">`</span><span style="">管道操作符将成员拆分为单独的文档并输出。</span><span style="color:#bbb"> </span><span style="">实例的文档结构如下</span>:<span style="color:#666">```</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">{</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>a:<span style="color:#bbb"> </span>[<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">{</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>b:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">}</span>,<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">{</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>b:<span style="color:#bbb"> </span><span style="color:#666">2</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">}</span>,<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">{</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>b:<span style="color:#bbb"> </span><span style="color:#666">3</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">}</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>]<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">}</span><span style="color:#bbb"> 
-</span></span></span></code></pre></div><p>执行的代码：</p>
+</span></span></code></pre></div><h3 id="group">$group <a href="#group" class="anchor">🔗</a></h3><p>分组的作用是将文档中键的值，分成不同的组，然后通过<a href="https://docs.mongodb.com/manual/reference/operator/aggregation/group/#pipe._S_group" target="_blank" rel="noopener">累加器</a>操作，然后输出文档，在进行<code>$group</code>管道操作中，<code>_id</code>键是必须存在的。 比如下面我需要将文档中<code>author</code>键的值相同的文档作一个统计： 实例的文档结构如下:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc95fe835e68f199c8686&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 80, &#34;views&#34; : 100 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc962e835e68f199c8687&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 85, &#34;views&#34; : 521 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b257&#34;), &#34;author&#34; : &#34;ahn&#34;, &#34;score&#34; : 60, &#34;views&#34; : 1000 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b258&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 55, &#34;views&#34; : 5000 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b259&#34;), &#34;author&#34; : &#34;annT&#34;, &#34;score&#34; : 60, &#34;views&#34; : 50 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25a&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 94, &#34;views&#34; : 999 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25b&#34;), &#34;author&#34; : &#34;ty&#34;, &#34;score&#34; : 95, &#34;views&#34; : 1000 } 
+</span></span></code></pre></div><p>执行的代码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.blog.aggregate([
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    $group: {
+</span></span><span style="display:flex;"><span>      _id: &#39;$author&#39;,
+</span></span><span style="display:flex;"><span>      total: {
+</span></span><span style="display:flex;"><span>        $sum: 1
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]); 
+</span></span></code></pre></div><p>返回的文档内容：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{ &#34;_id&#34; : &#34;ty&#34;, &#34;total&#34; : 1 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : &#34;annT&#34;, &#34;total&#34; : 1 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : &#34;li&#34;, &#34;total&#34; : 2 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : &#34;ahn&#34;, &#34;total&#34; : 1 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : &#34;dave&#34;, &#34;total&#34; : 2 } 
+</span></span></code></pre></div><h3 id="unwind">$unwind <a href="#unwind" class="anchor">🔗</a></h3><p><code>$unwind</code>管道操作符可以将数组中的每个成员拆分为一个单独的文档，并输出给下一个管道操作。 比如下面的文档中<code>a</code>键包含了3个数组，使用<code>$unwind</code>管道操作符将成员拆分为单独的文档并输出。 实例的文档结构如下:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    a: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            b: 1
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            b: 2
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            b: 3
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div><p>执行的代码：</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.blog.aggregate([
 </span></span><span style="display:flex;"><span>    {
 </span></span><span style="display:flex;"><span>        $unwind: &#39;$a&#39;
@@ -292,37 +286,32 @@ $sum: 1
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;598c5807841dccce335a0e98&#34;), &#34;a&#34; : { &#34;b&#34; : 1 } }
 </span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;598c5807841dccce335a0e98&#34;), &#34;a&#34; : { &#34;b&#34; : 2 } }
 </span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;598c5807841dccce335a0e98&#34;), &#34;a&#34; : { &#34;b&#34; : 3 } } 
-</span></span></code></pre></div><h3 id="sort">$sort <a href="#sort" class="anchor">🔗</a></h3><p>排序是将上一个管道操作符输入进来的文档进行排序，它指定排序的键然后值为升序<code>1</code>和降序<code>-1</code>。 比如需要对下面的文档中的<code>score</code>键的值进行降序排序： 实例的文档结构如下:```
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;512bc95fe835e68f199c8686&rdquo;), &ldquo;author&rdquo; : &ldquo;dave&rdquo;, &ldquo;score&rdquo; : 80, &ldquo;views&rdquo; : 100 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;512bc962e835e68f199c8687&rdquo;), &ldquo;author&rdquo; : &ldquo;dave&rdquo;, &ldquo;score&rdquo; : 85, &ldquo;views&rdquo; : 521 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a192d4bede9ac365b257&rdquo;), &ldquo;author&rdquo; : &ldquo;ahn&rdquo;, &ldquo;score&rdquo; : 60, &ldquo;views&rdquo; : 1000 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a192d4bede9ac365b258&rdquo;), &ldquo;author&rdquo; : &ldquo;li&rdquo;, &ldquo;score&rdquo; : 55, &ldquo;views&rdquo; : 5000 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b259&rdquo;), &ldquo;author&rdquo; : &ldquo;annT&rdquo;, &ldquo;score&rdquo; : 60, &ldquo;views&rdquo; : 50 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b25a&rdquo;), &ldquo;author&rdquo; : &ldquo;li&rdquo;, &ldquo;score&rdquo; : 94, &ldquo;views&rdquo; : 999 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b25b&rdquo;), &ldquo;author&rdquo; : &ldquo;ty&rdquo;, &ldquo;score&rdquo; : 95, &ldquo;views&rdquo; : 1000 }</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>执行的代码：
-</span></span></code></pre></div><p>db.blog.aggregate([
-{
-$sort: {
-score: -1
-}
-}
-]);</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>返回的文档：
-</span></span></code></pre></div><p>{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b25b&rdquo;), &ldquo;author&rdquo; : &ldquo;ty&rdquo;, &ldquo;score&rdquo; : 95, &ldquo;views&rdquo; : 1000 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b25a&rdquo;), &ldquo;author&rdquo; : &ldquo;li&rdquo;, &ldquo;score&rdquo; : 94, &ldquo;views&rdquo; : 999 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;512bc962e835e68f199c8687&rdquo;), &ldquo;author&rdquo; : &ldquo;dave&rdquo;, &ldquo;score&rdquo; : 85, &ldquo;views&rdquo; : 521 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;512bc95fe835e68f199c8686&rdquo;), &ldquo;author&rdquo; : &ldquo;dave&rdquo;, &ldquo;score&rdquo; : 80, &ldquo;views&rdquo; : 100 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a192d4bede9ac365b257&rdquo;), &ldquo;author&rdquo; : &ldquo;ahn&rdquo;, &ldquo;score&rdquo; : 60, &ldquo;views&rdquo; : 1000 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b259&rdquo;), &ldquo;author&rdquo; : &ldquo;annT&rdquo;, &ldquo;score&rdquo; : 60, &ldquo;views&rdquo; : 50 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a192d4bede9ac365b258&rdquo;), &ldquo;author&rdquo; : &ldquo;li&rdquo;, &ldquo;score&rdquo; : 55, &ldquo;views&rdquo; : 5000 }</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>### $limit
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>`$limint`管道操作符接受一个数字，将前n个文档输出。 比如下面输出下面文档的前3个文档：```
+</span></span></code></pre></div><h3 id="sort">$sort <a href="#sort" class="anchor">🔗</a></h3><p>排序是将上一个管道操作符输入进来的文档进行排序，它指定排序的键然后值为升序<code>1</code>和降序<code>-1</code>。 比如需要对下面的文档中的<code>score</code>键的值进行降序排序： 实例的文档结构如下:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc95fe835e68f199c8686&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 80, &#34;views&#34; : 100 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc962e835e68f199c8687&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 85, &#34;views&#34; : 521 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b257&#34;), &#34;author&#34; : &#34;ahn&#34;, &#34;score&#34; : 60, &#34;views&#34; : 1000 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b258&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 55, &#34;views&#34; : 5000 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b259&#34;), &#34;author&#34; : &#34;annT&#34;, &#34;score&#34; : 60, &#34;views&#34; : 50 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25a&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 94, &#34;views&#34; : 999 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25b&#34;), &#34;author&#34; : &#34;ty&#34;, &#34;score&#34; : 95, &#34;views&#34; : 1000 } 
+</span></span></code></pre></div><p>执行的代码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.blog.aggregate([
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        $sort: {
+</span></span><span style="display:flex;"><span>            score: -1
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>]); 
+</span></span></code></pre></div><p>返回的文档：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25b&#34;), &#34;author&#34; : &#34;ty&#34;, &#34;score&#34; : 95, &#34;views&#34; : 1000 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25a&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 94, &#34;views&#34; : 999 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc962e835e68f199c8687&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 85, &#34;views&#34; : 521 }
 </span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc95fe835e68f199c8686&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 80, &#34;views&#34; : 100 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b257&#34;), &#34;author&#34; : &#34;ahn&#34;, &#34;score&#34; : 60, &#34;views&#34; : 1000 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b259&#34;), &#34;author&#34; : &#34;annT&#34;, &#34;score&#34; : 60, &#34;views&#34; : 50 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b258&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 55, &#34;views&#34; : 5000 } 
+</span></span></code></pre></div><h3 id="limit">$limit <a href="#limit" class="anchor">🔗</a></h3><p><code>$limint</code>管道操作符接受一个数字，将前n个文档输出。 比如下面输出下面文档的前3个文档：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc95fe835e68f199c8686&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 80, &#34;views&#34; : 100 }
 </span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc962e835e68f199c8687&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 85, &#34;views&#34; : 521 }
 </span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b257&#34;), &#34;author&#34; : &#34;ahn&#34;, &#34;score&#34; : 60, &#34;views&#34; : 1000 }
 </span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b258&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 55, &#34;views&#34; : 5000 }
@@ -339,30 +328,25 @@ score: -1
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc95fe835e68f199c8686&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 80, &#34;views&#34; : 100 }
 </span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc962e835e68f199c8687&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 85, &#34;views&#34; : 521 }
 </span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b257&#34;), &#34;author&#34; : &#34;ahn&#34;, &#34;score&#34; : 60, &#34;views&#34; : 1000 } 
-</span></span></code></pre></div><h3 id="skip">$skip <a href="#skip" class="anchor">🔗</a></h3><p><code>$limint</code>管道操作符接受一个数字，将前n个文档后的文档输出到下一个管道。 比如下面输出下面文档的后2个文档：```
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;512bc95fe835e68f199c8686&rdquo;), &ldquo;author&rdquo; : &ldquo;dave&rdquo;, &ldquo;score&rdquo; : 80, &ldquo;views&rdquo; : 100 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;512bc962e835e68f199c8687&rdquo;), &ldquo;author&rdquo; : &ldquo;dave&rdquo;, &ldquo;score&rdquo; : 85, &ldquo;views&rdquo; : 521 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a192d4bede9ac365b257&rdquo;), &ldquo;author&rdquo; : &ldquo;ahn&rdquo;, &ldquo;score&rdquo; : 60, &ldquo;views&rdquo; : 1000 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a192d4bede9ac365b258&rdquo;), &ldquo;author&rdquo; : &ldquo;li&rdquo;, &ldquo;score&rdquo; : 55, &ldquo;views&rdquo; : 5000 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b259&rdquo;), &ldquo;author&rdquo; : &ldquo;annT&rdquo;, &ldquo;score&rdquo; : 60, &ldquo;views&rdquo; : 50 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b25a&rdquo;), &ldquo;author&rdquo; : &ldquo;li&rdquo;, &ldquo;score&rdquo; : 94, &ldquo;views&rdquo; : 999 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b25b&rdquo;), &ldquo;author&rdquo; : &ldquo;ty&rdquo;, &ldquo;score&rdquo; : 95, &ldquo;views&rdquo; : 1000 }</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>执行的代码：
-</span></span></code></pre></div><p>db.blog.aggregate([
-{
-$skip: 5
-}
-]);</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>返回的文档内容：
-</span></span></code></pre></div><p>{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b25a&rdquo;), &ldquo;author&rdquo; : &ldquo;li&rdquo;, &ldquo;score&rdquo; : 94, &ldquo;views&rdquo; : 999 }
-{ &ldquo;_id&rdquo; : ObjectId(&ldquo;55f5a1d3d4bede9ac365b25b&rdquo;), &ldquo;author&rdquo; : &ldquo;ty&rdquo;, &ldquo;score&rdquo; : 95, &ldquo;views&rdquo; : 1000 }</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>### 其他
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Mongodb不允许单一聚合操作符占用超过20%的内存，如果超过了就会直接抛出错误，并且尽可能的让`$match`管道操作符在前面，因为它可以使用索引，然后通过`$project`、`$group`尽可能的过滤掉不需要的数据。
-</span></span></code></pre></div>
+</span></span></code></pre></div><h3 id="skip">$skip <a href="#skip" class="anchor">🔗</a></h3><p><code>$limint</code>管道操作符接受一个数字，将前n个文档后的文档输出到下一个管道。 比如下面输出下面文档的后2个文档：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc95fe835e68f199c8686&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 80, &#34;views&#34; : 100 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;512bc962e835e68f199c8687&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 85, &#34;views&#34; : 521 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b257&#34;), &#34;author&#34; : &#34;ahn&#34;, &#34;score&#34; : 60, &#34;views&#34; : 1000 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b258&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 55, &#34;views&#34; : 5000 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b259&#34;), &#34;author&#34; : &#34;annT&#34;, &#34;score&#34; : 60, &#34;views&#34; : 50 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25a&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 94, &#34;views&#34; : 999 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25b&#34;), &#34;author&#34; : &#34;ty&#34;, &#34;score&#34; : 95, &#34;views&#34; : 1000 } 
+</span></span></code></pre></div><p>执行的代码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>db.blog.aggregate([
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        $skip: 5
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>]); 
+</span></span></code></pre></div><p>返回的文档内容：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25a&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 94, &#34;views&#34; : 999 }
+</span></span><span style="display:flex;"><span>{ &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25b&#34;), &#34;author&#34; : &#34;ty&#34;, &#34;score&#34; : 95, &#34;views&#34; : 1000 } 
+</span></span></code></pre></div><h3 id="其他">其他 <a href="#%e5%85%b6%e4%bb%96" class="anchor">🔗</a></h3><p>Mongodb不允许单一聚合操作符占用超过20%的内存，如果超过了就会直接抛出错误，并且尽可能的让<code>$match</code>管道操作符在前面，因为它可以使用索引，然后通过<code>$project</code>、<code>$group</code>尽可能的过滤掉不需要的数据。</p>
+
     </div>
 
     

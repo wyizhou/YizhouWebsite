@@ -75,13 +75,13 @@
           ·
         </span>
         <span>
-          2114字
+          1985字
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          5分钟
+          4分钟
         </span>
     </div>
 
@@ -99,7 +99,6 @@
     <li>
       <ul>
         <li><a href="#iterator概念">Iterator概念</a></li>
-        <li><a href="#遍历器对象-returnthrow">遍历器对象 return(),throw()</a></li>
       </ul>
     </li>
   </ul>
@@ -139,89 +138,82 @@
 </li>
 </ol>
 <p>用一个代码段来实现上面的4个点，也就是来实现一个Iterator遍历器</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span>function iter(arr) {
-</span></span><span style="display:flex;"><span>    let index <span style="color:#666">=</span> <span style="color:#666">0</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a2f;font-weight:bold">return</span> {
-</span></span><span style="display:flex;"><span>        next() {
-</span></span><span style="display:flex;"><span>            <span style="color:#a2f;font-weight:bold">return</span> index <span style="color:#666">&lt;=</span> arr<span style="color:#666">.</span>length <span style="">?</span> 
-</span></span><span style="display:flex;"><span>            { value: arr[index<span style="color:#666">++</span>], done: false } : 
-</span></span><span style="display:flex;"><span>            { value: undefined,  done: true}
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span>function<span style="color:#bbb"> </span><span style="color:#00a000">iter</span>(arr)<span style="color:#bbb"> </span><span style="">{</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>let<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">index</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#666">0</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span><span style="">{</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#00a000">next</span>()<span style="color:#bbb"> </span><span style="">{</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">index</span><span style="color:#bbb"> </span><span style="color:#666">&lt;=</span><span style="color:#bbb"> </span>arr.length<span style="color:#bbb"> </span><span style="color:#666">?</span><span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="">{</span><span style="color:#bbb"> </span>value:<span style="color:#bbb"> </span>arr[<span style="color:#a2f;font-weight:bold">index</span><span style="color:#666">++</span>],<span style="color:#bbb"> </span>done:<span style="color:#bbb"> </span><span style="color:#800">false</span><span style="color:#bbb"> </span><span style="">}</span><span style="color:#bbb"> </span>:<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="">{</span><span style="color:#bbb"> </span>value:<span style="color:#bbb"> </span>undefined,<span style="color:#bbb">  </span>done:<span style="color:#bbb"> </span><span style="color:#800">true</span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>let<span style="color:#bbb"> </span>test<span style="color:#bbb">  </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#00a000">iter</span>([<span style="color:#666">1</span>,<span style="color:#bbb"> </span><span style="color:#666">2</span>]);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>test.<span style="color:#00a000">next</span>();<span style="color:#bbb"> </span><span style="color:#666">//</span><span style="color:#bbb"> </span><span style="">第一次运行</span>next方法<span style="">。返回</span>Object<span style="color:#bbb"> </span><span style="">{</span>value:<span style="color:#bbb"> </span><span style="color:#666">1</span>,<span style="color:#bbb"> </span>done:<span style="color:#bbb"> </span><span style="color:#800">false</span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>test.<span style="color:#00a000">next</span>();<span style="color:#bbb"> </span><span style="color:#666">//</span><span style="color:#bbb"> </span><span style="">第二次运行</span>next方法<span style="">。返回</span>Object<span style="color:#bbb"> </span><span style="">{</span>value:<span style="color:#bbb"> </span><span style="color:#666">2</span>,<span style="color:#bbb"> </span>done:<span style="color:#bbb"> </span><span style="color:#800">false</span><span style="">}</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>test.<span style="color:#00a000">next</span>();<span style="color:#bbb"> </span><span style="color:#666">//</span><span style="color:#bbb"> </span><span style="">第三次运行</span>next方法<span style="">。返回</span>Object<span style="color:#bbb"> </span><span style="">{</span>value:<span style="color:#bbb"> </span>undefined,<span style="color:#bbb"> </span>done:<span style="color:#bbb"> </span><span style="color:#800">false</span><span style="">}</span><span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">```</span><span style="">上面的代码实现了一个遍历器生成函数，每次传入数组或者类数组或者是含有</span><span style="color:#666">`</span>length<span style="color:#666">`</span><span style="">属性的并可遍历数据，都可以返回一个遍历器。遍历器生成函数在内部定义了一个变量</span>index用于数据指针<span style="">，指向当前遍历位置的成员，然后返回了一个对象，用指针去判断如果指针已经大于数组最大的成员数，那么返回值为空和返回一个</span><span style="color:#666">`</span>done<span style="color:#666">`</span><span style="">属性并值为</span><span style="color:#666">`</span><span style="color:#800">true</span><span style="color:#666">`</span><span style="">表示已经结束遍历，反之，返回相应的值。其中用</span>done来判断是否遍历结束<span style="">。</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">### Iterator接口原生的数据结构
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"></span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="">数组、类数组、</span>Map<span style="">、</span>Set几种数据结构是具备原生的Iterator接口<span style="">，也就是说我们不需要任何的处理就可以使用遍历器、以及调用遍历器接口循环的</span>for...of命令<span style="">。如何知道一个数据结构是否具备</span>Iterator接口<span style="">？通过</span>Symbol.iterator这个属性来确定是否部署了iterator接口<span style="">，</span>Symbol.iterator是[Symbol](http:<span style="color:#666">//</span>xsscript.com<span style="color:#666">//</span><span style="color:#666">2017</span><span style="color:#666">/</span><span style="color:#666">07</span><span style="color:#666">/</span><span style="color:#666">06</span><span style="color:#666">/</span>es6<span style="color:#666">-</span>symbol<span style="color:#666">/</span>)<span style="">对象下面的</span>iterator属性<span style="">，它返回一个独一无二的</span>Symbol值<span style="">，如果一个数据结构通过此属性访问会返回一个函数，说明这个数据结构已经部署了遍历器。</span><span style="color:#bbb">
+</span></span></span></code></pre></div><p>let arr = [1, 2];</p>
+<p>arr[Symbol.iterator]; // function values() { [native code] }</p>
+<p>let arrIt = arr<a href="">Symbol.iterator</a>; // 得到一个遍历器</p>
+<p>arrIt.next(); // Object {value: 1, done: false}</p>
+<p>arrIt.next(); // Object {value: 2, done: false}</p>
+<p>arrIt.next(); // Object {value: undefined, done: true}</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; 对象(Object)之所以没有默认部署Iterator接口，是因为对象的哪个属性先遍历，哪个属性后遍历是不确定的，需要开发者手动指定。本质上，遍历 器是一种线性处理，对于任何非线性的数据结构，部署遍历器接口，就等于部署一种线性转换。不过，严格地说，对象部署遍历器接口并不是很必 要，因为这时对象实际上被当作Map结构使用，ES5没有Map结构，而ES6原生提供了。
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>let test  <span style="color:#666">=</span> iter([<span style="color:#666">1</span>, <span style="color:#666">2</span>]);
+</span></span><span style="display:flex;"><span>如果我们真的需要给没有部署Iterator接口的数据结构就只需要在这个数据结构的Symbol.iterator属性上面部署一个iterator接口就可以实现了：
+</span></span></code></pre></div><p>const obj = {
+data: [1, 2, 3],
+<a href="it">Symbol.iterator</a> {
+const self = this;
+let index = 0;
+return {
+next() {
+if(index &lt;= self[it].length ) {
+return {value: self[it][index++], done: false }
+} else {
+return {value: undefined, done: true}
+}
+}
+}
+}
+}</p>
+<p>let objIt = obj<a href="%27data%27">Symbol.iterator</a>; //返回obj对象data属性中数组的iterator遍历器</p>
+<p>obj.pubData = [&lsquo;1&rsquo;, &lsquo;b&rsquo;, &lsquo;bbx&rsquo;];</p>
+<p>objIt = obj<a href="%27pubData%27">Symbol.iterator</a>; //返回obj对象pubData属性中数组的iterator遍历器</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>通过上面的代码我们可以给obj对象部署一个iterator接口，并且在调用Symbol.iterator的属性方法的时候传入的一个值，可以用来便利对象中的自定义数组,当然这个方法我们一样可以定义在原型上面，方便所有对象来生成iterator遍历器。
+</span></span></code></pre></div><p>Object.prototype[Symbol.iterator] = function(it){
+const self = this;
+let index = 0;
+return {
+next() {
+if(index &lt;= self[it].length ) {
+return {value: self[it][index++], done: false }
+} else {
+return {value: undefined, done: true}
+}
+}
+}
+}</p>
+<p>const obj = {
+data: [1, 2, 3]
+}</p>
+<p>let objIt = obj<a href="%27data%27">Symbol.iterator</a>; //返回obj对象data属性数组的遍历器</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>### 遍历器对象 return(),throw()
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>test<span style="color:#666">.</span>next(); <span style="color:#666">//</span> <span style="">第一次运行</span>next方法<span style="">。返回</span><span style="color:#d2413a;font-weight:bold">Object</span> {value: <span style="color:#666">1</span>, done: false}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>test<span style="color:#666">.</span>next(); <span style="color:#666">//</span> <span style="">第二次运行</span>next方法<span style="">。返回</span><span style="color:#d2413a;font-weight:bold">Object</span> {value: <span style="color:#666">2</span>, done: false}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>test<span style="color:#666">.</span>next(); <span style="color:#666">//</span> <span style="">第三次运行</span>next方法<span style="">。返回</span><span style="color:#d2413a;font-weight:bold">Object</span> {value: undefined, done: false} 
-</span></span><span style="display:flex;"><span><span style="">```上面的代码实现了一个遍历器生成函数，每次传入数组或者类数组或者是含有`</span>length<span style="">`属性的并可遍历数据，都可以返回一个遍历器。遍历器生成函数在内部定义了一个变量</span>index用于数据指针<span style="">，指向当前遍历位置的成员，然后返回了一个对象，用指针去判断如果指针已经大于数组最大的成员数，那么返回值为空和返回一个`</span>done<span style="">`属性并值为`</span>true<span style="">`表示已经结束遍历，反之，返回相应的值。其中用</span>done来判断是否遍历结束<span style="">。</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">### Iterator接口原生的数据结构</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="">数组、类数组、</span>Map<span style="">、</span>Set几种数据结构是具备原生的Iterator接口<span style="">，也就是说我们不需要任何的处理就可以使用遍历器、以及调用遍历器接口循环的</span><span style="color:#a2f;font-weight:bold">for</span><span style="color:#666">...</span>of命令<span style="">。如何知道一个数据结构是否具备</span>Iterator接口<span style="">？通过</span>Symbol<span style="color:#666">.</span>iterator这个属性来确定是否部署了iterator接口<span style="">，</span>Symbol<span style="color:#666">.</span>iterator是[Symbol](http:<span style="color:#666">//</span>xsscript<span style="color:#666">.</span>com<span style="color:#666">//</span><span style="color:#666">2017</span><span style="color:#666">/</span><span style="color:#666">07</span><span style="color:#666">/</span><span style="color:#666">06</span><span style="color:#666">/</span>es6<span style="color:#666">-</span>symbol<span style="color:#666">/</span>)<span style="">对象下面的</span>iterator属性<span style="">，它返回一个独一无二的</span>Symbol值<span style="">，如果一个数据结构通过此属性访问会返回一个函数，说明这个数据结构已经部署了遍历器。```</span>
-</span></span><span style="display:flex;"><span>let arr <span style="color:#666">=</span> [<span style="color:#666">1</span>, <span style="color:#666">2</span>];
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>arr[Symbol<span style="color:#666">.</span>iterator]; <span style="color:#666">//</span> function values() { [native code] }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>let arrIt <span style="color:#666">=</span> arr[Symbol<span style="color:#666">.</span>iterator](); <span style="color:#666">//</span> <span style="">得到一个遍历器</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>arrIt<span style="color:#666">.</span>next(); <span style="color:#666">//</span> <span style="color:#d2413a;font-weight:bold">Object</span> {value: <span style="color:#666">1</span>, done: false}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>arrIt<span style="color:#666">.</span>next(); <span style="color:#666">//</span> <span style="color:#d2413a;font-weight:bold">Object</span> {value: <span style="color:#666">2</span>, done: false}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>arrIt<span style="color:#666">.</span>next(); <span style="color:#666">//</span> <span style="color:#d2413a;font-weight:bold">Object</span> {value: undefined, done: true} 
-</span></span><span style="display:flex;"><span><span style="">```上面提到的是具备原生</span>iterator接口的数据结构<span style="">，那没有的数据结构呢？比如对象，</span>[<span style="">《</span>ECMAScript <span style="color:#666">6</span><span style="">入门》</span>](http:<span style="color:#666">//</span>es6<span style="color:#666">.</span>ruanyifeng<span style="color:#666">.</span>com<span style="color:#666">/</span><span style="color:#080;font-style:italic">#docs/iterator)这本书中提到了一段话来说明为什么对象没有部署原生的iterator接口.</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#666">&gt;</span> <span style="">对象</span>(<span style="color:#d2413a;font-weight:bold">Object</span>)<span style="">之所以没有默认部署</span>Iterator接口<span style="">，是因为对象的哪个属性先遍历，哪个属性后遍历是不确定的，需要开发者手动指定。本质上，遍历</span> <span style="">器是一种线性处理，对于任何非线性的数据结构，部署遍历器接口，就等于部署一种线性转换。不过，严格地说，对象部署遍历器接口并不是很必</span> <span style="">要，因为这时对象实际上被当作</span>Map结构使用<span style="">，</span>ES5没有Map结构<span style="">，而</span>ES6原生提供了<span style="">。</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="">如果我们真的需要给没有部署</span>Iterator接口的数据结构就只需要在这个数据结构的Symbol<span style="color:#666">.</span>iterator属性上面部署一个iterator接口就可以实现了<span style="">：```</span>
-</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">const</span> obj <span style="color:#666">=</span> {
-</span></span><span style="display:flex;"><span>    data: [<span style="color:#666">1</span>, <span style="color:#666">2</span>, <span style="color:#666">3</span>],
-</span></span><span style="display:flex;"><span>    [Symbol<span style="color:#666">.</span>iterator](it) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">const</span> self <span style="color:#666">=</span> this;
-</span></span><span style="display:flex;"><span>        let index <span style="color:#666">=</span> <span style="color:#666">0</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">return</span> {
-</span></span><span style="display:flex;"><span>            next() {
-</span></span><span style="display:flex;"><span>                <span style="color:#a2f;font-weight:bold">if</span>(index <span style="color:#666">&lt;=</span> self[it]<span style="color:#666">.</span>length ) {
-</span></span><span style="display:flex;"><span>                    <span style="color:#a2f;font-weight:bold">return</span> {value: self[it][index<span style="color:#666">++</span>], done: false }
-</span></span><span style="display:flex;"><span>                } <span style="color:#a2f;font-weight:bold">else</span> {
-</span></span><span style="display:flex;"><span>                    <span style="color:#a2f;font-weight:bold">return</span> {value: undefined, done: true}
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>let objIt <span style="color:#666">=</span> obj[Symbol<span style="color:#666">.</span>iterator](<span style="color:#b44">&#39;data&#39;</span>); <span style="color:#666">//</span><span style="">返回</span>obj对象data属性中数组的iterator遍历器
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>obj<span style="color:#666">.</span>pubData <span style="color:#666">=</span> [<span style="color:#b44">&#39;1&#39;</span>, <span style="color:#b44">&#39;b&#39;</span>, <span style="color:#b44">&#39;bbx&#39;</span>];
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>objIt <span style="color:#666">=</span> obj[Symbol<span style="color:#666">.</span>iterator](<span style="color:#b44">&#39;pubData&#39;</span>); <span style="color:#666">//</span><span style="">返回</span>obj对象pubData属性中数组的iterator遍历器 
-</span></span></code></pre></div><p>通过上面的代码我们可以给obj对象部署一个iterator接口，并且在调用Symbol.iterator的属性方法的时候传入的一个值，可以用来便利对象中的自定义数组,当然这个方法我们一样可以定义在原型上面，方便所有对象来生成iterator遍历器。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#d2413a;font-weight:bold">Object</span><span style="color:#666">.</span>prototype[Symbol<span style="color:#666">.</span>iterator] <span style="color:#666">=</span> function(it){
-</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">const</span> self <span style="color:#666">=</span> this;
-</span></span><span style="display:flex;"><span>        let index <span style="color:#666">=</span> <span style="color:#666">0</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#a2f;font-weight:bold">return</span> {
-</span></span><span style="display:flex;"><span>            next() {
-</span></span><span style="display:flex;"><span>                <span style="color:#a2f;font-weight:bold">if</span>(index <span style="color:#666">&lt;=</span> self[it]<span style="color:#666">.</span>length ) {
-</span></span><span style="display:flex;"><span>                    <span style="color:#a2f;font-weight:bold">return</span> {value: self[it][index<span style="color:#666">++</span>], done: false }
-</span></span><span style="display:flex;"><span>                } <span style="color:#a2f;font-weight:bold">else</span> {
-</span></span><span style="display:flex;"><span>                    <span style="color:#a2f;font-weight:bold">return</span> {value: undefined, done: true}
-</span></span><span style="display:flex;"><span>                }
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">const</span> obj <span style="color:#666">=</span> {
-</span></span><span style="display:flex;"><span>    data: [<span style="color:#666">1</span>, <span style="color:#666">2</span>, <span style="color:#666">3</span>]
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>let objIt <span style="color:#666">=</span> obj[Symbol<span style="color:#666">.</span>iterator](<span style="color:#b44">&#39;data&#39;</span>); <span style="color:#666">//</span><span style="">返回</span>obj对象data属性数组的遍历器 
-</span></span></code></pre></div><h3 id="遍历器对象-returnthrow">遍历器对象 return(),throw() <a href="#%e9%81%8d%e5%8e%86%e5%99%a8%e5%af%b9%e8%b1%a1-returnthrow" class="anchor">🔗</a></h3><p>遍历器的<code>next()</code>方法是必须具备的，而<code>return()</code>和<code>throw()</code>方法是可选的，其中<code>return()</code>方法的作用是在循环的时候提前退出，包括出错、break、contiune等命令就会触发<code>return()</code>方法，<code>return()</code>方法在出错或者提前退出循环的时候清空不需要的资源，<code>return()</code>方法由Generator规格规定返回必须为一个对象，而<code>throw()</code>方法主要是配合Generator函数使用。 文完</p>
-
+</span></span><span style="display:flex;"><span>遍历器的`next()`方法是必须具备的，而`return()`和`throw()`方法是可选的，其中`return()`方法的作用是在循环的时候提前退出，包括出错、break、contiune等命令就会触发`return()`方法，`return()`方法在出错或者提前退出循环的时候清空不需要的资源，`return()`方法由Generator规格规定返回必须为一个对象，而`throw()`方法主要是配合Generator函数使用。 文完
+</span></span></code></pre></div>
     </div>
 
     
