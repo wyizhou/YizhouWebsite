@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Yizhou</title>
-    <link>/posts/</link>
+    <link>https://wuyizhou.com/posts/</link>
     <description>Recent content in Posts on Yizhou</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 11 Dec 2023 13:53:48 +0000</lastBuildDate>
-    <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://wuyizhou.com/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>4-极光计划实证：经历了熊市才算成长</title>
-      <link>/posts/aurora-project-4/</link>
+      <link>https://wuyizhou.com/posts/aurora-project-4/</link>
       <pubDate>Mon, 11 Dec 2023 13:53:48 +0000</pubDate>
-      <guid>/posts/aurora-project-4/</guid>
+      <guid>https://wuyizhou.com/posts/aurora-project-4/</guid>
       <description>前言 最近两个月A股反反复复，10月份跌破3000点后又回到了3000，最近又跌下去了，第二次跌破3000的我反而心态比一次更好了，所以说经历熊市才是最好的成长方式。
 但我仔细想过过这个事情，主要还是因为我投入的钱太少了，即使目前的钱全部亏完，最多心疼，但对于我目前来说造不成太大的心理伤害。
 最近在思考”长期持有“这句话，我个人最近一直再思考着这类的话，我个人觉得”长期持有“这句话没有问题，但很容易误导，让大家都觉得只要一直持有就会上涨，实际情况远比所谓的”长期持有“复杂，因为大家搞投资本质上不是只是看看上涨过过瘾，是来赚钱的，所以大部分例子中的回测都是拉到了很多年，实际上仔细一看，每年的波动非常大，如果不幸在高点，那么其他人5年可以浮盈达到15%，而你甚至还浮亏。
@@ -26,9 +26,9 @@
     </item>
     <item>
       <title>#3-极光计划实证：小起小落</title>
-      <link>/posts/aurora-project-3/</link>
+      <link>https://wuyizhou.com/posts/aurora-project-3/</link>
       <pubDate>Wed, 08 Nov 2023 13:37:34 +0000</pubDate>
-      <guid>/posts/aurora-project-3/</guid>
+      <guid>https://wuyizhou.com/posts/aurora-project-3/</guid>
       <description>前言 最近一个月算是第一次关注投资以来经历的第一次“小起小落”，上证下到了3000点以下，自己的基金也最高亏到了190元，目前仍然浮亏。
 为什么是小起小落呢？自己总结了一下，可能是两个原因，其一是因为自己投入资金并不多，其二可能投入的钱并不会影响到生活，所以也就不在乎了，但我自己臆想，应该第一种可能性较大。
 在上个月月底自己从小结伴的表姐被我一顿洗脑买了一部分基金，但整体不多闹着玩的投入了400-500元，但到了跌到3000点附近的时候，表姐给我发了一条消息，附上了一张截图（图片大概是某个网络博主说A股没有希望了），意思是要先撤退不玩了，也就是默认赞同了A股没有希望这一说。
@@ -52,9 +52,9 @@
     </item>
     <item>
       <title>最近搭建了一台家用Nas</title>
-      <link>/posts/home-nas-2023/</link>
+      <link>https://wuyizhou.com/posts/home-nas-2023/</link>
       <pubDate>Thu, 19 Oct 2023 13:24:56 +0000</pubDate>
-      <guid>/posts/home-nas-2023/</guid>
+      <guid>https://wuyizhou.com/posts/home-nas-2023/</guid>
       <description>从两个月前，我着手搭建了一套家用Nas，起因之前自己的资料一直存放在ICloud，因为自己的资料比较多，在600多G，所以自己一直购买的国区2T，每个月68元，一年816元，也不算便宜了。再加上自己的资料和储存的数据越来越大，所以就有就有了这个需求。
 对于资料不多、储存量不大的用户，不建议使用Nas，使用自带的云储存足够了，自己组建Nas只有在一定储存量级，才会有价值，所以对于数据量少的朋友，看看就行了，别折腾了。
 同时自己电脑有两台，一台苹果笔记本，一台Windows笔记本，ICloud对于Windows系统同步是真的难用，甚至打开文件夹都会卡顿，所以也是其自己搭建Nas的一个小因素了。

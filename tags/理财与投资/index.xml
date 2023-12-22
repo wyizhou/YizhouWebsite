@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>理财与投资 on Yizhou</title>
-    <link>/tags/%E7%90%86%E8%B4%A2%E4%B8%8E%E6%8A%95%E8%B5%84/</link>
+    <link>https://wuyizhou.com/tags/%E7%90%86%E8%B4%A2%E4%B8%8E%E6%8A%95%E8%B5%84/</link>
     <description>Recent content in 理财与投资 on Yizhou</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 11 Dec 2023 13:53:48 +0000</lastBuildDate>
-    <atom:link href="/tags/%E7%90%86%E8%B4%A2%E4%B8%8E%E6%8A%95%E8%B5%84/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://wuyizhou.com/tags/%E7%90%86%E8%B4%A2%E4%B8%8E%E6%8A%95%E8%B5%84/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>4-极光计划实证：经历了熊市才算成长</title>
-      <link>/posts/aurora-project-4/</link>
+      <link>https://wuyizhou.com/posts/aurora-project-4/</link>
       <pubDate>Mon, 11 Dec 2023 13:53:48 +0000</pubDate>
-      <guid>/posts/aurora-project-4/</guid>
+      <guid>https://wuyizhou.com/posts/aurora-project-4/</guid>
       <description>前言 最近两个月A股反反复复，10月份跌破3000点后又回到了3000，最近又跌下去了，第二次跌破3000的我反而心态比一次更好了，所以说经历熊市才是最好的成长方式。
 但我仔细想过过这个事情，主要还是因为我投入的钱太少了，即使目前的钱全部亏完，最多心疼，但对于我目前来说造不成太大的心理伤害。
 最近在思考”长期持有“这句话，我个人最近一直再思考着这类的话，我个人觉得”长期持有“这句话没有问题，但很容易误导，让大家都觉得只要一直持有就会上涨，实际情况远比所谓的”长期持有“复杂，因为大家搞投资本质上不是只是看看上涨过过瘾，是来赚钱的，所以大部分例子中的回测都是拉到了很多年，实际上仔细一看，每年的波动非常大，如果不幸在高点，那么其他人5年可以浮盈达到15%，而你甚至还浮亏。
@@ -26,9 +26,9 @@
     </item>
     <item>
       <title>#3-极光计划实证：小起小落</title>
-      <link>/posts/aurora-project-3/</link>
+      <link>https://wuyizhou.com/posts/aurora-project-3/</link>
       <pubDate>Wed, 08 Nov 2023 13:37:34 +0000</pubDate>
-      <guid>/posts/aurora-project-3/</guid>
+      <guid>https://wuyizhou.com/posts/aurora-project-3/</guid>
       <description>前言 最近一个月算是第一次关注投资以来经历的第一次“小起小落”，上证下到了3000点以下，自己的基金也最高亏到了190元，目前仍然浮亏。
 为什么是小起小落呢？自己总结了一下，可能是两个原因，其一是因为自己投入资金并不多，其二可能投入的钱并不会影响到生活，所以也就不在乎了，但我自己臆想，应该第一种可能性较大。
 在上个月月底自己从小结伴的表姐被我一顿洗脑买了一部分基金，但整体不多闹着玩的投入了400-500元，但到了跌到3000点附近的时候，表姐给我发了一条消息，附上了一张截图（图片大概是某个网络博主说A股没有希望了），意思是要先撤退不玩了，也就是默认赞同了A股没有希望这一说。
@@ -52,9 +52,9 @@
     </item>
     <item>
       <title>#2-极光计划实证：当头一棒</title>
-      <link>/posts/aurora-project-2/</link>
+      <link>https://wuyizhou.com/posts/aurora-project-2/</link>
       <pubDate>Sun, 08 Oct 2023 13:54:12 +0000</pubDate>
-      <guid>/posts/aurora-project-2/</guid>
+      <guid>https://wuyizhou.com/posts/aurora-project-2/</guid>
       <description>前言 最近想了一个方式，找了一些基金的历史数据，并且做了一些回测，下面是我做了回测后在也大的知识星球上提出的提问以及也大回复的内容。
 也大，最近一直在思考实现你提到的Mini财务自由，我采集了2019年5月1日至2023年9月15日的数据，制作了两组永久组合的数据，分别为：
 黄金基金：易方达黄金ETF(159934)。偏股基金：兴全合润混合LOF（163406）。货币基金：易方达中债1-3年国开债A(007169)。债券基金：易方达中债7-10年国开债A(003358)。 黄金基金：易方达黄金ETF(159934)。偏股基金：兴全合润混合LOF（163406）。货币基金：长城收益宝货币A(004972)。债券基金：招商产业债券A(217022) 上面两种主要验证也大之前提到的永久组合里面原书建议货币为短期国债、债券则为长期国债，这里用国开行的准国债作为国债，然后再根据也打原文章中提到的国内配置普通债券和货币基金即可，所以这里做了两组。

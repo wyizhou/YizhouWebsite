@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>开发者手册 on Yizhou</title>
-    <link>/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/</link>
+    <link>https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/</link>
     <description>Recent content in 开发者手册 on Yizhou</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 22 Apr 2022 01:52:54 +0000</lastBuildDate>
-    <atom:link href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>前端的技术栈理解</title>
-      <link>/posts/frontend-terms/</link>
+      <link>https://wuyizhou.com/posts/frontend-terms/</link>
       <pubDate>Fri, 22 Apr 2022 01:52:54 +0000</pubDate>
-      <guid>/posts/frontend-terms/</guid>
+      <guid>https://wuyizhou.com/posts/frontend-terms/</guid>
       <description>最近几年单页应用程序发展非常迅速，从早期通过Javascript写入大量html模版去做单页程序（SPA），到现在的React、Vue（最为流行），但不得不说，前端的技术进步太快了，稍不关注技术，就会出来很多的新的技术。
 但归根结底，每次新的技术出来，埋头深入发现远比想象的复杂，而到了一定的时间后则能够想明白一些事情，这也就是&amp;quot;深入浅出&amp;quot;的道理。 单页应用是一个复杂的技术，要解决这些问题，出现了很多&amp;quot;框架&amp;quot;、工具，比如React、Vue、React-router、Redux等。对于新手来说更是学了一圈后出来也是懵的。但总体来说，React和Vue这类库本质都没有什么区别，都是为了解决SPA提出的方案。这类库大部分主要的理念是将Web应用划分为一个一个的组件为单元，这些组件可以包含另一个组件，以此来达到复用性。
 而每个组件不可能都显示一样，那这样复用性是没有意义的。 那这个时候提出了“状态”的概念，来让每个复用的组件显示不同的内容，状态分为了props和state，props是由外部传入进来的状态，state则是组件内部自己的状态。而这类UI库对于状态的变化，都会根据一些优秀的算法去重新渲染组件，并且渲染的时候仅仅涉及到改变的那一部分内容。
@@ -24,9 +24,9 @@ Redux本身设计是非常有趣的，整个应用的状态不能直接修改，
     </item>
     <item>
       <title>Python数据集合</title>
-      <link>/posts/python-list/</link>
+      <link>https://wuyizhou.com/posts/python-list/</link>
       <pubDate>Mon, 25 Jun 2018 13:21:31 +0000</pubDate>
-      <guid>/posts/python-list/</guid>
+      <guid>https://wuyizhou.com/posts/python-list/</guid>
       <description>列表 列表是有序可变的数据集合，并且一对[]来表示这是一个列表，元素之间逗号分隔，每个数据之间有逗号分隔，列表基本上可以包含很多数据类型，下面就是一个典型的列表：
 list = [1,2.2,&amp;#39;ok&amp;#39;,bool] 在上面的列表中存储了数据(整型、浮点型、字符串、布尔值)，包含我们下面看见的几种集合类型都是可以当作列表的子元素的。
 当然也可以从列表中取出数据，因为列表是有序的，所以我们可以通过索引从0开始进行取数据,你需要注意的是所有可以用索引进行得到值的都是从0开始，比如下面的代码取出了列表第一个和第三个数据。
@@ -41,9 +41,9 @@ tple = (1,2,3,4) tple[0] # 1 tple[0] = &amp;#39;m&amp;#39; &amp;#34;&amp;#34;&am
     </item>
     <item>
       <title>Python数据类型与操作符</title>
-      <link>/posts/python-datatype/</link>
+      <link>https://wuyizhou.com/posts/python-datatype/</link>
       <pubDate>Mon, 25 Jun 2018 09:26:05 +0000</pubDate>
-      <guid>/posts/python-datatype/</guid>
+      <guid>https://wuyizhou.com/posts/python-datatype/</guid>
       <description>算术运算符 + 加 - 减 * 乘 / 除 % 取余（相除后的余数） ** 取幂（注意 ^ 并不执行该运算，你可能在其他语言中见过这种情形） // 相除后向下取整到最接近的整数 整数、浮点数 数字值可以用到两种 python 数据类型：
 int - 表示整数值 float - 表示小数或浮点数值 你可以通过以下语法创建具有某个数据类型的值：
 x = int(4.7) # x is now an integer 4 y = float(4) # y is now a float of 4.0 你可以使用函数 type 检查数据类型：

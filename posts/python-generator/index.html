@@ -14,15 +14,15 @@ list(range(100000)) 类似于上面这样的情况，我们可以用generator对
 #普通函数 def ad(a,b): return a &#43; b #generator函数 def ad(a,b): yield a &#43; b return None #普通函数执行 ad(1,5) #6 b = ad(1,5) #此时保存了状态 next(b) #6 通过next函数调用generator函数执行 生成器(generator)表达式 生成器表达式和列表表达式很像，但是有一点不同的是列表表达式由[]组成，而生成器表达式由()组成，就像下面的代码一样：
 l = [x * x for x in range(5)] #列表表达式 g = (x * x for x in range(5)) #生成器表达式 generator对象是需要通过next函数调用执行，并且返回的值是按循环生成的每个元素，我们每次用next执行我们的generator对象后，generator对象会保存执行后的状态，直到没有元素或者遇见return语句后抛出一个StopIteration错误来表示已经执行完毕，下面的代码是通过手动执行generator对象和通过for自动执行。">
 <meta name="author" content="">
-<link rel="canonical" href="/posts/python-generator/">
+<link rel="canonical" href="https://wuyizhou.com/posts/python-generator/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="mask-icon" href="safari-pinned-tab.svg">
+<link rel="icon" href="https://wuyizhou.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://wuyizhou.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://wuyizhou.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://wuyizhou.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://wuyizhou.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <noscript>
@@ -89,7 +89,7 @@ list(range(100000)) 类似于上面这样的情况，我们可以用generator对
 #普通函数 def ad(a,b): return a &#43; b #generator函数 def ad(a,b): yield a &#43; b return None #普通函数执行 ad(1,5) #6 b = ad(1,5) #此时保存了状态 next(b) #6 通过next函数调用generator函数执行 生成器(generator)表达式 生成器表达式和列表表达式很像，但是有一点不同的是列表表达式由[]组成，而生成器表达式由()组成，就像下面的代码一样：
 l = [x * x for x in range(5)] #列表表达式 g = (x * x for x in range(5)) #生成器表达式 generator对象是需要通过next函数调用执行，并且返回的值是按循环生成的每个元素，我们每次用next执行我们的generator对象后，generator对象会保存执行后的状态，直到没有元素或者遇见return语句后抛出一个StopIteration错误来表示已经执行完毕，下面的代码是通过手动执行generator对象和通过for自动执行。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/posts/python-generator/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://wuyizhou.com/posts/python-generator/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2018-06-04T08:29:36+00:00" />
 <meta property="article:modified_time" content="2018-06-04T08:29:36+00:00" />
 
@@ -112,13 +112,13 @@ l = [x * x for x in range(5)] #列表表达式 g = (x * x for x in range(5)) #�
       "@type": "ListItem",
       "position":  2 ,
       "name": "Posts",
-      "item": "/posts/"
+      "item": "https://wuyizhou.com/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  3 ,
       "name": "Python生成器",
-      "item": "/posts/python-generator/"
+      "item": "https://wuyizhou.com/posts/python-generator/"
     }
   ]
 }
@@ -140,14 +140,14 @@ l = [x * x for x in range(5)] #列表表达式 g = (x * x for x in range(5)) #�
   "dateModified": "2018-06-04T08:29:36Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "/posts/python-generator/"
+    "@id": "https://wuyizhou.com/posts/python-generator/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Yizhou",
     "logo": {
       "@type": "ImageObject",
-      "url": "favicon.ico"
+      "url": "https://wuyizhou.com/favicon.ico"
     }
   }
 }
@@ -169,7 +169,7 @@ l = [x * x for x in range(5)] #列表表达式 g = (x * x for x in range(5)) #�
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
+            <a href="https://wuyizhou.com" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -195,22 +195,22 @@ l = [x * x for x in range(5)] #列表表达式 g = (x * x for x in range(5)) #�
         </div>
         <ul id="menu">
             <li>
-                <a href="/archives/" title="Archives">
+                <a href="https://wuyizhou.com/archives/" title="Archives">
                     <span>Archives</span>
                 </a>
             </li>
             <li>
-                <a href="/tags/" title="Tags">
+                <a href="https://wuyizhou.com/tags/" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
             <li>
-                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="https://wuyizhou.com/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
             <li>
-                <a href="/index.xml" title="Rss">
+                <a href="https://wuyizhou.com/index.xml" title="Rss">
                     <span>Rss</span>
                 </a>
             </li>
@@ -221,7 +221,7 @@ l = [x * x for x in range(5)] #列表表达式 g = (x * x for x in range(5)) #�
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="">Home</a>&nbsp;»&nbsp;<a href="/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="https://wuyizhou.com">Home</a>&nbsp;»&nbsp;<a href="https://wuyizhou.com/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       Python生成器
     </h1>
@@ -341,14 +341,14 @@ next(g,&#39;ok&#39;)
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a></li>
+      <li><a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a></li>
     </ul>
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="">Yizhou</a></span>
+    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

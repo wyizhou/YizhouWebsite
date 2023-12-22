@@ -14,15 +14,15 @@ com.alipay.refresher.plist com.alipay.DispatcherService.plist 发现“com.alipa
 &lt;pre class=&#34;prettyprint&#34; prettyprinted=&#34;&#34;&gt;&lt;span class=&#34;pln&#34;&gt;kill &lt;span class=&#34;pun&#34;&gt;-&lt;span class=&#34;lit&#34;&gt;9&lt;span class=&#34;pln&#34;&gt; &lt;span class=&#34;typ&#34;&gt;AlipayDispatcherService&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 3、找出藏身之地 我查看了支付宝插件包里面的“preinstall”文件，列出了一些目录安装文件的目录，可以通过查看是否存在相关文件进一步确认并删除：
 ~/Library/Alipay /Library/Application Support/Alipay /Library/LaunchDaemons/com.alipay.DispatcherService.plist ~/Library/LaunchAgents/com.alipay.refresher.plist ~/Library/Internet Plug-Ins/ali_(npali_).plugin 4、正确姿势安装 首先到官方下载名为wkaliedit.dmg的插件包 然后载入过后提取installer.pkg文件，解压installer.pkg包提取output.pkg包 右键显示包内容打开output.pkg包，解压Payload包(此包为gzip格式，如果不能直接解压，请在终端下解压(tar zxvf Payload))，得到alipay包 右键显示包内容打开alipay包，依次进入Contents-Resources，找到其中两个zip包，aliedit.zip和npalicdo.zip 解压两个包，并把解压的两个文件“aliedit.plugin”、“npalicdo.plugin”放到”~/Library/Internet Plug-Ins文件下 重启浏览器 ">
 <meta name="author" content="">
-<link rel="canonical" href="/posts/mac-alipay-plugins/">
+<link rel="canonical" href="https://wuyizhou.com/posts/mac-alipay-plugins/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="mask-icon" href="safari-pinned-tab.svg">
+<link rel="icon" href="https://wuyizhou.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://wuyizhou.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://wuyizhou.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://wuyizhou.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://wuyizhou.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <noscript>
@@ -89,7 +89,7 @@ com.alipay.refresher.plist com.alipay.DispatcherService.plist 发现“com.alipa
 &lt;pre class=&#34;prettyprint&#34; prettyprinted=&#34;&#34;&gt;&lt;span class=&#34;pln&#34;&gt;kill &lt;span class=&#34;pun&#34;&gt;-&lt;span class=&#34;lit&#34;&gt;9&lt;span class=&#34;pln&#34;&gt; &lt;span class=&#34;typ&#34;&gt;AlipayDispatcherService&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 3、找出藏身之地 我查看了支付宝插件包里面的“preinstall”文件，列出了一些目录安装文件的目录，可以通过查看是否存在相关文件进一步确认并删除：
 ~/Library/Alipay /Library/Application Support/Alipay /Library/LaunchDaemons/com.alipay.DispatcherService.plist ~/Library/LaunchAgents/com.alipay.refresher.plist ~/Library/Internet Plug-Ins/ali_(npali_).plugin 4、正确姿势安装 首先到官方下载名为wkaliedit.dmg的插件包 然后载入过后提取installer.pkg文件，解压installer.pkg包提取output.pkg包 右键显示包内容打开output.pkg包，解压Payload包(此包为gzip格式，如果不能直接解压，请在终端下解压(tar zxvf Payload))，得到alipay包 右键显示包内容打开alipay包，依次进入Contents-Resources，找到其中两个zip包，aliedit.zip和npalicdo.zip 解压两个包，并把解压的两个文件“aliedit.plugin”、“npalicdo.plugin”放到”~/Library/Internet Plug-Ins文件下 重启浏览器 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/posts/mac-alipay-plugins/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://wuyizhou.com/posts/mac-alipay-plugins/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2015-01-27T19:34:00+00:00" />
 <meta property="article:modified_time" content="2015-01-27T19:34:00+00:00" />
 
@@ -112,13 +112,13 @@ com.alipay.refresher.plist com.alipay.DispatcherService.plist 发现“com.alipa
       "@type": "ListItem",
       "position":  2 ,
       "name": "Posts",
-      "item": "/posts/"
+      "item": "https://wuyizhou.com/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  3 ,
       "name": "Mac支付宝插件风波",
-      "item": "/posts/mac-alipay-plugins/"
+      "item": "https://wuyizhou.com/posts/mac-alipay-plugins/"
     }
   ]
 }
@@ -140,14 +140,14 @@ com.alipay.refresher.plist com.alipay.DispatcherService.plist 发现“com.alipa
   "dateModified": "2015-01-27T19:34:00Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "/posts/mac-alipay-plugins/"
+    "@id": "https://wuyizhou.com/posts/mac-alipay-plugins/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Yizhou",
     "logo": {
       "@type": "ImageObject",
-      "url": "favicon.ico"
+      "url": "https://wuyizhou.com/favicon.ico"
     }
   }
 }
@@ -169,7 +169,7 @@ com.alipay.refresher.plist com.alipay.DispatcherService.plist 发现“com.alipa
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
+            <a href="https://wuyizhou.com" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -195,22 +195,22 @@ com.alipay.refresher.plist com.alipay.DispatcherService.plist 发现“com.alipa
         </div>
         <ul id="menu">
             <li>
-                <a href="/archives/" title="Archives">
+                <a href="https://wuyizhou.com/archives/" title="Archives">
                     <span>Archives</span>
                 </a>
             </li>
             <li>
-                <a href="/tags/" title="Tags">
+                <a href="https://wuyizhou.com/tags/" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
             <li>
-                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="https://wuyizhou.com/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
             <li>
-                <a href="/index.xml" title="Rss">
+                <a href="https://wuyizhou.com/index.xml" title="Rss">
                     <span>Rss</span>
                 </a>
             </li>
@@ -221,7 +221,7 @@ com.alipay.refresher.plist com.alipay.DispatcherService.plist 发现“com.alipa
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="">Home</a>&nbsp;»&nbsp;<a href="/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="https://wuyizhou.com">Home</a>&nbsp;»&nbsp;<a href="https://wuyizhou.com/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       Mac支付宝插件风波
     </h1>
@@ -287,14 +287,14 @@ sudo launchctl unload &lt;span class=&#34;pun&#34;&gt;~&lt;span class=&#34;str&#
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="/tags/%E6%9D%82%E7%89%A9%E9%97%B4/">杂物间</a></li>
+      <li><a href="https://wuyizhou.com/tags/%E6%9D%82%E7%89%A9%E9%97%B4/">杂物间</a></li>
     </ul>
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="">Yizhou</a></span>
+    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

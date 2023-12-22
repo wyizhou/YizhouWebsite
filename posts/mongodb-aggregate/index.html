@@ -27,15 +27,15 @@ $skip(跳过)：将前n个文档丢弃，后面的部分传递到管道。
 管道操作符 $match $match应尽量放在聚合的最前面，因为$match使用的是Mongodb的标准查询，所以可以使用索引来提高我们的效率，其次是可以过滤掉不需要的文档，让后续的操作更加效率。 既然是标准的查询我们就可以使用标准查询里面所有操作符。 下面来大概演示一下$match的操作方法： 实例的文档结构如下:
 { &#34;_id&#34; : ObjectId(&#34;512bc95fe835e68f199c8686&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 80, &#34;views&#34; : 100 } { &#34;_id&#34; : ObjectId(&#34;512bc962e835e68f199c8687&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 85, &#34;views&#34; : 521 } { &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b257&#34;), &#34;author&#34; : &#34;ahn&#34;, &#34;score&#34; : 60, &#34;views&#34; : 1000 } { &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b258&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 55, &#34;views&#34; : 5000 } { &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b259&#34;), &#34;author&#34; : &#34;annT&#34;, &#34;score&#34; : 60, &#34;views&#34; : 50 } { &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25a&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 94, &#34;views&#34; : 999 } { &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25b&#34;), &#34;author&#34; : &#34;ty&#34;, &#34;score&#34; : 95, &#34;views&#34; : 1000 } 查询author键的值为dave的文档：">
 <meta name="author" content="">
-<link rel="canonical" href="/posts/mongodb-aggregate/">
+<link rel="canonical" href="https://wuyizhou.com/posts/mongodb-aggregate/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="mask-icon" href="safari-pinned-tab.svg">
+<link rel="icon" href="https://wuyizhou.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://wuyizhou.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://wuyizhou.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://wuyizhou.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://wuyizhou.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <noscript>
@@ -115,7 +115,7 @@ $skip(跳过)：将前n个文档丢弃，后面的部分传递到管道。
 管道操作符 $match $match应尽量放在聚合的最前面，因为$match使用的是Mongodb的标准查询，所以可以使用索引来提高我们的效率，其次是可以过滤掉不需要的文档，让后续的操作更加效率。 既然是标准的查询我们就可以使用标准查询里面所有操作符。 下面来大概演示一下$match的操作方法： 实例的文档结构如下:
 { &#34;_id&#34; : ObjectId(&#34;512bc95fe835e68f199c8686&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 80, &#34;views&#34; : 100 } { &#34;_id&#34; : ObjectId(&#34;512bc962e835e68f199c8687&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 85, &#34;views&#34; : 521 } { &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b257&#34;), &#34;author&#34; : &#34;ahn&#34;, &#34;score&#34; : 60, &#34;views&#34; : 1000 } { &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b258&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 55, &#34;views&#34; : 5000 } { &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b259&#34;), &#34;author&#34; : &#34;annT&#34;, &#34;score&#34; : 60, &#34;views&#34; : 50 } { &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25a&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 94, &#34;views&#34; : 999 } { &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25b&#34;), &#34;author&#34; : &#34;ty&#34;, &#34;score&#34; : 95, &#34;views&#34; : 1000 } 查询author键的值为dave的文档：" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/posts/mongodb-aggregate/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://wuyizhou.com/posts/mongodb-aggregate/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2017-08-10T14:18:52+00:00" />
 <meta property="article:modified_time" content="2017-08-10T14:18:52+00:00" />
 
@@ -151,13 +151,13 @@ $skip(跳过)：将前n个文档丢弃，后面的部分传递到管道。
       "@type": "ListItem",
       "position":  2 ,
       "name": "Posts",
-      "item": "/posts/"
+      "item": "https://wuyizhou.com/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  3 ,
       "name": "Mongodb 聚合",
-      "item": "/posts/mongodb-aggregate/"
+      "item": "https://wuyizhou.com/posts/mongodb-aggregate/"
     }
   ]
 }
@@ -179,14 +179,14 @@ $skip(跳过)：将前n个文档丢弃，后面的部分传递到管道。
   "dateModified": "2017-08-10T14:18:52Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "/posts/mongodb-aggregate/"
+    "@id": "https://wuyizhou.com/posts/mongodb-aggregate/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Yizhou",
     "logo": {
       "@type": "ImageObject",
-      "url": "favicon.ico"
+      "url": "https://wuyizhou.com/favicon.ico"
     }
   }
 }
@@ -208,7 +208,7 @@ $skip(跳过)：将前n个文档丢弃，后面的部分传递到管道。
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
+            <a href="https://wuyizhou.com" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -234,22 +234,22 @@ $skip(跳过)：将前n个文档丢弃，后面的部分传递到管道。
         </div>
         <ul id="menu">
             <li>
-                <a href="/archives/" title="Archives">
+                <a href="https://wuyizhou.com/archives/" title="Archives">
                     <span>Archives</span>
                 </a>
             </li>
             <li>
-                <a href="/tags/" title="Tags">
+                <a href="https://wuyizhou.com/tags/" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
             <li>
-                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="https://wuyizhou.com/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
             <li>
-                <a href="/index.xml" title="Rss">
+                <a href="https://wuyizhou.com/index.xml" title="Rss">
                     <span>Rss</span>
                 </a>
             </li>
@@ -260,7 +260,7 @@ $skip(跳过)：将前n个文档丢弃，后面的部分传递到管道。
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="">Home</a>&nbsp;»&nbsp;<a href="/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="https://wuyizhou.com">Home</a>&nbsp;»&nbsp;<a href="https://wuyizhou.com/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       Mongodb 聚合
     </h1>
@@ -548,14 +548,14 @@ $skip(跳过)：将前n个文档丢弃，后面的部分传递到管道。
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/">服务和运维</a></li>
+      <li><a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/">服务和运维</a></li>
     </ul>
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="">Yizhou</a></span>
+    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

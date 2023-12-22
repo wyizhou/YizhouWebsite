@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>数学与算法 on Yizhou</title>
-    <link>/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95/</link>
+    <link>https://wuyizhou.com/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95/</link>
     <description>Recent content in 数学与算法 on Yizhou</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 18 Nov 2020 08:51:13 +0000</lastBuildDate>
-    <atom:link href="/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://wuyizhou.com/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>(二)漫话中文分词：Trie、KMP、AC自动机</title>
-      <link>/posts/chinesecutwords-2/</link>
+      <link>https://wuyizhou.com/posts/chinesecutwords-2/</link>
       <pubDate>Wed, 18 Nov 2020 08:51:13 +0000</pubDate>
-      <guid>/posts/chinesecutwords-2/</guid>
+      <guid>https://wuyizhou.com/posts/chinesecutwords-2/</guid>
       <description>Trie树 在上一篇文章当中，说到了一些匹配的算法，但是算法有了，还得需要一个高效的数据结构，不能只是通过[&amp;lsquo;中国人&amp;rsquo;, &amp;lsquo;中东人&amp;rsquo;]等结构来进行存放，可以想象一下，如果有几十万的词，那么这个列表的占用的内存非常大。 Trie树，也被称为前缀树，该词源自单词retrieval，发音和try相同，Trie树可为词库提供一种高效的分词数据结构，该结构本质上是一种树状数据结构，比如&amp;quot;中国人&amp;quot;、&amp;ldquo;中东人&amp;quot;三个字符串构造的Trie树为下图，图中能够很清楚的看见，Trie树结构能够很好的节省相同前缀单词所浪费的空间，因为这两个词都是以&amp;quot;中&amp;quot;开头，所以可以使用同一个父辈节点。
 除此之外，Trie树还对查询的速度有一定的优化，如果以列表存放词来说，如果列表存放的词达到了20万个，那么最坏的情况是你需要匹配的词在存放于列表最后，那么就相当于要将这20万个词全部遍历，可想而知浪费了非常多的计算资源。 而Trie查询的次数最大的次数取决于查找的字符串长度，比如中国人，那么查询次数最大仅为3次。 下图为基于同一份10万左右的词典，待分词文本为字符长度150，使用正向最大匹配算法在列表和Trie两种结构上进行分词的运行时间，从下图可以看出来差距非常大。
 Trie树的查找方式则是通过层层查询，而不是直接遍历词典，比如&amp;quot;中国人&amp;rdquo;，首先会查找第一层中是否有&amp;quot;中&amp;quot;这个字符，如果没有查询到则返回查询失败，如果有则继续查找&amp;quot;中&amp;quot;字符对应的下一层是否有&amp;quot;国&amp;quot;，如果没有则返回查询识别，如果有则继续查找&amp;quot;国&amp;quot;下一层是否有&amp;quot;人&amp;quot;，此时找到存在&amp;quot;人&amp;quot;这个节点，并且该节点标注为蓝色，表明是一个词，所以返回该字符串为一个词。 其实要实现这样的数据结构，大致的功能点为下面两点：
@@ -21,9 +21,9 @@ class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实
     </item>
     <item>
       <title>(一)漫话中文分词：最大匹配,双向最大,最小词数</title>
-      <link>/posts/chinesecutwords-1/</link>
+      <link>https://wuyizhou.com/posts/chinesecutwords-1/</link>
       <pubDate>Sun, 08 Nov 2020 10:36:34 +0000</pubDate>
-      <guid>/posts/chinesecutwords-1/</guid>
+      <guid>https://wuyizhou.com/posts/chinesecutwords-1/</guid>
       <description>中文分词是指将文本拆分为单词的过程，而结果集合连接起来是等于原始的文本，而中文分词一直作为NLP领域的比较重要的领域，而大多数的文本挖掘都是以分词为基础，但中文不同于英文，英文每个单词是用空格分隔，整体语义上相对于中文难度低很多。 而业务上一直有中文分词的需求，但是之前因为在忙于另外一个项目，所以一直没有研究。 近期稍空闲开始研究了相关的中文分词算法，发现中文分词总体算比较成熟，但是其中对于未登录词或者某个特定专业领域文本大部分算法分词的结果不尽人意，需要结合多种算法或者人工词典才能达到稍微好一点的效果。 中文分词的方式一共有两种，分别为：
 词典分词：如正向最大匹配算法、反向最大匹配算法、双向最大匹配算法、最少词数法等 字标注分词：如HMM（隐马尔可夫）模型等 而这几种方式很难说出谁好谁坏，比如词典分词的方式速度非常快，但对于未登录词的识别又不太好，而HMM和Pkuseg都能识别部分未登录词，但是运行速度又降下来了，这对于在实际应用场景当中是非常致命的问题，所以最大的优解就是集各家所长，比如结巴分词就使用了词典分词算法识别能识别的词，而不能识别的则继续使用了HMM模型来处理。
 词典分词 基于词典的分词算法实际上就是对于类似字典的数据结构进行查询，对于未在词典内的词识别较弱和交集型歧义理解能力也较弱，比如“结婚的和尚未结婚的”，理想的情况是&amp;quot;结婚/的/和/尚未/结婚/的&amp;quot;，而实际中则会被分词为&amp;quot;结婚/的/和尚/未/结婚/的&amp;quot;。 但好在词典分词的速度则非常快，词典分词目前已有非常成熟高效的解决方案，并且有非常多的工具来帮你实现相关的高效数据结构和查询方式，比如Trie树和AC自动机，但在这里为了方便理解和记录，只采用了尽可能简单的方式来记录其几种算法的实现和原理。
@@ -32,9 +32,9 @@ sentence = &amp;#39;中文分词算法&amp;#39; # 输入的句子 cutList = [&am
     </item>
     <item>
       <title>理解条件概率</title>
-      <link>/posts/learning-conditional-probability/</link>
+      <link>https://wuyizhou.com/posts/learning-conditional-probability/</link>
       <pubDate>Tue, 03 Nov 2020 09:03:53 +0000</pubDate>
-      <guid>/posts/learning-conditional-probability/</guid>
+      <guid>https://wuyizhou.com/posts/learning-conditional-probability/</guid>
       <description>样本空间（Ω） 样本空间通常指实验或随机所有可能的集合，我们常在说一个概率的时候，实际上是默认忽略掉了样本空间，比如说事件A的概率，实际上指样本空间中，事件A的数量与样本空间的占比。
 比如丢硬币，硬币只有正面和反面，那么硬币的样本空间则为 ${正面，反面}$，这个时候常说的正面的概率为二分之一，实际指的是正面事件的数量与样本空间的占比，也就是1/2。 再比如说丢骰子，一个骰子有6种可能，分别对应1-6不同的数值，那么丢骰子的样本空间则为${1，2，3，4，5，6}$，这个时候丢到5个事件概率则为数字5在样本空间出现的次数与样本空间总数的占比。
 独立事件 独立事件是指不受过去已发生的事件而影响的事件，典型的例子就是抛硬币，不管你抛多少次硬币始终正面或反面的概率为0.5，而该硬币的样本空间如下：

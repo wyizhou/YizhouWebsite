@@ -10,15 +10,15 @@
 <meta name="description" content="自定义事件在很多地方都会用到，然后跟着书实例了几次，然后详细注释，也算给自己做了一个笔记。
 1 //定义一个自定义事件类 2 //定义一个实例属性用以单独为每一个实例创建独立的事件集 3 function EventTarget() { 4 5 this.handles = {}; 6 7 }; 8 9 EventTarget.prototype = { 10 11 //构造函数的指针指向事件本身 12 constructor: EventTarget, 13 14 15 //添加事件代码的函数，接受两个参数，一个为事件的类型一个为事件的处理程序 16 addHandle: function(type, handle) { 17 18 19 //检测添加的事件类型是否存在 20 if(typeof this.handles\[type\] == &#39;undefined&#39;){ 21 22 23 //如果不存在则新创建一个，类型为数组,如果存在则push进数组 24 this.handles\[type\] = \[\]; 25 }; 26 27 28 this.handles\[type\].push(handle); 29 30 }, 31 32 //事件触发函数，接受一个对象，对象至少包括一个type属性 33 fire: function(event) { 34 35 36 //检测传入进来的对象target属性是否存在，如果没有则设置一个指向当前实例的指针 37 if(!">
 <meta name="author" content="">
-<link rel="canonical" href="/posts/javascript-custom-event/">
+<link rel="canonical" href="https://wuyizhou.com/posts/javascript-custom-event/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="mask-icon" href="safari-pinned-tab.svg">
+<link rel="icon" href="https://wuyizhou.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://wuyizhou.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://wuyizhou.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://wuyizhou.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://wuyizhou.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <noscript>
@@ -81,7 +81,7 @@
 <meta property="og:description" content="自定义事件在很多地方都会用到，然后跟着书实例了几次，然后详细注释，也算给自己做了一个笔记。
 1 //定义一个自定义事件类 2 //定义一个实例属性用以单独为每一个实例创建独立的事件集 3 function EventTarget() { 4 5 this.handles = {}; 6 7 }; 8 9 EventTarget.prototype = { 10 11 //构造函数的指针指向事件本身 12 constructor: EventTarget, 13 14 15 //添加事件代码的函数，接受两个参数，一个为事件的类型一个为事件的处理程序 16 addHandle: function(type, handle) { 17 18 19 //检测添加的事件类型是否存在 20 if(typeof this.handles\[type\] == &#39;undefined&#39;){ 21 22 23 //如果不存在则新创建一个，类型为数组,如果存在则push进数组 24 this.handles\[type\] = \[\]; 25 }; 26 27 28 this.handles\[type\].push(handle); 29 30 }, 31 32 //事件触发函数，接受一个对象，对象至少包括一个type属性 33 fire: function(event) { 34 35 36 //检测传入进来的对象target属性是否存在，如果没有则设置一个指向当前实例的指针 37 if(!" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/posts/javascript-custom-event/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://wuyizhou.com/posts/javascript-custom-event/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2015-01-18T18:31:00+00:00" />
 <meta property="article:modified_time" content="2015-01-18T18:31:00+00:00" />
 
@@ -100,13 +100,13 @@
       "@type": "ListItem",
       "position":  2 ,
       "name": "Posts",
-      "item": "/posts/"
+      "item": "https://wuyizhou.com/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  3 ,
       "name": "Javascript自定义事件",
-      "item": "/posts/javascript-custom-event/"
+      "item": "https://wuyizhou.com/posts/javascript-custom-event/"
     }
   ]
 }
@@ -128,14 +128,14 @@
   "dateModified": "2015-01-18T18:31:00Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "/posts/javascript-custom-event/"
+    "@id": "https://wuyizhou.com/posts/javascript-custom-event/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Yizhou",
     "logo": {
       "@type": "ImageObject",
-      "url": "favicon.ico"
+      "url": "https://wuyizhou.com/favicon.ico"
     }
   }
 }
@@ -157,7 +157,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
+            <a href="https://wuyizhou.com" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -183,22 +183,22 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="/archives/" title="Archives">
+                <a href="https://wuyizhou.com/archives/" title="Archives">
                     <span>Archives</span>
                 </a>
             </li>
             <li>
-                <a href="/tags/" title="Tags">
+                <a href="https://wuyizhou.com/tags/" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
             <li>
-                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="https://wuyizhou.com/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
             <li>
-                <a href="/index.xml" title="Rss">
+                <a href="https://wuyizhou.com/index.xml" title="Rss">
                     <span>Rss</span>
                 </a>
             </li>
@@ -209,7 +209,7 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="">Home</a>&nbsp;»&nbsp;<a href="/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="https://wuyizhou.com">Home</a>&nbsp;»&nbsp;<a href="https://wuyizhou.com/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       Javascript自定义事件
     </h1>
@@ -288,14 +288,14 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a></li>
+      <li><a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a></li>
     </ul>
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="">Yizhou</a></span>
+    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

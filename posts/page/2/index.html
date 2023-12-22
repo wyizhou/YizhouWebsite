@@ -9,16 +9,16 @@
 <meta name="keywords" content="">
 <meta name="description" content="Posts - Yizhou">
 <meta name="author" content="">
-<link rel="canonical" href="/posts/">
+<link rel="canonical" href="https://wuyizhou.com/posts/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
-<link rel="icon" href="favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="mask-icon" href="safari-pinned-tab.svg">
+<link rel="icon" href="https://wuyizhou.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://wuyizhou.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://wuyizhou.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://wuyizhou.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://wuyizhou.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="/posts/index.xml">
+<link rel="alternate" type="application/rss+xml" href="https://wuyizhou.com/posts/index.xml">
 <noscript>
     <style>
         #theme-toggle,
@@ -78,7 +78,7 @@
 <meta property="og:title" content="Posts" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="/posts/" />
+<meta property="og:url" content="https://wuyizhou.com/posts/" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Posts"/>
@@ -94,7 +94,7 @@
       "@type": "ListItem",
       "position":  2 ,
       "name": "Posts",
-      "item": "/posts/"
+      "item": "https://wuyizhou.com/posts/"
     }
   ]
 }
@@ -116,7 +116,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
+            <a href="https://wuyizhou.com" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -142,22 +142,22 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="/archives/" title="Archives">
+                <a href="https://wuyizhou.com/archives/" title="Archives">
                     <span>Archives</span>
                 </a>
             </li>
             <li>
-                <a href="/tags/" title="Tags">
+                <a href="https://wuyizhou.com/tags/" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
             <li>
-                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="https://wuyizhou.com/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
             <li>
-                <a href="/index.xml" title="Rss">
+                <a href="https://wuyizhou.com/index.xml" title="Rss">
                     <span>Rss</span>
                 </a>
             </li>
@@ -165,7 +165,7 @@
     </nav>
 </header>
 <main class="main"> 
-<header class="page-header"><div class="breadcrumbs"><a href="">Home</a></div>
+<header class="page-header"><div class="breadcrumbs"><a href="https://wuyizhou.com">Home</a></div>
   <h1>
     Posts
     <a href="/posts/index.xml" title="RSS" aria-label="RSS">
@@ -195,7 +195,7 @@
 参考文章 什么是机器学习？ 人工智能、机器学习、深度学习、神经网络概念说明 神经网络啥时候改名叫“深度学习”了？ 深度学习和人工智能之间是什么样的关系？ 《自然语言处理入门》 </p>
   </div>
   <footer class="entry-footer"><span title='2021-06-26 06:48:33 +0000 UTC'>June 26, 2021</span></footer>
-  <a class="entry-link" aria-label="post link to 人工智能基础名词理解" href="/posts/inteliigence-terms/"></a>
+  <a class="entry-link" aria-label="post link to 人工智能基础名词理解" href="https://wuyizhou.com/posts/inteliigence-terms/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -211,7 +211,7 @@ Trie树的查找方式则是通过层层查询，而不是直接遍历词典，�
 class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实例定义一个名为_children的对象，用于存放词的Trie结构 self._children = {} def _add_word(self, word): # 定义一个添加词的实例方法 child = self._children # 首先会将_children的对象赋值给child for i,char in enumerate(word): # 然后从头遍历添加词的每一个字符 if char not in child: # 查看当前字符是否存在Trie树上 child[char] = {&#39;__value&#39;: False} # 如果没有则新建一个对象，并设置特殊key__value为False，表明这不是一个结尾字符 if i == (len(word) - 1): # 判断是否为结尾字符 child[char][&#39;__value&#39;] = True # 如果是则将特殊key：__value设为True，表明为结尾字符 child = child[char] # 如果还有字符，则将当前字符对象更新为child，那么下一次查找则是基于上一次对象下 return True # 添加完成返回True def _get_word(self, word): # 查找词 child = self....</p>
   </div>
   <footer class="entry-footer"><span title='2020-11-18 08:51:13 +0000 UTC'>November 18, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to (二)漫话中文分词：Trie、KMP、AC自动机" href="/posts/chinesecutwords-2/"></a>
+  <a class="entry-link" aria-label="post link to (二)漫话中文分词：Trie、KMP、AC自动机" href="https://wuyizhou.com/posts/chinesecutwords-2/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -227,7 +227,7 @@ class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实
 sentence = &#39;中文分词算法&#39; # 输入的句子 cutList = [&#39;分词&#39;] # 分词词典 start = 0 #设置切分起始位置 maxWidth = len(max(cutList, key=len)) # 得到字典当中最大的切分宽度 cut_result = [] # 设置一个空的分词结果 while (start &lt;= len(sentence)): #开始循环，如果start大于等于句子长度则停止分词 end = start &#43; maxWidth # 计算每次切分的停止位置 word = sentence[start: end] # 开始切分，文本为变量start和end的区间内字符 while ( word ) : # python对于空字符串会转换为False if ( word in cutList ) : # 查看第一次切分后是否能在词典中匹配，如果匹配则放入最终的分词结果列表cut_result,并跳出循环 cut_result....</p>
   </div>
   <footer class="entry-footer"><span title='2020-11-08 10:36:34 +0000 UTC'>November 8, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to (一)漫话中文分词：最大匹配,双向最大,最小词数" href="/posts/chinesecutwords-1/"></a>
+  <a class="entry-link" aria-label="post link to (一)漫话中文分词：最大匹配,双向最大,最小词数" href="https://wuyizhou.com/posts/chinesecutwords-1/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -266,7 +266,7 @@ $$ 事件发生的概率(P) = 事件在样本空间中的数量 / 样本空间�
 $$ P(B) = 0.3 &#43; 0....</p>
   </div>
   <footer class="entry-footer"><span title='2020-11-03 09:03:53 +0000 UTC'>November 3, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to 理解条件概率" href="/posts/learning-conditional-probability/"></a>
+  <a class="entry-link" aria-label="post link to 理解条件概率" href="https://wuyizhou.com/posts/learning-conditional-probability/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -280,7 +280,7 @@ age,name 18,’大红’ 21,’小花’ 同理，在统计学中，离散数据
 参考资料 关于连续和离散的理解 定量和定性变量、连续和离散变量，到底怎么分？ 图解概率笔记：葉丙成概率公开课 </p>
   </div>
   <footer class="entry-footer"><span title='2020-10-27 07:35:35 +0000 UTC'>October 27, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to 理解连续数据和离散数据" href="/posts/continuous-data-and-discrete-data/"></a>
+  <a class="entry-link" aria-label="post link to 理解连续数据和离散数据" href="https://wuyizhou.com/posts/continuous-data-and-discrete-data/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -302,7 +302,7 @@ list = [1,2.2,&#39;ok&#39;,bool] print(2.2 in list) #返回 True print(2.2 not i
 tple = (1,2,3,4) tple[0] # 1 tple[0] = &#39;m&#39; &#34;&#34;&#34; Traceback (most recent call last): File &#34;&lt;ipython-input-21-cae8ab2b1ade&gt;&#34;, line 1, in &lt;module&gt; tple[0] = m TypeError: &#39;tuple&#39; object does not support item assignment 在上面这一行就会明显提醒你tuple对象不支持修改。 &#34;&#34;&#34; 集合 集合是可变无序的数据集合，并且用一对{}表示，元素之间逗号分隔，还需要特别注意的是集合是一个包含唯一元素的可变无序集合数据类型,集合的一个用途是快速删除列表中的重复项 ，集合是无序的，既然是无序那么就没有办法进行索引，我们只能通过两个方法进行添加和删除数据并返回，添加通过add()方法，删除是pop()方法，添加是随机插入到集合当中的任何位置，而删除是从集合当中随机取出一个值删除并返回。比如下面的操作：...</p>
   </div>
   <footer class="entry-footer"><span title='2018-06-25 13:21:31 +0000 UTC'>June 25, 2018</span></footer>
-  <a class="entry-link" aria-label="post link to Python数据集合" href="/posts/python-list/"></a>
+  <a class="entry-link" aria-label="post link to Python数据集合" href="https://wuyizhou.com/posts/python-list/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -319,7 +319,7 @@ x = int(4.7) # x is now an integer 4 y = float(4) # y is now a float of 4.0 你�
 比较运算符 符号使用情况...</p>
   </div>
   <footer class="entry-footer"><span title='2018-06-25 09:26:05 +0000 UTC'>June 25, 2018</span></footer>
-  <a class="entry-link" aria-label="post link to Python数据类型与操作符" href="/posts/python-datatype/"></a>
+  <a class="entry-link" aria-label="post link to Python数据类型与操作符" href="https://wuyizhou.com/posts/python-datatype/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -341,7 +341,7 @@ certbot-auto --apache 0X0003 我们可以通过renew进行查看证书的有效�
 certbot-auto renew 查看证书有效期 certbot-auto renew --dry-run 更新证书有效期 </p>
   </div>
   <footer class="entry-footer"><span title='2018-06-25 03:46:41 +0000 UTC'>June 25, 2018</span></footer>
-  <a class="entry-link" aria-label="post link to Apache2-https安装教程" href="/posts/apache2-https/"></a>
+  <a class="entry-link" aria-label="post link to Apache2-https安装教程" href="https://wuyizhou.com/posts/apache2-https/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -358,7 +358,7 @@ list(range(100000)) 类似于上面这样的情况，我们可以用generator对
 l = [x * x for x in range(5)] #列表表达式 g = (x * x for x in range(5)) #生成器表达式 generator对象是需要通过next函数调用执行，并且返回的值是按循环生成的每个元素，我们每次用next执行我们的generator对象后，generator对象会保存执行后的状态，直到没有元素或者遇见return语句后抛出一个StopIteration错误来表示已经执行完毕，下面的代码是通过手动执行generator对象和通过for自动执行。...</p>
   </div>
   <footer class="entry-footer"><span title='2018-06-04 08:29:36 +0000 UTC'>June 4, 2018</span></footer>
-  <a class="entry-link" aria-label="post link to Python生成器" href="/posts/python-generator/"></a>
+  <a class="entry-link" aria-label="post link to Python生成器" href="https://wuyizhou.com/posts/python-generator/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -379,21 +379,21 @@ list(range(0,50,2)) 列表生成表达式 列表生成式是Python内置的’�
 from collections import Iterable isinstance([], Iterable) # True isinstance({}, Iterable) #True isinstance(100, Iterable) #false 从上面看字典也是可以进行迭代的，下面的代码就是列表表达式对字典进行处理生成列表，并将首字母更改为大写，并且下面是在列表生成表达式中产生了两个变量。...</p>
   </div>
   <footer class="entry-footer"><span title='2018-06-04 02:45:42 +0000 UTC'>June 4, 2018</span></footer>
-  <a class="entry-link" aria-label="post link to Python 列表生成表达式" href="/posts/python-list-render/"></a>
+  <a class="entry-link" aria-label="post link to Python 列表生成表达式" href="https://wuyizhou.com/posts/python-list-render/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
-    <a class="prev" href="/posts/">
+    <a class="prev" href="https://wuyizhou.com/posts/">
       «&nbsp;Prev&nbsp;
     </a>
-    <a class="next" href="/posts/page/3/">Next&nbsp;&nbsp;»
+    <a class="next" href="https://wuyizhou.com/posts/page/3/">Next&nbsp;&nbsp;»
     </a>
   </nav>
 </footer>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="">Yizhou</a></span>
+    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

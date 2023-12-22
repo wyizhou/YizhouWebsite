@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>杂物间 on Yizhou</title>
-    <link>/tags/%E6%9D%82%E7%89%A9%E9%97%B4/</link>
+    <link>https://wuyizhou.com/tags/%E6%9D%82%E7%89%A9%E9%97%B4/</link>
     <description>Recent content in 杂物间 on Yizhou</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 11 Oct 2022 01:52:49 +0000</lastBuildDate>
-    <atom:link href="/tags/%E6%9D%82%E7%89%A9%E9%97%B4/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://wuyizhou.com/tags/%E6%9D%82%E7%89%A9%E9%97%B4/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Google Hacking Test</title>
-      <link>/posts/google-hacking-test/</link>
+      <link>https://wuyizhou.com/posts/google-hacking-test/</link>
       <pubDate>Tue, 11 Oct 2022 01:52:49 +0000</pubDate>
-      <guid>/posts/google-hacking-test/</guid>
+      <guid>https://wuyizhou.com/posts/google-hacking-test/</guid>
       <description>前言 学习Google搜索，其目的是用于让自己得到更精准的信息，所以善用Google搜索对于信息收集、安全测试、查找答案等都有着非常大的帮助。而随着时间的变化Google对于语法的更新、规则都在改动，这些改动对于结果都有影响，所以使用前进行测试是非常有必要的。 查阅了诸多资料过后，将Google搜索的操作分为了三个等级，分别为基础搜索、布尔操作符、高级操作符，每个级别的都可以进行配合使用，有些组合起来能够让搜索更加精准，而有些则是不能进行组合。 同时这些搜索方式会与高级搜索设置中的功能重叠，但个人偏向使用语法对比高级搜索设置方便许多，所以后面的内容均使用语法，不会涉及到搜索设置等。 除此之外，还有诸多的网站可以获取到Google语法的途径，比如exploit-db是一个用于记录安全测试的Google语法数据库，这里面记录了非常多因配置失误操作的漏洞，如获取sql备份文件sql.bak等。Google Help提供常用的Google语法等。
 影响搜索的因素 Google在搜索原理的一篇简单的介绍了会影响搜索结果的几个因素，分别为以下7个因素：
 如果为中文，需要进行分词、语法等NLP技术的信息提取。
@@ -43,9 +43,9 @@ inanchor：inanchor高级操作符用于搜索超链接的文本。比如链接�
     </item>
     <item>
       <title>Mac软件推荐-Mounty</title>
-      <link>/posts/mounty-software/</link>
+      <link>https://wuyizhou.com/posts/mounty-software/</link>
       <pubDate>Tue, 18 Jul 2017 13:32:33 +0000</pubDate>
-      <guid>/posts/mounty-software/</guid>
+      <guid>https://wuyizhou.com/posts/mounty-software/</guid>
       <description>前言 在Mac上面访问NTFS格式的移动设备或者分区很简单，但是如果你要对NTFS进行写操作，就得使用其他的方式，比如打开Mac自身支持NTFS的读写 、购买付费软件NTFS For Mac 、Paragon NTFS等，还或者通过免费软件，比如下面要介绍的一款Mounty。
 通过终端工具等系统命令操作很麻烦，特别是对不懂命令行的人来说更加头疼。如果是付费软件那么你就得支持一笔费用，此费用还不小，每当Macos或者付费软件版本大更新的时候就会进行一次更新，那这次更新当然不是免费的，你还得付费这次的升级费用。
 我找了很多个免费的NTFS读写工具，终于找到了一款非常满意的NTFS读写工具并且支持中文，但是存在一些小问题，可能不该叫它工具，该叫App。如果你觉得好用，我非常赞同你支持开发者捐赠费用，通过下图所标记的地方进行捐赠
@@ -62,9 +62,9 @@ BUG 在新的MacOS 10.12.5系统中会存在一些BUG
     </item>
     <item>
       <title>Mac支付宝插件风波</title>
-      <link>/posts/mac-alipay-plugins/</link>
+      <link>https://wuyizhou.com/posts/mac-alipay-plugins/</link>
       <pubDate>Tue, 27 Jan 2015 19:34:00 +0000</pubDate>
-      <guid>/posts/mac-alipay-plugins/</guid>
+      <guid>https://wuyizhou.com/posts/mac-alipay-plugins/</guid>
       <description>1、前言 首先我喜欢看一些创业的书，很多书里都会有马云的身影，马云也算是对我有一定的影响，从而我对淘宝也产生了一定的好感。但是关于这次插件事情，我对阿里产生了一些排斥的心里作用。我并不想吐槽淘宝，也不是吐槽马云，阿里不是万达，整个阿里并不是马云想干啥就干啥，所以这些事情也不可能说是马云的一句之作，我看见网上很多人因为这个事情在吐槽马云，我都为马云兄背黑锅这件事情感到蛋疼。仁者见仁智者见智吧！
 2、可疑进程 无意中看到一篇文章在说Mac上支付宝插件有点异常，我查看了自己的进程，发现确实存在一个可疑的“AlipayDispatcherService”进程，同时这个进程会监控浏览器的配置文件，通过kill结束这个进程后发现“AlipayDispatcherService”进程会再次启动，我找出了以下两个相关的阿里服务：
 com.alipay.refresher.plist com.alipay.DispatcherService.plist 发现“com.alipay.DispatcherService.plist”服务调用“com.alipay.refresher.plist”服务不断重启“AlipayDispatcherService”，理清楚调用顺序过后，关闭这个进程相对简单了，首先禁用两个服务：
