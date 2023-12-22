@@ -1,579 +1,88 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Yizhou&#39;s Website</title>
-    <link>https://wuyizhou.com/posts/</link>
-    <description>Recent content in Posts on Yizhou&#39;s Website</description>
+    <title>Posts on Yizhou</title>
+    <link>/posts/</link>
+    <description>Recent content in Posts on Yizhou</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 11 Dec 2023 13:53:48 +0000</lastBuildDate>
-    <atom:link href="https://wuyizhou.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>4-极光计划实证：经历了熊市才算成长</title>
-      <link>https://wuyizhou.com/posts/aurora-project-4/</link>
+      <link>/posts/aurora-project-4/</link>
       <pubDate>Mon, 11 Dec 2023 13:53:48 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/aurora-project-4/</guid>
-      <description>前言 🔗最近两个月A股反反复复，10月份跌破3000点后又回到了3000，最近又跌下去了，第二次跌破3000的我反而心态比一次更好了，所以说经</description>
+      <guid>/posts/aurora-project-4/</guid>
+      <description>前言 最近两个月A股反反复复，10月份跌破3000点后又回到了3000，最近又跌下去了，第二次跌破3000的我反而心态比一次更好了，所以说经历熊市才是最好的成长方式。
+但我仔细想过过这个事情，主要还是因为我投入的钱太少了，即使目前的钱全部亏完，最多心疼，但对于我目前来说造不成太大的心理伤害。
+最近在思考”长期持有“这句话，我个人最近一直再思考着这类的话，我个人觉得”长期持有“这句话没有问题，但很容易误导，让大家都觉得只要一直持有就会上涨，实际情况远比所谓的”长期持有“复杂，因为大家搞投资本质上不是只是看看上涨过过瘾，是来赚钱的，所以大部分例子中的回测都是拉到了很多年，实际上仔细一看，每年的波动非常大，如果不幸在高点，那么其他人5年可以浮盈达到15%，而你甚至还浮亏。
+之所以说这么多，其实最主要的问题还是想说”长期持有“是没有问题，但是一定是在基于”好价格+好资产+长期持有“，”有知有行“这样具备投顾服务特性的APP是完全没有问题的，只需要做好信任主理人，然后长期持有，因为投顾会在里面帮你去平衡整体的价格，比如有知有行的长钱钱包会在股市上行的时候卖掉部分权益类基金，转而去提升债权类基金。
+实证 从2023年7月份开始，我开始实施退休计划，我将该计划称为“极光计划”，争取在45岁存够300万，然后每年7%的作为生活费过上退休的生活。
+实证记录我在每个月1-10号进行更新，主要记录上个月的情况。
+计划进度 当前极光计划完成度 0.1955%（当前资产 ÷ 目标资产），浮亏 133.73 元。
+预算及储蓄 2023年整体预算情况为：
+11月的储蓄率为59.477%。支出方面本月对比上月有所提高，超出的部分主要和家人出行游玩。从10月份开始调整了餐饮后，整体觉得目前是比较合适的。
+投资组合 愿望清单 最近家里面很早之前购买的小米净化器3传感器出现了问题，经常在睡觉的时候，转速自动调整为最大，导致吵闹得很，所以又将小米全效净化器恢复回来了。</description>
     </item>
     <item>
       <title>#3-极光计划实证：小起小落</title>
-      <link>https://wuyizhou.com/posts/aurora-project-3/</link>
+      <link>/posts/aurora-project-3/</link>
       <pubDate>Wed, 08 Nov 2023 13:37:34 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/aurora-project-3/</guid>
-      <description>前言 🔗最近一个月算是第一次关注投资以来经历的第一次“小起小落”，上证下到了3000点以下，自己的基金也最高亏到了190元，目前仍然浮亏。 为什</description>
+      <guid>/posts/aurora-project-3/</guid>
+      <description>前言 最近一个月算是第一次关注投资以来经历的第一次“小起小落”，上证下到了3000点以下，自己的基金也最高亏到了190元，目前仍然浮亏。
+为什么是小起小落呢？自己总结了一下，可能是两个原因，其一是因为自己投入资金并不多，其二可能投入的钱并不会影响到生活，所以也就不在乎了，但我自己臆想，应该第一种可能性较大。
+在上个月月底自己从小结伴的表姐被我一顿洗脑买了一部分基金，但整体不多闹着玩的投入了400-500元，但到了跌到3000点附近的时候，表姐给我发了一条消息，附上了一张截图（图片大概是某个网络博主说A股没有希望了），意思是要先撤退不玩了，也就是默认赞同了A股没有希望这一说。
+但好在平时关注了几个风格比较喜欢的博主，常被这些博主有理有据的“按摩”，反而到期待这个市场是怎么走向。
+对于市场不好的时候，我个人思路是A股越跌，优质资产就越多，毕竟“好价格+好资产+长期持有=高回报”，如果真正出现了A股一直跌，那么反正大家持有都为人民币，一直跌下去，也就是说明中国经济不行了，那么人民币也就会随之贬值，当然这种说法有点PUA，也不全无道理。
+上面这种思路，我记得橡树资本的创始人霍华德·马克斯（名字还是现查才记住）在《周期》一书中还应用到了投资当中，并且也获得了非常好的回报。
+最近在看也大的公众号连载《减重日记》系列，看了几期后，颠覆了平常对于减肥认知，同时也将《中国居民膳食指南》这本书加入了待看清单中，准备后面有时间了多了解了解。
+实证 从2023年7月份开始，我开始实施退休计划，我将该计划称为“极光计划”，争取在45岁存够300万，然后每年7%的作为生活费过上退休的生活。
+实证记录我在每个月1-10号进行更新，主要记录上个月的情况。
+计划进度 当前极光计划完成度 0.1634%（当前资产 ÷ 目标资产），浮亏 96.49 元。
+预算及储蓄 2023年整体预算情况为：
+10月的储蓄率为39.85%，因给自己买入了重疾险，所以储蓄部分降低了。
+本月支出因为国庆节回老家，消费过高，导致分摊预算中一直存在一笔待摊销奋勇，正在逐月通过结余和购物预算进行分摊。
+本月日常餐饮结余的一部分正好填补了交通费超出的一部分，主要超出的部分在于外出打车，整体次数为5次。
+但通过此次实施的情况来看，交通费目前的预算是不太合理的，因为在日常生活中，即使自己有车的情况下，打车很难避免，所以准备在11月将其提高至900元。
+投资组合 投资组合本月没有变化。
+愿望清单 本月的愿望清单将Apple Watch S8购入了，这是因为最近看见也大发的公众号连载《减重日记》系列中提到对于长时间带Apple Watch可以通过健康应用找到“静息能量”和“活动能量”两个数据，这两个数据相加就可以代表当天消耗了多少卡路里，而这个值我觉得非常有用的地方在于，以前每天减肥不知道到底吃多少？只能按照能少吃则少吃的概念，但这个数据就提供了一个很好的参考。
+除此之外，加上Apple Watch 9出来了，Apple Watch8市场价格开始下降，正好看见我们一个做数码产品的朋友在出售一块二手的Apple Watch 8 45 GPS版本，价格1300，属于非常香的价格了。
+同时本月愿望清单中删除了小米智能电蒸锅，这个删除主要的原因在于产品的塑料问题，了解了一翻后发现这个产品的蒸盖是塑料的，所以暂时放弃了。
+关于净化器，目前和家人讨论了一番后，觉得似乎性价比不高，这是因为本质上散甲醛最好的方式还是通风，所以空气净化器的应用场景就只有在夏天、空调屋了，但四川这边马上进入冬天，实际上可以接受随时开着窗子，而冬天一过，我们整体的装修时间已经达到了小一年了，所以也就放弃了。</description>
     </item>
     <item>
       <title>最近搭建了一台家用Nas</title>
-      <link>https://wuyizhou.com/posts/home-nas-2023/</link>
+      <link>/posts/home-nas-2023/</link>
       <pubDate>Thu, 19 Oct 2023 13:24:56 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/home-nas-2023/</guid>
-      <description>从两个月前，我着手搭建了一套家用Nas，起因之前自己的资料一直存放在ICloud，因为自己的资料比较多，在600多G，所以自己一直购买的国区</description>
-    </item>
-    <item>
-      <title>#2-极光计划实证：当头一棒</title>
-      <link>https://wuyizhou.com/posts/aurora-project-2/</link>
-      <pubDate>Sun, 08 Oct 2023 13:54:12 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/aurora-project-2/</guid>
-      <description>前言 🔗最近想了一个方式，找了一些基金的历史数据，并且做了一些回测，下面是我做了回测后在也大的知识星球上提出的提问以及也大回复的内容。 也大，最</description>
-    </item>
-    <item>
-      <title>#1-极光计划实证：启航</title>
-      <link>https://wuyizhou.com/posts/aurora-project-1/</link>
-      <pubDate>Fri, 08 Sep 2023 15:55:07 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/aurora-project-1/</guid>
-      <description>前言 🔗这是一篇关于投资的文章，也是第一期（较为啰嗦），记录了一个30岁的男人，通过理财、投资，在45岁之前达到”财务自由“，对于财务自由，我</description>
-    </item>
-    <item>
-      <title>GPU服务器的多人环境搭建</title>
-      <link>https://wuyizhou.com/posts/gpu-server-lxd-multiplexing/</link>
-      <pubDate>Fri, 21 Oct 2022 04:52:07 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/gpu-server-lxd-multiplexing/</guid>
-      <description>环境 🔗CPU: Intel(R) Xeon(R) Gold 6154* 2 Momery: 128G GPU: 3080TI * 2 Disk: 16T HD &amp;amp; 512 SSD System: Ubuntu 22.04 Server 前言 🔗因为最近团队对于GPU的需求量增加，但之前都是在工作电脑上直接使用GPU进行训</description>
-    </item>
-    <item>
-      <title>Google Hacking Test</title>
-      <link>https://wuyizhou.com/posts/google-hacking-test/</link>
-      <pubDate>Tue, 11 Oct 2022 01:52:49 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/google-hacking-test/</guid>
-      <description>前言 🔗学习Google搜索，其目的是用于让自己得到更精准的信息，所以善用Google搜索对于信息收集、安全测试、查找答案等都有着非常大的帮助</description>
-    </item>
-    <item>
-      <title>基于LXC容器的Openwrt搭建</title>
-      <link>https://wuyizhou.com/posts/lxc-openwrt/</link>
-      <pubDate>Tue, 06 Sep 2022 05:02:51 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/lxc-openwrt/</guid>
-      <description>前期工作 🔗环境和机器配置： 机器：5105v4 i226-v版本 pve： 7.1.2，内核Linux 5.13.19-2-pve 准备工作： 将网线连接到pve管理口，如果已安</description>
-    </item>
-    <item>
-      <title>Elasticsearch节点配置</title>
-      <link>https://wuyizhou.com/posts/elasticsearch-config-node/</link>
-      <pubDate>Fri, 10 Jun 2022 07:49:01 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/elasticsearch-config-node/</guid>
-      <description>节点配置 🔗配置Java 🔗因为Elasticsearch是Java编写的，所以在使用Elasticsearch之前，需要构建好Java的环境。</description>
-    </item>
-    <item>
-      <title>前端的技术栈理解</title>
-      <link>https://wuyizhou.com/posts/frontend-terms/</link>
-      <pubDate>Fri, 22 Apr 2022 01:52:54 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/frontend-terms/</guid>
-      <description>最近几年单页应用程序发展非常迅速，从早期通过Javascript写入大量html模版去做单页程序（SPA），到现在的React、Vue（最为</description>
-    </item>
-    <item>
-      <title>人工智能基础名词理解</title>
-      <link>https://wuyizhou.com/posts/inteliigence-terms/</link>
-      <pubDate>Sat, 26 Jun 2021 06:48:33 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/inteliigence-terms/</guid>
-      <description>人工智能 🔗人工智能是一个比较广泛的概念，这个概念实际上指的是让机器像人一样思考，其最早由计算机科学之父阿兰图灵在1950年的一篇《计算机器与</description>
-    </item>
-    <item>
-      <title>(二)漫话中文分词：Trie、KMP、AC自动机</title>
-      <link>https://wuyizhou.com/posts/chinesecutwords-2/</link>
-      <pubDate>Wed, 18 Nov 2020 08:51:13 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/chinesecutwords-2/</guid>
-      <description>Trie树 🔗在上一篇文章当中，说到了一些匹配的算法，但是算法有了，还得需要一个高效的数据结构，不能只是通过[&amp;lsquo;中国人&amp;rsquo</description>
-    </item>
-    <item>
-      <title>(一)漫话中文分词：最大匹配,双向最大,最小词数</title>
-      <link>https://wuyizhou.com/posts/chinesecutwords-1/</link>
-      <pubDate>Sun, 08 Nov 2020 10:36:34 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/chinesecutwords-1/</guid>
-      <description>中文分词是指将文本拆分为单词的过程，而结果集合连接起来是等于原始的文本，而中文分词一直作为NLP领域的比较重要的领域，而大多数的文本挖掘都是</description>
-    </item>
-    <item>
-      <title>理解条件概率</title>
-      <link>https://wuyizhou.com/posts/learning-conditional-probability/</link>
-      <pubDate>Tue, 03 Nov 2020 09:03:53 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/learning-conditional-probability/</guid>
-      <description>样本空间（Ω） 🔗样本空间通常指实验或随机所有可能的集合，我们常在说一个概率的时候，实际上是默认忽略掉了样本空间，比如说事件A的概率，实际上指</description>
-    </item>
-    <item>
-      <title>理解连续数据和离散数据</title>
-      <link>https://wuyizhou.com/posts/continuous-data-and-discrete-data/</link>
-      <pubDate>Tue, 27 Oct 2020 07:35:35 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/continuous-data-and-discrete-data/</guid>
-      <description>统计学中，将一种类型的数据总称为变量，而变量的数据称为观测，而变量的具体取值为观测值，比如下面的数据中，age和name都是变量，而18和’</description>
-    </item>
-    <item>
-      <title>Python数据集合</title>
-      <link>https://wuyizhou.com/posts/python-list/</link>
-      <pubDate>Mon, 25 Jun 2018 13:21:31 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/python-list/</guid>
-      <description>列表 🔗列表是有序可变的数据集合，并且一对[]来表示这是一个列表，元素之间逗号分隔，每个数据之间有逗号分隔，列表基本上可以包含很多数据类型，下</description>
-    </item>
-    <item>
-      <title>Python数据类型与操作符</title>
-      <link>https://wuyizhou.com/posts/python-datatype/</link>
-      <pubDate>Mon, 25 Jun 2018 09:26:05 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/python-datatype/</guid>
-      <description>算术运算符 🔗 + 加 - 减 * 乘 / 除 % 取余（相除后的余数） ** 取幂（注意 ^ 并不执行该运算，你可能在其他语言中见过这种情形） // 相除后向下取整到最接近的整</description>
-    </item>
-    <item>
-      <title>Apache2-https安装教程</title>
-      <link>https://wuyizhou.com/posts/apache2-https/</link>
-      <pubDate>Mon, 25 Jun 2018 03:46:41 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/apache2-https/</guid>
-      <description>环境 🔗 CentOS Linux release 7.5.1804 Apache/2.4.6 (CentOS) root用户 前言 🔗首先我们需要建立vhost文件，在目前的环境中安装的Apache会自动把目录为/etc/httpd/co</description>
-    </item>
-    <item>
-      <title>Python生成器</title>
-      <link>https://wuyizhou.com/posts/python-generator/</link>
-      <pubDate>Mon, 04 Jun 2018 08:29:36 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/python-generator/</guid>
-      <description>什么是生成器(generator)？ 🔗在Python中提供了一种名为generator的对象，他是通过next函数去中断执行并且genera</description>
-    </item>
-    <item>
-      <title>Python 列表生成表达式</title>
-      <link>https://wuyizhou.com/posts/python-list-render/</link>
-      <pubDate>Mon, 04 Jun 2018 02:45:42 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/python-list-render/</guid>
-      <description>如何生成列表？ 🔗先试想一下，如果你需要生成1-50的数值列表，如果没有列表生成式你将会这样来做： x = [] i = 1 while i &amp;lt;= 50: x.append(i) i += 1 还有一种方法就是</description>
-    </item>
-    <item>
-      <title>Python函数参数</title>
-      <link>https://wuyizhou.com/posts/python-func-par/</link>
-      <pubDate>Fri, 01 Jun 2018 04:23:15 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/python-func-par/</guid>
-      <description>位置参数 🔗位置参数是指定了多少参数，就必须输入多少参数，否则就会报错。也可以把位置参数理解为必须参数，如果没有输入同等的参数，就会报错，比如</description>
-    </item>
-    <item>
-      <title>Anaconda入门教程</title>
-      <link>https://wuyizhou.com/posts/anaconda/</link>
-      <pubDate>Tue, 29 May 2018 10:24:42 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/anaconda/</guid>
-      <description>Anaconda是什么？ 🔗Anaconda可以理解为Python的软件发行版，可以用来管理包、环境，但是Anaconda主要针对于数据科学。</description>
-    </item>
-    <item>
-      <title>Python头部注释</title>
-      <link>https://wuyizhou.com/posts/python-coding-settings/</link>
-      <pubDate>Wed, 23 May 2018 08:22:38 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/python-coding-settings/</guid>
-      <description>#!/usr/bin/env python3 # -*- coding: utf-8 -*- 在刚开始学习Python的时候遇到了上面的疑问，这些疑问感觉很奇怪，应为对于Nodejs这样的语言，这些问题是不会存在的，后来</description>
-    </item>
-    <item>
-      <title>HTML表格的加载优化</title>
-      <link>https://wuyizhou.com/posts/html-table-preloaded/</link>
-      <pubDate>Wed, 14 Mar 2018 07:48:49 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/html-table-preloaded/</guid>
-      <description>在HTML设计数据展示的时候会经常使用到HTML表格来展示数据，但是如果数据量过大，就导致表格显示慢，因为在HTML中，表格的显示是需要等待</description>
-    </item>
-    <item>
-      <title>汇编语言学习笔记（四）：寄存器[内存访问]</title>
-      <link>https://wuyizhou.com/posts/learning-assembly-4/</link>
-      <pubDate>Fri, 23 Feb 2018 16:45:57 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/learning-assembly-4/</guid>
-      <description>内存中字的储存 🔗在8086CPU中，寄存器为16位，可以储存一个字(1Word=2Byte)，拿ax来说，低8位放在al中，高8位放在ah中</description>
-    </item>
-    <item>
-      <title>汇编语言学习笔记（三）：初识Debug</title>
-      <link>https://wuyizhou.com/posts/learning-assembly-3/</link>
-      <pubDate>Fri, 09 Feb 2018 09:06:14 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/learning-assembly-3/</guid>
-      <description>什么是Debug？Debug是DOS、Windows提供的8086程序调试工具，可以查看CPU各种寄存器的内容，内存情况和机器码级跟踪程序的</description>
-    </item>
-    <item>
-      <title>汇编语言学习笔记（二）：寄存器</title>
-      <link>https://wuyizhou.com/posts/learning-assembly-2/</link>
-      <pubDate>Mon, 05 Feb 2018 15:38:40 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/learning-assembly-2/</guid>
-      <description>为什么要了解寄存器 🔗为什么了解寄存器？因为CPU是计算机的大脑，可以通过指令读写寄存器实现对CPU的控制，你试想一下如果你的大脑不能控制只能</description>
-    </item>
-    <item>
-      <title>汇编语言学习笔记（一）：基础知识</title>
-      <link>https://wuyizhou.com/posts/learning-assembly-1/</link>
-      <pubDate>Thu, 01 Feb 2018 13:55:06 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/learning-assembly-1/</guid>
-      <description>前言 🔗此文章如出现歧义或错误的地方请谅解，这篇文章是我在学习汇编的时候同时记录下来的笔记，然后通过教程的方式发表出来，因为通过这样的方式发表</description>
-    </item>
-    <item>
-      <title>MariaDB swap空间没有配置导致的出错问题</title>
-      <link>https://wuyizhou.com/posts/mariadb-swap/</link>
-      <pubDate>Thu, 05 Oct 2017 08:26:39 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mariadb-swap/</guid>
-      <description>之前自己写的一篇关于搭建lamp的文章，在运行过程中会出现一些莫名其妙的错误导致mariadb错误，然后必须手动重启mariadb才能正常启</description>
-    </item>
-    <item>
-      <title>家庭NAS搭建</title>
-      <link>https://wuyizhou.com/posts/homenas/</link>
-      <pubDate>Fri, 29 Sep 2017 08:46:10 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/homenas/</guid>
-      <description>前言 🔗最近因为装了家庭影院买了盒子，再加上之前自己也想购买一个NAS，选过来选过去挑选了群晖NAS，但是无奈价格太贵，除了统一性、稳定性和群</description>
-    </item>
-    <item>
-      <title>LAMP环境搭建</title>
-      <link>https://wuyizhou.com/posts/lamp/</link>
-      <pubDate>Sun, 24 Sep 2017 06:43:23 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/lamp/</guid>
-      <description>环境 🔗系统版本：Centos 7.3 64位 服务器：阿里云香港 当前用户：root 目标：搭建wordpress执行环境 准备工作 🔗如果你是在一个新的环境</description>
-    </item>
-    <item>
-      <title>Mongodb 身份验证</title>
-      <link>https://wuyizhou.com/posts/mongodb-auth/</link>
-      <pubDate>Sat, 26 Aug 2017 10:08:26 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mongodb-auth/</guid>
-      <description>介绍 🔗不管数据库是在多安全的环境或者本地环境，给数据库建立一个安全的环境是很有必要的。 Mongodb提供了一系列的安全功能，这里介绍一种很常</description>
-    </item>
-    <item>
-      <title>Mongodb 备份及恢复</title>
-      <link>https://wuyizhou.com/posts/mongodb-backup/</link>
-      <pubDate>Sat, 26 Aug 2017 09:42:07 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mongodb-backup/</guid>
-      <description>介绍 🔗无论在什么情况下都应该进行数据备份，才能避免灾难性的数据损坏，下面将介绍两种备份方式，两种备份方式使用的场景也不一样，可以根据自身的使</description>
-    </item>
-    <item>
-      <title>Mongodb 数据修复</title>
-      <link>https://wuyizhou.com/posts/mongodb-data-repair/</link>
-      <pubDate>Sat, 26 Aug 2017 09:17:22 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mongodb-data-repair/</guid>
-      <description>介绍 🔗很多时候我们看见数据目录下有一个mongodb.lock文件，这个文件在开启了日志系统后不会出现，在没有开启日志系统的情况下非常重要，</description>
-    </item>
-    <item>
-      <title>Mongodb 监测</title>
-      <link>https://wuyizhou.com/posts/mongodb-monitoring/</link>
-      <pubDate>Fri, 25 Aug 2017 13:14:20 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mongodb-monitoring/</guid>
-      <description>介绍 🔗为什么要进行监控状态，因为在实际的情况中可能会发生一下无法预计的情况，比如阻塞的问题，阻塞的原因会有很多种情况造成，如果当我们查询文档</description>
-    </item>
-    <item>
-      <title>Mongodb 分片</title>
-      <link>https://wuyizhou.com/posts/mongodb-shares/</link>
-      <pubDate>Wed, 23 Aug 2017 12:03:05 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mongodb-shares/</guid>
-      <description>介绍 🔗分片是指将数据拆分，并分散放在多个服务器中组成一个集群，这可以将N台服务器的性能集中到一起来处理数据，这将很大程度的提高数据处理的速度</description>
-    </item>
-    <item>
-      <title>Mongodb 副本集</title>
-      <link>https://wuyizhou.com/posts/mongodb-replica/</link>
-      <pubDate>Mon, 21 Aug 2017 12:22:01 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mongodb-replica/</guid>
-      <description>介绍 🔗Mongodb官方提供了一个复制功能，它提供冗余的功能，它可以将数据保存在不同服务器上，并保持多个服务器的数据一致性。 当主要提供数据的</description>
-    </item>
-    <item>
-      <title>Mongodb MapReduce</title>
-      <link>https://wuyizhou.com/posts/mongodb-mapreduce/</link>
-      <pubDate>Sun, 20 Aug 2017 15:17:26 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mongodb-mapreduce/</guid>
-      <description>前言 🔗在上一节中说到了appregate聚合功能，聚合功能已经非常强大了，但是如果你还是无法通过聚合解决问题的话，那么你可能需要使用MapR</description>
-    </item>
-    <item>
-      <title>Mongodb 聚合</title>
-      <link>https://wuyizhou.com/posts/mongodb-aggregate/</link>
-      <pubDate>Thu, 10 Aug 2017 14:18:52 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mongodb-aggregate/</guid>
-      <description>参考 🔗MongoDB权威指南(第2版) Mongodb Docs 前言 🔗Mongodb提供了一个强大的处理框架，可以对集合中的文档进行各种组合、过滤、输出，如果你通</description>
-    </item>
-    <item>
-      <title>Mongodb GridFS</title>
-      <link>https://wuyizhou.com/posts/mongodb-gridfs/</link>
-      <pubDate>Wed, 09 Aug 2017 08:27:12 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mongodb-gridfs/</guid>
-      <description>参考 🔗MongoDB权威指南(第2版) Mongodb Docs 前言 🔗Mongodb提供了一个轻量级的文件系统来专门处理超过16MB的文件，这个文件系统叫Grid</description>
-    </item>
-    <item>
-      <title>Mongodb特殊索引和集合</title>
-      <link>https://wuyizhou.com/posts/mongodb-special-collection-index/</link>
-      <pubDate>Wed, 09 Aug 2017 07:43:18 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mongodb-special-collection-index/</guid>
-      <description>参考 🔗MongoDB权威指南(第2版) Mongodb Docs 特殊集合 🔗封顶集合 🔗封顶集合和普通集合不一样，普通集合的大小是可以随着数据的增加而增加的，封顶集合</description>
-    </item>
-    <item>
-      <title>Mongodb索引</title>
-      <link>https://wuyizhou.com/posts/mongodb-index/</link>
-      <pubDate>Tue, 08 Aug 2017 12:28:45 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mongodb-index/</guid>
-      <description>参考 🔗MongoDB权威指南(第2版) Mongodb Docs 前言 🔗建立索引对于任何需要提高查询速度的数据库来说都非常重要，那么索引究竟是一个什么？首先来看看下</description>
-    </item>
-    <item>
-      <title>Mongodb查询</title>
-      <link>https://wuyizhou.com/posts/mongodb-find/</link>
-      <pubDate>Fri, 04 Aug 2017 08:07:53 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mongodb-find/</guid>
-      <description>参考 🔗MongoDB权威指南(第2版) Mongodb Documentation 前言 🔗在Mongodb中查询的方法常用的有两个find和findOne，前者返回所有匹配的文档，而</description>
-    </item>
-    <item>
-      <title>Mongodb更新修改器</title>
-      <link>https://wuyizhou.com/posts/mongodb-update-modifier/</link>
-      <pubDate>Thu, 03 Aug 2017 07:45:26 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mongodb-update-modifier/</guid>
-      <description>参考 🔗MongoDB权威指南(第2版) 前言 🔗在Mongodb中我们使用的是update方法去更新我们需要更新的文档，比如下面的一个文档结构：</description>
-    </item>
-    <item>
-      <title>Mongodb Shell</title>
-      <link>https://wuyizhou.com/posts/mongodb-shell/</link>
-      <pubDate>Wed, 02 Aug 2017 11:48:04 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mongodb-shell/</guid>
-      <description>前言 🔗在前一章文章中提到了Mongodb提供了一个Javascript运行环境，这个运行环境我们通过mongo或者mongo.exe打开，这</description>
-    </item>
-    <item>
-      <title>Mongodb基础知识</title>
-      <link>https://wuyizhou.com/posts/mongodb/</link>
-      <pubDate>Tue, 01 Aug 2017 15:36:33 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mongodb/</guid>
-      <description>参考 🔗MongoDB权威指南(第2版) 前言 🔗Mongodb是一种面向文档的数据库，并非关系型数据库(如Mysql等)，Mongodb的出现也</description>
-    </item>
-    <item>
-      <title>Mac软件推荐-Mounty</title>
-      <link>https://wuyizhou.com/posts/mounty-software/</link>
-      <pubDate>Tue, 18 Jul 2017 13:32:33 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mounty-software/</guid>
-      <description>前言 🔗在Mac上面访问NTFS格式的移动设备或者分区很简单，但是如果你要对NTFS进行写操作，就得使用其他的方式，比如打开Mac自身支持NT</description>
-    </item>
-    <item>
-      <title>ES6-Class类</title>
-      <link>https://wuyizhou.com/posts/es6-class/</link>
-      <pubDate>Tue, 18 Jul 2017 07:46:51 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/es6-class/</guid>
-      <description>书籍参考：《ECMAScript 6入门》 作者：阮一峰 文档参考：MDN 概念 🔗ES6提供了Class语句用于更的理解语义以及更接近传统的编程语言</description>
-    </item>
-    <item>
-      <title>ES7-async函数</title>
-      <link>https://wuyizhou.com/posts/es7-async/</link>
-      <pubDate>Mon, 17 Jul 2017 09:53:10 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/es7-async/</guid>
-      <description>参考文档：MDN 概念 🔗ES7提供了一个异步解决方案async函数容易，它的作用非常简单，几个异步操作并且这几个是有依赖的，如果按照我们往常的</description>
-    </item>
-    <item>
-      <title>es6-promise</title>
-      <link>https://wuyizhou.com/posts/es6-promise/</link>
-      <pubDate>Sun, 16 Jul 2017 16:32:08 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/es6-promise/</guid>
-      <description>书籍参考：《ECMAScript 6入门》 作者：阮一峰 文档参考：MDN 概念 🔗Promise最初在社区提出的一个异步解决的方案，最后ES6将它加</description>
-    </item>
-    <item>
-      <title>ES6-Generator函数</title>
-      <link>https://wuyizhou.com/posts/es6-generator/</link>
-      <pubDate>Sun, 16 Jul 2017 06:26:06 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/es6-generator/</guid>
-      <description>书籍参考：《ECMAScript 6入门》 作者：阮一峰 文档参考：MDN 概念 🔗ES6提供了一种Generator函数，用来解决异步编程的方案，可</description>
-    </item>
-    <item>
-      <title>ES6-iterator遍历接口</title>
-      <link>https://wuyizhou.com/posts/es6-iterator/</link>
-      <pubDate>Sat, 15 Jul 2017 13:43:25 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/es6-iterator/</guid>
-      <description>书籍参考：《ECMAScript 6入门》 作者：阮一峰 Iterator概念 🔗ES6发布后Javascript的数据集合对象有Array、Obj</description>
-    </item>
-    <item>
-      <title>ES6新特性-Map和WeakMap</title>
-      <link>https://wuyizhou.com/posts/es6-map-weamap/</link>
-      <pubDate>Tue, 11 Jul 2017 08:54:39 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/es6-map-weamap/</guid>
-      <description>参考文档：MDN Map结构 🔗在Javascript中，对象是以键值对的方式存在的，其中的键名是以字符串或者数值以及ES6提出的新的数据类型S</description>
-    </item>
-    <item>
-      <title>es6新特性:Set和WeakSet</title>
-      <link>https://wuyizhou.com/posts/es6-set-weakset/</link>
-      <pubDate>Mon, 10 Jul 2017 07:43:42 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/es6-set-weakset/</guid>
-      <description>书籍参考：《ECMAScript 6入门》 作者：阮一峰 文档参考：MDN ES6提供了两个新的数据结构：Set和WeakSet数据结构，两个结构很</description>
-    </item>
-    <item>
-      <title>es6新数据类型-Symbol</title>
-      <link>https://wuyizhou.com/posts/ecmascript-symbol/</link>
-      <pubDate>Thu, 06 Jul 2017 07:25:12 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/ecmascript-symbol/</guid>
-      <description>参考：《ES6标准入门教程》 作者：阮一峰 Symbol原始类型 🔗Javascript一共有6种原始数据类型，分别为： undefined null Boolean Object String Array ES6新增加了</description>
-    </item>
-    <item>
-      <title>ES6箭头函数</title>
-      <link>https://wuyizhou.com/posts/es6-arrow-function/</link>
-      <pubDate>Thu, 06 Jul 2017 02:22:32 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/es6-arrow-function/</guid>
-      <description>参考：《ES6标准入门教程》 作者：阮一峰 在ES6中允许了一种新函数方式“箭头函数”，它大概的如下： var a = (x) =&amp;gt; x; 等同 var a = function(x){ return x; } 如果不需要参</description>
-    </item>
-    <item>
-      <title>ES6函数的扩展</title>
-      <link>https://wuyizhou.com/posts/ecmascript-func/</link>
-      <pubDate>Wed, 05 Jul 2017 08:18:49 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/ecmascript-func/</guid>
-      <description>参考：《ES6标准入门教程》 作者：阮一峰 一、函数的默认值设置 🔗在ES5的时候如果一个函数的参数必须为有效值，那么我们通常会这样做一个判断： function</description>
-    </item>
-    <item>
-      <title>Webpack快速入门教程</title>
-      <link>https://wuyizhou.com/posts/webpack/</link>
-      <pubDate>Tue, 06 Jun 2017 11:06:26 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/webpack/</guid>
-      <description>1、简介 🔗此教程涉及不深入，并除去了很多复杂的东西，记录也坚持以最简单为主，让初学者大概对webpack有一个简单的系统认识，更好的去进一步</description>
-    </item>
-    <item>
-      <title>Nodejs 处理gb2312内容乱码问题</title>
-      <link>https://wuyizhou.com/posts/nodejs-gb2312/</link>
-      <pubDate>Sun, 17 Jul 2016 03:07:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/nodejs-gb2312/</guid>
-      <description>在使用cheerio处理request模块返回的gb2312网页出现了乱码，从开始一直排查问题，一直排查到request、cheerio都有</description>
-    </item>
-    <item>
-      <title>浅谈Javascript闭包</title>
-      <link>https://wuyizhou.com/posts/javascript-closure/</link>
-      <pubDate>Fri, 27 Mar 2015 20:01:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/javascript-closure/</guid>
-      <description>垃圾回收器 🔗我个人把闭包抽象的称之为”阻止垃圾回收器的函数”或者”有权访问另一个函数内部变量的函数&amp;quot;(当然这个是我个人的理解方式，</description>
-    </item>
-    <item>
-      <title>事件捕获与事件冒泡</title>
-      <link>https://wuyizhou.com/posts/js-event/</link>
-      <pubDate>Mon, 23 Mar 2015 21:37:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/js-event/</guid>
-      <description>事件流 🔗在理解这两个概念之前可以先来理解一个概念叫：事件流，指的是触发事件的先后顺序。可以把事件冒泡和事件捕获想成对于事件流的一种实现方式。</description>
-    </item>
-    <item>
-      <title>Call与Apply</title>
-      <link>https://wuyizhou.com/posts/js-call-apply/</link>
-      <pubDate>Mon, 23 Mar 2015 01:05:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/js-call-apply/</guid>
-      <description>1、前言 🔗ECMAscript中提供了两个方法(call,apply)用于改变对象内部的this指针，它们两个的作用都是一样的，但是传递的参</description>
-    </item>
-    <item>
-      <title>Mac支付宝插件风波</title>
-      <link>https://wuyizhou.com/posts/mac-alipay-plugins/</link>
-      <pubDate>Tue, 27 Jan 2015 19:34:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mac-alipay-plugins/</guid>
-      <description>1、前言 🔗首先我喜欢看一些创业的书，很多书里都会有马云的身影，马云也算是对我有一定的影响，从而我对淘宝也产生了一定的好感。但是关于这次插件事</description>
-    </item>
-    <item>
-      <title>Javascript自定义事件</title>
-      <link>https://wuyizhou.com/posts/javascript-custom-event/</link>
-      <pubDate>Sun, 18 Jan 2015 18:31:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/javascript-custom-event/</guid>
-      <description>自定义事件在很多地方都会用到，然后跟着书实例了几次，然后详细注释，也算给自己做了一个笔记。 1 //定义一个自定义事件类 2 //定义一个实例属性用</description>
-    </item>
-    <item>
-      <title>JSON数据格式</title>
-      <link>https://wuyizhou.com/posts/json/</link>
-      <pubDate>Tue, 13 Jan 2015 01:23:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/json/</guid>
-      <description>JSON全称为：JavaScript Object Notation，中文为：Javascript对象表示法。是Douglas Crockford在2006</description>
-    </item>
-    <item>
-      <title>Nodejs微信公众号接口</title>
-      <link>https://wuyizhou.com/posts/nodejs-publicwechat-api/</link>
-      <pubDate>Sun, 11 Jan 2015 19:50:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/nodejs-publicwechat-api/</guid>
-      <description>代码重要部分都已详细注释，test.js为实例，如果启动url请求，那么程序默认对json格式数据友好，如果有特殊需要，请自行修改返回数据的</description>
-    </item>
-    <item>
-      <title>Kail安装Parallels tools</title>
-      <link>https://wuyizhou.com/posts/kail-install-parallels-tools/</link>
-      <pubDate>Fri, 09 Jan 2015 07:57:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/kail-install-parallels-tools/</guid>
-      <description>今天在安装虚拟机里面安装kail，在安装虚拟机提供的tools时候提示没有权限，如图： 后面经过自己证实首先tools是挂载的cdrom，在这</description>
-    </item>
-    <item>
-      <title>HTML5跨文档消息传递</title>
-      <link>https://wuyizhou.com/posts/html5-cross-documents-send-messages/</link>
-      <pubDate>Thu, 08 Jan 2015 00:37:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/html5-cross-documents-send-messages/</guid>
-      <description>HTML5定义了一些javascript API，其中有一个就是跨文档消息传递（cross-document-messaging简称XDM）。</description>
-    </item>
-    <item>
-      <title>HTMLImageElement类型的简便利用</title>
-      <link>https://wuyizhou.com/posts/htmlimageelements/</link>
-      <pubDate>Wed, 07 Jan 2015 20:09:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/htmlimageelements/</guid>
-      <description>这个是我在复习书籍的时候看见的，当时一个同学想通过页面发送请求，但是数据量不是太大，所以用的get方式，但是页面用表单提交请求的话会让页面进</description>
-    </item>
-    <item>
-      <title>HTML表单脚本</title>
-      <link>https://wuyizhou.com/posts/html-from/</link>
-      <pubDate>Wed, 07 Jan 2015 01:41:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/html-from/</guid>
-      <description>在HTML中，表单由标签构成。在javascript中，是由HTMLFormElement类型构成，这个类型继承自HTMLElement类型</description>
-    </item>
-    <item>
-      <title>JavascriptDOM事件</title>
-      <link>https://wuyizhou.com/posts/javascript-dom-event/</link>
-      <pubDate>Tue, 06 Jan 2015 02:47:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/javascript-dom-event/</guid>
-      <description>Javascript与html之间的交互是通过事件进行交互。事件是通过侦听器（交互处理程序）来预定执行的。 页面中哪部分会拥有某个特点的事件？</description>
-    </item>
-    <item>
-      <title>Javascript访问css样式信息</title>
-      <link>https://wuyizhou.com/posts/javascript-get-css/</link>
-      <pubDate>Sun, 04 Jan 2015 21:37:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/javascript-get-css/</guid>
-      <description>DOM2级样式为style对象定义了一些属性和方法，可以通过这些方法属性来访问或者修改元素的样式信息： 1、cssText：可读写，在读的情况</description>
-    </item>
-    <item>
-      <title>Mac下修改默认的Java版本</title>
-      <link>https://wuyizhou.com/posts/mac-java-version/</link>
-      <pubDate>Thu, 09 Oct 2014 07:35:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mac-java-version/</guid>
-      <description>今天在安装Elicpse IDE的时候，发现提示安装的Java版本不支持，于是在官方去下载了Jre最新版本并安装，在安装完过后再次打开Elic</description>
-    </item>
-    <item>
-      <title>树莓派实现TimeMachine以及samba服务</title>
-      <link>https://wuyizhou.com/posts/raspberrypi-timemachine-samba/</link>
-      <pubDate>Sun, 17 Aug 2014 20:28:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/raspberrypi-timemachine-samba/</guid>
-      <description>最近一段时间感觉用移动硬盘备份Mac电脑很不方便，因为要把移动硬盘拿出来，还要插上电脑备份，看了一下AirPort，但是价钱太贵，况且只能用</description>
-    </item>
-    <item>
-      <title>服务器设置Apache对htaccess支持</title>
-      <link>https://wuyizhou.com/posts/apache-setting-access/</link>
-      <pubDate>Wed, 16 Apr 2014 21:16:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/apache-setting-access/</guid>
-      <description>root权限下运行a2enmod（a2enmod是一个可以配置Apache的工具，a2enmod是属于apache2.2-common包下的</description>
-    </item>
-    <item>
-      <title>配置Apache&#43;Mysql&#43;Php</title>
-      <link>https://wuyizhou.com/posts/apache-mysql-php-server/</link>
-      <pubDate>Sun, 13 Apr 2014 07:25:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/apache-mysql-php-server/</guid>
-      <description>以下操作均在Debian 6.0 64bit 环境root权限下进行，如果提示权限不足请切换至root用户或者sudo，本人比较喜欢自行安装，因为安装的过程中</description>
-    </item>
-    <item>
-      <title>javscript布尔操作符</title>
-      <link>https://wuyizhou.com/posts/javascript-bool/</link>
-      <pubDate>Thu, 13 Feb 2014 01:14:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/javascript-bool/</guid>
-      <description>在ECMAScript中提供了Boolean()转换函数以及三个布尔操作符，这三个布尔操作符分别为逻辑非、逻辑与、逻辑或，这三个操作符通常用</description>
-    </item>
-    <item>
-      <title>Javascript中的迭代、归并方法</title>
-      <link>https://wuyizhou.com/posts/javascript-reduce/</link>
-      <pubDate>Tue, 12 Nov 2013 23:09:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/javascript-reduce/</guid>
-      <description>迭代方法 🔗在Javascript中迭代方法个人觉得尤为重要，在很多时候都会有实际上的需求，javascript提供了5个迭代方法来供我们操作</description>
-    </item>
-    <item>
-      <title>成都地铁终端设备沙盒破解进入系统</title>
-      <link>https://wuyizhou.com/posts/subway-entertainment-terminal-security/</link>
-      <pubDate>Thu, 07 Nov 2013 03:20:11 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/subway-entertainment-terminal-security/</guid>
-      <description>描述 🔗作者：xsscript(原网名：crackkay) 漏洞已经报国家漏洞平台，并已Fix漏洞，所以公布文章用于记录 其实这个终端之前还有一个</description>
-    </item>
-    <item>
-      <title>Short XSS</title>
-      <link>https://wuyizhou.com/posts/short-xss/</link>
-      <pubDate>Wed, 21 Aug 2013 14:04:13 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/short-xss/</guid>
-      <description>文章作者：xsscript(原网名Crackkay) 0x00 背景 🔗关键时候长度不够怎么办？ 在实际的情况中如果你不够长怎么办呢？看医生？吃药？做手术</description>
-    </item>
-    <item>
-      <title>Javascript原生实现推箱子游戏</title>
-      <link>https://wuyizhou.com/posts/js-sokoban-game/</link>
-      <pubDate>Sun, 10 Feb 2013 03:23:43 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/js-sokoban-game/</guid>
-      <description>关于： 🔗这段代码主要是为了检验自己学习Javascript的成果，游戏其实很简单，主要思维，里面我尽量的标记注释了代码的重要思维的地方。在下</description>
+      <guid>/posts/home-nas-2023/</guid>
+      <description>从两个月前，我着手搭建了一套家用Nas，起因之前自己的资料一直存放在ICloud，因为自己的资料比较多，在600多G，所以自己一直购买的国区2T，每个月68元，一年816元，也不算便宜了。再加上自己的资料和储存的数据越来越大，所以就有就有了这个需求。
+对于资料不多、储存量不大的用户，不建议使用Nas，使用自带的云储存足够了，自己组建Nas只有在一定储存量级，才会有价值，所以对于数据量少的朋友，看看就行了，别折腾了。
+同时自己电脑有两台，一台苹果笔记本，一台Windows笔记本，ICloud对于Windows系统同步是真的难用，甚至打开文件夹都会卡顿，所以也是其自己搭建Nas的一个小因素了。
+选购之前对比了多种方式，购买其他国内云储存服务、自己购买云主机自己搭建、购买成品NAS、自己搭组NAS。
+先说说前两者，国内云服务研究了一番后，排除了，具体原因暂时不好说。然后就是云主机搭建，后面研究一番发现不论国内还是国内的云主机，硬盘都贵得要死。
+再说说后两者，也是我纠结最久的，成品Nas的优点就是不用折腾、省心以及有技术服务支撑，缺点就是配置低、价格贵。自己组Nas的优点在于便宜、配置高，缺点就是折腾，也不省心。
+那作为以技术出身的人来说，自己组Nas的缺点到成了一个有趣的过程，而配置高也满足了技术人员常常的幻想”配置不够“这一假说。
+所以最终思考了一下，准备折腾一下自己，组建Nas就成了最优选择。
+选购 既然是自己组建，就得自己挑选硬件、考虑配置、选择系统，系统我选择的是群晖，也就是所谓的黑群晖，主要考虑到配套的软件足够好用，关于硬件选配，可以参考隔壁网这篇文章《2022年组建群晖实体机的一些建议 - 黑白群晖 - 隔壁网 (gebi1.com)》。
+我的配置目前是：
+CPU：考虑到需要看电影做解码，所以选择了i3-8100T，然后带T属于低功耗，对于Nas来说也完全够用了。 内存：32G。 硬盘：8TB硬盘两块，用于存放资料、文件。16TB硬盘一块，用于存放电影。 主板：选择了大厂微星的Z370M Mortar。 机箱：Treasure宝藏盒，快700多的一个机箱了，已经算比较贵了，但是买回来看了一下外观，真香。 风扇：利民AXP90 电源：Flex台达250W电源 这里需要说一个事情，我没有配备缓存，群晖的系统可以配备2块M2 Nvme硬盘作为缓存组，可以用于读写缓存，单盘只能作为读缓存。我研究了一番后，决定还是不用缓存，第一个对于我这样的家用环境上缓存提升不大，也有很多家用小伙伴测试后发了相关的结论。第二个就是缓存可能导致故障，第三个性价比不高。
+系统 系统采用的是群晖，既然是自己搭建的，所以也就是所谓的黑群晖了，采用的引导是最简单的引导arpl-i18n，该引导是基于巴西大佬arpl的版本上改进的，对于两者我还真不知道差距在哪里，但只要好用，然后用的人多就行了。
+然后黑群晖的引导是需要一个U盘的，正常情况下U盘可以插在机箱前面或者后面，但是对于花了700多买了这么漂亮的机箱，U盘插在前后，犹如”一坨牛屎抹在鲜花上“。
+所以我就购买了一个主板的usb插座，然后将引导U盘插在上面，这样就可以把usb隐藏在机箱内了。
+备份 我的备份组合主要集中为四种，分别RAID1+Cloud Sync+Hyper Backup网盘+Hyper Backup硬盘，其中RAID1虽然说起来不算是”备份“方案，但本质提供冗余还是一种数据的保障，所以也就算了进来。
+Hyper Backup则是提供了一个完整的套件、文件增量备份，每天执行一次。
+Cloud Sync则是作为一个补充，提供一个实时的文件同步，将文件同步到我的Onedrive，至于为什么是Onedrive，第一个原因是支持，第二个原因是因为我每年要买Office365，所以有1TB的免费网盘容量。
+Hyper Backup是目前我觉得最好的备份方案，Hyper Backup支持备份到云服务商、本地USB储存设备等方式。Hyper Backup我采用了两种方式，分别为阿里云盘通过Alist以WebDAV的方式挂载到本地，然后Hyper Backup选择WebDAV方式进行备份，好处在于阿里云盘服务器在国内比较稳定，关于如何通过查看Alist关于阿里云盘的文档。
+第二种方式，我采用的是本地USB插入硬盘的方式，这个方式有个好处在于能无限扩大备份目的地的容量，比如你可以通过一个硬盘盒做多个盘用USB接入，同时配置好了也比较省电省电。
+为什么说省电呢？在设置为USB为备份目的地的时候，配置可以选择，当备份完成后自动断开卸载USB，然后再加上硬盘盒的自动休眠，就可以在备份完成后的耗电降到最低，比如下图（因为我目前已经设置完成，所以找不到这个选项了，就借用了一张图片）。
+但这种方式有一个问题，就是你在下次备份的时候没有办法自动挂载，你需要通过定时任务，将在定时的自动备份任务开始之前将USB重新挂载好。
+重新挂载USB需要两个步骤，第一个步骤确定USB编号，需要打开群晖的SSH，然后进入到终端后使用lsusb命令，我找到我备份目的地的硬盘为2-3：
+第二个步骤是将如下代码放入群晖的任务计划，选择运行的用户为root（一定注意，卸载挂载外置设备需要root权限）：
+然后将如下代码放入脚本中，其中的2-3需要替换为备份的外置目的地设备编号。
+echo 0 &amp;gt; /sys/bus/usb/devices/2-3/authorized echo 1 &amp;gt; /sys/bus/usb/devices/2-3/authorized 最后，设定好计划时间，我目前是在Hyper Backup之前的5分钟挂载。
+结尾 说完了后，说说成品Nas和自己搭建Nas推荐哪个，整体就是完全不建议没有技术或者不想折腾的人来自己搭建Nas，更建议直接买群晖或者其他厂商的成品Nas，对于有技术的用户，这种方式就挺推荐的。
+搭建到如今，也算是对稳定性比较信任了，将自己照片、文件都转移到了群晖，同时也说服了自己的爱人将手机照片转到了群晖，不得不说群晖的配套软件是真的好用，买软件送硬件也不是无道理，看来以后买一个白裙也不是不可以。
+参考文章 # Synology NAS 的 USB 外接硬碟在系統中的順序 / HyperBackup 備份後自動卸載該如何重新掛載 2022年组建群晖实体机的一些建议 - 黑白群晖 - 隔壁网 (gebi1.</description>
     </item>
   </channel>
 </rss>

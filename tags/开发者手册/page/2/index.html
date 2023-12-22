@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>开发者手册 | Yizhou</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="canonical" href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link rel="icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="mask-icon" href="safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/index.xml">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+<meta property="og:title" content="开发者手册" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="开发者手册"/>
+<meta name="twitter:description" content=""/>
+
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/index.xml" title="Rss">
+                    <span>Rss</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="">Home</a>&nbsp;»&nbsp;<a href="/tags/">Tags</a></div>
+  <h1>
+    开发者手册
+    <a href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">汇编语言学习笔记（三）：初识Debug
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>什么是Debug？Debug是DOS、Windows提供的8086程序调试工具，可以查看CPU各种寄存器的内容，内存情况和机器码级跟踪程序的运行。
+Debug一共有20多个命令，但我们在目前为止会使用到Debug的6个命令：
+R命令：查看、改变寄存器的内容 D命令：查看内存中的内容 E命令：改写内存中的内容 U命令：将内存中的机器指令翻译成汇编指令 T命令：执行一条机器指令 A命令：以汇编指令的格式向内存中写入一条机器指令 Windows下的Debug 在Windows下自带提供了Debug，可以直接通过Window提供的DOS进入到Debug，可以通过开始命令，输入cmd然后进入到DOS界面后直接输入Debug后就进行Debug程序了。
+Mac下的Debug 在Mac下，你需要通过Boxer这个程序来模拟DOS环境，打开后类似于这样的界面：
+点击Open a DOS prompt后就会弹出如下的界面，可以在这个环境下使用任何的DOS界面：
+但是这个DOS环境只包含了最基础的DOS环境，所以这个DOS环境是不带Debug程序的，你需要下载一个Debug程序或者下载由我提供的一个学习汇编需要的程序包，然后解压后把这个文件夹拖放进DOS窗口后，你就会看见Boxer提供的DOS环境会自动把这个目录加载成C盘，这样就可以正常使用Debug程序了，类似于下图这样：
+进入界面后，你会看见一个&#34;-“后面跟着闪烁的下划线，说明已经进入Debug。
+R命令 R命令有两个作用：
+查看当前CPU的各个寄存器状态、以及当前CS、IP指向的代码以及机器指令翻译后的汇编指令。 修改各个寄存器的内容 输入r后，会返回当前CPU的各个寄存器状态，就如下图这样：
+如果需要修改某个寄存器的内容，可以通过r命令后跟一个寄存器的命令，比如r ax，输入后会返回一个ax当前寄存器的内容，然后会有一个提示符:等待输入，比如下图中，通过r ax命令设置ax的内容为1000H：
+D命令 通过下面的格式可以查看需要的内容中的内容：
+d 段地址:偏移地址 比如下图用d命令查看内容20000H处的内容：
+返回的内容中包含了三个显示部分：
+第一部分位于最左边类似于2000:0000，是每行开始的第一个内存单元的段地址和偏移地址。 第二部分位于中间的十六进制编码，是开始部分的内存单元一直显示128个内存单元的内容，而每行等于16个字节，注意在每行在第八个内存单元的后面会有一个-来分割，有利于我们辨识。 第三部分位于最右边，是每个内存单元中的数据可以对应显示的ASCII，如果没有对应的ASCII码，就会用.代替。 还有一种限制D命令输出的方式，可以通过使用结束偏移地址来限制D命令的返回结果，它的格式为：
+d 段地址:偏移地址 结束偏移地址 比如下图中只需要返回内存地址为2000:0000到2000:0009的十个内存单元的内容：
+E命令 e 段地址:偏移地址 可以通过E命令来改写内存中的内容，不管是汇编指令还是数据。
+通过E命令可以连续更改也可以更改一个内存单元，当修改指定内存单元的内容时，会把当前内存单元的内容显示出来，然后用一个.号连接需要写入的数据，比如需要修改内存单元20000H的内容为10，然后再用d命令查看修改后的内容：
+当然也可以连续修改指定内存单元后的连续内存单元中的内容，只需要在输入需要写入的内存单元后按空格间，会自动跳到下一个内存单元进行修改，直到按回车键，就会写入内存：
+U命令 u命令会将某一段内存单元中的内容翻译成汇编指令，并返回16个内存单元的内容，返回的内容中包含三部分：
+每一条机器指令的地址 对应的机器指令 对应的汇编指令 比如查看内存单元2000:0000的数据，并翻译成汇编指令：
+当然也可以限制返回的内容，比如下面返回内存单元2000:0000到内存单元2000:0009的汇编指令：
+这里需要注意的是在计算机中储存在内存单元中的不管是数据还是代码，都是以二进制形式储存的，所以是代码还是数据，得看程序员怎么去控制。
+T命令 T命令是执行当前CS和IP指向的内存单元中的汇编指令，执行后IP自动增加代码长度并正确的指向到下一个代码的内存单元：
+A命令 以汇编指令的方式写入到内存单元，格式为：
+a 段地址:偏移地址 当指定修改某一个内存单元的内容时，会显示出当前修改的内存单元地址，并等待输入汇编指令，当输入完成后会自动跳到上一条代码长度后的内存单元继续等待输入，如果不想继续写入汇编指令，按回车键就结束写入。
+比如下图中，通过在内存单元20000H处以汇编指令形式写入：
+mov ax,20 并通过u命令查看内存单元20000H处是否写入成功：
+并且再通过r命令查看当前AX寄存器的内容，然后修改CS和IP寄存器，让CPU代码指针指向20000H处
+然后用t命令执行，再次查看AX寄存器的结果：</p>
+  </div>
+  <footer class="entry-footer"><span title='2018-02-09 09:06:14 +0000 UTC'>February 9, 2018</span></footer>
+  <a class="entry-link" aria-label="post link to 汇编语言学习笔记（三）：初识Debug" href="/posts/learning-assembly-3/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">汇编语言学习笔记（二）：寄存器
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>为什么要了解寄存器 为什么了解寄存器？因为CPU是计算机的大脑，可以通过指令读写寄存器实现对CPU的控制，你试想一下如果你的大脑不能控制只能控制手和脚等，不就等于扯线木偶了？
+寄存器只是CPU内部的一个器件，对于汇编来说CPU中比较重要的三个器件：
+运算器：对数据进行处理 控制器：控制各种器件工作 寄存器：对数据进行储存 而在CPU内部，这三个器件包括其他器件都是靠CPU内部总线相连，这里的内部总线是指的CPU内部器件的总线，而上一章节说的总线是CPU与外部器件比如显卡、内存等器件的总线。
+8086CPU 每个CPU寄存器和结构都是不相同的，而王爽《汇编语言》第三版主要讲的是在8086CPU上面操作的汇编，所以我这个笔记(教程)也是跟着王爽《汇编语言》第三版这本书学习。
+在8086CPU中有14个寄存器，并且每个寄存器都是16位(2Byte)，每个寄存器的名字不一样，这些寄存器的名字分别为：AX、BX、CX、DX、SI、DI、SP、BP、IP、CS、SS、DS、ES、PSW。而关于这些寄存器的作用，需要用的时候再去理解，现在就当认识一下啦～
+通用寄存器 AX、BX、CX、DX这四个寄存器可以来存放一般的数据，所以通常称为通用寄存器。以AX寄存器为例，寄存器的逻辑结构为下图：
+8086CPU每个寄存器都是16位，2而8086上一代CPU的寄存器为8位，所以8086CPU为了保证兼容性，AX、BX、CX、DX这四个寄存器都可以分为两个独立的8位寄存器来使用。
+AX可分为：AH和AL BX可分为：BH和BL CX可分为：CH和CL DX可分为：DH和DL 而这些命名也是有规律的，AH表示AX寄存器的高8位，AL表示AX寄存器的低8位。以AX为例，AX寄存器分为两个独立8为寄存器的逻辑结构为下图：
+为了保证兼容性8086CPU同时也可以处理两种尺寸的数据：
+字节：byte，一个字节由8个bit组成，可以存放在8位寄存器中，比如AH、AL 字：word，一个字由两个字节组成，可以直接放在16位寄存器中，比如AX 下图是数据20000(十六进制为4E20H)保存在寄存器AX当中的示意图：
+如果把AX寄存器当作一个整体看，那么里面的值就是字型数据20000(4E20H)，如果把寄存器分成两个8位寄存器看，那么AH就是字节型数据78(4EH)，而AL就是字节型数据32(20H)。
+几条汇编指令 通过下面几条简单的汇编指令来熟悉一下汇编指令，至于其他的一些汇编指令会在后期介绍。下面表中会列出汇编指令和相应的指令含义。
+在汇编语言当中，如果你操作寄存器的时候需要运算的字节大小超过了寄存器能存储的大小，CPU会抛弃高位(但是CPU并不是真正的丢弃这个值，后面会说到为什么)，保留相应的低位，什么意思呢？比如下面的汇编指令：
+mov ah,88H add ah,ah 上面代码运算后的结果为110H，但是因为操作的是8位寄存器，也就是只能保存两个16进制(16进制一个位等于4位二进制，两个16进制等于8位二进制)，所以这里CPU丢去了高位1H，保留了10H。而这种情况同样在16位中也会有。
+16位结构的CPU 之前提到过8086CPU上一代CPU是8位CPU，而8086CPU是16位CPU，那么什么是16位CPU？什么是8位CPU？有三个方面来描述CPU的结构特性：
+运算器最多一次性可以计算16位数据 寄存器最多一次性能存储16位数据 寄存器和运算器之间最多一次性能传输16位数据 **通过上面简单的说，就是说8086CPU能一次性处理、传输、暂存信息的长度为16位。**那32位计算机呢？同样是一次性处理、传输、暂存信息的长度为32位。
+物理地址 在上一章节说过CPU会把所有储存器看成一个一维线性空间，每个储存器在这个空间中都有自己的地址，我们将这个地址称为物理地址，比如就像下图一样：
+而CPU访问存储器的时候是通过地址总线来寻址的，而寻址必须通过物理地址来寻址。
+在CPU向地址总线发出物理地址之前需要先在内部形成这个一维的线性空间，那么物理地址是怎样形成的呢？不同的CPU可以有不同的形成物理地址的方式，下面来讨论一下8086CPU形成物理地址的方式。
+8086CPU给出物理地址的方法 8086CPU有20位地址总线用于相连外部的存储器，最多可以传输20位地址。在将物理地址发出到地址总线寻址之前，必须在CPU中处理、传输、暂存，而8086CPU是16位结构的CPU，意味着8086只能一次性发出16位的地址，也意味着只有64KB的寻址能力，所以8086CPU在设计上采用了用两个16位地址来合成20位的物理地址的方法。
+它的大概实现就是由CPU的相关部件提供两个16位地址，一个为段地址，一个为偏移地址，他们通过CPU内部的一个地址加法器计算这个地址得到一个20位的物理地址，然后通过CPU内部的地址总线传输到地址总线上进行寻址，比如下图：
+而这个地址加法器采用的计算方式是物理地址=基础地址(段地址X16)&#43;偏移地址，比如8086CPU要访问123C8H内存单元的时候，地址加法器的工作流程大致如下：
+关于这样的计算方式，还有一种更为常见的说法是左移4位，因为上面的物理地址都是用16进制表示的，而一位16进制等于4位二进制。在计算机存储的任何信息都是以二进制存放的，所以这里指的左移4位，是指的二进制左移4位，而二进制左移4位相当于16进制X16，相当于10进制的该数乘以2的4次方，下图中可以很好的对比数据：
+比如我们要访问一个内存单元，用描述来说“数据在21F60H当中”，这句话对于8086PC机一般不这样描述，一般用两种说法表示：
+数据存在内存2000:1F60单元中 数据存在内存的2000段中的1F60单元中 段的概念 说到段，可能都会误认为储存器是分为一段一段的，实际上不是，因为CPU把所有的储存器看作一个一维的线性空间，所以CPU把所有的储存器看作的都是一个整体。
+而这个划分来自于CPU的寻址方式，因为8086CPU用的是“基础地址(段地址X16&#43;偏移地址)”得到的，所以使我们可以分段的管理这些内存，但是需要知道的是段地址X16必然是16的倍数，而偏移地址位16位，所以一个段最大长度为64KB，比如下图中表示的两个“段”：
+在这个之前提到过，段地址是由相关部件提供的，这个部件也是寄存器，但是它只用来存放段地址，所以称为段寄存器，在8086中有4个段寄存器，分别有4个：CS、DS、SS、ES。当8086CPU要访问内存时，由这4个段寄存器提供内存单位的段地址，这里先看看CS。
+CS段寄存器和IP指令指针寄存器 因为在计算机中储存的数据都是二进制，计算机并不知道这些二进制是代码还是数据，所以数据和代码是完全由程序员说了算，而怎么来让计算机知道这是代码？这是数据？通过CS和IP寄存器。
+CS和IP是8086CPU中最为关键的两个寄存器，这两个寄存器指示了CPU当前要读取的指令地址。
+CS为代码段寄存器，IP为指令指针寄存器，在8086CPU中通过CSX16&#43;IP得到需读取执行的代码，当每次执行代码后IP的值会自动加上当前已经读取执行的代码长度，以使CPU可以正确的执行一下一条命令。
+所以CS和IP是表示的CPU任意时刻当前需要读取执行的代码，下图中是一个CPU读取执行代码的过程：
+在8086CPU加电或复位后（即CPU刚开始工作的时候）CS和IP被设置为CS=FFFFH，IP=0000H，也就是说8086PC机刚启动的时候，FFFF0H内存单元中的指令是8086PC机启动后执行的第一条指令。
+修改CS和IP 程序员可以通过修改CS、IP到达控制CPU执行哪一段代码，我们之前可以通过传送指令MOV来修改通用寄存器，但是传送指令MOV并不能来修改CS、IP寄存器，而8086CPU提供了另外的指令来改变CS、IP的值，这一类指令我们统称为转移指令。
+jmp指令就是一条简单的转移指令，它的作用是用指令修改当前CPU需要执行的代码内存单元地址，通过修改CS的段地址以及IP的偏移地址。它的使用方法是：
+jmp 段地址:偏移地址 它可以直接修改CS和IP寄存器的值，比如下面这样：
+jmp 2AE3:3，执行后：CS=2AE3H，IP=0003H，CPU将从内存单元2AE33H执行指令。 jmp 3:0B16，执行后：CS=0003H，IP=0B16H，CPU将从内存单元00B46H执行指令。 我们也可以只修改IP偏移地址：...</p>
+  </div>
+  <footer class="entry-footer"><span title='2018-02-05 15:38:40 +0000 UTC'>February 5, 2018</span></footer>
+  <a class="entry-link" aria-label="post link to 汇编语言学习笔记（二）：寄存器" href="/posts/learning-assembly-2/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">汇编语言学习笔记（一）：基础知识
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 此文章如出现歧义或错误的地方请谅解，这篇文章是我在学习汇编的时候同时记录下来的笔记，然后通过教程的方式发表出来，因为通过这样的方式发表出来，可以锻炼自己的语言组织能力，并且能够把问题思考懂了，然后再通过初学者的角度来记录这片文章，从而巩固自己的知识。如果有任何错误歧义的地方，可以通过邮箱与我取得联系。
+为什么学习汇编？ 首先在现在用汇编语言来写用户层面上的应用是很少的了，当然也有一些应用比如驱动、boot loader等。既然已经很少有人用汇编写用户层面的应用了，但是为什么要学习？因为汇编语言是作用于硬件上工作的语言，有便于理解计算机工作的原理，以后学习高级语言更为有利，特别是对于反汇编、破解这一块的技术对汇编语言的学习是必须的。
+机器语言 机器语言，顾名思义就是机器能看懂的语言，因为计算机智能看懂0和1，通电为1，没有通电为0，所以机器语言就是0和1组成的，也就是二进制。比如：01010000。
+汇编语言 而汇编语言就是机器语言的一种表达方式，便于程序员更好的去记忆理解。比如机器码为01010000对应的汇编指令就是PUSH AX。
+汇编语言包含两个部分：汇编指令、编译器指令（比如符号运算、伪指令等）。
+计算机是没有办法计算加减乘除运算符的，而加减乘除是通过编译器转换成计算机能够识别的逻辑运算符（或、与、非），然后利用这些逻辑运算符的组合达到加减乘除的一个效果。
+编译器 编译器的作用就是把汇编语言转换成机器能够识别的机器语言，可以大概理解编译器就是一个扫描仪，把汇编语言的指令对应相应的机器码翻译出来。
+它们大致的关系是：程序员编写汇编语言通过编译器转换汇编语言为机器语言后交给计算机执行。
+存储器 首先来了解存储器，为什么要了解存储器，因为学习汇编就是操作CPU与这些存储器进行交换数据，存储器不止是硬盘，CPU内部也有存储器、内存、bios、显卡都是存储器，每个存储单元可以存储1字节(Byte)，也就是等于8bit。而每个存储器都会被划分为若干个存储单元，而所有的储存单元都会被CPU看成是一个内存，比如01开始是BIOS，05开始是显卡等。，比如下图：
+内存是一个计算机仅次于CPU的硬件的，CPU无法直接读取硬盘中的数据，而是内存读取硬盘的数据后，CPU从内存中读取的。
+在*NIX系统中经常会看见一个叫swap的交换文件，这个文件就是虚拟内存，它的作用就是当内存满了后，把暂时不用的数据放在这个交换文件中，当你需要读取这部分数据的时候，内存会再次从虚拟内存中加载数据到内存中，所以从虚拟内存中实际上等于从硬盘加载数据，所以速度比较慢。
+指令和数据 指令和数据对于计算机来说都是一堆0和1，比如下面的一串机器码：
+1000100111011000：等于89D8H
+1000100111011000：等于MOV AX,BX
+上面两个同样的机器码确表达出了不同的意思，那么计算机如何来分辨我们这串机器码到底是数据还是指令？这个完全由我们来决定它是指令还是数据。
+CPU对存储器的读写 首先CPU与其他芯片都有电路线连接，而这些电路线一般称为总线，总线又分为三种，分别为：地址总线、控制总线、数据总线。而这三类总线，是CPU与其他芯片通讯的重要部件。
+CPU想要对存储器进行读写，必须通过三类通讯的交互，而这三类通讯是通过上面不同的总线进行通讯的：
+地址信息：如果不清楚储存单元的地址，就随便找一个，有可能把需要从bios中读取的数据变为从显卡中读取了。
+读写信息：通过读写信息，CPU才知道是读取指定地址的数据还是写入指定地址数据。
+数据信息：当上面两部分完成了，那么如果是读，就读取数据，如果是写就写入数据。
+知道了CPU如何进行数据的读写，而该去怎么操作计算机去执行这步的操作？通过机器码，比如：
+MOV AX,[3]
+翻译成机器码就等于：
+10100001 00000011 00000000
+当CPU接收到这条机器码就会执行我们上面代码所代表的操作。
+地址总线 CPU通过地址总线来对存储器进行寻址，比如要从03储存单元读取数据，那么地址总线上面传输的信息为：00000011。从这里就能知道如果地址总线越多表示的不同数字就越多，CPU寻址的范围就越大，因为一根地址总线可以表示0和1两种信息，那10根地址总线，寻址的就是2的10次方，等于1024，因为计算器从0开始计算，所以最小能表示0个，最大能表示1023个。
+数据总线 而数据总线有多少根也决定了CPU与其他存储器的传输能力，8088CPU数据总线有8根，所以一次性能传输8个二进制位，8086CPU数据总线有16根，所以一次性可以传输16个二进制位。
+比如要传输一个8D9AH数据，8088CPU需要分两次传输，第一次传输8D，第二次传输9A。而8086CPU只需要传输一次8D9A。所以数据总线的根数决定了数据的传输速度。
+控制总线 控制总线有多少根也决定了CPU对于储存器的控制能力，而需要注意的是控制总线指的是一个总称，控制总线是由几根不同的控制线构成的。
+而当读取信息的时候控制总线中有一个专门负责读取信号的控制线有低电平的时候表示读取。
+而写入数据的时候，同样控制总线中也有一根专门负责写入信号的控制线，当向它输出低电平的时候表示写入。</p>
+  </div>
+  <footer class="entry-footer"><span title='2018-02-01 13:55:06 +0000 UTC'>February 1, 2018</span></footer>
+  <a class="entry-link" aria-label="post link to 汇编语言学习笔记（一）：基础知识" href="/posts/learning-assembly-1/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">ES6-Class类
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>书籍参考：《ECMAScript 6入门》 作者：阮一峰
+文档参考：MDN
+概念 ES6提供了Class语句用于更的理解语义以及更接近传统的编程语言的写法。Class可以当作ES5构造函数的一个语法糖。
+传统的构造函数以及继承方法如下面这样来写的：
+function Getname() { this.name = &#39;wyz&#39;; this.age = &#39;29&#39;; } // 如果我们需要定义一个给所有基于Getname构造函数使用的方法 // 那么我们必须通过prototype对象上定义 Getname.prototype.getName = function(){ return (`Name: ${this.name}, Age: ${this.age}`); } let gname = new Getname(); gname.getName(); //&#34;Name: wyz, Age: 29&#34; 通过上面的方法来创建一个“类”，对比其他语言是差距很大的，而且很难理解，ES6提供了一个新的语句Class来创建类。
+class Getname{ constructor(){ this.name = &#39;wyz&#39;; this.age = &#39;29&#39;; } getName(){ return (`Name: ${this.name}, Age: ${this.age}`); } } let gname = new Getname(); gname.getName(); //&#34;Name: wyz, Age: 29&#34; 通过ES6的Class语句更能清晰的表达出类，这与传统的语言声明类很相似。在class中，constructor方法是一个构造函数，类似于我们构造函数中编写给实例初始化的一些属性方法，而在constructor之外定义的方法都是定义在原型上面的公用方法，这就很能理解为什么Class是构造函数的语法糖了。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-07-18 07:46:51 +0000 UTC'>July 18, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to ES6-Class类" href="/posts/es6-class/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">ES7-async函数
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考文档：MDN
+概念 ES7提供了一个异步解决方案async函数容易，它的作用非常简单，几个异步操作并且这几个是有依赖的，如果按照我们往常的使用方法有几种，下面是一个读取文件的例子，需要读取文件1-3.txt，首先看看callback的写法：
+readFile(&#39;1.txt&#39;, (err, data) =&gt; { if(err) {return err} let data1 = data; readFile(&#39;2.txt&#39;, (err, data) =&gt; { if(err) {return err } let data2 = data; readFile(&#39;3.txt&#39;, (err, data) =&gt; { if(err) {return err} let data3 = data; return dataAll = data1.toString() &#43; data2.toString() &#43; data3.toString(); }); }); }); 从上面的代码看出来，这样的回调函数很难辨别，也很难理解，而且多个回调函数嵌套，编写代码的人员也过后回头看也会感觉到头疼，这就是我们常说的&#34;callback hell&#34;。下面还有一种Promise的写法：
+var files1 = new Promise((resolve, reject) =&gt; { readFile(&#39;1.txt&#39;, (err, data) =&gt; { if(err) {return err} resolve(data); }); }); var files2 = new Promise((resolve, reject) =&gt; { readFile(&#39;2....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-07-17 09:53:10 +0000 UTC'>July 17, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to ES7-async函数" href="/posts/es7-async/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">es6-promise
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>书籍参考：《ECMAScript 6入门》 作者：阮一峰
+文档参考：MDN
+概念 Promise最初在社区提出的一个异步解决的方案，最后ES6将它加入了正式的标准，并规定了统一的写法。
+在使用Promise之前，你需要注意下面几个点：
+1.Promise有三个状态:Pending(进行中)、Resolved(已完成)、Rejected(已失败)，这三个状态我们无法去改变，并且在一个Promise中只有两个可能，一种是从Pending到Resolved，另一种是Pending到Rejected。当结果发生后，这个状态就凝固了，也就是说我们无法去改变Promise对象的任何状态，如果再次调用这个Promise对象，返回的将是凝固状态的结果。
+2.Promise在执行的过程中无法取消，并且我们也无法知道它执行到哪一步，我们只能知道返回的是已完成还是已失败。
+3.Promise实例创建后会立即执行
+下面的代码部署了一个Promise对象异步加载图片的例子，可以看到用Promise对象来编写异步代码是非常的清晰。
+var imgs = new Promise((resolve, reject) =&gt; { let img = new Image(); img.src = &#39;http://xxx.com/img.jpg&#39;; img.onload = function(){ resolve(&#39;加载成功&#39;); } img.onerror = function(){ reject(&#39;加载失败&#39;); } }); 在部署了Promise对象后，我们可以通过Promise的实例来调用then()方法，then()方法接受两个函数，这两个函数分别指定resolved和rejected状态返回的回调函数。第二个函数可以不指定，也就是说不返回错误，只得到完成的结果。
+var imgs = new Promise((resolve, reject) =&gt; { let img = new Image(); img.src = &#39;http://xxx.com/img.jpg&#39;; img.onload = function(){ resolve(&#39;加载成功&#39;); } img.onerror = function(){ reject(&#39;加载失败&#39;); } }); imgs.then(function(value){ console.log(value); }, function(error){ console....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-07-16 16:32:08 +0000 UTC'>July 16, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to es6-promise" href="/posts/es6-promise/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">ES6-Generator函数
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>书籍参考：《ECMAScript 6入门》 作者：阮一峰
+文档参考：MDN
+概念 ES6提供了一种Generator函数，用来解决异步编程的方案，可以通过yield命令来控制函数内部执行与暂停，它与传统的函数声明非常相似，但是有一点是，是函数声明关键字后面跟了一个星号*，而且在函数内部通过yield命令来控制函数的行为，在外面使用next方法来执行函数内部的代码，直至下一个yield命令。
+先看看普通函数是怎么声明
+function g(){ let value = &#39;这是普通函数&#39;; console.log(value); } g(); // &#39;这是普通函数&#39; 下面是一个Generator函数的声明使用
+function* g(){ yield &#39;这是Generator函数&#39;; } let gen = g(); gen.next(); // {value: &#34;这是Generator函数&#34;, done: false} gen.next(); //{value: undefined, done: true} 上面的代码简单的声明了一个Generator函数g，我们调用g函数的时候，g函数不会立即执行，它会返回一个遍历器，这个遍历器由next()方法执行，直至yield命令暂停，如果后面没有了yield命令，则返回一个对象{value: undefined, done: true}。其实Generator函数返回的遍历器很像Iterator遍历器。
+next()参数 Generator函数返回的遍历器的next()方法可以带参数，如果没有带参数表示上一条yield命令后面跟的表达式返回的值为undefined，如果带了参数，表示这个参数为上一条yield命令后面表达式返回的值。
+function* g(){ let x = yield 10; let y = x &#43; 10; console.log(y); } let gen = g(); gen.next(); // {value: 10, done: false} gen....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-07-16 06:26:06 +0000 UTC'>July 16, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to ES6-Generator函数" href="/posts/es6-generator/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">ES6-iterator遍历接口
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>书籍参考：《ECMAScript 6入门》 作者：阮一峰
+Iterator概念 ES6发布后Javascript的数据集合对象有Array、Object、Map和Set四种，我们同时知道在Array中，我们可以放对象，Object中我们一样可以放Array，四种数据集合对象都可以相互交叉使用。
+那么问题来了，如果在一个数据集合对象中含有多个不同数据集合对象的类型，那么这时候就需要一种接口的机制，来处理不同的数据集合了。
+Iterator有三个作用：
+为各种数据接口提供一个统一的访问接口 使数据接口的成员能够按照某种次序排序 ES6新遍历名利 for…of循环 按照《ECMAScript 6入门》这本书中的4个步骤就能很好的解释Iterator遍历过程
+创建一个指针对象，指向当前数据结构的起始位置。也就是说，遍历器对象本质上，就是一个指针对象。
+第一次调用指针对象的next方法，可以将指针指向数据结构的第一个成员。
+第二次调用指针对象的next方法，指针就指向数据结构的第二个成员。
+不断调用指针对象的next方法，直到它指向数据结构的结束位置。
+用一个代码段来实现上面的4个点，也就是来实现一个Iterator遍历器
+function iter(arr) { let index = 0; return { next() { return index &lt;= arr.length ? { value: arr[index&#43;&#43;], done: false } : { value: undefined, done: true} } } } let test = iter([1, 2]); test.next(); // 第一次运行next方法。返回Object {value: 1, done: false} test.next(); // 第二次运行next方法。返回Object {value: 2, done: false} test.next(); // 第三次运行next方法。返回Object {value: undefined, done: false} 上面的代码实现了一个遍历器生成函数，每次传入数组或者类数组或者是含有length属性的并可遍历数据，都可以返回一个遍历器。遍历器生成函数在内部定义了一个变量index用于数据指针，指向当前遍历位置的成员，然后返回了一个对象，用指针去判断如果指针已经大于数组最大的成员数，那么返回值为空和返回一个done属性并值为true表示已经结束遍历，反之，返回相应的值。其中用done来判断是否遍历结束。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-07-15 13:43:25 +0000 UTC'>July 15, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to ES6-iterator遍历接口" href="/posts/es6-iterator/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">ES6新特性-Map和WeakMap
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考文档：MDN
+Map结构 在Javascript中，对象是以键值对的方式存在的，其中的键名是以字符串或者数值以及ES6提出的新的数据类型Symbol方式存在的，比如下面：
+let m = { k: 1, 2: 4 } m.k; // 1 m[2]; //4 但是无法使用引用类型数据作为键名：
+const body = document.getElementsByTagName(&#39;body&#39;)[0]; let m = {}; m.k = 1; m[body] = 4; m; // {k: 1, [object HTMLBodyElement]: 4} m[&#39;[object HTMLBodyElement]&#39;]; // 4 /* 从这里看出来其实当我们用DOM对象作为m属性的时候， 实际上并没有把DOM对象作为键名，而是通过把DOM对象 toString()方法的返回字符串值当作了键名。 */ ES6提出了一种新的结构来解决引用类型作为键值不能实现的问题。Map类型，Map类型可以使用任意数据类型作为键值。Map类型常用的方法及属性有以下几种：
+Map.prototype.size:返回Map对象的键值对
+Map.prototype.clear():移除Map结构中所有的键值对
+Map.prototype.delete(key):移除key键，成功返回true，反之false
+Map.prototype.get(key):或者key键的值，如果不存在返回undefined
+Map.prototype.set(key, value):设置Map键值。key作为键，value作为键值
+Map.prototype.has(key):查找是否在当前Map结构中存在key键，返回true和false
+当然还有其他和Set结构一样的方法没有列举出来，如果想见全部方法，大家可以到MDN文档查看。
+Map是一个构造函数，可以接受一个参数，此参数是数组，此数组的成员为键值对或者两个元素的数组，每个元素或者键值对会被添加到Map结构中，null为undefined。
+let tmp = [[&#39;name&#39;, &#39;tom&#39;],[&#39;age&#39;, 18]]; const m = new Map(tmp); m.get(&#39;name&#39;); //&#39;tom&#39; m....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-07-11 08:54:39 +0000 UTC'>July 11, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to ES6新特性-Map和WeakMap" href="/posts/es6-map-weamap/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">es6新特性:Set和WeakSet
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>书籍参考：《ECMAScript 6入门》 作者：阮一峰
+文档参考：MDN
+ES6提供了两个新的数据结构：Set和WeakSet数据结构，两个结构很相识，但是有一点区别。
+Set数据结构 Set数据结构是一个类数组数据结构，但是它和数组有一点区别不同的是，Set数据结构的值是唯一的，也就是说没有重复值，Set数据结构内部判断两个值是否相等类似于我们使用的精确等运算符(===)，所以&#34;1&#34; 不等于 1但是区别在于NaN相等。Set的参数接受一个数组或类似数组的对象，它将所有元素添加进新的Set中：
+var c = new Set([1,2,3,4,4]); //注意这里添加了两个4 c; // {1,2,3,4} 只添加了一个4，这也就说明了Set数据结构的值唯一性。 由于Set数据结构的值是唯一值，那么我们可以通过这样的特性来去除数组值的重复性
+var a = [1,2,3,4,5,4,5]; var b = [...new Set(a)]; b; // [1,2,3,4,5] Set有四个操作数据的方法和四个遍历数据的方法，首先来看看四个操作数据的方法： add(value):添加某个值，返回该Set本身。
+delete(value):删除Set数据结构中的一个值，如果删除成功则返回true,不成功则返回false。
+has(value): 检查Set中是否含有某个值，返回true和false。
+clear():移除Set数据结构中的所有值，没有返回结构
+上面的四个方法都属于字面意思很容易理解，其中的add方法添加的数据同样会保证Set结构的数值唯一性.
+var a = new Set([1,2,3,4]); a.add(5); a.add(5); a; // {1,2,3,4,5} 只添加了一个数值5 Set的四个遍历数据的方法：
+keys():返回一个新的键名遍历器，由于Set结构没有键名，所以keys()返回的是一个键值与value()遍历器结果一样。
+values()():返回一个新的键值遍历器
+entries()：返回一个键值对遍历器
+forEach(callback,this)：按照插入顺序对每个值调用callback函数进行处理，第二个参数为绑定的this对象。Callback函数接受三个参数，分别为：键名、键值、集合本身
+size:size为属性，返回Set数据结构有多少个值。
+由于Set结构的存储顺序是按照我们插入的顺序就行存储的，所以这样就很方便我们储存中间件函数。
+WeakSet数据结构 WeakSet数据结构同样是不能重复值的集合，但是WeakSet数据结构的成员只能是对象，不能是其他类型的值，并且WeakSet数据结构是弱引用，不会影响垃圾回收器的回收。比如我们新声明一个对象并把这个对象赋值给变量a，那么这个对象当前的引用为1，即使我们没有使用这个对象了，但垃圾回收器不会回收此对象，我们必须手动解除变量a对于此对象的引用(a = null)才能触发垃圾回收器的回收。
+WeakSet有四个方法：
+add(value):添加一个对象到WeakSet中，返回WeakSet本身 delete(value):从WeakSet中删除一个对象，返回true和false has(value): 判断一个对象是否存在于WeakSet中，返回true和false
+WeakSet没有办法来遍历成员，因为说不定在你遍历的时候，垃圾回收器就已经回收了成员中的对象。简单的使用：
+var b = [1,2]; var ws = new WeakSet(); ws....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-07-10 07:43:42 +0000 UTC'>July 10, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to es6新特性:Set和WeakSet" href="/posts/es6-set-weakset/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/page/3/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="">Yizhou</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

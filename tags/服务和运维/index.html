@@ -1,766 +1,478 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <title>服务和运维 | Yizhou&#39;s Website</title>
+<html lang="en" dir="auto">
 
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
-<meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="Yizhou&#39;s blog">
-<meta name="generator" content="Hugo 0.121.1">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>服务和运维 | Yizhou</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="canonical" href="/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link rel="icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="mask-icon" href="safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/index.xml">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
-  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+            .list {
+                background: var(--theme);
+            }
 
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
 
-<link rel="stylesheet" href="/css/style.css">
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
 
-
-
-<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-
-
-
-
-  
-
-
-
-
-
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-          "HTML-CSS": { scale: 85 },
-          tex2jax: {
-            inlineMath: [['$','$'], ['\\(','\\)']],
-            processEscapes: true
-          }
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
         });
-    </script>
-    
-    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+    });
+</script>
+<meta property="og:title" content="服务和运维" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/" />
 
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="服务和运维"/>
+<meta name="twitter:description" content=""/>
 
+</head>
 
-  
-    <link href="/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/index.xml" rel="alternate" type="application/rss+xml" title="Yizhou&#39;s Website" />
-    <link href="/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/index.xml" rel="feed" type="application/rss+xml" title="Yizhou&#39;s Website" />
-  
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
 
+</script>
 
-
-  </head>
-
-  <body>
-    <nav class="navigation">
-	
-		<a href="/"> <span class="arrow">←</span>首页</a>
-	
-	<a href="/posts">归档</a>
-	<a href="/tags">标签</a>
-	<a href="/about">关于</a>
-
-	
-
-	
-	  <a class="button" href="https://wuyizhou.com/index.xml">订阅</a>
-	
-</nav>
-
-
-    <main class="main">
-      
-<header class="profile">
-    
-        <img class="avatar" alt="avatar" src="/images/avatar.png" />
-    
-
-    <h1>Yizhou&#39;s Website</h1>
-    
-    
-      <h2>DataAnalysis / Math / Hardware</h2>
-    
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/index.xml" title="Rss">
+                    <span>Rss</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="">Home</a>&nbsp;»&nbsp;<a href="/tags/">Tags</a></div>
+  <h1>
+    服务和运维
+    <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+  </h1>
 </header>
 
-<section id="archive">
-   
-    
-        <div class="group">
-            <h3 class="key">
-                2023
-            </h3>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">最近搭建了一台家用Nas
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>从两个月前，我着手搭建了一套家用Nas，起因之前自己的资料一直存放在ICloud，因为自己的资料比较多，在600多G，所以自己一直购买的国区2T，每个月68元，一年816元，也不算便宜了。再加上自己的资料和储存的数据越来越大，所以就有就有了这个需求。
+对于资料不多、储存量不大的用户，不建议使用Nas，使用自带的云储存足够了，自己组建Nas只有在一定储存量级，才会有价值，所以对于数据量少的朋友，看看就行了，别折腾了。
+同时自己电脑有两台，一台苹果笔记本，一台Windows笔记本，ICloud对于Windows系统同步是真的难用，甚至打开文件夹都会卡顿，所以也是其自己搭建Nas的一个小因素了。
+选购之前对比了多种方式，购买其他国内云储存服务、自己购买云主机自己搭建、购买成品NAS、自己搭组NAS。
+先说说前两者，国内云服务研究了一番后，排除了，具体原因暂时不好说。然后就是云主机搭建，后面研究一番发现不论国内还是国内的云主机，硬盘都贵得要死。
+再说说后两者，也是我纠结最久的，成品Nas的优点就是不用折腾、省心以及有技术服务支撑，缺点就是配置低、价格贵。自己组Nas的优点在于便宜、配置高，缺点就是折腾，也不省心。
+那作为以技术出身的人来说，自己组Nas的缺点到成了一个有趣的过程，而配置高也满足了技术人员常常的幻想”配置不够“这一假说。
+所以最终思考了一下，准备折腾一下自己，组建Nas就成了最优选择。
+选购 既然是自己组建，就得自己挑选硬件、考虑配置、选择系统，系统我选择的是群晖，也就是所谓的黑群晖，主要考虑到配套的软件足够好用，关于硬件选配，可以参考隔壁网这篇文章《2022年组建群晖实体机的一些建议 - 黑白群晖 - 隔壁网 (gebi1.com)》。
+我的配置目前是：
+CPU：考虑到需要看电影做解码，所以选择了i3-8100T，然后带T属于低功耗，对于Nas来说也完全够用了。 内存：32G。 硬盘：8TB硬盘两块，用于存放资料、文件。16TB硬盘一块，用于存放电影。 主板：选择了大厂微星的Z370M Mortar。 机箱：Treasure宝藏盒，快700多的一个机箱了，已经算比较贵了，但是买回来看了一下外观，真香。 风扇：利民AXP90 电源：Flex台达250W电源 这里需要说一个事情，我没有配备缓存，群晖的系统可以配备2块M2 Nvme硬盘作为缓存组，可以用于读写缓存，单盘只能作为读缓存。我研究了一番后，决定还是不用缓存，第一个对于我这样的家用环境上缓存提升不大，也有很多家用小伙伴测试后发了相关的结论。第二个就是缓存可能导致故障，第三个性价比不高。
+系统 系统采用的是群晖，既然是自己搭建的，所以也就是所谓的黑群晖了，采用的引导是最简单的引导arpl-i18n，该引导是基于巴西大佬arpl的版本上改进的，对于两者我还真不知道差距在哪里，但只要好用，然后用的人多就行了。
+然后黑群晖的引导是需要一个U盘的，正常情况下U盘可以插在机箱前面或者后面，但是对于花了700多买了这么漂亮的机箱，U盘插在前后，犹如”一坨牛屎抹在鲜花上“。
+所以我就购买了一个主板的usb插座，然后将引导U盘插在上面，这样就可以把usb隐藏在机箱内了。
+备份 我的备份组合主要集中为四种，分别RAID1&#43;Cloud Sync&#43;Hyper Backup网盘&#43;Hyper Backup硬盘，其中RAID1虽然说起来不算是”备份“方案，但本质提供冗余还是一种数据的保障，所以也就算了进来。
+Hyper Backup则是提供了一个完整的套件、文件增量备份，每天执行一次。
+Cloud Sync则是作为一个补充，提供一个实时的文件同步，将文件同步到我的Onedrive，至于为什么是Onedrive，第一个原因是支持，第二个原因是因为我每年要买Office365，所以有1TB的免费网盘容量。
+Hyper Backup是目前我觉得最好的备份方案，Hyper Backup支持备份到云服务商、本地USB储存设备等方式。Hyper Backup我采用了两种方式，分别为阿里云盘通过Alist以WebDAV的方式挂载到本地，然后Hyper Backup选择WebDAV方式进行备份，好处在于阿里云盘服务器在国内比较稳定，关于如何通过查看Alist关于阿里云盘的文档。
+第二种方式，我采用的是本地USB插入硬盘的方式，这个方式有个好处在于能无限扩大备份目的地的容量，比如你可以通过一个硬盘盒做多个盘用USB接入，同时配置好了也比较省电省电。
+为什么说省电呢？在设置为USB为备份目的地的时候，配置可以选择，当备份完成后自动断开卸载USB，然后再加上硬盘盒的自动休眠，就可以在备份完成后的耗电降到最低，比如下图（因为我目前已经设置完成，所以找不到这个选项了，就借用了一张图片）。
+但这种方式有一个问题，就是你在下次备份的时候没有办法自动挂载，你需要通过定时任务，将在定时的自动备份任务开始之前将USB重新挂载好。
+重新挂载USB需要两个步骤，第一个步骤确定USB编号，需要打开群晖的SSH，然后进入到终端后使用lsusb命令，我找到我备份目的地的硬盘为2-3：
+第二个步骤是将如下代码放入群晖的任务计划，选择运行的用户为root（一定注意，卸载挂载外置设备需要root权限）：
+然后将如下代码放入脚本中，其中的2-3需要替换为备份的外置目的地设备编号。
+echo 0 &gt; /sys/bus/usb/devices/2-3/authorized echo 1 &gt; /sys/bus/usb/devices/2-3/authorized 最后，设定好计划时间，我目前是在Hyper Backup之前的5分钟挂载。
+结尾 说完了后，说说成品Nas和自己搭建Nas推荐哪个，整体就是完全不建议没有技术或者不想折腾的人来自己搭建Nas，更建议直接买群晖或者其他厂商的成品Nas，对于有技术的用户，这种方式就挺推荐的。
+搭建到如今，也算是对稳定性比较信任了，将自己照片、文件都转移到了群晖，同时也说服了自己的爱人将手机照片转到了群晖，不得不说群晖的配套软件是真的好用，买软件送硬件也不是无道理，看来以后买一个白裙也不是不可以。
+参考文章 # Synology NAS 的 USB 外接硬碟在系統中的順序 / HyperBackup 備份後自動卸載該如何重新掛載 2022年组建群晖实体机的一些建议 - 黑白群晖 - 隔壁网 (gebi1....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-10-19 13:24:56 +0000 UTC'>October 19, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to 最近搭建了一台家用Nas" href="/posts/home-nas-2023/"></a>
+</article>
 
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2023-10-19 13:24:56 &#43;0000 UTC">10/19</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/home-nas-2023/">
-                          最近搭建了一台家用Nas
-                      </a>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">GPU服务器的多人环境搭建
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>环境 CPU: Intel(R) Xeon(R) Gold 6154* 2
+Momery: 128G GPU: 3080TI * 2
+Disk: 16T HD &amp; 512 SSD
+System: Ubuntu 22.04 Server
+前言 因为最近团队对于GPU的需求量增加，但之前都是在工作电脑上直接使用GPU进行训练和使用，而几个人中只有一两台电脑有显卡，所以后期就更新了服务器。 随之而来的就会产生一个问题，大家直接用账号密码链接上去每个人的环境、配置都会造成环境、冲突，甚至导致系统出错，所有就有必要通过容器的解决方案让每个人都隔离，相互不影响，并且不能直接操作到宿主机，以保证所有人操作都在容器进行而不影响到宿主机，除此之外也需要给每一个容器映射显卡。 在这个基础上有三个相关的技术，分别为Docker、LXC、虚拟机（PVE、ESXI等）。首先排除掉Docker，Docker比较适用应用级的层面上，不符合需求。虚拟机虽然可以直通显卡等，但直通单张显卡后，其他虚拟机无法使用。所以最后就锁定到了LXD，LXD由Canonical有限公司发起，是一个类容器管理系统，而底层则基于LXC容器，额外提供了更加方便的API接口、分布式、网络管理、储存管理等，同时Ubuntu 22.04自集成了LXD，所以这里部署也是通过LXD来管理LXC容器。
+准备 16T的机械盘，分为两个分区（分区可以使用fdisk），分1T用于给LXC作储存池，剩余的15T用于挂载到宿主机下的/data目录，后期映射到每个容器的/data目录下，用于所有容器之间的数据互传和数据存储（因为相互之间的数据不涉及隐私，所以可以共用），这样的好处在于大家都将重要的数据放置/data，即使容器出现了问题，也不会影响到数据的丢失问题。 显卡驱动可以直接通过Ubuntu的GPU驱动安装，如果你没有安装显卡驱动，你可以直接输入nvidia-smi，会得到相关的提示，而不用安装网上的教程去设置，因为非常麻烦。 使用apt安装zfsutils-linux，前者用于安装LXD的储存池驱动，LXD支持多种储存池，这用于储存LXD、LXC相关的数据。 使用apt安装bridge-utils，该工具是用于管理和创建网桥设备所需要的工具和程序。 初始化LXD 通过命令执行sudo lxd init，就会得到如下的问题：
+LXD Clustering：用于集群配置，单节点不需要，默认为no，回车即可 new storage pool：需要创建一个存储池，输入yes Name of storage pool：给存储池命名，默认为default，回车即可 storage backend：存储后端，默认使用zfs，回车即可 Create a new ZFS pool：需要创建一个ZFS池，默认为no，输入yes use an existing block device：使用现有的块设备（硬盘），输入yes Path to block device：输入现有的硬盘，比如我的为sda1，那么就输入/dev/sda1 MAAS server：MAAS是一个用于将物理机视为云服务器的集群服务，默认为no，回车即可 new local network bridge：是否创建一个新的桥接网络，输入yes new bridge be called：命名新的网桥名称，默认即可 IPv4：IPv4相关配置，默认为auto，回车即可 IPv6：IPv6相关配置，默认为auto，回车即可 would you like lxd to be available over the network：使用想通过网络访问LXD，默认为no，回车即可 would you like stale cached images to be updated automatically：默认yes，回车即可 YAML printed：是否打印出lxd init的配置信息，默认为no，回车即可 创建容器模板 创建容器模板的意义在于你可以设置一个基础配置的容器，然后基于这个容器进行复制出多个容器出来，而不用再针对每个容器进行重复的基础设置。 在使用前需要下载一个已打包的容器镜像，因为需要下载，所以可以使用清华大学的国内镜像用于提升下载镜像的速度。 添加清华大学镜像源：...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-10-21 04:52:07 +0000 UTC'>October 21, 2022</span></footer>
+  <a class="entry-link" aria-label="post link to GPU服务器的多人环境搭建" href="/posts/gpu-server-lxd-multiplexing/"></a>
+</article>
 
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-                      
-        </div>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">基于LXC容器的Openwrt搭建
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前期工作 环境和机器配置：
+机器：5105v4 i226-v版本
+pve： 7.1.2，内核Linux 5.13.19-2-pve
+准备工作：
+将网线连接到pve管理口，如果已安装openwrt，然后关闭原openwrt虚拟机，删除直通的网卡。
+准备一份没有引导的openwrt固件包，可以是img也可以是tar.gz，但一定是没有引导的包，可以看文件名中包含rootfs字符，比如openwrt-x86-64-generic-ext4-rootfs.img或openwrt-21.02.0-x86-64-rootfs.tar.gz（前者是我自己编译的，重点在于rootfs）。
+PVE直通配置 连接到PVE，输入命令：
+nano /etc/default/grub 找到下面这一行：
+GRUB_CMDLINE_LINUX_DEFAULT=&#34;quiet&#34; 然后添加&#34;intel_iommu=on&#34;，这是英特尔的直通配置，AMD需要自行查找配置命令：
+GRUB_CMDLINE_LINUX_DEFAULT=&#34;quiet intel_iommu=on&#34; 然后更新引导：
+update-grub 修改nano /etc/modules内核模块文件，添加直通的驱动，让系统启动的时候载入这些驱动：
+vfio vfio_iommu_type1 vfio_pci vfio_virqfd 执行命令来更新内核：
+update-initramfs -u -k all. 创建基础环境文件包 tar.gz格式 如果包后缀为tar.gz，则通过scp直接上传至pve，以下[]内的字符根据自己情况进行替换（包括[和]符号），然后跳至下一章节：
+scp [固件路径.tar.gz] root@[pveIP地址]:/var/lib/vz/template/cache img格式 上传固件：
+scp [固件路径.img] root@[pveIP地址]:/root 这里需要注意，如果你的固件包是带squashfs字符，比如openwrt-x86-64-generic-squashfs-rootfs.img，你需要按照下面的方式进行解压。 安装解压包：
+apt install squashfs-tools 解压镜像文件：
+unsquashfs [固件路径.img] 解压完成后你在同级目录下会得到squashfs-root文件夹，然后进入该文件夹，跳至3步骤。 如果你是不带squashfs字符，比如openwrt-x86-64-generic-ext4-rootfs.img，则需要通过挂载镜像，得到内部文件，首先创建一个挂载点（下面操作在root目录中进行）：
+mkdir op 然后挂载镜像：
+mount -t ext4 -o loop [固件路径.img] /root/op 然后进入/root/op，跳至3步骤（完成后，通过使用umount /root/op进行卸载镜像）。
+打包为pve的CT模板包： 进入上述2步骤中得到的文件夹中，然后使用下列命令进行打包，得到的文件下文称为op-ct模版：
+tar zcf /var/lib/vz/template/cache/[固件名称].tar.gz ....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-09-06 05:02:51 +0000 UTC'>September 6, 2022</span></footer>
+  <a class="entry-link" aria-label="post link to 基于LXC容器的Openwrt搭建" href="/posts/lxc-openwrt/"></a>
+</article>
 
-    
-        <div class="group">
-            <h3 class="key">
-                2022
-            </h3>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Elasticsearch节点配置
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>节点配置 配置Java 因为Elasticsearch是Java编写的，所以在使用Elasticsearch之前，需要构建好Java的环境。而Elasticsearch会在每个发行版中包含一个推荐JVM版本。同时官方也推荐使用捆绑的JVM版本。 所以有两种方式来配置JVM：
+使用捆绑JVM 手动安装适配当前Elasticsearch的JVM版本 如果是通过下载解压包，则解压后会在第一层目录中看见一个名为jdk的目录，这个就是自带的推荐JVM，默认情况下，如果环境中没有设置ES_JAVA_HOME在启动的时候，则会直接使用自带的JVM。 如果安装了JVM，但需要使用自带JVM或者使用指定的JVM，则可以找到esdir/bin/Elasticsearch-env文件，然后找到下面的内容：
+# now set the path to java ES_JAVA_HOME=&#34;/home/elastic/Elasticsearch-8.2.0/jdk&#34; # 添加这段内容，路径需要自行修改 if [ ! -z &#34;$ES_JAVA_HOME&#34; ]; then JAVA=&#34;$ES_JAVA_HOME/bin/java&#34; JAVA_TYPE=&#34;ES_JAVA_HOME&#34; Java堆内存配置 Elasticsearch使用Java编写的，所以Java的堆内存越大，Elasticsearch可用的堆内存越多，缓存的数据也就越多。但是过于太大的堆内存，可能是垃圾回收暂停。 除此之外，官方还建议堆内存的大小设置不要超过对象指针（oops）的阈值。不同的系统阈值有所不同，而在大多数系统上26GB是安全，而有些可能可用高达30G。 查看是否超过了oops阈值，可用两种方法。第一种为API：
+_nodes/_all/jvm { ... &#34;using_compressed_ordinary_object_pointers&#34;: &#34;true&#34;, ... } 第二种为检查日志：
+[2022-06-09T06:17:15,837][INFO ][o.e.e.NodeEnvironment ] [xxx-p1] heap size [28gb], compressed ordinary object pointers [true] 设置堆内存大小通过设置Elasticsearch配置文件中的jvm.options文件，但在生产环境中尽量不要使用该文件直接修改，而是在java.options.d目录中新添加一个后缀为.options的文件。 配置文件中通过-Xms和-Xmx来设置最小和最大的堆内存：
+esdir/config/jvm.options.d/heap.options -Xms16g -Xmx16g 官方建议将该值设置为一致的，并且该值应该小于物理内存的50%。因为除了堆内存，JVM本身也需要一定的内存，除此之外，Elasticsearch底层使用的Lucence，Lucence段存放在单独的文件中，而OS会将部分常用段进行缓存（热段），便于加快应用的访问性能，所以没有足够的内存给OS进行缓存，那么同样会降低Elasticsearch的性能。 下面是因为堆内存设置过大，导致JVM内存不够的报错：
+Exception in thread &#34;main&#34; java.lang.RuntimeException: starting java failed with [1] output: # # There is insufficient memory for the Java Runtime Environment to continue....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-06-10 07:49:01 +0000 UTC'>June 10, 2022</span></footer>
+  <a class="entry-link" aria-label="post link to Elasticsearch节点配置" href="/posts/elasticsearch-config-node/"></a>
+</article>
 
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2022-10-21 04:52:07 &#43;0000 UTC">10/21</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/gpu-server-lxd-multiplexing/">
-                          GPU服务器的多人环境搭建
-                      </a>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Apache2-https安装教程
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>环境 CentOS Linux release 7.5.1804 Apache/2.4.6 (CentOS) root用户 前言 首先我们需要建立vhost文件，在目前的环境中安装的Apache会自动把目录为/etc/httpd/conf.d下的所有*.conf文件引入到配置文件/etc/httpd/conf/httpd.conf中加载，所以我们只需要在/etc/httpd/conf.d目录下配置我们的虚拟主机文件。
+免费的证书我们可以通过证书授权机构Let’s Encrypt 获取，并且我们可以通过Certbot（由Let’s Encrypt推出的获取证书的客户端 ）进行生成证书，Certbot提供了几种方式进行生产，我们选择最简单的方式certbot-auto来进行自动配置
+0x0001 通过编辑器编辑vhost文件
+vim /etc/httpd/conf.d/vhost.conf 添加以下的内容，括号及括号内的内容自行去掉
+&lt;VirtualHost *:80&gt; ServerAdmin XXX@xxx.cn(邮箱) directoryIndex index.html index.php index.htm ServerName XXXX.com(域名) DocumentRoot /www/web(网站目录) &lt;Directory &#34;/www/web(网站目录)&#34;&gt; Options -Indexes AllowOverride All Require all granted &lt;/Directory&gt; &lt;/VirtualHost&gt; 添加完内容后进行保存，并且我们用下面的命令来检查配置文件的语法是否有错误
+httpd -t 如果测试是没有问题的，此时我们就可以重启服务器让配置文件生效
+systemctl restart httpd 0x0002 这一步我们进行配置https，我们这里使用的是文章最开始提到的自动安装脚本，其他的安装方式以及如果文章离你查看的时间比较久远，建议你参照Certbot官方进行配置。
+首先下载Certbot到当前目录下，并让Certbot具有执行权限
+wget https://dl.eff.org/certbot-auto chmod a&#43;x certbot-auto 执行当前目录下的certbot-auto，然后跟着提示操作就可以执行了
+certbot-auto --apache 0X0003 我们可以通过renew进行查看证书的有效期，还可以通过renew --dry-run命令来更新证书，如果你需要自动更新可以参照官网或者其他脚本程序来进行实现也是没有任何问题的
+certbot-auto renew 查看证书有效期 certbot-auto renew --dry-run 更新证书有效期 </p>
+  </div>
+  <footer class="entry-footer"><span title='2018-06-25 03:46:41 +0000 UTC'>June 25, 2018</span></footer>
+  <a class="entry-link" aria-label="post link to Apache2-https安装教程" href="/posts/apache2-https/"></a>
+</article>
 
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2022-09-06 05:02:51 &#43;0000 UTC">09/06</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/lxc-openwrt/">
-                          基于LXC容器的Openwrt搭建
-                      </a>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">MariaDB swap空间没有配置导致的出错问题
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>之前自己写的一篇关于搭建lamp的文章，在运行过程中会出现一些莫名其妙的错误导致mariadb错误，然后必须手动重启mariadb才能正常启动服务。
+于是在mariadb的日志文件中查看到错误信息，/var/log/mariadb/mariadb。
+171002 10:56:34 [ERROR] Plugin &#39;InnoDB&#39; init function returned error. 171002 10:56:34 [ERROR] Plugin &#39;InnoDB&#39; registration as a STORAGE ENGINE failed. 171002 10:56:34 [ERROR] mysqld: Out of memory (Needed 128917504 bytes) 171002 10:56:34 [Note] Plugin &#39;FEEDBACK&#39; is disabled. 171002 10:56:34 [ERROR] Unknown/unsupported storage engine: InnoDB 171002 10:56:34 [ERROR] Aborting 其中有一句Out of memory (Needed 128917504 bytes)，看来是内存不足导致的错误，因为我的服务器是阿里云的低配服务器，所以当其他服务占用了很多内存之后，导致mariadb没有足够的内存提供服务。
+因为自己的内存是512M，于是想到采用swap空间。查看swap的大小是free -m返回的信息是：
+total used free shared buff/cache available Mem: 992 315 331 0 344 525 Swap: 0 0 0 看来swap也没有建立，那么就手动建立一个swap文件，由于官方给的swap大小建议的是实际内存的2倍，所以我在这里就建立了一个1GB的swap交换文件。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-10-05 08:26:39 +0000 UTC'>October 5, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to MariaDB swap空间没有配置导致的出错问题" href="/posts/mariadb-swap/"></a>
+</article>
 
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2022-06-10 07:49:01 &#43;0000 UTC">06/10</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/elasticsearch-config-node/">
-                          Elasticsearch节点配置
-                      </a>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">家庭NAS搭建
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 最近因为装了家庭影院买了盒子，再加上之前自己也想购买一个NAS，选过来选过去挑选了群晖NAS，但是无奈价格太贵，除了统一性、稳定性和群晖自身开发的系统之外没有任何的性价比可言，四硬盘位的NAS卖的更是离谱。
+家里有一台淘汰掉的主机，然后再加上自己有几块闲置的硬盘，便想出了自己搭建NAS服务器，因为每个IT男家中总会有那么一台或几台淘汰下来的机器和硬盘，即使你要组装一台新的机器，性价比也非常高。
+再加上自行组建NAS可玩性、灵活度较高，所以就敲定了这个方案。
+在3年前自己玩弄树莓派写了一篇文章，如今照着做了一遍感觉很多命令变化挺大的，所以也是重写一篇关于nas搭建的文章的动力。
+在配置的时候本来我想搭建一个下载服务器，找到mldonkey搭建，但是无奈配置了半天也没有搞定所以也就放弃了。最后我的解决方案是通过其他电脑下载然后拷贝到nas中。
+环境 系统我采用了Ubuntu 16.04 Server，因为在稳定性和节省系统资源比desktop版更胜一筹。如果你是想通过无线网络搭建NAS，那么第一次你需要使用网线连接安装Wi-Fi相关的包，如果没有网线或者你只需要无线网络，那么你可以使用desktop版本，因为desktop版自带了无线网卡的驱动。
+方案 搭建samba服务器，用于储存一些非私人资料，比如软件安装包、ISO镜像文件等，把samba共享给电视盒子，可以直接观看硬盘里面的电影。 搭建Time Machine，因为本人常用的是MacBook笔记本，所以搭建Time Machine就显得非常必要了 搭建seafile私有云服务，并提供给外网端口，用于外部访问。 为什么要搭建seafile，虽然Time Machine可以备份我的资料，但是无法让我在外面没有带电脑的时候取得资料，并且搭建seafile也算是一个双备份，因为上面的三个服务都是单独的一块硬盘，即使Time Machine或者seafile其中一个硬盘损坏，也不会造成数据丢失。
+准备工作 首先你可以查看你的硬盘情况，你可以通过lsblk命令查看，并通过fdisk命令进行分区。
+在三块硬盘分区好了后，我们开始格式化分区。我的环境中sda1用于samba，sdb1用于seafile，sdc1用于time machine，那么需要分别格式为不同的格式。
+因为time machine需要hfsplus格式，所以在格式化之前我们需要安装关于hfsplus的包。
+&gt; apt install hfsplus hfsutils hfsprogs 然后我们开始格式化三个分区。
+&gt; mkfs.ntfs -v /dev/sda1 &amp;&amp; mkfs.ext4 -v /dev/sdb1 &amp;&amp; mkfs.hfsplus -h /dev/sdc1 挂载三个分区
+&gt; mkdir /var/samba &amp;&amp; mkdir /var/seafile &amp;&amp; mkdir /var/timemachine &gt; mount -t ntfs /dev/sda1 /var/samba &amp;&amp; mount -t ext4 /dev/sdb1 /var/seafile &amp;&amp; mount -t hfsplus /dev/sdc1 /var/timemachine 然后通过lsblk命令检测三个分区是否挂载成功。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-09-29 08:46:10 +0000 UTC'>September 29, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to 家庭NAS搭建" href="/posts/homenas/"></a>
+</article>
 
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-                      
-        </div>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">LAMP环境搭建
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>环境 系统版本：Centos 7.3 64位
+服务器：阿里云香港
+当前用户：root
+目标：搭建wordpress执行环境
+准备工作 如果你是在一个新的环境中搭建lamp环境，那么我建议你先更新升级系统，这样能保证系统为最新版本以及系统的安全性。
+&gt; yum -y update &gt; yum -y upgrade 安装Apache 首先安装Apache
+&gt; yum -y install httpd 启动Apache
+&gt; systemctl start httpd 设置Apache为开机启动
+&gt; systemctl enable httpd 此时Apache搭建完成，系统的/var/www/html就是网站的根目录。访问服务器的外网ip或者域名就可以看见Apache已经搭建成功。
+安装PHP 安装PHP
+&gt; yum -y install php 安装一些常用的PHP模块
+&gt; yum -y install php-gd php-ldap php-odbc php-pear php-xml php-xmlrpc php-mbstring php-snmp php-soap curl curl-devel 重启Apache使php生效
+&gt; systemctl restart httpd 我们可以通过在网站根目录建立一个phpinfo函数来查看php是否能解析。
+&gt; echo &#34;&lt;?php phpinfo() ?&gt;&#34; &gt;&gt; /var/www/html/test....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-09-24 06:43:23 +0000 UTC'>September 24, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to LAMP环境搭建" href="/posts/lamp/"></a>
+</article>
 
-    
-        <div class="group">
-            <h3 class="key">
-                2018
-            </h3>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Mongodb 身份验证
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>介绍 不管数据库是在多安全的环境或者本地环境，给数据库建立一个安全的环境是很有必要的。
+Mongodb提供了一系列的安全功能，这里介绍一种很常用的身份验证方式。
+开启验证 默认情况下，只要在启动数据库的时候没有加上--auth选项，就是没有身份验证功能的，所有客户端都可以进行所有权限的操作。
+如果加上过后，我们就可以通过安全的身份验证连接数据库。如果要在数据库中进行身份验证，可以通过db.auth(username, password)，如果验证成功则返回1，反之。
+建立用户 建立用户我们可以通过db.createUser()方法来建立用户，比如下面这样：
+db.createUser({user: &#39;username&#39;, pwd: &#39;password&#39;, roles: [ {role: &#39;read&#39;, db: &#39;test&#39;} ]}); db.createUser方法的接受一个对象，里面的user代表用户名，pwd代表密码，而roles是一个数组可以接受多个对象，每个对象可以对应作用于的数据库，其中的role字段代表对作用的数据库的权限，官方规定了一些列的内置角色，可以通过文档查询。
+删除用户 删除用户需要具有权限的用户进行操作，通过db.dropUser()方法进行，接受一个字符串，这个字符串就是用户名:
+db.dropUser(&#39;user1&#39;); 获取用户 可以通过db.getUser()方法来获取用户信息，同样它接受一个字符串，字符串为用户名:
+db.getUser(&#39;user1&#39;); 参考 MongoDB权威指南(第2版)
+Mongodb Docs</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-08-26 10:08:26 +0000 UTC'>August 26, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to Mongodb 身份验证" href="/posts/mongodb-auth/"></a>
+</article>
 
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2018-06-25 03:46:41 &#43;0000 UTC">06/25</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/apache2-https/">
-                          Apache2-https安装教程
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-                      
-        </div>
-
-    
-        <div class="group">
-            <h3 class="key">
-                2017
-            </h3>
-
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-10-05 08:26:39 &#43;0000 UTC">10/05</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mariadb-swap/">
-                          MariaDB swap空间没有配置导致的出错问题
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维&#39;</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-09-29 08:46:10 &#43;0000 UTC">09/29</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/homenas/">
-                          家庭NAS搭建
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-09-24 06:43:23 &#43;0000 UTC">09/24</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/lamp/">
-                          LAMP环境搭建
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-08-26 10:08:26 &#43;0000 UTC">08/26</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-auth/">
-                          Mongodb 身份验证
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-08-26 09:42:07 &#43;0000 UTC">08/26</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-backup/">
-                          Mongodb 备份及恢复
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-08-26 09:17:22 &#43;0000 UTC">08/26</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-data-repair/">
-                          Mongodb 数据修复
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-08-25 13:14:20 &#43;0000 UTC">08/25</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-monitoring/">
-                          Mongodb 监测
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-08-23 12:03:05 &#43;0000 UTC">08/23</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-shares/">
-                          Mongodb 分片
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-08-21 12:22:01 &#43;0000 UTC">08/21</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-replica/">
-                          Mongodb 副本集
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-08-20 15:17:26 &#43;0000 UTC">08/20</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-mapreduce/">
-                          Mongodb MapReduce
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-08-10 14:18:52 &#43;0000 UTC">08/10</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-aggregate/">
-                          Mongodb 聚合
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-08-09 08:27:12 &#43;0000 UTC">08/09</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-gridfs/">
-                          Mongodb GridFS
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-08-09 07:43:18 &#43;0000 UTC">08/09</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-special-collection-index/">
-                          Mongodb特殊索引和集合
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-08-08 12:28:45 &#43;0000 UTC">08/08</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-index/">
-                          Mongodb索引
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-08-04 08:07:53 &#43;0000 UTC">08/04</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-find/">
-                          Mongodb查询
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-08-03 07:45:26 &#43;0000 UTC">08/03</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-update-modifier/">
-                          Mongodb更新修改器
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-08-02 11:48:04 &#43;0000 UTC">08/02</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-shell/">
-                          Mongodb Shell
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2017-08-01 15:36:33 &#43;0000 UTC">08/01</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb/">
-                          Mongodb基础知识
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-                      
-        </div>
-
-    
-        <div class="group">
-            <h3 class="key">
-                2015
-            </h3>
-
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2015-01-09 07:57:00 &#43;0000 UTC">01/09</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/kail-install-parallels-tools/">
-                          Kail安装Parallels tools
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-                      
-        </div>
-
-    
-        <div class="group">
-            <h3 class="key">
-                2014
-            </h3>
-
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2014-10-09 07:35:00 &#43;0000 UTC">10/09</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mac-java-version/">
-                          Mac下修改默认的Java版本
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2014-08-17 20:28:00 &#43;0000 UTC">08/17</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/raspberrypi-timemachine-samba/">
-                          树莓派实现TimeMachine以及samba服务
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2014-04-16 21:16:00 &#43;0000 UTC">04/16</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/apache-setting-access/">
-                          服务器设置Apache对htaccess支持
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                      <time datetime="2014-04-13 07:25:00 &#43;0000 UTC">04/13</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/apache-mysql-php-server/">
-                          配置Apache&#43;Mysql&#43;Php
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-                      
-        </div>
-
-    
-
-
-
-</section>
-
-
-
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Mongodb 备份及恢复
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>介绍 无论在什么情况下都应该进行数据备份，才能避免灾难性的数据损坏，下面将介绍两种备份方式，两种备份方式使用的场景也不一样，可以根据自身的使用情况进行选择
+复制文件备份 在复制数据库文件之前，我们可以通过db.fsynclock()方法让数据库禁止一切写入，并把所有在缓存中的信息全部同步到磁盘中，让所有的写操作进入队列，在没有取消锁之前，Mongodb不会对任何写操作进行处理。
+&gt; db.fsyncLock(); 首先给数据库上锁，以免出现我们在备份的过程中同时还有数据写入 $ cp -R /data/blog/* /data/Backup/blog //复制数据库所有的文件到备份目录 &gt; db.fsyncUnlock(); 解锁数据库，解锁后数据库将处理队列中的写操作 mongodump mongodump可以给正在运行的实例进行热备份，只需要通过指定端口，地址，如果在本机上面运行，只需要指定端口就可以进行热备份了。
+$ mongodump --port 27017 运行过后，mongodump会在当前目录建立一个dump文件夹，里面包含了我们备份的数据库数据。
+恢复 上面第一种方式很好恢复，把备份的数据文件复制回来就可以了，而经过mongodump备份的文件需要使用mongodb提供的另一个工具mongorestore。
+mongorestore通过给正在运行的实例进行恢复数据，下面是它的用法：
+mongorestore --port 27017 ./dump/ 参考 MongoDB权威指南(第2版)
+Mongodb Docs</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-08-26 09:42:07 +0000 UTC'>August 26, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to Mongodb 备份及恢复" href="/posts/mongodb-backup/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/page/2/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
     </main>
     
-    <footer id="footer">
-    
-        <div id="social">
-
-
-    <a class="symbol" href="https://github.com/wyizhou" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>Github</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
-            <g id="Github" transform="translate(264.000000, 939.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://stackoverflow.com/users/11949960" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>stackoverflow</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
-            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://twitter.com/5yizhou" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
-	 xml:space="preserve">
-<g>
-	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
-		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
-		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
-		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
-		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
-		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
-		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
-		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
-		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
-		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
-		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
-		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
-		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
-		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
-</g>
-</svg>
-
-    </a>
-
-
-</div>
-
-    
-
-    <div class="copyright">
-    
-        © Copyright 2023 Yizhou
-    
-    </div>
-
-    
+<footer class="footer">
+    <span>&copy; 2023 <a href="">Yizhou</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
 </footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
 
-  </body>
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
 </html>

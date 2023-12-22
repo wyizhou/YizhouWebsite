@@ -1,139 +1,300 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <title>JavascriptDOM事件 | Yizhou&#39;s Website</title>
+<html lang="en" dir="auto">
 
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
-<meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="Javascript与html之间的交互是通过事件进行交互。事件是通过侦听器（交互处理程序）来预定执行的。 页面中哪部分会拥有某个特点的事件？">
-<meta name="generator" content="Hugo 0.121.1">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>JavascriptDOM事件 | Yizhou</title>
+<meta name="keywords" content="开发者手册">
+<meta name="description" content="Javascript与html之间的交互是通过事件进行交互。事件是通过侦听器（交互处理程序）来预定执行的。 页面中哪部分会拥有某个特点的事件？当你点击页面中的任何一个元素，其实就是点击了整个页面，用书上的例子来说： 当你画一个同心圆的时候，把手指放在圆心，你手指指向的不单单是一个圆，而是全部的圆。
+事件流 事件流指的是页面中接收事件的顺序，DOM2级事件规定事件流包括三个步骤，分别为：
+1.捕获阶段 捕获阶段是为了截获事件提供机会
+2.处于目标阶段 这个阶段表示目标接收到事件
+3.冒泡阶段 这个阶段可以对事件做出响应
+事件处理程序 事件指的是比如单击(click)、双击(dbclick)、鼠标移动(mouseover)、键盘按键(keydownkeyup)等都属于事件，那事件处理程序就是处理事件发生时候执行的一个程序。而在html中会有一个和事件处理程序名字对应的一个属性。
+DOM0级事件处理程序 DOM0级事件处理程序是通过javascript代码取得一个元素的引用然后把一个函数赋值给对应的事件处理程序属性。这样方式添加的事件处理程序会在事件流中的冒泡阶段被处理。
+1 var newimg = document.getElementsByTagName(&#34;img&#34;)\[0\]; 2 3 newimg.onlick = function(){alert(1)}; DOM2级事件处理程序 DOM2级事件添加了两个专门处理事件的方法，所有的DOM节点都包含了这两个方法。分别为: addEventListener() 这个方法用于添加DOM事件，在所有DOM节点上都可以调用此方法，此方法接收三个参数分别为事件名称、处理程序和布尔值（为true则在捕获阶段调用事件处理程序，为false在冒泡阶段调用事件处理程序）
+1 var body = document.getElementsByTagName(&#34;body&#34;); 2 body.addEventListener(&#34;onclick&#34;,function(){alert(1)},true); removeEventListener() 这个方法和addEventListener()方法相反，是删除相应的事件，同样接收三个参数，这三个参数完全和addEventListener() 一样。
+1 var body = document.getElementsByTagName(&#34;body&#34;); 2 function handles(){alert(1)}; body.addEventListener(&#34;onclick&#34;,handles,true); 3 var body = document.getElementsByTagName(&#34;body&#34;); 4 body.removeEventListener(&#34;onclick&#34;,handles,true); 注意这里没有直接添加匿名函数而是用function创建了一个函数，removeEventListener()方法是无法删除匿名函数，就算你传入进去的匿名函数和添加的匿名函数完全一样还是不能删除，所以这里注意。
+事件对象 当事件触发的时候，事件会产生一个事件对象event,这个对象里面包含了当前触发事件的一些相关信息。这个对象DOM0级和DOM2级的都支持，也就是说只要兼容DOM的浏览器都会有这样的一个对象。
+1 var body = document.getElementsByTagName(&#34;body&#34;); 2 3 function handles(event){alert(event.type)}; 4 5 body.addEventListener(&#34;onclick&#34;,handles,true); //输出click event对象的属性：">
+<meta name="author" content="">
+<link rel="canonical" href="/posts/javascript-dom-event/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="mask-icon" href="safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
-  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+            .list {
+                background: var(--theme);
+            }
 
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
 
-<link rel="stylesheet" href="/css/style.css">
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
 
-
-
-<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-
-
-
-
-  
-
-
-
-
-
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-          "HTML-CSS": { scale: 85 },
-          tex2jax: {
-            inlineMath: [['$','$'], ['\\(','\\)']],
-            processEscapes: true
-          }
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
         });
-    </script>
-    
-    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+    });
+</script>
+<meta property="og:title" content="JavascriptDOM事件" />
+<meta property="og:description" content="Javascript与html之间的交互是通过事件进行交互。事件是通过侦听器（交互处理程序）来预定执行的。 页面中哪部分会拥有某个特点的事件？当你点击页面中的任何一个元素，其实就是点击了整个页面，用书上的例子来说： 当你画一个同心圆的时候，把手指放在圆心，你手指指向的不单单是一个圆，而是全部的圆。
+事件流 事件流指的是页面中接收事件的顺序，DOM2级事件规定事件流包括三个步骤，分别为：
+1.捕获阶段 捕获阶段是为了截获事件提供机会
+2.处于目标阶段 这个阶段表示目标接收到事件
+3.冒泡阶段 这个阶段可以对事件做出响应
+事件处理程序 事件指的是比如单击(click)、双击(dbclick)、鼠标移动(mouseover)、键盘按键(keydownkeyup)等都属于事件，那事件处理程序就是处理事件发生时候执行的一个程序。而在html中会有一个和事件处理程序名字对应的一个属性。
+DOM0级事件处理程序 DOM0级事件处理程序是通过javascript代码取得一个元素的引用然后把一个函数赋值给对应的事件处理程序属性。这样方式添加的事件处理程序会在事件流中的冒泡阶段被处理。
+1 var newimg = document.getElementsByTagName(&#34;img&#34;)\[0\]; 2 3 newimg.onlick = function(){alert(1)}; DOM2级事件处理程序 DOM2级事件添加了两个专门处理事件的方法，所有的DOM节点都包含了这两个方法。分别为: addEventListener() 这个方法用于添加DOM事件，在所有DOM节点上都可以调用此方法，此方法接收三个参数分别为事件名称、处理程序和布尔值（为true则在捕获阶段调用事件处理程序，为false在冒泡阶段调用事件处理程序）
+1 var body = document.getElementsByTagName(&#34;body&#34;); 2 body.addEventListener(&#34;onclick&#34;,function(){alert(1)},true); removeEventListener() 这个方法和addEventListener()方法相反，是删除相应的事件，同样接收三个参数，这三个参数完全和addEventListener() 一样。
+1 var body = document.getElementsByTagName(&#34;body&#34;); 2 function handles(){alert(1)}; body.addEventListener(&#34;onclick&#34;,handles,true); 3 var body = document.getElementsByTagName(&#34;body&#34;); 4 body.removeEventListener(&#34;onclick&#34;,handles,true); 注意这里没有直接添加匿名函数而是用function创建了一个函数，removeEventListener()方法是无法删除匿名函数，就算你传入进去的匿名函数和添加的匿名函数完全一样还是不能删除，所以这里注意。
+事件对象 当事件触发的时候，事件会产生一个事件对象event,这个对象里面包含了当前触发事件的一些相关信息。这个对象DOM0级和DOM2级的都支持，也就是说只要兼容DOM的浏览器都会有这样的一个对象。
+1 var body = document.getElementsByTagName(&#34;body&#34;); 2 3 function handles(event){alert(event.type)}; 4 5 body.addEventListener(&#34;onclick&#34;,handles,true); //输出click event对象的属性：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/javascript-dom-event/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2015-01-06T02:47:00+00:00" />
+<meta property="article:modified_time" content="2015-01-06T02:47:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JavascriptDOM事件"/>
+<meta name="twitter:description" content="Javascript与html之间的交互是通过事件进行交互。事件是通过侦听器（交互处理程序）来预定执行的。 页面中哪部分会拥有某个特点的事件？当你点击页面中的任何一个元素，其实就是点击了整个页面，用书上的例子来说： 当你画一个同心圆的时候，把手指放在圆心，你手指指向的不单单是一个圆，而是全部的圆。
+事件流 事件流指的是页面中接收事件的顺序，DOM2级事件规定事件流包括三个步骤，分别为：
+1.捕获阶段 捕获阶段是为了截获事件提供机会
+2.处于目标阶段 这个阶段表示目标接收到事件
+3.冒泡阶段 这个阶段可以对事件做出响应
+事件处理程序 事件指的是比如单击(click)、双击(dbclick)、鼠标移动(mouseover)、键盘按键(keydownkeyup)等都属于事件，那事件处理程序就是处理事件发生时候执行的一个程序。而在html中会有一个和事件处理程序名字对应的一个属性。
+DOM0级事件处理程序 DOM0级事件处理程序是通过javascript代码取得一个元素的引用然后把一个函数赋值给对应的事件处理程序属性。这样方式添加的事件处理程序会在事件流中的冒泡阶段被处理。
+1 var newimg = document.getElementsByTagName(&#34;img&#34;)\[0\]; 2 3 newimg.onlick = function(){alert(1)}; DOM2级事件处理程序 DOM2级事件添加了两个专门处理事件的方法，所有的DOM节点都包含了这两个方法。分别为: addEventListener() 这个方法用于添加DOM事件，在所有DOM节点上都可以调用此方法，此方法接收三个参数分别为事件名称、处理程序和布尔值（为true则在捕获阶段调用事件处理程序，为false在冒泡阶段调用事件处理程序）
+1 var body = document.getElementsByTagName(&#34;body&#34;); 2 body.addEventListener(&#34;onclick&#34;,function(){alert(1)},true); removeEventListener() 这个方法和addEventListener()方法相反，是删除相应的事件，同样接收三个参数，这三个参数完全和addEventListener() 一样。
+1 var body = document.getElementsByTagName(&#34;body&#34;); 2 function handles(){alert(1)}; body.addEventListener(&#34;onclick&#34;,handles,true); 3 var body = document.getElementsByTagName(&#34;body&#34;); 4 body.removeEventListener(&#34;onclick&#34;,handles,true); 注意这里没有直接添加匿名函数而是用function创建了一个函数，removeEventListener()方法是无法删除匿名函数，就算你传入进去的匿名函数和添加的匿名函数完全一样还是不能删除，所以这里注意。
+事件对象 当事件触发的时候，事件会产生一个事件对象event,这个对象里面包含了当前触发事件的一些相关信息。这个对象DOM0级和DOM2级的都支持，也就是说只要兼容DOM的浏览器都会有这样的一个对象。
+1 var body = document.getElementsByTagName(&#34;body&#34;); 2 3 function handles(event){alert(event.type)}; 4 5 body.addEventListener(&#34;onclick&#34;,handles,true); //输出click event对象的属性："/>
 
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "JavascriptDOM事件",
+      "item": "/posts/javascript-dom-event/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "JavascriptDOM事件",
+  "name": "JavascriptDOM事件",
+  "description": "Javascript与html之间的交互是通过事件进行交互。事件是通过侦听器（交互处理程序）来预定执行的。 页面中哪部分会拥有某个特点的事件？当你点击页面中的任何一个元素，其实就是点击了整个页面，用书上的例子来说： 当你画一个同心圆的时候，把手指放在圆心，你手指指向的不单单是一个圆，而是全部的圆。\n事件流 事件流指的是页面中接收事件的顺序，DOM2级事件规定事件流包括三个步骤，分别为：\n1.捕获阶段 捕获阶段是为了截获事件提供机会\n2.处于目标阶段 这个阶段表示目标接收到事件\n3.冒泡阶段 这个阶段可以对事件做出响应\n事件处理程序 事件指的是比如单击(click)、双击(dbclick)、鼠标移动(mouseover)、键盘按键(keydownkeyup)等都属于事件，那事件处理程序就是处理事件发生时候执行的一个程序。而在html中会有一个和事件处理程序名字对应的一个属性。\nDOM0级事件处理程序 DOM0级事件处理程序是通过javascript代码取得一个元素的引用然后把一个函数赋值给对应的事件处理程序属性。这样方式添加的事件处理程序会在事件流中的冒泡阶段被处理。\n1 var newimg = document.getElementsByTagName(\u0026#34;img\u0026#34;)\\[0\\]; 2 3 newimg.onlick = function(){alert(1)}; DOM2级事件处理程序 DOM2级事件添加了两个专门处理事件的方法，所有的DOM节点都包含了这两个方法。分别为: addEventListener() 这个方法用于添加DOM事件，在所有DOM节点上都可以调用此方法，此方法接收三个参数分别为事件名称、处理程序和布尔值（为true则在捕获阶段调用事件处理程序，为false在冒泡阶段调用事件处理程序）\n1 var body = document.getElementsByTagName(\u0026#34;body\u0026#34;); 2 body.addEventListener(\u0026#34;onclick\u0026#34;,function(){alert(1)},true); removeEventListener() 这个方法和addEventListener()方法相反，是删除相应的事件，同样接收三个参数，这三个参数完全和addEventListener() 一样。\n1 var body = document.getElementsByTagName(\u0026#34;body\u0026#34;); 2 function handles(){alert(1)}; body.addEventListener(\u0026#34;onclick\u0026#34;,handles,true); 3 var body = document.getElementsByTagName(\u0026#34;body\u0026#34;); 4 body.removeEventListener(\u0026#34;onclick\u0026#34;,handles,true); 注意这里没有直接添加匿名函数而是用function创建了一个函数，removeEventListener()方法是无法删除匿名函数，就算你传入进去的匿名函数和添加的匿名函数完全一样还是不能删除，所以这里注意。\n事件对象 当事件触发的时候，事件会产生一个事件对象event,这个对象里面包含了当前触发事件的一些相关信息。这个对象DOM0级和DOM2级的都支持，也就是说只要兼容DOM的浏览器都会有这样的一个对象。\n1 var body = document.getElementsByTagName(\u0026#34;body\u0026#34;); 2 3 function handles(event){alert(event.type)}; 4 5 body.addEventListener(\u0026#34;onclick\u0026#34;,handles,true); //输出click event对象的属性：",
+  "keywords": [
+    "开发者手册"
+  ],
+  "articleBody": "Javascript与html之间的交互是通过事件进行交互。事件是通过侦听器（交互处理程序）来预定执行的。 页面中哪部分会拥有某个特点的事件？当你点击页面中的任何一个元素，其实就是点击了整个页面，用书上的例子来说： 当你画一个同心圆的时候，把手指放在圆心，你手指指向的不单单是一个圆，而是全部的圆。\n事件流 事件流指的是页面中接收事件的顺序，DOM2级事件规定事件流包括三个步骤，分别为：\n1.捕获阶段 捕获阶段是为了截获事件提供机会\n2.处于目标阶段 这个阶段表示目标接收到事件\n3.冒泡阶段 这个阶段可以对事件做出响应\n事件处理程序 事件指的是比如单击(click)、双击(dbclick)、鼠标移动(mouseover)、键盘按键(keydownkeyup)等都属于事件，那事件处理程序就是处理事件发生时候执行的一个程序。而在html中会有一个和事件处理程序名字对应的一个属性。\nDOM0级事件处理程序 DOM0级事件处理程序是通过javascript代码取得一个元素的引用然后把一个函数赋值给对应的事件处理程序属性。这样方式添加的事件处理程序会在事件流中的冒泡阶段被处理。\n1 var newimg = document.getElementsByTagName(\"img\")\\[0\\]; 2 3 newimg.onlick = function(){alert(1)}; DOM2级事件处理程序 DOM2级事件添加了两个专门处理事件的方法，所有的DOM节点都包含了这两个方法。分别为: addEventListener() 这个方法用于添加DOM事件，在所有DOM节点上都可以调用此方法，此方法接收三个参数分别为事件名称、处理程序和布尔值（为true则在捕获阶段调用事件处理程序，为false在冒泡阶段调用事件处理程序）\n1 var body = document.getElementsByTagName(\"body\"); 2 body.addEventListener(\"onclick\",function(){alert(1)},true); removeEventListener() 这个方法和addEventListener()方法相反，是删除相应的事件，同样接收三个参数，这三个参数完全和addEventListener() 一样。\n1 var body = document.getElementsByTagName(\"body\"); 2 function handles(){alert(1)}; body.addEventListener(\"onclick\",handles,true); 3 var body = document.getElementsByTagName(\"body\"); 4 body.removeEventListener(\"onclick\",handles,true); 注意这里没有直接添加匿名函数而是用function创建了一个函数，removeEventListener()方法是无法删除匿名函数，就算你传入进去的匿名函数和添加的匿名函数完全一样还是不能删除，所以这里注意。\n事件对象 当事件触发的时候，事件会产生一个事件对象event,这个对象里面包含了当前触发事件的一些相关信息。这个对象DOM0级和DOM2级的都支持，也就是说只要兼容DOM的浏览器都会有这样的一个对象。\n1 var body = document.getElementsByTagName(\"body\"); 2 3 function handles(event){alert(event.type)}; 4 5 body.addEventListener(\"onclick\",handles,true); //输出click event对象的属性：\n1、bubbles 返回布尔值，指示事件是否是起泡事件类型。\n2、cancelable 返回布尔值，指示事件是否可拥可取消的默认动作。\n3、currentTarget 返回其事件监听器触发该事件的元素。\n4、eventPhase 返回事件传播的当前阶段。\n5、target 返回触发此事件的元素（事件的目标节点）。\n6、timeStamp 返回事件生成的日期和时间。\n7、type 返回当前 Event 对象表示的事件的名称。\nevent对象的方法：\n1、initEvent() 初始化新创建的 Event 对象的属性。\n2、preventDefault() 通知浏览器不要执行与事件关联的默认动作。\n3、stopPropagation() 不再派发事件。\n",
+  "wordCount" : "97",
+  "inLanguage": "en",
+  "datePublished": "2015-01-06T02:47:00Z",
+  "dateModified": "2015-01-06T02:47:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/posts/javascript-dom-event/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yizhou",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "favicon.ico"
+    }
+  }
+}
+</script>
+</head>
 
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
 
+</script>
 
-  </head>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/index.xml" title="Rss">
+                    <span>Rss</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
 
-  <body>
-    <nav class="navigation">
-	
-		<a href="/"> <span class="arrow">←</span>首页</a>
-	
-	<a href="/posts">归档</a>
-	<a href="/tags">标签</a>
-	<a href="/about">关于</a>
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="">Home</a>&nbsp;»&nbsp;<a href="/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      JavascriptDOM事件
+    </h1>
+    <div class="post-meta"><span title='2015-01-06 02:47:00 +0000 UTC'>January 6, 2015</span>
 
-	
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
 
-	
-	  <a class="button" href="https://wuyizhou.com/index.xml">订阅</a>
-	
-</nav>
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e4%ba%8b%e4%bb%b6%e6%b5%81" aria-label="事件流">事件流</a></li>
+                <li>
+                    <a href="#%e4%ba%8b%e4%bb%b6%e5%a4%84%e7%90%86%e7%a8%8b%e5%ba%8f" aria-label="事件处理程序">事件处理程序</a></li>
+                <li>
+                    <a href="#dom0%e7%ba%a7%e4%ba%8b%e4%bb%b6%e5%a4%84%e7%90%86%e7%a8%8b%e5%ba%8f" aria-label="DOM0级事件处理程序">DOM0级事件处理程序</a></li>
+                <li>
+                    <a href="#dom2%e7%ba%a7%e4%ba%8b%e4%bb%b6%e5%a4%84%e7%90%86%e7%a8%8b%e5%ba%8f" aria-label="DOM2级事件处理程序">DOM2级事件处理程序</a></li>
+                <li>
+                    <a href="#%e4%ba%8b%e4%bb%b6%e5%af%b9%e8%b1%a1" aria-label="事件对象">事件对象</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
 
-
-    <main class="main">
-      
-
-<section id="single">
-    <h1 class="title">JavascriptDOM事件</h1>
-
-    <div class="tip">
-        <time datetime="2015-01-06 02:47:00 &#43;0000 UTC">2015年01月06日</time>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          1275字
-        </span>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          3分钟
-        </span>
-    </div>
-
-    
-    
-        
-  
-    <aside class="toc">
-      <details>
-          <summary>Table of Contents
-          </summary>
-          <div>
-              <nav id="TableOfContents">
-  <ul>
-    <li><a href="#事件流">事件流</a></li>
-    <li><a href="#事件处理程序">事件处理程序</a></li>
-    <li><a href="#dom0级事件处理程序">DOM0级事件处理程序</a></li>
-    <li><a href="#dom2级事件处理程序">DOM2级事件处理程序</a></li>
-    <li><a href="#事件对象">事件对象</a></li>
-  </ul>
-</nav>
-          </div>
-      </details>
-    </aside>
-  
-
-
-    
-
-
-    <div class="content">
-      <p>Javascript与html之间的交互是通过事件进行交互。事件是通过侦听器（交互处理程序）来预定执行的。 页面中哪部分会拥有某个特点的事件？当你点击页面中的任何一个元素，其实就是点击了整个页面，用书上的例子来说： 当你画一个同心圆的时候，把手指放在圆心，你手指指向的不单单是一个圆，而是全部的圆。</p>
-<h2 id="事件流">事件流 <a href="#%e4%ba%8b%e4%bb%b6%e6%b5%81" class="anchor">🔗</a></h2><p>事件流指的是页面中接收事件的顺序，DOM2级事件规定事件流包括三个步骤，分别为：</p>
+  <div class="post-content"><p>Javascript与html之间的交互是通过事件进行交互。事件是通过侦听器（交互处理程序）来预定执行的。 页面中哪部分会拥有某个特点的事件？当你点击页面中的任何一个元素，其实就是点击了整个页面，用书上的例子来说： 当你画一个同心圆的时候，把手指放在圆心，你手指指向的不单单是一个圆，而是全部的圆。</p>
+<h2 id="事件流">事件流<a hidden class="anchor" aria-hidden="true" href="#事件流">#</a></h2>
+<p>事件流指的是页面中接收事件的顺序，DOM2级事件规定事件流包括三个步骤，分别为：</p>
 <blockquote>
 <p>1.捕获阶段 捕获阶段是为了截获事件提供机会<br>
 2.处于目标阶段 这个阶段表示目标接收到事件<br>
 3.冒泡阶段 这个阶段可以对事件做出响应</p>
 </blockquote>
-<h2 id="事件处理程序">事件处理程序 <a href="#%e4%ba%8b%e4%bb%b6%e5%a4%84%e7%90%86%e7%a8%8b%e5%ba%8f" class="anchor">🔗</a></h2><p>事件指的是比如单击(click)、双击(dbclick)、鼠标移动(mouseover)、键盘按键(keydownkeyup)等都属于事件，那事件处理程序就是处理事件发生时候执行的一个程序。而在html中会有一个和事件处理程序名字对应的一个属性。</p>
-<h2 id="dom0级事件处理程序">DOM0级事件处理程序 <a href="#dom0%e7%ba%a7%e4%ba%8b%e4%bb%b6%e5%a4%84%e7%90%86%e7%a8%8b%e5%ba%8f" class="anchor">🔗</a></h2><p>DOM0级事件处理程序是通过javascript代码取得一个元素的引用然后把一个函数赋值给对应的事件处理程序属性。这样方式添加的事件处理程序会在事件流中的冒泡阶段被处理。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#666">1</span> <span style="color:#a2f;font-weight:bold">var</span> newimg <span style="color:#666">=</span> document<span style="color:#666">.</span>getElementsByTagName(<span style="color:#b44">&#34;img&#34;</span>)\[<span style="color:#666">0</span>\]; <span style="color:#666">2</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">3</span> newimg<span style="color:#666">.</span>onlick <span style="color:#666">=</span> function(){alert(<span style="color:#666">1</span>)};
-</span></span></code></pre></div><h2 id="dom2级事件处理程序">DOM2级事件处理程序 <a href="#dom2%e7%ba%a7%e4%ba%8b%e4%bb%b6%e5%a4%84%e7%90%86%e7%a8%8b%e5%ba%8f" class="anchor">🔗</a></h2><p>DOM2级事件添加了两个专门处理事件的方法，所有的DOM节点都包含了这两个方法。分别为: addEventListener() 这个方法用于添加DOM事件，在所有DOM节点上都可以调用此方法，此方法接收三个参数分别为事件名称、处理程序和布尔值（为true则在捕获阶段调用事件处理程序，为false在冒泡阶段调用事件处理程序）</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#666">1</span> <span style="color:#a2f;font-weight:bold">var</span> body <span style="color:#666">=</span> document<span style="color:#666">.</span>getElementsByTagName(<span style="color:#b44">&#34;body&#34;</span>); <span style="color:#666">2</span> body<span style="color:#666">.</span>addEventListener(<span style="color:#b44">&#34;onclick&#34;</span>,function(){alert(<span style="color:#666">1</span>)},true);
-</span></span></code></pre></div><p>removeEventListener() 这个方法和addEventListener()方法相反，是删除相应的事件，同样接收三个参数，这三个参数完全和addEventListener() 一样。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#666">1</span> <span style="color:#a2f;font-weight:bold">var</span> body <span style="color:#666">=</span> document<span style="color:#666">.</span>getElementsByTagName(<span style="color:#b44">&#34;body&#34;</span>); <span style="color:#666">2</span> function handles(){alert(<span style="color:#666">1</span>)}; body<span style="color:#666">.</span>addEventListener(<span style="color:#b44">&#34;onclick&#34;</span>,handles,true); <span style="color:#666">3</span> <span style="color:#a2f;font-weight:bold">var</span> body <span style="color:#666">=</span> document<span style="color:#666">.</span>getElementsByTagName(<span style="color:#b44">&#34;body&#34;</span>); <span style="color:#666">4</span> body<span style="color:#666">.</span>removeEventListener(<span style="color:#b44">&#34;onclick&#34;</span>,handles,true);
-</span></span></code></pre></div><p>注意这里没有直接添加匿名函数而是用function创建了一个函数，removeEventListener()方法是无法删除匿名函数，就算你传入进去的匿名函数和添加的匿名函数完全一样还是不能删除，所以这里注意。</p>
-<h2 id="事件对象">事件对象 <a href="#%e4%ba%8b%e4%bb%b6%e5%af%b9%e8%b1%a1" class="anchor">🔗</a></h2><p>当事件触发的时候，事件会产生一个事件对象event,这个对象里面包含了当前触发事件的一些相关信息。这个对象DOM0级和DOM2级的都支持，也就是说只要兼容DOM的浏览器都会有这样的一个对象。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#666">1</span> <span style="color:#a2f;font-weight:bold">var</span> body <span style="color:#666">=</span> document<span style="color:#666">.</span>getElementsByTagName(<span style="color:#b44">&#34;body&#34;</span>); <span style="color:#666">2</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">3</span> function handles(event){alert(event<span style="color:#666">.</span>type)}; <span style="color:#666">4</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">5</span> body<span style="color:#666">.</span>addEventListener(<span style="color:#b44">&#34;onclick&#34;</span>,handles,true); <span style="color:#666">//</span><span style="">输出</span>click
-</span></span></code></pre></div><p>event对象的属性：</p>
+<h2 id="事件处理程序">事件处理程序<a hidden class="anchor" aria-hidden="true" href="#事件处理程序">#</a></h2>
+<p>事件指的是比如单击(click)、双击(dbclick)、鼠标移动(mouseover)、键盘按键(keydownkeyup)等都属于事件，那事件处理程序就是处理事件发生时候执行的一个程序。而在html中会有一个和事件处理程序名字对应的一个属性。</p>
+<h2 id="dom0级事件处理程序">DOM0级事件处理程序<a hidden class="anchor" aria-hidden="true" href="#dom0级事件处理程序">#</a></h2>
+<p>DOM0级事件处理程序是通过javascript代码取得一个元素的引用然后把一个函数赋值给对应的事件处理程序属性。这样方式添加的事件处理程序会在事件流中的冒泡阶段被处理。</p>
+<pre tabindex="0"><code>1 var newimg = document.getElementsByTagName(&#34;img&#34;)\[0\]; 2 
+3 newimg.onlick = function(){alert(1)};
+</code></pre><h2 id="dom2级事件处理程序">DOM2级事件处理程序<a hidden class="anchor" aria-hidden="true" href="#dom2级事件处理程序">#</a></h2>
+<p>DOM2级事件添加了两个专门处理事件的方法，所有的DOM节点都包含了这两个方法。分别为: addEventListener() 这个方法用于添加DOM事件，在所有DOM节点上都可以调用此方法，此方法接收三个参数分别为事件名称、处理程序和布尔值（为true则在捕获阶段调用事件处理程序，为false在冒泡阶段调用事件处理程序）</p>
+<pre tabindex="0"><code>1 var body = document.getElementsByTagName(&#34;body&#34;); 2 body.addEventListener(&#34;onclick&#34;,function(){alert(1)},true);
+</code></pre><p>removeEventListener() 这个方法和addEventListener()方法相反，是删除相应的事件，同样接收三个参数，这三个参数完全和addEventListener() 一样。</p>
+<pre tabindex="0"><code>1 var body = document.getElementsByTagName(&#34;body&#34;); 2 function handles(){alert(1)}; body.addEventListener(&#34;onclick&#34;,handles,true); 3 var body = document.getElementsByTagName(&#34;body&#34;); 4 body.removeEventListener(&#34;onclick&#34;,handles,true);
+</code></pre><p>注意这里没有直接添加匿名函数而是用function创建了一个函数，removeEventListener()方法是无法删除匿名函数，就算你传入进去的匿名函数和添加的匿名函数完全一样还是不能删除，所以这里注意。</p>
+<h2 id="事件对象">事件对象<a hidden class="anchor" aria-hidden="true" href="#事件对象">#</a></h2>
+<p>当事件触发的时候，事件会产生一个事件对象event,这个对象里面包含了当前触发事件的一些相关信息。这个对象DOM0级和DOM2级的都支持，也就是说只要兼容DOM的浏览器都会有这样的一个对象。</p>
+<pre tabindex="0"><code>1 var body = document.getElementsByTagName(&#34;body&#34;); 2 
+3 function handles(event){alert(event.type)}; 4 
+5 body.addEventListener(&#34;onclick&#34;,handles,true); //输出click
+</code></pre><p>event对象的属性：</p>
 <blockquote>
 <p>1、bubbles 返回布尔值，指示事件是否是起泡事件类型。<br>
 2、cancelable 返回布尔值，指示事件是否可拥可取消的默认动作。<br>
@@ -150,104 +311,85 @@
 3、stopPropagation() 不再派发事件。</p>
 </blockquote>
 
-    </div>
 
-    
-        <div class="tags">
-            
-                <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-            
-        </div>
-    
-    
-    
+  </div>
 
-</section>
-
-
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a></li>
+    </ul>
+  </footer>
+</article>
     </main>
     
-    <footer id="footer">
-    
-        <div id="social">
-
-
-    <a class="symbol" href="https://github.com/wyizhou" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>Github</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
-            <g id="Github" transform="translate(264.000000, 939.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://stackoverflow.com/users/11949960" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>stackoverflow</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
-            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://twitter.com/5yizhou" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
-	 xml:space="preserve">
-<g>
-	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
-		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
-		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
-		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
-		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
-		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
-		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
-		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
-		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
-		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
-		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
-		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
-		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
-		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
-</g>
-</svg>
-
-    </a>
-
-
-</div>
-
-    
-
-    <div class="copyright">
-    
-        © Copyright 2023 Yizhou
-    
-    </div>
-
-    
+<footer class="footer">
+    <span>&copy; 2023 <a href="">Yizhou</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
 </footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
 
-  </body>
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
 </html>

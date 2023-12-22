@@ -1,155 +1,338 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <title>Mongodb基础知识 | Yizhou&#39;s Website</title>
+<html lang="en" dir="auto">
 
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
-<meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="参考 🔗MongoDB权威指南(第2版) 前言 🔗Mongodb是一种面向文档的数据库，并非关系型数据库(如Mysql等)，Mongodb的出现也">
-<meta name="generator" content="Hugo 0.121.1">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Mongodb基础知识 | Yizhou</title>
+<meta name="keywords" content="服务和运维">
+<meta name="description" content="参考 MongoDB权威指南(第2版)
+前言 Mongodb是一种面向文档的数据库，并非关系型数据库(如Mysql等)，Mongodb的出现也让前端后端更加的统一，因为它的数据结构非常类似于Javascript中的对象。比如说下面，在Javascript中代表对象，在Mongodb中代表的就是一个文档。
+{ a: 1, b: 2 } 如果我们全栈都是使用的Javascript(Javascript&#43;Nodejs&#43;Mongodb)那么将更加提高我们的便利以及统一性。
+如果你之前使用的是Mysql等关系型数据库，那么可能需要对Mongodb数据库的观念要有所改变，在Mongodb中没有行和列，取而代之的是文档。在Mongodb中也没有表的存在，取而代之的是集合。
+每一个文档都有一个_id用于表示这个文档的唯一性，并且Mongodb提供了一个Javascript Shell，我们可以通过Javascript语法来管理操作等方式来控制数据库，这也为我们的全栈更大一步的增加了统一性。
+数据库(Database) 在一个数据库中是可以存在多个集合，
+集合(Collection) 相当关系型数据库中的表。
+文档(Document) 在Javascript中，一个对象的值可以是一个对象、数组、基本值、函数等。当然这也可以用在文档上。比如下面的一个结构，是一个完全合法的文档结构
+{ a: { b: 1 c: [1,2,3] }, d: 1 } Mongodb区分类型，也通用区分大小写，比如下面是两个不同的文档
+{&#39;a&#39;: 1} {&#39;A&#39;: 1} 命名规则 集合 集合使用名称来进行识别，但是集合名应该避免下列的情况：
+不能是空字符串 不能包含(空字符)，因为在Mongodb中表示为集合名结束 不能以system开头，因为这是系统保留的前缀，比如system.users这个集合保存着数据库的用户信息，而system.namespaces集合保存着数据库中所有集合的信息。 避免使用$，因为系统生成的集合当中很多包含有$字符串，所以你应当避免。 数据库 数据库使用名称来进行识别，但是集合名应该避免下列的情况：
+不能是空字符串 不能使用特殊符号 ,/,.,*等符号，尽量使用由字母和数字组成的字符串。 数据库名区分大小写 数据库名最多为64字节 有三个系统的数据库，如admin,local,config。应避免这三个名称当作你的数据库名 启动Mongodb 你可以通过Mongodb官方网站来下载Mongodb，如果你是windows，可能会安装得到一个安装包，安装完成后你就可以直接在CMD命令行通过mongod来启动Mongodb。如果是*inux系统，下载了Mongodb后得到解压包解压后直接运行当前目录的mongod就可以启动Mongodb。
+这里需要注意的是需要通过参数--dbpath来指定Mongodb数据库的位置，如果没有指定，那么Mongodb会默认目录/data/db，windows为c:/data/db。
+默认情况下Mongodb会以27017端口为默认端口，并且给当前端口提供了一个http服务器，你用浏览器打开，它会提示你下图的信息。
+如果你需要通过http端口来获取一些Mongodb的状态信息，那么你需要增加一个参数--httpinterface来打开http接口，这个http一般会比监听的数据库端口大1000。比如27017是数据库默认监听借口，那么http服务的端口为28017。你用浏览器打开这个页面，就会出现如下图
+如果你需要一些命令操作，比如列举一些信息，那么你还需要增加--rest参数。
+文完">
+<meta name="author" content="">
+<link rel="canonical" href="/posts/mongodb/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="mask-icon" href="safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
-  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+            .list {
+                background: var(--theme);
+            }
 
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
 
-<link rel="stylesheet" href="/css/style.css">
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
 
-
-
-<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-
-
-
-
-  
-
-
-
-
-
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-          "HTML-CSS": { scale: 85 },
-          tex2jax: {
-            inlineMath: [['$','$'], ['\\(','\\)']],
-            processEscapes: true
-          }
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
         });
-    </script>
-    
-    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+    });
+</script>
+<meta property="og:title" content="Mongodb基础知识" />
+<meta property="og:description" content="参考 MongoDB权威指南(第2版)
+前言 Mongodb是一种面向文档的数据库，并非关系型数据库(如Mysql等)，Mongodb的出现也让前端后端更加的统一，因为它的数据结构非常类似于Javascript中的对象。比如说下面，在Javascript中代表对象，在Mongodb中代表的就是一个文档。
+{ a: 1, b: 2 } 如果我们全栈都是使用的Javascript(Javascript&#43;Nodejs&#43;Mongodb)那么将更加提高我们的便利以及统一性。
+如果你之前使用的是Mysql等关系型数据库，那么可能需要对Mongodb数据库的观念要有所改变，在Mongodb中没有行和列，取而代之的是文档。在Mongodb中也没有表的存在，取而代之的是集合。
+每一个文档都有一个_id用于表示这个文档的唯一性，并且Mongodb提供了一个Javascript Shell，我们可以通过Javascript语法来管理操作等方式来控制数据库，这也为我们的全栈更大一步的增加了统一性。
+数据库(Database) 在一个数据库中是可以存在多个集合，
+集合(Collection) 相当关系型数据库中的表。
+文档(Document) 在Javascript中，一个对象的值可以是一个对象、数组、基本值、函数等。当然这也可以用在文档上。比如下面的一个结构，是一个完全合法的文档结构
+{ a: { b: 1 c: [1,2,3] }, d: 1 } Mongodb区分类型，也通用区分大小写，比如下面是两个不同的文档
+{&#39;a&#39;: 1} {&#39;A&#39;: 1} 命名规则 集合 集合使用名称来进行识别，但是集合名应该避免下列的情况：
+不能是空字符串 不能包含(空字符)，因为在Mongodb中表示为集合名结束 不能以system开头，因为这是系统保留的前缀，比如system.users这个集合保存着数据库的用户信息，而system.namespaces集合保存着数据库中所有集合的信息。 避免使用$，因为系统生成的集合当中很多包含有$字符串，所以你应当避免。 数据库 数据库使用名称来进行识别，但是集合名应该避免下列的情况：
+不能是空字符串 不能使用特殊符号 ,/,.,*等符号，尽量使用由字母和数字组成的字符串。 数据库名区分大小写 数据库名最多为64字节 有三个系统的数据库，如admin,local,config。应避免这三个名称当作你的数据库名 启动Mongodb 你可以通过Mongodb官方网站来下载Mongodb，如果你是windows，可能会安装得到一个安装包，安装完成后你就可以直接在CMD命令行通过mongod来启动Mongodb。如果是*inux系统，下载了Mongodb后得到解压包解压后直接运行当前目录的mongod就可以启动Mongodb。
+这里需要注意的是需要通过参数--dbpath来指定Mongodb数据库的位置，如果没有指定，那么Mongodb会默认目录/data/db，windows为c:/data/db。
+默认情况下Mongodb会以27017端口为默认端口，并且给当前端口提供了一个http服务器，你用浏览器打开，它会提示你下图的信息。
+如果你需要通过http端口来获取一些Mongodb的状态信息，那么你需要增加一个参数--httpinterface来打开http接口，这个http一般会比监听的数据库端口大1000。比如27017是数据库默认监听借口，那么http服务的端口为28017。你用浏览器打开这个页面，就会出现如下图
+如果你需要一些命令操作，比如列举一些信息，那么你还需要增加--rest参数。
+文完" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/mongodb/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2017-08-01T15:36:33+00:00" />
+<meta property="article:modified_time" content="2017-08-01T15:36:33+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Mongodb基础知识"/>
+<meta name="twitter:description" content="参考 MongoDB权威指南(第2版)
+前言 Mongodb是一种面向文档的数据库，并非关系型数据库(如Mysql等)，Mongodb的出现也让前端后端更加的统一，因为它的数据结构非常类似于Javascript中的对象。比如说下面，在Javascript中代表对象，在Mongodb中代表的就是一个文档。
+{ a: 1, b: 2 } 如果我们全栈都是使用的Javascript(Javascript&#43;Nodejs&#43;Mongodb)那么将更加提高我们的便利以及统一性。
+如果你之前使用的是Mysql等关系型数据库，那么可能需要对Mongodb数据库的观念要有所改变，在Mongodb中没有行和列，取而代之的是文档。在Mongodb中也没有表的存在，取而代之的是集合。
+每一个文档都有一个_id用于表示这个文档的唯一性，并且Mongodb提供了一个Javascript Shell，我们可以通过Javascript语法来管理操作等方式来控制数据库，这也为我们的全栈更大一步的增加了统一性。
+数据库(Database) 在一个数据库中是可以存在多个集合，
+集合(Collection) 相当关系型数据库中的表。
+文档(Document) 在Javascript中，一个对象的值可以是一个对象、数组、基本值、函数等。当然这也可以用在文档上。比如下面的一个结构，是一个完全合法的文档结构
+{ a: { b: 1 c: [1,2,3] }, d: 1 } Mongodb区分类型，也通用区分大小写，比如下面是两个不同的文档
+{&#39;a&#39;: 1} {&#39;A&#39;: 1} 命名规则 集合 集合使用名称来进行识别，但是集合名应该避免下列的情况：
+不能是空字符串 不能包含(空字符)，因为在Mongodb中表示为集合名结束 不能以system开头，因为这是系统保留的前缀，比如system.users这个集合保存着数据库的用户信息，而system.namespaces集合保存着数据库中所有集合的信息。 避免使用$，因为系统生成的集合当中很多包含有$字符串，所以你应当避免。 数据库 数据库使用名称来进行识别，但是集合名应该避免下列的情况：
+不能是空字符串 不能使用特殊符号 ,/,.,*等符号，尽量使用由字母和数字组成的字符串。 数据库名区分大小写 数据库名最多为64字节 有三个系统的数据库，如admin,local,config。应避免这三个名称当作你的数据库名 启动Mongodb 你可以通过Mongodb官方网站来下载Mongodb，如果你是windows，可能会安装得到一个安装包，安装完成后你就可以直接在CMD命令行通过mongod来启动Mongodb。如果是*inux系统，下载了Mongodb后得到解压包解压后直接运行当前目录的mongod就可以启动Mongodb。
+这里需要注意的是需要通过参数--dbpath来指定Mongodb数据库的位置，如果没有指定，那么Mongodb会默认目录/data/db，windows为c:/data/db。
+默认情况下Mongodb会以27017端口为默认端口，并且给当前端口提供了一个http服务器，你用浏览器打开，它会提示你下图的信息。
+如果你需要通过http端口来获取一些Mongodb的状态信息，那么你需要增加一个参数--httpinterface来打开http接口，这个http一般会比监听的数据库端口大1000。比如27017是数据库默认监听借口，那么http服务的端口为28017。你用浏览器打开这个页面，就会出现如下图
+如果你需要一些命令操作，比如列举一些信息，那么你还需要增加--rest参数。
+文完"/>
 
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Mongodb基础知识",
+      "item": "/posts/mongodb/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Mongodb基础知识",
+  "name": "Mongodb基础知识",
+  "description": "参考 MongoDB权威指南(第2版)\n前言 Mongodb是一种面向文档的数据库，并非关系型数据库(如Mysql等)，Mongodb的出现也让前端后端更加的统一，因为它的数据结构非常类似于Javascript中的对象。比如说下面，在Javascript中代表对象，在Mongodb中代表的就是一个文档。\n{ a: 1, b: 2 } 如果我们全栈都是使用的Javascript(Javascript+Nodejs+Mongodb)那么将更加提高我们的便利以及统一性。\n如果你之前使用的是Mysql等关系型数据库，那么可能需要对Mongodb数据库的观念要有所改变，在Mongodb中没有行和列，取而代之的是文档。在Mongodb中也没有表的存在，取而代之的是集合。\n每一个文档都有一个_id用于表示这个文档的唯一性，并且Mongodb提供了一个Javascript Shell，我们可以通过Javascript语法来管理操作等方式来控制数据库，这也为我们的全栈更大一步的增加了统一性。\n数据库(Database) 在一个数据库中是可以存在多个集合，\n集合(Collection) 相当关系型数据库中的表。\n文档(Document) 在Javascript中，一个对象的值可以是一个对象、数组、基本值、函数等。当然这也可以用在文档上。比如下面的一个结构，是一个完全合法的文档结构\n{ a: { b: 1 c: [1,2,3] }, d: 1 } Mongodb区分类型，也通用区分大小写，比如下面是两个不同的文档\n{\u0026#39;a\u0026#39;: 1} {\u0026#39;A\u0026#39;: 1} 命名规则 集合 集合使用名称来进行识别，但是集合名应该避免下列的情况：\n不能是空字符串 不能包含(空字符)，因为在Mongodb中表示为集合名结束 不能以system开头，因为这是系统保留的前缀，比如system.users这个集合保存着数据库的用户信息，而system.namespaces集合保存着数据库中所有集合的信息。 避免使用$，因为系统生成的集合当中很多包含有$字符串，所以你应当避免。 数据库 数据库使用名称来进行识别，但是集合名应该避免下列的情况：\n不能是空字符串 不能使用特殊符号 ,/,.,*等符号，尽量使用由字母和数字组成的字符串。 数据库名区分大小写 数据库名最多为64字节 有三个系统的数据库，如admin,local,config。应避免这三个名称当作你的数据库名 启动Mongodb 你可以通过Mongodb官方网站来下载Mongodb，如果你是windows，可能会安装得到一个安装包，安装完成后你就可以直接在CMD命令行通过mongod来启动Mongodb。如果是*inux系统，下载了Mongodb后得到解压包解压后直接运行当前目录的mongod就可以启动Mongodb。\n这里需要注意的是需要通过参数--dbpath来指定Mongodb数据库的位置，如果没有指定，那么Mongodb会默认目录/data/db，windows为c:/data/db。\n默认情况下Mongodb会以27017端口为默认端口，并且给当前端口提供了一个http服务器，你用浏览器打开，它会提示你下图的信息。\n如果你需要通过http端口来获取一些Mongodb的状态信息，那么你需要增加一个参数--httpinterface来打开http接口，这个http一般会比监听的数据库端口大1000。比如27017是数据库默认监听借口，那么http服务的端口为28017。你用浏览器打开这个页面，就会出现如下图\n如果你需要一些命令操作，比如列举一些信息，那么你还需要增加--rest参数。\n文完",
+  "keywords": [
+    "服务和运维"
+  ],
+  "articleBody": "参考 MongoDB权威指南(第2版)\n前言 Mongodb是一种面向文档的数据库，并非关系型数据库(如Mysql等)，Mongodb的出现也让前端后端更加的统一，因为它的数据结构非常类似于Javascript中的对象。比如说下面，在Javascript中代表对象，在Mongodb中代表的就是一个文档。\n{ a: 1, b: 2 } 如果我们全栈都是使用的Javascript(Javascript+Nodejs+Mongodb)那么将更加提高我们的便利以及统一性。\n如果你之前使用的是Mysql等关系型数据库，那么可能需要对Mongodb数据库的观念要有所改变，在Mongodb中没有行和列，取而代之的是文档。在Mongodb中也没有表的存在，取而代之的是集合。\n每一个文档都有一个_id用于表示这个文档的唯一性，并且Mongodb提供了一个Javascript Shell，我们可以通过Javascript语法来管理操作等方式来控制数据库，这也为我们的全栈更大一步的增加了统一性。\n数据库(Database) 在一个数据库中是可以存在多个集合，\n集合(Collection) 相当关系型数据库中的表。\n文档(Document) 在Javascript中，一个对象的值可以是一个对象、数组、基本值、函数等。当然这也可以用在文档上。比如下面的一个结构，是一个完全合法的文档结构\n{ a: { b: 1 c: [1,2,3] }, d: 1 } Mongodb区分类型，也通用区分大小写，比如下面是两个不同的文档\n{'a': 1} {'A': 1} 命名规则 集合 集合使用名称来进行识别，但是集合名应该避免下列的情况：\n不能是空字符串 不能包含(空字符)，因为在Mongodb中表示为集合名结束 不能以system开头，因为这是系统保留的前缀，比如system.users这个集合保存着数据库的用户信息，而system.namespaces集合保存着数据库中所有集合的信息。 避免使用$，因为系统生成的集合当中很多包含有$字符串，所以你应当避免。 数据库 数据库使用名称来进行识别，但是集合名应该避免下列的情况：\n不能是空字符串 不能使用特殊符号 ,/,.,*等符号，尽量使用由字母和数字组成的字符串。 数据库名区分大小写 数据库名最多为64字节 有三个系统的数据库，如admin,local,config。应避免这三个名称当作你的数据库名 启动Mongodb 你可以通过Mongodb官方网站来下载Mongodb，如果你是windows，可能会安装得到一个安装包，安装完成后你就可以直接在CMD命令行通过mongod来启动Mongodb。如果是*inux系统，下载了Mongodb后得到解压包解压后直接运行当前目录的mongod就可以启动Mongodb。\n这里需要注意的是需要通过参数--dbpath来指定Mongodb数据库的位置，如果没有指定，那么Mongodb会默认目录/data/db，windows为c:/data/db。\n默认情况下Mongodb会以27017端口为默认端口，并且给当前端口提供了一个http服务器，你用浏览器打开，它会提示你下图的信息。\n如果你需要通过http端口来获取一些Mongodb的状态信息，那么你需要增加一个参数--httpinterface来打开http接口，这个http一般会比监听的数据库端口大1000。比如27017是数据库默认监听借口，那么http服务的端口为28017。你用浏览器打开这个页面，就会出现如下图\n如果你需要一些命令操作，比如列举一些信息，那么你还需要增加--rest参数。\n文完\n",
+  "wordCount" : "58",
+  "inLanguage": "en",
+  "datePublished": "2017-08-01T15:36:33Z",
+  "dateModified": "2017-08-01T15:36:33Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/posts/mongodb/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yizhou",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "favicon.ico"
+    }
+  }
+}
+</script>
+</head>
 
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
 
+</script>
 
-  </head>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/index.xml" title="Rss">
+                    <span>Rss</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
 
-  <body>
-    <nav class="navigation">
-	
-		<a href="/"> <span class="arrow">←</span>首页</a>
-	
-	<a href="/posts">归档</a>
-	<a href="/tags">标签</a>
-	<a href="/about">关于</a>
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="">Home</a>&nbsp;»&nbsp;<a href="/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Mongodb基础知识
+    </h1>
+    <div class="post-meta"><span title='2017-08-01 15:36:33 +0000 UTC'>August 1, 2017</span>
 
-	
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
 
-	
-	  <a class="button" href="https://wuyizhou.com/index.xml">订阅</a>
-	
-</nav>
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%8f%82%e8%80%83" aria-label="参考">参考</a></li>
+                <li>
+                    <a href="#%e5%89%8d%e8%a8%80" aria-label="前言">前言</a></li>
+                <li>
+                    <a href="#%e6%95%b0%e6%8d%ae%e5%ba%93database" aria-label="数据库(Database)">数据库(Database)</a></li>
+                <li>
+                    <a href="#%e9%9b%86%e5%90%88collection" aria-label="集合(Collection)">集合(Collection)</a></li>
+                <li>
+                    <a href="#%e6%96%87%e6%a1%a3document" aria-label="文档(Document)">文档(Document)</a></li>
+                <li>
+                    <a href="#%e5%91%bd%e5%90%8d%e8%a7%84%e5%88%99" aria-label="命名规则">命名规则</a><ul>
+                        
+                <li>
+                    <a href="#%e9%9b%86%e5%90%88" aria-label="集合">集合</a></li>
+                <li>
+                    <a href="#%e6%95%b0%e6%8d%ae%e5%ba%93" aria-label="数据库">数据库</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%90%af%e5%8a%a8mongodb" aria-label="启动Mongodb">启动Mongodb</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
 
-
-    <main class="main">
-      
-
-<section id="single">
-    <h1 class="title">Mongodb基础知识</h1>
-
-    <div class="tip">
-        <time datetime="2017-08-01 15:36:33 &#43;0000 UTC">2017年08月01日</time>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          1452字
-        </span>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          3分钟
-        </span>
-    </div>
-
-    
-    
-        
-  
-    <aside class="toc">
-      <details>
-          <summary>Table of Contents
-          </summary>
-          <div>
-              <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#参考">参考</a></li>
-        <li><a href="#前言">前言</a></li>
-        <li><a href="#数据库database">数据库(Database)</a></li>
-        <li><a href="#集合collection">集合(Collection)</a></li>
-        <li><a href="#文档document">文档(Document)</a></li>
-        <li><a href="#命名规则">命名规则</a></li>
-        <li><a href="#启动mongodb">启动Mongodb</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-          </div>
-      </details>
-    </aside>
-  
-
-
-    
-
-
-    <div class="content">
-      <h3 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h3><p><a href="https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B00HLX035Q/ref=sr_1_1?ie=UTF8&amp;qid=1501597098&amp;sr=8-1&amp;keywords=mongodb" target="_blank" rel="noopener">MongoDB权威指南(第2版)</a></p>
-<h3 id="前言">前言 <a href="#%e5%89%8d%e8%a8%80" class="anchor">🔗</a></h3><p>Mongodb是一种面向文档的数据库，并非关系型数据库(如Mysql等)，Mongodb的出现也让前端后端更加的统一，因为它的数据结构非常类似于Javascript中的对象。比如说下面，在Javascript中代表对象，在Mongodb中代表的就是一个文档。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    a: 1,
-</span></span><span style="display:flex;"><span>    b: 2
-</span></span><span style="display:flex;"><span>} 
-</span></span></code></pre></div><p>如果我们全栈都是使用的Javascript(Javascript+Nodejs+Mongodb)那么将更加提高我们的便利以及统一性。</p>
+  <div class="post-content"><h3 id="参考">参考<a hidden class="anchor" aria-hidden="true" href="#参考">#</a></h3>
+<p><a href="https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B00HLX035Q/ref=sr_1_1?ie=UTF8&amp;qid=1501597098&amp;sr=8-1&amp;keywords=mongodb">MongoDB权威指南(第2版)</a></p>
+<h3 id="前言">前言<a hidden class="anchor" aria-hidden="true" href="#前言">#</a></h3>
+<p>Mongodb是一种面向文档的数据库，并非关系型数据库(如Mysql等)，Mongodb的出现也让前端后端更加的统一，因为它的数据结构非常类似于Javascript中的对象。比如说下面，在Javascript中代表对象，在Mongodb中代表的就是一个文档。</p>
+<pre tabindex="0"><code>{
+    a: 1,
+    b: 2
+} 
+</code></pre><p>如果我们全栈都是使用的Javascript(Javascript+Nodejs+Mongodb)那么将更加提高我们的便利以及统一性。</p>
 <p>如果你之前使用的是Mysql等关系型数据库，那么可能需要对Mongodb数据库的观念要有所改变，在Mongodb中没有行和列，取而代之的是文档。在Mongodb中也没有表的存在，取而代之的是集合。</p>
 <p>每一个文档都有一个<code>_id</code>用于表示这个文档的唯一性，并且Mongodb提供了一个Javascript Shell，我们可以通过Javascript语法来管理操作等方式来控制数据库，这也为我们的全栈更大一步的增加了统一性。</p>
-<h3 id="数据库database">数据库(Database) <a href="#%e6%95%b0%e6%8d%ae%e5%ba%93database" class="anchor">🔗</a></h3><p>在一个数据库中是可以存在多个集合，</p>
-<h3 id="集合collection">集合(Collection) <a href="#%e9%9b%86%e5%90%88collection" class="anchor">🔗</a></h3><p>相当关系型数据库中的表。</p>
-<h3 id="文档document">文档(Document) <a href="#%e6%96%87%e6%a1%a3document" class="anchor">🔗</a></h3><p>在Javascript中，一个对象的值可以是一个对象、数组、基本值、函数等。当然这也可以用在文档上。比如下面的一个结构，是一个完全合法的文档结构</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    a: {
-</span></span><span style="display:flex;"><span>        b: 1
-</span></span><span style="display:flex;"><span>        c: [1,2,3]
-</span></span><span style="display:flex;"><span>    },
-</span></span><span style="display:flex;"><span>    d: 1
-</span></span><span style="display:flex;"><span>} 
-</span></span></code></pre></div><p>Mongodb区分类型，也通用区分大小写，比如下面是两个不同的文档</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>{&#39;a&#39;: 1}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>{&#39;A&#39;: 1} 
-</span></span></code></pre></div><h3 id="命名规则">命名规则 <a href="#%e5%91%bd%e5%90%8d%e8%a7%84%e5%88%99" class="anchor">🔗</a></h3><h4 id="集合">集合 <a href="#%e9%9b%86%e5%90%88" class="anchor">🔗</a></h4><p>集合使用名称来进行识别，但是集合名应该避免下列的情况：</p>
+<h3 id="数据库database">数据库(Database)<a hidden class="anchor" aria-hidden="true" href="#数据库database">#</a></h3>
+<p>在一个数据库中是可以存在多个集合，</p>
+<h3 id="集合collection">集合(Collection)<a hidden class="anchor" aria-hidden="true" href="#集合collection">#</a></h3>
+<p>相当关系型数据库中的表。</p>
+<h3 id="文档document">文档(Document)<a hidden class="anchor" aria-hidden="true" href="#文档document">#</a></h3>
+<p>在Javascript中，一个对象的值可以是一个对象、数组、基本值、函数等。当然这也可以用在文档上。比如下面的一个结构，是一个完全合法的文档结构</p>
+<pre tabindex="0"><code>{
+    a: {
+        b: 1
+        c: [1,2,3]
+    },
+    d: 1
+} 
+</code></pre><p>Mongodb区分类型，也通用区分大小写，比如下面是两个不同的文档</p>
+<pre tabindex="0"><code>{&#39;a&#39;: 1}
+
+{&#39;A&#39;: 1} 
+</code></pre><h3 id="命名规则">命名规则<a hidden class="anchor" aria-hidden="true" href="#命名规则">#</a></h3>
+<h4 id="集合">集合<a hidden class="anchor" aria-hidden="true" href="#集合">#</a></h4>
+<p>集合使用名称来进行识别，但是集合名应该避免下列的情况：</p>
 <ul>
 <li>不能是空字符串</li>
 <li>不能包含(空字符)，因为在Mongodb中表示为集合名结束</li>
 <li>不能以system开头，因为这是系统保留的前缀，比如system.users这个集合保存着数据库的用户信息，而system.namespaces集合保存着数据库中所有集合的信息。</li>
 <li>避免使用$，因为系统生成的集合当中很多包含有$字符串，所以你应当避免。</li>
 </ul>
-<h4 id="数据库">数据库 <a href="#%e6%95%b0%e6%8d%ae%e5%ba%93" class="anchor">🔗</a></h4><p>数据库使用名称来进行识别，但是集合名应该避免下列的情况：</p>
+<h4 id="数据库">数据库<a hidden class="anchor" aria-hidden="true" href="#数据库">#</a></h4>
+<p>数据库使用名称来进行识别，但是集合名应该避免下列的情况：</p>
 <ul>
 <li>不能是空字符串</li>
 <li>不能使用特殊符号 ,/,.,*等符号，尽量使用由字母和数字组成的字符串。</li>
@@ -157,117 +340,97 @@
 <li>数据库名最多为64字节</li>
 <li>有三个系统的数据库，如admin,local,config。应避免这三个名称当作你的数据库名</li>
 </ul>
-<h3 id="启动mongodb">启动Mongodb <a href="#%e5%90%af%e5%8a%a8mongodb" class="anchor">🔗</a></h3><p>你可以通过<a href="https://www.mongodb.com/" target="_blank" rel="noopener">Mongodb</a>官方网站来下载<a href="https://www.mongodb.com/" target="_blank" rel="noopener">Mongodb</a>，如果你是windows，可能会安装得到一个安装包，安装完成后你就可以直接在CMD命令行通过<code>mongod</code>来启动Mongodb。如果是*inux系统，下载了Mongodb后得到解压包解压后直接运行当前目录的<code>mongod</code>就可以启动Mongodb。</p>
+<h3 id="启动mongodb">启动Mongodb<a hidden class="anchor" aria-hidden="true" href="#启动mongodb">#</a></h3>
+<p>你可以通过<a href="https://www.mongodb.com/">Mongodb</a>官方网站来下载<a href="https://www.mongodb.com/">Mongodb</a>，如果你是windows，可能会安装得到一个安装包，安装完成后你就可以直接在CMD命令行通过<code>mongod</code>来启动Mongodb。如果是*inux系统，下载了Mongodb后得到解压包解压后直接运行当前目录的<code>mongod</code>就可以启动Mongodb。</p>
 <p>这里需要注意的是需要通过参数<code>--dbpath</code>来指定Mongodb数据库的位置，如果没有指定，那么Mongodb会默认目录<code>/data/db</code>，windows为<code>c:/data/db</code>。</p>
 <p>默认情况下Mongodb会以27017端口为默认端口，并且给当前端口提供了一个http服务器，你用浏览器打开，它会提示你下图的信息。</p>
-<p><p class="markdown-image">
-  <img src="/post/images/2017/08/%e5%b1%8f%e5%b9%95%e5%bf%ab%e7%85%a7-2017-08-01-%e4%b8%8b%e5%8d%8811.10.17.png" alt="提示信息"  />
-</p></p>
+<p><img loading="lazy" src="/post/images/2017/08/%e5%b1%8f%e5%b9%95%e5%bf%ab%e7%85%a7-2017-08-01-%e4%b8%8b%e5%8d%8811.10.17.png" alt="提示信息"  />
+</p>
 <p>如果你需要通过http端口来获取一些Mongodb的状态信息，那么你需要增加一个参数<code>--httpinterface</code>来打开http接口，这个http一般会比监听的数据库端口大1000。比如27017是数据库默认监听借口，那么http服务的端口为28017。你用浏览器打开这个页面，就会出现如下图</p>
-<p><p class="markdown-image">
-  <img src="/post/images/2017/08/%e5%b1%8f%e5%b9%95%e5%bf%ab%e7%85%a7-2017-08-01-%e4%b8%8b%e5%8d%8811.14.28.png" alt="httpinterface"  />
-</p></p>
+<p><img loading="lazy" src="/post/images/2017/08/%e5%b1%8f%e5%b9%95%e5%bf%ab%e7%85%a7-2017-08-01-%e4%b8%8b%e5%8d%8811.14.28.png" alt="httpinterface"  />
+</p>
 <p>如果你需要一些命令操作，比如列举一些信息，那么你还需要增加<code>--rest</code>参数。</p>
 <p>文完</p>
 
-    </div>
 
-    
-        <div class="tags">
-            
-                <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-            
-        </div>
-    
-    
-    
+  </div>
 
-</section>
-
-
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/">服务和运维</a></li>
+    </ul>
+  </footer>
+</article>
     </main>
     
-    <footer id="footer">
-    
-        <div id="social">
-
-
-    <a class="symbol" href="https://github.com/wyizhou" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>Github</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
-            <g id="Github" transform="translate(264.000000, 939.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://stackoverflow.com/users/11949960" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>stackoverflow</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
-            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://twitter.com/5yizhou" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
-	 xml:space="preserve">
-<g>
-	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
-		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
-		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
-		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
-		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
-		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
-		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
-		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
-		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
-		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
-		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
-		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
-		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
-		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
-</g>
-</svg>
-
-    </a>
-
-
-</div>
-
-    
-
-    <div class="copyright">
-    
-        © Copyright 2023 Yizhou
-    
-    </div>
-
-    
+<footer class="footer">
+    <span>&copy; 2023 <a href="">Yizhou</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
 </footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
 
-  </body>
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
 </html>

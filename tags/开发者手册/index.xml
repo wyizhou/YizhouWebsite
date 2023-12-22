@@ -1,285 +1,55 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>开发者手册 on Yizhou&#39;s Website</title>
-    <link>https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/</link>
-    <description>Recent content in 开发者手册 on Yizhou&#39;s Website</description>
+    <title>开发者手册 on Yizhou</title>
+    <link>/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/</link>
+    <description>Recent content in 开发者手册 on Yizhou</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 22 Apr 2022 01:52:54 +0000</lastBuildDate>
-    <atom:link href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>前端的技术栈理解</title>
-      <link>https://wuyizhou.com/posts/frontend-terms/</link>
+      <link>/posts/frontend-terms/</link>
       <pubDate>Fri, 22 Apr 2022 01:52:54 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/frontend-terms/</guid>
-      <description>最近几年单页应用程序发展非常迅速，从早期通过Javascript写入大量html模版去做单页程序（SPA），到现在的React、Vue（最为</description>
+      <guid>/posts/frontend-terms/</guid>
+      <description>最近几年单页应用程序发展非常迅速，从早期通过Javascript写入大量html模版去做单页程序（SPA），到现在的React、Vue（最为流行），但不得不说，前端的技术进步太快了，稍不关注技术，就会出来很多的新的技术。
+但归根结底，每次新的技术出来，埋头深入发现远比想象的复杂，而到了一定的时间后则能够想明白一些事情，这也就是&amp;quot;深入浅出&amp;quot;的道理。 单页应用是一个复杂的技术，要解决这些问题，出现了很多&amp;quot;框架&amp;quot;、工具，比如React、Vue、React-router、Redux等。对于新手来说更是学了一圈后出来也是懵的。但总体来说，React和Vue这类库本质都没有什么区别，都是为了解决SPA提出的方案。这类库大部分主要的理念是将Web应用划分为一个一个的组件为单元，这些组件可以包含另一个组件，以此来达到复用性。
+而每个组件不可能都显示一样，那这样复用性是没有意义的。 那这个时候提出了“状态”的概念，来让每个复用的组件显示不同的内容，状态分为了props和state，props是由外部传入进来的状态，state则是组件内部自己的状态。而这类UI库对于状态的变化，都会根据一些优秀的算法去重新渲染组件，并且渲染的时候仅仅涉及到改变的那一部分内容。
+之所以需要状态，其实告诉React这类库需要监听哪些值，方便在改变这些值的时候，React可以及时的进行计算和重新渲染组件。 比如下面的代码就可以通过传递name值进行重复使用包含&amp;lt;h2&amp;gt;标签的组件，这种方式传递的状态在内部就是使用props获取。
+&amp;lt;Header name=&amp;#39;hello&amp;#39;&amp;gt; // 输出：&amp;lt;h2&amp;gt;Hello&amp;lt;/h2&amp;gt; &amp;lt;Header name=&amp;#39;world&amp;#39;&amp;gt; // 输出：&amp;lt;h2&amp;gt;world&amp;lt;/h2&amp;gt; 而state则更多用于组件内部，比如当你鼠标点击需要获取一个报价，这个时候组件内部会发起一个请求，从服务器获取到报价后返回，改变状态，UI库进行重新渲染，这个时候就能获取到报价。 虽然说React提供了这些方便的功能，也提倡组件化和重复使用，但很多的组件是需要自己去一个一个写的。那这个时候，就有很多个人、组织开发出了&amp;quot;组件库&amp;quot;，&amp;ldquo;组件库&amp;quot;中包含了很多已经开发好可复用的组件，可以直接通过调用直接使用，这就是我们为什么看见除了React还有Ant Design、MaterialUI库。
+介绍完UI库和组件库后，单页应用还差一个东西，就是路由功能，路由也可以通过简单的Javascript来判断，比如当点击了一个链接后，Javascript将当前页面内容清除（隐藏），然后再渲染点击的目标内容。但是这个时候有一些问题，比如需要编写大量的代码、丢失浏览器的前进后退、没有办法收藏等问题（后面两个问题可以再通过增加代码去解决）。所以React-router-dom`这类的库就出现了，把所有的底层的逻辑和代码都进行封装提供一些接口，即大部分的人不需要再编写、理解这类的代码直接可以开箱即用，这也就是这类路由库出现的原因。 我们从前面了解到了状态分别为props和state，一个是外部，一个是内部的。
+那这个时候如果组件的嵌套过于&amp;quot;多层次&amp;quot;了后，比如从顶层的组件需要传递一个状态到第N层的组件中，那么每一层即使不需要不处理也要将状态进行传递，那这个时候涉及到的组件其中会包含非常多的和组件无关的代码。 所以这个时候需要一个通用的状态管理的解决方案（如Redux），让整个Web应用都共享一个大的状态，需要多层传递的状态则可以放在这个大状态内部，让不关心有些状态的组件不用去关心无关状态，而有些状态的组件去关心自己关心的状态。
+Redux本身设计是非常有趣的，整个应用的状态不能直接修改，这是因为如果大家都直接修改很有可能会造成状态的管理的混乱，所以Redux的修改状态流程是组件发起动作-&amp;gt;Dispatch函数接收动作-&amp;gt;reducer处理动作-&amp;gt;影响状态-&amp;gt;重新渲染组件。</description>
     </item>
     <item>
       <title>Python数据集合</title>
-      <link>https://wuyizhou.com/posts/python-list/</link>
+      <link>/posts/python-list/</link>
       <pubDate>Mon, 25 Jun 2018 13:21:31 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/python-list/</guid>
-      <description>列表 🔗列表是有序可变的数据集合，并且一对[]来表示这是一个列表，元素之间逗号分隔，每个数据之间有逗号分隔，列表基本上可以包含很多数据类型，下</description>
+      <guid>/posts/python-list/</guid>
+      <description>列表 列表是有序可变的数据集合，并且一对[]来表示这是一个列表，元素之间逗号分隔，每个数据之间有逗号分隔，列表基本上可以包含很多数据类型，下面就是一个典型的列表：
+list = [1,2.2,&amp;#39;ok&amp;#39;,bool] 在上面的列表中存储了数据(整型、浮点型、字符串、布尔值)，包含我们下面看见的几种集合类型都是可以当作列表的子元素的。
+当然也可以从列表中取出数据，因为列表是有序的，所以我们可以通过索引从0开始进行取数据,你需要注意的是所有可以用索引进行得到值的都是从0开始，比如下面的代码取出了列表第一个和第三个数据。
+list = [1,2.2,&amp;#39;ok&amp;#39;,bool] list[0] # 1 list[2] # &amp;#39;ok&amp;#39; 除了0开始的整数，还可以用负数，比如-1表示倒数第一个值，-2表示倒数第二个值，以此类推。
+list = [1,2.2,&amp;#39;ok&amp;#39;,bool] list[-1] # bool list[-2] # &amp;#39;ok&amp;#39; 列表切片 除此之外，列表还支持切片的功能，就相当于一块肉，我们通过菜刀把这块肉切成一片一片的，方便我们炒菜（方便处理）。切片同样和索引一样存在列表变量名后的[]里面，大概语法如下：
+list[起始位置:截至位置(但不包括本位置的值):步数] 下面的代码我获取了从第一个到第四个的值（但不包括第四个值）：
+list = [1,2.2,&amp;#39;ok&amp;#39;,bool] list[0:3] # 1,2.2,&amp;#39;ok&amp;#39; 也可以设置步数，作用就是比如我们设置2，就会每隔两个值就返回一个值：
+list = [1,2.2,&amp;#39;ok&amp;#39;,bool] list[0:4:1] #[1, &amp;#39;ok&amp;#39;] 当然同样可以设置负数，可以自行测试！
+列表查询 列表查询可以用于判断一个值是否在列表当中，通过in和not in来进行，其中in表示一个值是否包含在列表当中，如果包含则返回True，反之返回False，而not in则是对in的结果进行取反，比如下面的代码则表示了判断值2.2是不是存在于列表当中以及对in结果进行取反。
+list = [1,2.2,&amp;#39;ok&amp;#39;,bool] print(2.2 in list) #返回 True print(2.2 not in list) #返回False 元组 元组是有序不可变的数据集合，并且用一对()来进行表示，元素之间逗号分隔，当你定义好元组那一刻，元组里面的所有数据就不能够进行修改了，你只能读取里面的数据而无法修改和添加数据，比如下面，我定义了一组元组后，我通过修改第一个元素产生错误：
+tple = (1,2,3,4) tple[0] # 1 tple[0] = &amp;#39;m&amp;#39; &amp;#34;&amp;#34;&amp;#34; Traceback (most recent call last): File &amp;#34;&amp;lt;ipython-input-21-cae8ab2b1ade&amp;gt;&amp;#34;, line 1, in &amp;lt;module&amp;gt; tple[0] = m TypeError: &amp;#39;tuple&amp;#39; object does not support item assignment 在上面这一行就会明显提醒你tuple对象不支持修改。 &amp;#34;&amp;#34;&amp;#34; 集合 集合是可变无序的数据集合，并且用一对{}表示，元素之间逗号分隔，还需要特别注意的是集合是一个包含唯一元素的可变无序集合数据类型,集合的一个用途是快速删除列表中的重复项 ，集合是无序的，既然是无序那么就没有办法进行索引，我们只能通过两个方法进行添加和删除数据并返回，添加通过add()方法，删除是pop()方法，添加是随机插入到集合当中的任何位置，而删除是从集合当中随机取出一个值删除并返回。比如下面的操作：</description>
     </item>
     <item>
       <title>Python数据类型与操作符</title>
-      <link>https://wuyizhou.com/posts/python-datatype/</link>
+      <link>/posts/python-datatype/</link>
       <pubDate>Mon, 25 Jun 2018 09:26:05 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/python-datatype/</guid>
-      <description>算术运算符 🔗 + 加 - 减 * 乘 / 除 % 取余（相除后的余数） ** 取幂（注意 ^ 并不执行该运算，你可能在其他语言中见过这种情形） // 相除后向下取整到最接近的整</description>
-    </item>
-    <item>
-      <title>Python生成器</title>
-      <link>https://wuyizhou.com/posts/python-generator/</link>
-      <pubDate>Mon, 04 Jun 2018 08:29:36 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/python-generator/</guid>
-      <description>什么是生成器(generator)？ 🔗在Python中提供了一种名为generator的对象，他是通过next函数去中断执行并且genera</description>
-    </item>
-    <item>
-      <title>Python 列表生成表达式</title>
-      <link>https://wuyizhou.com/posts/python-list-render/</link>
-      <pubDate>Mon, 04 Jun 2018 02:45:42 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/python-list-render/</guid>
-      <description>如何生成列表？ 🔗先试想一下，如果你需要生成1-50的数值列表，如果没有列表生成式你将会这样来做： x = [] i = 1 while i &amp;lt;= 50: x.append(i) i += 1 还有一种方法就是</description>
-    </item>
-    <item>
-      <title>Python函数参数</title>
-      <link>https://wuyizhou.com/posts/python-func-par/</link>
-      <pubDate>Fri, 01 Jun 2018 04:23:15 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/python-func-par/</guid>
-      <description>位置参数 🔗位置参数是指定了多少参数，就必须输入多少参数，否则就会报错。也可以把位置参数理解为必须参数，如果没有输入同等的参数，就会报错，比如</description>
-    </item>
-    <item>
-      <title>Anaconda入门教程</title>
-      <link>https://wuyizhou.com/posts/anaconda/</link>
-      <pubDate>Tue, 29 May 2018 10:24:42 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/anaconda/</guid>
-      <description>Anaconda是什么？ 🔗Anaconda可以理解为Python的软件发行版，可以用来管理包、环境，但是Anaconda主要针对于数据科学。</description>
-    </item>
-    <item>
-      <title>Python头部注释</title>
-      <link>https://wuyizhou.com/posts/python-coding-settings/</link>
-      <pubDate>Wed, 23 May 2018 08:22:38 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/python-coding-settings/</guid>
-      <description>#!/usr/bin/env python3 # -*- coding: utf-8 -*- 在刚开始学习Python的时候遇到了上面的疑问，这些疑问感觉很奇怪，应为对于Nodejs这样的语言，这些问题是不会存在的，后来</description>
-    </item>
-    <item>
-      <title>HTML表格的加载优化</title>
-      <link>https://wuyizhou.com/posts/html-table-preloaded/</link>
-      <pubDate>Wed, 14 Mar 2018 07:48:49 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/html-table-preloaded/</guid>
-      <description>在HTML设计数据展示的时候会经常使用到HTML表格来展示数据，但是如果数据量过大，就导致表格显示慢，因为在HTML中，表格的显示是需要等待</description>
-    </item>
-    <item>
-      <title>汇编语言学习笔记（四）：寄存器[内存访问]</title>
-      <link>https://wuyizhou.com/posts/learning-assembly-4/</link>
-      <pubDate>Fri, 23 Feb 2018 16:45:57 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/learning-assembly-4/</guid>
-      <description>内存中字的储存 🔗在8086CPU中，寄存器为16位，可以储存一个字(1Word=2Byte)，拿ax来说，低8位放在al中，高8位放在ah中</description>
-    </item>
-    <item>
-      <title>汇编语言学习笔记（三）：初识Debug</title>
-      <link>https://wuyizhou.com/posts/learning-assembly-3/</link>
-      <pubDate>Fri, 09 Feb 2018 09:06:14 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/learning-assembly-3/</guid>
-      <description>什么是Debug？Debug是DOS、Windows提供的8086程序调试工具，可以查看CPU各种寄存器的内容，内存情况和机器码级跟踪程序的</description>
-    </item>
-    <item>
-      <title>汇编语言学习笔记（二）：寄存器</title>
-      <link>https://wuyizhou.com/posts/learning-assembly-2/</link>
-      <pubDate>Mon, 05 Feb 2018 15:38:40 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/learning-assembly-2/</guid>
-      <description>为什么要了解寄存器 🔗为什么了解寄存器？因为CPU是计算机的大脑，可以通过指令读写寄存器实现对CPU的控制，你试想一下如果你的大脑不能控制只能</description>
-    </item>
-    <item>
-      <title>汇编语言学习笔记（一）：基础知识</title>
-      <link>https://wuyizhou.com/posts/learning-assembly-1/</link>
-      <pubDate>Thu, 01 Feb 2018 13:55:06 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/learning-assembly-1/</guid>
-      <description>前言 🔗此文章如出现歧义或错误的地方请谅解，这篇文章是我在学习汇编的时候同时记录下来的笔记，然后通过教程的方式发表出来，因为通过这样的方式发表</description>
-    </item>
-    <item>
-      <title>ES6-Class类</title>
-      <link>https://wuyizhou.com/posts/es6-class/</link>
-      <pubDate>Tue, 18 Jul 2017 07:46:51 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/es6-class/</guid>
-      <description>书籍参考：《ECMAScript 6入门》 作者：阮一峰 文档参考：MDN 概念 🔗ES6提供了Class语句用于更的理解语义以及更接近传统的编程语言</description>
-    </item>
-    <item>
-      <title>ES7-async函数</title>
-      <link>https://wuyizhou.com/posts/es7-async/</link>
-      <pubDate>Mon, 17 Jul 2017 09:53:10 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/es7-async/</guid>
-      <description>参考文档：MDN 概念 🔗ES7提供了一个异步解决方案async函数容易，它的作用非常简单，几个异步操作并且这几个是有依赖的，如果按照我们往常的</description>
-    </item>
-    <item>
-      <title>es6-promise</title>
-      <link>https://wuyizhou.com/posts/es6-promise/</link>
-      <pubDate>Sun, 16 Jul 2017 16:32:08 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/es6-promise/</guid>
-      <description>书籍参考：《ECMAScript 6入门》 作者：阮一峰 文档参考：MDN 概念 🔗Promise最初在社区提出的一个异步解决的方案，最后ES6将它加</description>
-    </item>
-    <item>
-      <title>ES6-Generator函数</title>
-      <link>https://wuyizhou.com/posts/es6-generator/</link>
-      <pubDate>Sun, 16 Jul 2017 06:26:06 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/es6-generator/</guid>
-      <description>书籍参考：《ECMAScript 6入门》 作者：阮一峰 文档参考：MDN 概念 🔗ES6提供了一种Generator函数，用来解决异步编程的方案，可</description>
-    </item>
-    <item>
-      <title>ES6-iterator遍历接口</title>
-      <link>https://wuyizhou.com/posts/es6-iterator/</link>
-      <pubDate>Sat, 15 Jul 2017 13:43:25 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/es6-iterator/</guid>
-      <description>书籍参考：《ECMAScript 6入门》 作者：阮一峰 Iterator概念 🔗ES6发布后Javascript的数据集合对象有Array、Obj</description>
-    </item>
-    <item>
-      <title>ES6新特性-Map和WeakMap</title>
-      <link>https://wuyizhou.com/posts/es6-map-weamap/</link>
-      <pubDate>Tue, 11 Jul 2017 08:54:39 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/es6-map-weamap/</guid>
-      <description>参考文档：MDN Map结构 🔗在Javascript中，对象是以键值对的方式存在的，其中的键名是以字符串或者数值以及ES6提出的新的数据类型S</description>
-    </item>
-    <item>
-      <title>es6新特性:Set和WeakSet</title>
-      <link>https://wuyizhou.com/posts/es6-set-weakset/</link>
-      <pubDate>Mon, 10 Jul 2017 07:43:42 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/es6-set-weakset/</guid>
-      <description>书籍参考：《ECMAScript 6入门》 作者：阮一峰 文档参考：MDN ES6提供了两个新的数据结构：Set和WeakSet数据结构，两个结构很</description>
-    </item>
-    <item>
-      <title>es6新数据类型-Symbol</title>
-      <link>https://wuyizhou.com/posts/ecmascript-symbol/</link>
-      <pubDate>Thu, 06 Jul 2017 07:25:12 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/ecmascript-symbol/</guid>
-      <description>参考：《ES6标准入门教程》 作者：阮一峰 Symbol原始类型 🔗Javascript一共有6种原始数据类型，分别为： undefined null Boolean Object String Array ES6新增加了</description>
-    </item>
-    <item>
-      <title>ES6箭头函数</title>
-      <link>https://wuyizhou.com/posts/es6-arrow-function/</link>
-      <pubDate>Thu, 06 Jul 2017 02:22:32 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/es6-arrow-function/</guid>
-      <description>参考：《ES6标准入门教程》 作者：阮一峰 在ES6中允许了一种新函数方式“箭头函数”，它大概的如下： var a = (x) =&amp;gt; x; 等同 var a = function(x){ return x; } 如果不需要参</description>
-    </item>
-    <item>
-      <title>ES6函数的扩展</title>
-      <link>https://wuyizhou.com/posts/ecmascript-func/</link>
-      <pubDate>Wed, 05 Jul 2017 08:18:49 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/ecmascript-func/</guid>
-      <description>参考：《ES6标准入门教程》 作者：阮一峰 一、函数的默认值设置 🔗在ES5的时候如果一个函数的参数必须为有效值，那么我们通常会这样做一个判断： function</description>
-    </item>
-    <item>
-      <title>Webpack快速入门教程</title>
-      <link>https://wuyizhou.com/posts/webpack/</link>
-      <pubDate>Tue, 06 Jun 2017 11:06:26 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/webpack/</guid>
-      <description>1、简介 🔗此教程涉及不深入，并除去了很多复杂的东西，记录也坚持以最简单为主，让初学者大概对webpack有一个简单的系统认识，更好的去进一步</description>
-    </item>
-    <item>
-      <title>Nodejs 处理gb2312内容乱码问题</title>
-      <link>https://wuyizhou.com/posts/nodejs-gb2312/</link>
-      <pubDate>Sun, 17 Jul 2016 03:07:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/nodejs-gb2312/</guid>
-      <description>在使用cheerio处理request模块返回的gb2312网页出现了乱码，从开始一直排查问题，一直排查到request、cheerio都有</description>
-    </item>
-    <item>
-      <title>浅谈Javascript闭包</title>
-      <link>https://wuyizhou.com/posts/javascript-closure/</link>
-      <pubDate>Fri, 27 Mar 2015 20:01:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/javascript-closure/</guid>
-      <description>垃圾回收器 🔗我个人把闭包抽象的称之为”阻止垃圾回收器的函数”或者”有权访问另一个函数内部变量的函数&amp;quot;(当然这个是我个人的理解方式，</description>
-    </item>
-    <item>
-      <title>事件捕获与事件冒泡</title>
-      <link>https://wuyizhou.com/posts/js-event/</link>
-      <pubDate>Mon, 23 Mar 2015 21:37:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/js-event/</guid>
-      <description>事件流 🔗在理解这两个概念之前可以先来理解一个概念叫：事件流，指的是触发事件的先后顺序。可以把事件冒泡和事件捕获想成对于事件流的一种实现方式。</description>
-    </item>
-    <item>
-      <title>Call与Apply</title>
-      <link>https://wuyizhou.com/posts/js-call-apply/</link>
-      <pubDate>Mon, 23 Mar 2015 01:05:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/js-call-apply/</guid>
-      <description>1、前言 🔗ECMAscript中提供了两个方法(call,apply)用于改变对象内部的this指针，它们两个的作用都是一样的，但是传递的参</description>
-    </item>
-    <item>
-      <title>Javascript自定义事件</title>
-      <link>https://wuyizhou.com/posts/javascript-custom-event/</link>
-      <pubDate>Sun, 18 Jan 2015 18:31:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/javascript-custom-event/</guid>
-      <description>自定义事件在很多地方都会用到，然后跟着书实例了几次，然后详细注释，也算给自己做了一个笔记。 1 //定义一个自定义事件类 2 //定义一个实例属性用</description>
-    </item>
-    <item>
-      <title>JSON数据格式</title>
-      <link>https://wuyizhou.com/posts/json/</link>
-      <pubDate>Tue, 13 Jan 2015 01:23:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/json/</guid>
-      <description>JSON全称为：JavaScript Object Notation，中文为：Javascript对象表示法。是Douglas Crockford在2006</description>
-    </item>
-    <item>
-      <title>Nodejs微信公众号接口</title>
-      <link>https://wuyizhou.com/posts/nodejs-publicwechat-api/</link>
-      <pubDate>Sun, 11 Jan 2015 19:50:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/nodejs-publicwechat-api/</guid>
-      <description>代码重要部分都已详细注释，test.js为实例，如果启动url请求，那么程序默认对json格式数据友好，如果有特殊需要，请自行修改返回数据的</description>
-    </item>
-    <item>
-      <title>HTML5跨文档消息传递</title>
-      <link>https://wuyizhou.com/posts/html5-cross-documents-send-messages/</link>
-      <pubDate>Thu, 08 Jan 2015 00:37:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/html5-cross-documents-send-messages/</guid>
-      <description>HTML5定义了一些javascript API，其中有一个就是跨文档消息传递（cross-document-messaging简称XDM）。</description>
-    </item>
-    <item>
-      <title>HTMLImageElement类型的简便利用</title>
-      <link>https://wuyizhou.com/posts/htmlimageelements/</link>
-      <pubDate>Wed, 07 Jan 2015 20:09:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/htmlimageelements/</guid>
-      <description>这个是我在复习书籍的时候看见的，当时一个同学想通过页面发送请求，但是数据量不是太大，所以用的get方式，但是页面用表单提交请求的话会让页面进</description>
-    </item>
-    <item>
-      <title>HTML表单脚本</title>
-      <link>https://wuyizhou.com/posts/html-from/</link>
-      <pubDate>Wed, 07 Jan 2015 01:41:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/html-from/</guid>
-      <description>在HTML中，表单由标签构成。在javascript中，是由HTMLFormElement类型构成，这个类型继承自HTMLElement类型</description>
-    </item>
-    <item>
-      <title>JavascriptDOM事件</title>
-      <link>https://wuyizhou.com/posts/javascript-dom-event/</link>
-      <pubDate>Tue, 06 Jan 2015 02:47:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/javascript-dom-event/</guid>
-      <description>Javascript与html之间的交互是通过事件进行交互。事件是通过侦听器（交互处理程序）来预定执行的。 页面中哪部分会拥有某个特点的事件？</description>
-    </item>
-    <item>
-      <title>Javascript访问css样式信息</title>
-      <link>https://wuyizhou.com/posts/javascript-get-css/</link>
-      <pubDate>Sun, 04 Jan 2015 21:37:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/javascript-get-css/</guid>
-      <description>DOM2级样式为style对象定义了一些属性和方法，可以通过这些方法属性来访问或者修改元素的样式信息： 1、cssText：可读写，在读的情况</description>
-    </item>
-    <item>
-      <title>javscript布尔操作符</title>
-      <link>https://wuyizhou.com/posts/javascript-bool/</link>
-      <pubDate>Thu, 13 Feb 2014 01:14:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/javascript-bool/</guid>
-      <description>在ECMAScript中提供了Boolean()转换函数以及三个布尔操作符，这三个布尔操作符分别为逻辑非、逻辑与、逻辑或，这三个操作符通常用</description>
-    </item>
-    <item>
-      <title>Javascript中的迭代、归并方法</title>
-      <link>https://wuyizhou.com/posts/javascript-reduce/</link>
-      <pubDate>Tue, 12 Nov 2013 23:09:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/javascript-reduce/</guid>
-      <description>迭代方法 🔗在Javascript中迭代方法个人觉得尤为重要，在很多时候都会有实际上的需求，javascript提供了5个迭代方法来供我们操作</description>
-    </item>
-    <item>
-      <title>Javascript原生实现推箱子游戏</title>
-      <link>https://wuyizhou.com/posts/js-sokoban-game/</link>
-      <pubDate>Sun, 10 Feb 2013 03:23:43 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/js-sokoban-game/</guid>
-      <description>关于： 🔗这段代码主要是为了检验自己学习Javascript的成果，游戏其实很简单，主要思维，里面我尽量的标记注释了代码的重要思维的地方。在下</description>
+      <guid>/posts/python-datatype/</guid>
+      <description>算术运算符 + 加 - 减 * 乘 / 除 % 取余（相除后的余数） ** 取幂（注意 ^ 并不执行该运算，你可能在其他语言中见过这种情形） // 相除后向下取整到最接近的整数 整数、浮点数 数字值可以用到两种 python 数据类型：
+int - 表示整数值 float - 表示小数或浮点数值 你可以通过以下语法创建具有某个数据类型的值：
+x = int(4.7) # x is now an integer 4 y = float(4) # y is now a float of 4.0 你可以使用函数 type 检查数据类型：
+&amp;gt;&amp;gt;&amp;gt; print(type(x)) int &amp;gt;&amp;gt;&amp;gt; print(type(y)) float 布尔型运算符、比较运算符和逻辑运算符 布尔数据类型存储的是值 True 或 False，通常分别表示为 1 或 0。
+通常有 6 个比较运算符会获得布尔值：
+比较运算符 符号使用情况</description>
     </item>
   </channel>
 </rss>

@@ -1,131 +1,341 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <title>Google Hacking Test | Yizhou&#39;s Website</title>
+<html lang="en" dir="auto">
 
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
-<meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="前言 🔗学习Google搜索，其目的是用于让自己得到更精准的信息，所以善用Google搜索对于信息收集、安全测试、查找答案等都有着非常大的帮助">
-<meta name="generator" content="Hugo 0.121.1">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Google Hacking Test | Yizhou</title>
+<meta name="keywords" content="杂物间">
+<meta name="description" content="前言 学习Google搜索，其目的是用于让自己得到更精准的信息，所以善用Google搜索对于信息收集、安全测试、查找答案等都有着非常大的帮助。而随着时间的变化Google对于语法的更新、规则都在改动，这些改动对于结果都有影响，所以使用前进行测试是非常有必要的。 查阅了诸多资料过后，将Google搜索的操作分为了三个等级，分别为基础搜索、布尔操作符、高级操作符，每个级别的都可以进行配合使用，有些组合起来能够让搜索更加精准，而有些则是不能进行组合。 同时这些搜索方式会与高级搜索设置中的功能重叠，但个人偏向使用语法对比高级搜索设置方便许多，所以后面的内容均使用语法，不会涉及到搜索设置等。 除此之外，还有诸多的网站可以获取到Google语法的途径，比如exploit-db是一个用于记录安全测试的Google语法数据库，这里面记录了非常多因配置失误操作的漏洞，如获取sql备份文件sql.bak等。Google Help提供常用的Google语法等。
+影响搜索的因素 Google在搜索原理的一篇简单的介绍了会影响搜索结果的几个因素，分别为以下7个因素：
+如果为中文，需要进行分词、语法等NLP技术的信息提取。
+查询理解，这个步骤典型的就是修正错别字，比如你搜索“贝京市”，那么算法会将关键词进行修正为“北京市”，所以返回的内容中也是“北京市”相关的内容。这个步骤我没有找到具体的文献，但和步骤1是有较强的联系。
+内容相关性，这个步骤典型的作用就是搜索网页中任何地方是否出现与关键词命中。
+内容质量，这个步骤用于确定网页是否具备权威、专业等，除了常见的网站认证、知名度、访问量等，还有Google的基于网页链接的算法，如PageRank，这种算法类似于投票，越权威的网站被引用/超链接的次数越多。基于这些情况然后进行排序，将这些高质量的网站靠前输出。
+网页可用性，这个步骤用于确定网页是否网页是否“优秀”，而Google是有一套公开的标准，典型的就是网页加载速度、适配各个访问的客户端、是否HTTPS、广告等。
+上下文设置，这个步骤和自己的历史数据、设置有关系，比如你的历史搜索中多次搜索了“巴塞罗那对阿森纳”，当你搜索“巴塞罗那”的时候，可能更加想访问的是“巴塞罗那球队”而不是“巴塞罗那地区”，该部分的影响，可以通过Google搜索主页右下角设置中的“您在Google搜索中的数据设置”删除，或者直接使用无痕模式搜索可以消除该影响。 除了这个，地区也会导致你的搜索结果会有影响，在Google右下角设置中的“搜索设置”里面的“区域设置”可以验证，比如将该设置更改为美国，你搜索&quot;football&quot;则是返回的NFL橄榄球职业比赛联盟，而如果将地区设置为英国，返回的则是足球。
+符号，在Google搜索中符号如（、。，/等都不会影响搜索结果，比如你搜索的是/中国北京/，那么结果中&quot;中国（北京&hellip;&ldquo;这样的结果也会匹配。
+基础搜索 基础搜索是最常见的，里面包含了两种搜索方式：
+关键词查询：关键词查询就是最常用的方式，直接输入关键词查询或者给出多个以空格间隔的关键词，如/中国北京/或者/中国 北京/。但需要注意的是使用关键词查询，会尽可能的分词和理解你的意图（影响搜索的因素中的步骤一），并尽可能的返回有关的内容，那么如/中国北京/，就有可能包含/中国北京/、/中国/、/北京/等结果返回。
+准确查询：精确查询用双引号包裹一个或者多个关键词，与关键词查询不同之处在于精确查询并不会对关键词进行分词，而是原封不动的进行完整的匹配，所以你搜索/中国北京/，就有可能包含&quot;中国北京&rdquo;、&ldquo;中国&rdquo;、&ldquo;北京&quot;等结果返回。而搜索/&ldquo;中国北京&rdquo;/，则代表每一个结果都按照&quot;中国北京&quot;这个词进行完整的匹配，不会出现&quot;中国&rdquo;、&ldquo;北京&quot;等结果返回。 而如果精确搜索给出了多个关键词，如/&ldquo;中国 北京&rdquo;/，则这个中间的空格代表着顺序，说所以可以理解为查询的含义为在&quot;中国&quot;这个词后紧跟着&quot;北京&quot;这个关键词。
+除了这两种搜索之外，还包含了几个符号：
+通配符：通配符*与程序中的通配符意义不一样，中文和英文搜索中这里的通配符代表的是一个词，比如/&ldquo;北京市 故宫&rdquo;/，将“京”替换为*，也就是/&ldquo;北*市 故宫&rdquo;/搜索，那么返回的结果中可能包含着如“北厦门市故宫”、&ldquo;北秋田市故宮&quot;等结果。如果将搜索改为/&rdquo;*市 故宫&rdquo;/，那么你看见命中的关键词（红色标注）则为“太保市故宮”、“北京市故宫”等词。所以这说明通配符匹配的是一个词，而不是一个字，作用是尽可能的将一个词与前后的关键字进行组合成一个完整的词。
+单字任意符：这个符号对于中文不太友好，中文下呈现的大多数能匹配到标点符号，而代表任意中文字符则不行，如搜索&quot;湖北省&quot;、&ldquo;湖南省&quot;等相关信息，所以语法为/&ldquo;湖*省&rdquo;/，但是返回的则是&quot;湖省&quot;和&quot;湖（省&rdquo;。 而对于英文则是能替代任意字符，比如/&ldquo;hac*ing&rdquo;/，则能搜索到&quot;hacking&quot;等结果。
+括号：Google搜索中对于括号是不敏感的，所以如 /北京(（市/ 搜索中放置了一个中文一个英文的括号，都会正常返回“北京市”结果，而在精确操作中同样适用，即/&ldquo;北京(（市&rdquo;/也能正确返回“北京市”的结果。 而基于括号这个操作，在搜索过程中就可以利用这个特性进行符合人类识别的分块构建查询，这个在于后面的布尔操作符和高级操作符上使用较多。
+布尔操作符 布尔操作符可以使用于基础搜索以及高级操作符，非常灵活，对于信息筛选的帮助非常大，主要为以下三种：
+AND操作符：该操作符用&#43;表示添加在关键词前。和代码中的不一样，代码中表示的是两者都必须具备，而在Google中，代表的是多添加一个关键词进行搜索，所以这个操作符没有太大的意义，如搜索/北京 &#43;故宫/和/北京 故宫/结果相差不大，这是因为Google本身就会将所有关键词放进搜索条件中进行搜索。
+NOT排除操作符：该操作符用-表示添加在关键词前，与字面意义一样，用于排除某个条件，如关键词返回的结果等，比如想了解/故宫/的信息，但不想看旅游相关的信息，如同程，那么就可以使用该操作符搜索/故宫 -同程/。
+OR操作符：该操作符用|表示添加在两个关键词之间，代表的意义为两个关键词匹配任意一个匹配网页的内容都可以返回，比如/北京|重庆 /，那么将返回北京或者重庆相关的页面。 OR操作符可以用于关键词的多选组合，比如查看北京的地铁规划，那么&quot;地铁&quot;一词可能也叫&quot;轨道&quot;，&ldquo;规划&quot;一词也可能叫&quot;计划&rdquo;，那么这个时候就可以通过OR操作符搜索/&ldquo;北京 地铁|轨道 规划|计划&rdquo;/（也可以利用括号进行分组，即/&ldquo;北京 (地铁|轨道) (规划|计划)&quot;/），那么Google将尝试组合“北京地铁计划”、“北京轨道计划”、“北京地铁规划”、“北京轨道规划”等关键词搜索。
+高级操作符 Google提供的搜索结果中，每条记录包含了六个部分，分别为标题、正文（简介）、URL、时间、缓存、文件类型，所有高级操作符也是围绕着这几个部分进行更为精细的控制，比如针对标题的搜索、正文的搜索、url的搜索等。 操作符有着严格的格式，高级操作符的语法为Operator:value，并且操作符、冒号、值之间不能有空格。如果不按照该格式，Google搜索将会把高级操作符当作关键词进行搜索，而查看自己是否有语法的错误，可以通过返回的结果中命中的红色关键词是否有异常，比如是否包含了高级操作符。 除此之外，前面精准搜索、布尔操作符都可以与高级操作符结合。
+标题类 标题类操作符为intitle和allintitle，用于搜索网页的标题，意味着你关键词的搜索范围仅限于标题。
+intitle：用于搜索单个词是否包含在标题中，比如搜索/intitle:&ldquo;北京市&rdquo;/，如果你要查询多个关键词用于搜索标题符合的网页，那么可以使用多个intitle或者使用allintitle。 allintitle：该高级操作符是会将后面所有的单词用于搜索标题，所以如intitle搜索标题中包含&quot;北京市&quot;和&quot;故宫&quot;的关键词，那么需要写两个intitle，而allintitle则只需要写一个/allintitle:&ldquo;北京市&rdquo; &ldquo;故宫&rdquo;/，但需要注意all开头的大部分高级操作符与其他操作符进行组合使用的时候会出现问题，所以如果你只是单独的搜索标题那么可以使用allintitle，而如果要与其他条件进行组合，那么建议使用intitle。 正文类 正文类操作符为intext和allintext，用于搜索网页的正文，意味着你的关键词的搜索范围仅限于正文/简介。
+intext：用于搜索单个词是否包含在正文中，比如搜索/intext:北京市/，如果你查询多个同样使用多个intext。 allintext：用于搜索正文中的多个词，同样与allintitle用法一样。 URL类 URL类用于搜索网址，涉及的高级操作符有4个，分为：
+inurl和allinurl：inurl和allinurl的使用方法和标题类、正文类一致。
+site：site高级操作符用于搜索某个特定的域名或者域，比如只搜索微博关于故宫的信息，那么搜索语法为/site:weibo.com 故宫/。而搜索特定的域，则指的是com、cn、edu.cn等域名的后缀，如搜索所有的国内学校研究生招生的情况，则搜索语法为/site:edu.cn 研究生招生/。
+inanchor：inanchor高级操作符用于搜索超链接的文本。比如链接地址为weibo.com/xxx，而这个链接的文本则显示为“我的微博”，在html表示为&lt;a href=&quot;https://weibo.com/xxx&quot;&gt;我的微博&lt;/a&gt;，inanchor就是用于搜索这个链接文本“我的微博”。 该操作符搜索返回的结果并非是网页中是否包含，而是直接返回该链接，比如“我的微博”这个链接存放在我的主页，Google并不会返回我的主页作为结果，而是将&quot;我的微博&quot;这条链接直接作为结果。">
+<meta name="author" content="">
+<link rel="canonical" href="/posts/google-hacking-test/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="mask-icon" href="safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
-  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+            .list {
+                background: var(--theme);
+            }
 
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
 
-<link rel="stylesheet" href="/css/style.css">
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
 
-
-
-<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-
-
-
-
-  
-
-
-
-
-
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-          "HTML-CSS": { scale: 85 },
-          tex2jax: {
-            inlineMath: [['$','$'], ['\\(','\\)']],
-            processEscapes: true
-          }
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
         });
-    </script>
-    
-    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+    });
+</script>
+<meta property="og:title" content="Google Hacking Test" />
+<meta property="og:description" content="前言 学习Google搜索，其目的是用于让自己得到更精准的信息，所以善用Google搜索对于信息收集、安全测试、查找答案等都有着非常大的帮助。而随着时间的变化Google对于语法的更新、规则都在改动，这些改动对于结果都有影响，所以使用前进行测试是非常有必要的。 查阅了诸多资料过后，将Google搜索的操作分为了三个等级，分别为基础搜索、布尔操作符、高级操作符，每个级别的都可以进行配合使用，有些组合起来能够让搜索更加精准，而有些则是不能进行组合。 同时这些搜索方式会与高级搜索设置中的功能重叠，但个人偏向使用语法对比高级搜索设置方便许多，所以后面的内容均使用语法，不会涉及到搜索设置等。 除此之外，还有诸多的网站可以获取到Google语法的途径，比如exploit-db是一个用于记录安全测试的Google语法数据库，这里面记录了非常多因配置失误操作的漏洞，如获取sql备份文件sql.bak等。Google Help提供常用的Google语法等。
+影响搜索的因素 Google在搜索原理的一篇简单的介绍了会影响搜索结果的几个因素，分别为以下7个因素：
+如果为中文，需要进行分词、语法等NLP技术的信息提取。
+查询理解，这个步骤典型的就是修正错别字，比如你搜索“贝京市”，那么算法会将关键词进行修正为“北京市”，所以返回的内容中也是“北京市”相关的内容。这个步骤我没有找到具体的文献，但和步骤1是有较强的联系。
+内容相关性，这个步骤典型的作用就是搜索网页中任何地方是否出现与关键词命中。
+内容质量，这个步骤用于确定网页是否具备权威、专业等，除了常见的网站认证、知名度、访问量等，还有Google的基于网页链接的算法，如PageRank，这种算法类似于投票，越权威的网站被引用/超链接的次数越多。基于这些情况然后进行排序，将这些高质量的网站靠前输出。
+网页可用性，这个步骤用于确定网页是否网页是否“优秀”，而Google是有一套公开的标准，典型的就是网页加载速度、适配各个访问的客户端、是否HTTPS、广告等。
+上下文设置，这个步骤和自己的历史数据、设置有关系，比如你的历史搜索中多次搜索了“巴塞罗那对阿森纳”，当你搜索“巴塞罗那”的时候，可能更加想访问的是“巴塞罗那球队”而不是“巴塞罗那地区”，该部分的影响，可以通过Google搜索主页右下角设置中的“您在Google搜索中的数据设置”删除，或者直接使用无痕模式搜索可以消除该影响。 除了这个，地区也会导致你的搜索结果会有影响，在Google右下角设置中的“搜索设置”里面的“区域设置”可以验证，比如将该设置更改为美国，你搜索&quot;football&quot;则是返回的NFL橄榄球职业比赛联盟，而如果将地区设置为英国，返回的则是足球。
+符号，在Google搜索中符号如（、。，/等都不会影响搜索结果，比如你搜索的是/中国北京/，那么结果中&quot;中国（北京&hellip;&ldquo;这样的结果也会匹配。
+基础搜索 基础搜索是最常见的，里面包含了两种搜索方式：
+关键词查询：关键词查询就是最常用的方式，直接输入关键词查询或者给出多个以空格间隔的关键词，如/中国北京/或者/中国 北京/。但需要注意的是使用关键词查询，会尽可能的分词和理解你的意图（影响搜索的因素中的步骤一），并尽可能的返回有关的内容，那么如/中国北京/，就有可能包含/中国北京/、/中国/、/北京/等结果返回。
+准确查询：精确查询用双引号包裹一个或者多个关键词，与关键词查询不同之处在于精确查询并不会对关键词进行分词，而是原封不动的进行完整的匹配，所以你搜索/中国北京/，就有可能包含&quot;中国北京&rdquo;、&ldquo;中国&rdquo;、&ldquo;北京&quot;等结果返回。而搜索/&ldquo;中国北京&rdquo;/，则代表每一个结果都按照&quot;中国北京&quot;这个词进行完整的匹配，不会出现&quot;中国&rdquo;、&ldquo;北京&quot;等结果返回。 而如果精确搜索给出了多个关键词，如/&ldquo;中国 北京&rdquo;/，则这个中间的空格代表着顺序，说所以可以理解为查询的含义为在&quot;中国&quot;这个词后紧跟着&quot;北京&quot;这个关键词。
+除了这两种搜索之外，还包含了几个符号：
+通配符：通配符*与程序中的通配符意义不一样，中文和英文搜索中这里的通配符代表的是一个词，比如/&ldquo;北京市 故宫&rdquo;/，将“京”替换为*，也就是/&ldquo;北*市 故宫&rdquo;/搜索，那么返回的结果中可能包含着如“北厦门市故宫”、&ldquo;北秋田市故宮&quot;等结果。如果将搜索改为/&rdquo;*市 故宫&rdquo;/，那么你看见命中的关键词（红色标注）则为“太保市故宮”、“北京市故宫”等词。所以这说明通配符匹配的是一个词，而不是一个字，作用是尽可能的将一个词与前后的关键字进行组合成一个完整的词。
+单字任意符：这个符号对于中文不太友好，中文下呈现的大多数能匹配到标点符号，而代表任意中文字符则不行，如搜索&quot;湖北省&quot;、&ldquo;湖南省&quot;等相关信息，所以语法为/&ldquo;湖*省&rdquo;/，但是返回的则是&quot;湖省&quot;和&quot;湖（省&rdquo;。 而对于英文则是能替代任意字符，比如/&ldquo;hac*ing&rdquo;/，则能搜索到&quot;hacking&quot;等结果。
+括号：Google搜索中对于括号是不敏感的，所以如 /北京(（市/ 搜索中放置了一个中文一个英文的括号，都会正常返回“北京市”结果，而在精确操作中同样适用，即/&ldquo;北京(（市&rdquo;/也能正确返回“北京市”的结果。 而基于括号这个操作，在搜索过程中就可以利用这个特性进行符合人类识别的分块构建查询，这个在于后面的布尔操作符和高级操作符上使用较多。
+布尔操作符 布尔操作符可以使用于基础搜索以及高级操作符，非常灵活，对于信息筛选的帮助非常大，主要为以下三种：
+AND操作符：该操作符用&#43;表示添加在关键词前。和代码中的不一样，代码中表示的是两者都必须具备，而在Google中，代表的是多添加一个关键词进行搜索，所以这个操作符没有太大的意义，如搜索/北京 &#43;故宫/和/北京 故宫/结果相差不大，这是因为Google本身就会将所有关键词放进搜索条件中进行搜索。
+NOT排除操作符：该操作符用-表示添加在关键词前，与字面意义一样，用于排除某个条件，如关键词返回的结果等，比如想了解/故宫/的信息，但不想看旅游相关的信息，如同程，那么就可以使用该操作符搜索/故宫 -同程/。
+OR操作符：该操作符用|表示添加在两个关键词之间，代表的意义为两个关键词匹配任意一个匹配网页的内容都可以返回，比如/北京|重庆 /，那么将返回北京或者重庆相关的页面。 OR操作符可以用于关键词的多选组合，比如查看北京的地铁规划，那么&quot;地铁&quot;一词可能也叫&quot;轨道&quot;，&ldquo;规划&quot;一词也可能叫&quot;计划&rdquo;，那么这个时候就可以通过OR操作符搜索/&ldquo;北京 地铁|轨道 规划|计划&rdquo;/（也可以利用括号进行分组，即/&ldquo;北京 (地铁|轨道) (规划|计划)&quot;/），那么Google将尝试组合“北京地铁计划”、“北京轨道计划”、“北京地铁规划”、“北京轨道规划”等关键词搜索。
+高级操作符 Google提供的搜索结果中，每条记录包含了六个部分，分别为标题、正文（简介）、URL、时间、缓存、文件类型，所有高级操作符也是围绕着这几个部分进行更为精细的控制，比如针对标题的搜索、正文的搜索、url的搜索等。 操作符有着严格的格式，高级操作符的语法为Operator:value，并且操作符、冒号、值之间不能有空格。如果不按照该格式，Google搜索将会把高级操作符当作关键词进行搜索，而查看自己是否有语法的错误，可以通过返回的结果中命中的红色关键词是否有异常，比如是否包含了高级操作符。 除此之外，前面精准搜索、布尔操作符都可以与高级操作符结合。
+标题类 标题类操作符为intitle和allintitle，用于搜索网页的标题，意味着你关键词的搜索范围仅限于标题。
+intitle：用于搜索单个词是否包含在标题中，比如搜索/intitle:&ldquo;北京市&rdquo;/，如果你要查询多个关键词用于搜索标题符合的网页，那么可以使用多个intitle或者使用allintitle。 allintitle：该高级操作符是会将后面所有的单词用于搜索标题，所以如intitle搜索标题中包含&quot;北京市&quot;和&quot;故宫&quot;的关键词，那么需要写两个intitle，而allintitle则只需要写一个/allintitle:&ldquo;北京市&rdquo; &ldquo;故宫&rdquo;/，但需要注意all开头的大部分高级操作符与其他操作符进行组合使用的时候会出现问题，所以如果你只是单独的搜索标题那么可以使用allintitle，而如果要与其他条件进行组合，那么建议使用intitle。 正文类 正文类操作符为intext和allintext，用于搜索网页的正文，意味着你的关键词的搜索范围仅限于正文/简介。
+intext：用于搜索单个词是否包含在正文中，比如搜索/intext:北京市/，如果你查询多个同样使用多个intext。 allintext：用于搜索正文中的多个词，同样与allintitle用法一样。 URL类 URL类用于搜索网址，涉及的高级操作符有4个，分为：
+inurl和allinurl：inurl和allinurl的使用方法和标题类、正文类一致。
+site：site高级操作符用于搜索某个特定的域名或者域，比如只搜索微博关于故宫的信息，那么搜索语法为/site:weibo.com 故宫/。而搜索特定的域，则指的是com、cn、edu.cn等域名的后缀，如搜索所有的国内学校研究生招生的情况，则搜索语法为/site:edu.cn 研究生招生/。
+inanchor：inanchor高级操作符用于搜索超链接的文本。比如链接地址为weibo.com/xxx，而这个链接的文本则显示为“我的微博”，在html表示为&lt;a href=&quot;https://weibo.com/xxx&quot;&gt;我的微博&lt;/a&gt;，inanchor就是用于搜索这个链接文本“我的微博”。 该操作符搜索返回的结果并非是网页中是否包含，而是直接返回该链接，比如“我的微博”这个链接存放在我的主页，Google并不会返回我的主页作为结果，而是将&quot;我的微博&quot;这条链接直接作为结果。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/google-hacking-test/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-11T01:52:49+00:00" />
+<meta property="article:modified_time" content="2022-10-11T01:52:49+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Google Hacking Test"/>
+<meta name="twitter:description" content="前言 学习Google搜索，其目的是用于让自己得到更精准的信息，所以善用Google搜索对于信息收集、安全测试、查找答案等都有着非常大的帮助。而随着时间的变化Google对于语法的更新、规则都在改动，这些改动对于结果都有影响，所以使用前进行测试是非常有必要的。 查阅了诸多资料过后，将Google搜索的操作分为了三个等级，分别为基础搜索、布尔操作符、高级操作符，每个级别的都可以进行配合使用，有些组合起来能够让搜索更加精准，而有些则是不能进行组合。 同时这些搜索方式会与高级搜索设置中的功能重叠，但个人偏向使用语法对比高级搜索设置方便许多，所以后面的内容均使用语法，不会涉及到搜索设置等。 除此之外，还有诸多的网站可以获取到Google语法的途径，比如exploit-db是一个用于记录安全测试的Google语法数据库，这里面记录了非常多因配置失误操作的漏洞，如获取sql备份文件sql.bak等。Google Help提供常用的Google语法等。
+影响搜索的因素 Google在搜索原理的一篇简单的介绍了会影响搜索结果的几个因素，分别为以下7个因素：
+如果为中文，需要进行分词、语法等NLP技术的信息提取。
+查询理解，这个步骤典型的就是修正错别字，比如你搜索“贝京市”，那么算法会将关键词进行修正为“北京市”，所以返回的内容中也是“北京市”相关的内容。这个步骤我没有找到具体的文献，但和步骤1是有较强的联系。
+内容相关性，这个步骤典型的作用就是搜索网页中任何地方是否出现与关键词命中。
+内容质量，这个步骤用于确定网页是否具备权威、专业等，除了常见的网站认证、知名度、访问量等，还有Google的基于网页链接的算法，如PageRank，这种算法类似于投票，越权威的网站被引用/超链接的次数越多。基于这些情况然后进行排序，将这些高质量的网站靠前输出。
+网页可用性，这个步骤用于确定网页是否网页是否“优秀”，而Google是有一套公开的标准，典型的就是网页加载速度、适配各个访问的客户端、是否HTTPS、广告等。
+上下文设置，这个步骤和自己的历史数据、设置有关系，比如你的历史搜索中多次搜索了“巴塞罗那对阿森纳”，当你搜索“巴塞罗那”的时候，可能更加想访问的是“巴塞罗那球队”而不是“巴塞罗那地区”，该部分的影响，可以通过Google搜索主页右下角设置中的“您在Google搜索中的数据设置”删除，或者直接使用无痕模式搜索可以消除该影响。 除了这个，地区也会导致你的搜索结果会有影响，在Google右下角设置中的“搜索设置”里面的“区域设置”可以验证，比如将该设置更改为美国，你搜索&quot;football&quot;则是返回的NFL橄榄球职业比赛联盟，而如果将地区设置为英国，返回的则是足球。
+符号，在Google搜索中符号如（、。，/等都不会影响搜索结果，比如你搜索的是/中国北京/，那么结果中&quot;中国（北京&hellip;&ldquo;这样的结果也会匹配。
+基础搜索 基础搜索是最常见的，里面包含了两种搜索方式：
+关键词查询：关键词查询就是最常用的方式，直接输入关键词查询或者给出多个以空格间隔的关键词，如/中国北京/或者/中国 北京/。但需要注意的是使用关键词查询，会尽可能的分词和理解你的意图（影响搜索的因素中的步骤一），并尽可能的返回有关的内容，那么如/中国北京/，就有可能包含/中国北京/、/中国/、/北京/等结果返回。
+准确查询：精确查询用双引号包裹一个或者多个关键词，与关键词查询不同之处在于精确查询并不会对关键词进行分词，而是原封不动的进行完整的匹配，所以你搜索/中国北京/，就有可能包含&quot;中国北京&rdquo;、&ldquo;中国&rdquo;、&ldquo;北京&quot;等结果返回。而搜索/&ldquo;中国北京&rdquo;/，则代表每一个结果都按照&quot;中国北京&quot;这个词进行完整的匹配，不会出现&quot;中国&rdquo;、&ldquo;北京&quot;等结果返回。 而如果精确搜索给出了多个关键词，如/&ldquo;中国 北京&rdquo;/，则这个中间的空格代表着顺序，说所以可以理解为查询的含义为在&quot;中国&quot;这个词后紧跟着&quot;北京&quot;这个关键词。
+除了这两种搜索之外，还包含了几个符号：
+通配符：通配符*与程序中的通配符意义不一样，中文和英文搜索中这里的通配符代表的是一个词，比如/&ldquo;北京市 故宫&rdquo;/，将“京”替换为*，也就是/&ldquo;北*市 故宫&rdquo;/搜索，那么返回的结果中可能包含着如“北厦门市故宫”、&ldquo;北秋田市故宮&quot;等结果。如果将搜索改为/&rdquo;*市 故宫&rdquo;/，那么你看见命中的关键词（红色标注）则为“太保市故宮”、“北京市故宫”等词。所以这说明通配符匹配的是一个词，而不是一个字，作用是尽可能的将一个词与前后的关键字进行组合成一个完整的词。
+单字任意符：这个符号对于中文不太友好，中文下呈现的大多数能匹配到标点符号，而代表任意中文字符则不行，如搜索&quot;湖北省&quot;、&ldquo;湖南省&quot;等相关信息，所以语法为/&ldquo;湖*省&rdquo;/，但是返回的则是&quot;湖省&quot;和&quot;湖（省&rdquo;。 而对于英文则是能替代任意字符，比如/&ldquo;hac*ing&rdquo;/，则能搜索到&quot;hacking&quot;等结果。
+括号：Google搜索中对于括号是不敏感的，所以如 /北京(（市/ 搜索中放置了一个中文一个英文的括号，都会正常返回“北京市”结果，而在精确操作中同样适用，即/&ldquo;北京(（市&rdquo;/也能正确返回“北京市”的结果。 而基于括号这个操作，在搜索过程中就可以利用这个特性进行符合人类识别的分块构建查询，这个在于后面的布尔操作符和高级操作符上使用较多。
+布尔操作符 布尔操作符可以使用于基础搜索以及高级操作符，非常灵活，对于信息筛选的帮助非常大，主要为以下三种：
+AND操作符：该操作符用&#43;表示添加在关键词前。和代码中的不一样，代码中表示的是两者都必须具备，而在Google中，代表的是多添加一个关键词进行搜索，所以这个操作符没有太大的意义，如搜索/北京 &#43;故宫/和/北京 故宫/结果相差不大，这是因为Google本身就会将所有关键词放进搜索条件中进行搜索。
+NOT排除操作符：该操作符用-表示添加在关键词前，与字面意义一样，用于排除某个条件，如关键词返回的结果等，比如想了解/故宫/的信息，但不想看旅游相关的信息，如同程，那么就可以使用该操作符搜索/故宫 -同程/。
+OR操作符：该操作符用|表示添加在两个关键词之间，代表的意义为两个关键词匹配任意一个匹配网页的内容都可以返回，比如/北京|重庆 /，那么将返回北京或者重庆相关的页面。 OR操作符可以用于关键词的多选组合，比如查看北京的地铁规划，那么&quot;地铁&quot;一词可能也叫&quot;轨道&quot;，&ldquo;规划&quot;一词也可能叫&quot;计划&rdquo;，那么这个时候就可以通过OR操作符搜索/&ldquo;北京 地铁|轨道 规划|计划&rdquo;/（也可以利用括号进行分组，即/&ldquo;北京 (地铁|轨道) (规划|计划)&quot;/），那么Google将尝试组合“北京地铁计划”、“北京轨道计划”、“北京地铁规划”、“北京轨道规划”等关键词搜索。
+高级操作符 Google提供的搜索结果中，每条记录包含了六个部分，分别为标题、正文（简介）、URL、时间、缓存、文件类型，所有高级操作符也是围绕着这几个部分进行更为精细的控制，比如针对标题的搜索、正文的搜索、url的搜索等。 操作符有着严格的格式，高级操作符的语法为Operator:value，并且操作符、冒号、值之间不能有空格。如果不按照该格式，Google搜索将会把高级操作符当作关键词进行搜索，而查看自己是否有语法的错误，可以通过返回的结果中命中的红色关键词是否有异常，比如是否包含了高级操作符。 除此之外，前面精准搜索、布尔操作符都可以与高级操作符结合。
+标题类 标题类操作符为intitle和allintitle，用于搜索网页的标题，意味着你关键词的搜索范围仅限于标题。
+intitle：用于搜索单个词是否包含在标题中，比如搜索/intitle:&ldquo;北京市&rdquo;/，如果你要查询多个关键词用于搜索标题符合的网页，那么可以使用多个intitle或者使用allintitle。 allintitle：该高级操作符是会将后面所有的单词用于搜索标题，所以如intitle搜索标题中包含&quot;北京市&quot;和&quot;故宫&quot;的关键词，那么需要写两个intitle，而allintitle则只需要写一个/allintitle:&ldquo;北京市&rdquo; &ldquo;故宫&rdquo;/，但需要注意all开头的大部分高级操作符与其他操作符进行组合使用的时候会出现问题，所以如果你只是单独的搜索标题那么可以使用allintitle，而如果要与其他条件进行组合，那么建议使用intitle。 正文类 正文类操作符为intext和allintext，用于搜索网页的正文，意味着你的关键词的搜索范围仅限于正文/简介。
+intext：用于搜索单个词是否包含在正文中，比如搜索/intext:北京市/，如果你查询多个同样使用多个intext。 allintext：用于搜索正文中的多个词，同样与allintitle用法一样。 URL类 URL类用于搜索网址，涉及的高级操作符有4个，分为：
+inurl和allinurl：inurl和allinurl的使用方法和标题类、正文类一致。
+site：site高级操作符用于搜索某个特定的域名或者域，比如只搜索微博关于故宫的信息，那么搜索语法为/site:weibo.com 故宫/。而搜索特定的域，则指的是com、cn、edu.cn等域名的后缀，如搜索所有的国内学校研究生招生的情况，则搜索语法为/site:edu.cn 研究生招生/。
+inanchor：inanchor高级操作符用于搜索超链接的文本。比如链接地址为weibo.com/xxx，而这个链接的文本则显示为“我的微博”，在html表示为&lt;a href=&quot;https://weibo.com/xxx&quot;&gt;我的微博&lt;/a&gt;，inanchor就是用于搜索这个链接文本“我的微博”。 该操作符搜索返回的结果并非是网页中是否包含，而是直接返回该链接，比如“我的微博”这个链接存放在我的主页，Google并不会返回我的主页作为结果，而是将&quot;我的微博&quot;这条链接直接作为结果。"/>
 
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Google Hacking Test",
+      "item": "/posts/google-hacking-test/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Google Hacking Test",
+  "name": "Google Hacking Test",
+  "description": "前言 学习Google搜索，其目的是用于让自己得到更精准的信息，所以善用Google搜索对于信息收集、安全测试、查找答案等都有着非常大的帮助。而随着时间的变化Google对于语法的更新、规则都在改动，这些改动对于结果都有影响，所以使用前进行测试是非常有必要的。 查阅了诸多资料过后，将Google搜索的操作分为了三个等级，分别为基础搜索、布尔操作符、高级操作符，每个级别的都可以进行配合使用，有些组合起来能够让搜索更加精准，而有些则是不能进行组合。 同时这些搜索方式会与高级搜索设置中的功能重叠，但个人偏向使用语法对比高级搜索设置方便许多，所以后面的内容均使用语法，不会涉及到搜索设置等。 除此之外，还有诸多的网站可以获取到Google语法的途径，比如exploit-db是一个用于记录安全测试的Google语法数据库，这里面记录了非常多因配置失误操作的漏洞，如获取sql备份文件sql.bak等。Google Help提供常用的Google语法等。\n影响搜索的因素 Google在搜索原理的一篇简单的介绍了会影响搜索结果的几个因素，分别为以下7个因素：\n如果为中文，需要进行分词、语法等NLP技术的信息提取。\n查询理解，这个步骤典型的就是修正错别字，比如你搜索“贝京市”，那么算法会将关键词进行修正为“北京市”，所以返回的内容中也是“北京市”相关的内容。这个步骤我没有找到具体的文献，但和步骤1是有较强的联系。\n内容相关性，这个步骤典型的作用就是搜索网页中任何地方是否出现与关键词命中。\n内容质量，这个步骤用于确定网页是否具备权威、专业等，除了常见的网站认证、知名度、访问量等，还有Google的基于网页链接的算法，如PageRank，这种算法类似于投票，越权威的网站被引用/超链接的次数越多。基于这些情况然后进行排序，将这些高质量的网站靠前输出。\n网页可用性，这个步骤用于确定网页是否网页是否“优秀”，而Google是有一套公开的标准，典型的就是网页加载速度、适配各个访问的客户端、是否HTTPS、广告等。\n上下文设置，这个步骤和自己的历史数据、设置有关系，比如你的历史搜索中多次搜索了“巴塞罗那对阿森纳”，当你搜索“巴塞罗那”的时候，可能更加想访问的是“巴塞罗那球队”而不是“巴塞罗那地区”，该部分的影响，可以通过Google搜索主页右下角设置中的“您在Google搜索中的数据设置”删除，或者直接使用无痕模式搜索可以消除该影响。 除了这个，地区也会导致你的搜索结果会有影响，在Google右下角设置中的“搜索设置”里面的“区域设置”可以验证，比如将该设置更改为美国，你搜索\u0026quot;football\u0026quot;则是返回的NFL橄榄球职业比赛联盟，而如果将地区设置为英国，返回的则是足球。\n符号，在Google搜索中符号如（、。，/等都不会影响搜索结果，比如你搜索的是/中国北京/，那么结果中\u0026quot;中国（北京\u0026hellip;\u0026ldquo;这样的结果也会匹配。\n基础搜索 基础搜索是最常见的，里面包含了两种搜索方式：\n关键词查询：关键词查询就是最常用的方式，直接输入关键词查询或者给出多个以空格间隔的关键词，如/中国北京/或者/中国 北京/。但需要注意的是使用关键词查询，会尽可能的分词和理解你的意图（影响搜索的因素中的步骤一），并尽可能的返回有关的内容，那么如/中国北京/，就有可能包含/中国北京/、/中国/、/北京/等结果返回。\n准确查询：精确查询用双引号包裹一个或者多个关键词，与关键词查询不同之处在于精确查询并不会对关键词进行分词，而是原封不动的进行完整的匹配，所以你搜索/中国北京/，就有可能包含\u0026quot;中国北京\u0026rdquo;、\u0026ldquo;中国\u0026rdquo;、\u0026ldquo;北京\u0026quot;等结果返回。而搜索/\u0026ldquo;中国北京\u0026rdquo;/，则代表每一个结果都按照\u0026quot;中国北京\u0026quot;这个词进行完整的匹配，不会出现\u0026quot;中国\u0026rdquo;、\u0026ldquo;北京\u0026quot;等结果返回。 而如果精确搜索给出了多个关键词，如/\u0026ldquo;中国 北京\u0026rdquo;/，则这个中间的空格代表着顺序，说所以可以理解为查询的含义为在\u0026quot;中国\u0026quot;这个词后紧跟着\u0026quot;北京\u0026quot;这个关键词。\n除了这两种搜索之外，还包含了几个符号：\n通配符：通配符*与程序中的通配符意义不一样，中文和英文搜索中这里的通配符代表的是一个词，比如/\u0026ldquo;北京市 故宫\u0026rdquo;/，将“京”替换为*，也就是/\u0026ldquo;北*市 故宫\u0026rdquo;/搜索，那么返回的结果中可能包含着如“北厦门市故宫”、\u0026ldquo;北秋田市故宮\u0026quot;等结果。如果将搜索改为/\u0026rdquo;*市 故宫\u0026rdquo;/，那么你看见命中的关键词（红色标注）则为“太保市故宮”、“北京市故宫”等词。所以这说明通配符匹配的是一个词，而不是一个字，作用是尽可能的将一个词与前后的关键字进行组合成一个完整的词。\n单字任意符：这个符号对于中文不太友好，中文下呈现的大多数能匹配到标点符号，而代表任意中文字符则不行，如搜索\u0026quot;湖北省\u0026quot;、\u0026ldquo;湖南省\u0026quot;等相关信息，所以语法为/\u0026ldquo;湖*省\u0026rdquo;/，但是返回的则是\u0026quot;湖省\u0026quot;和\u0026quot;湖（省\u0026rdquo;。 而对于英文则是能替代任意字符，比如/\u0026ldquo;hac*ing\u0026rdquo;/，则能搜索到\u0026quot;hacking\u0026quot;等结果。\n括号：Google搜索中对于括号是不敏感的，所以如 /北京(（市/ 搜索中放置了一个中文一个英文的括号，都会正常返回“北京市”结果，而在精确操作中同样适用，即/\u0026ldquo;北京(（市\u0026rdquo;/也能正确返回“北京市”的结果。 而基于括号这个操作，在搜索过程中就可以利用这个特性进行符合人类识别的分块构建查询，这个在于后面的布尔操作符和高级操作符上使用较多。\n布尔操作符 布尔操作符可以使用于基础搜索以及高级操作符，非常灵活，对于信息筛选的帮助非常大，主要为以下三种：\nAND操作符：该操作符用+表示添加在关键词前。和代码中的不一样，代码中表示的是两者都必须具备，而在Google中，代表的是多添加一个关键词进行搜索，所以这个操作符没有太大的意义，如搜索/北京 +故宫/和/北京 故宫/结果相差不大，这是因为Google本身就会将所有关键词放进搜索条件中进行搜索。\nNOT排除操作符：该操作符用-表示添加在关键词前，与字面意义一样，用于排除某个条件，如关键词返回的结果等，比如想了解/故宫/的信息，但不想看旅游相关的信息，如同程，那么就可以使用该操作符搜索/故宫 -同程/。\nOR操作符：该操作符用|表示添加在两个关键词之间，代表的意义为两个关键词匹配任意一个匹配网页的内容都可以返回，比如/北京|重庆 /，那么将返回北京或者重庆相关的页面。 OR操作符可以用于关键词的多选组合，比如查看北京的地铁规划，那么\u0026quot;地铁\u0026quot;一词可能也叫\u0026quot;轨道\u0026quot;，\u0026ldquo;规划\u0026quot;一词也可能叫\u0026quot;计划\u0026rdquo;，那么这个时候就可以通过OR操作符搜索/\u0026ldquo;北京 地铁|轨道 规划|计划\u0026rdquo;/（也可以利用括号进行分组，即/\u0026ldquo;北京 (地铁|轨道) (规划|计划)\u0026quot;/），那么Google将尝试组合“北京地铁计划”、“北京轨道计划”、“北京地铁规划”、“北京轨道规划”等关键词搜索。\n高级操作符 Google提供的搜索结果中，每条记录包含了六个部分，分别为标题、正文（简介）、URL、时间、缓存、文件类型，所有高级操作符也是围绕着这几个部分进行更为精细的控制，比如针对标题的搜索、正文的搜索、url的搜索等。 操作符有着严格的格式，高级操作符的语法为Operator:value，并且操作符、冒号、值之间不能有空格。如果不按照该格式，Google搜索将会把高级操作符当作关键词进行搜索，而查看自己是否有语法的错误，可以通过返回的结果中命中的红色关键词是否有异常，比如是否包含了高级操作符。 除此之外，前面精准搜索、布尔操作符都可以与高级操作符结合。\n标题类 标题类操作符为intitle和allintitle，用于搜索网页的标题，意味着你关键词的搜索范围仅限于标题。\nintitle：用于搜索单个词是否包含在标题中，比如搜索/intitle:\u0026ldquo;北京市\u0026rdquo;/，如果你要查询多个关键词用于搜索标题符合的网页，那么可以使用多个intitle或者使用allintitle。 allintitle：该高级操作符是会将后面所有的单词用于搜索标题，所以如intitle搜索标题中包含\u0026quot;北京市\u0026quot;和\u0026quot;故宫\u0026quot;的关键词，那么需要写两个intitle，而allintitle则只需要写一个/allintitle:\u0026ldquo;北京市\u0026rdquo; \u0026ldquo;故宫\u0026rdquo;/，但需要注意all开头的大部分高级操作符与其他操作符进行组合使用的时候会出现问题，所以如果你只是单独的搜索标题那么可以使用allintitle，而如果要与其他条件进行组合，那么建议使用intitle。 正文类 正文类操作符为intext和allintext，用于搜索网页的正文，意味着你的关键词的搜索范围仅限于正文/简介。\nintext：用于搜索单个词是否包含在正文中，比如搜索/intext:北京市/，如果你查询多个同样使用多个intext。 allintext：用于搜索正文中的多个词，同样与allintitle用法一样。 URL类 URL类用于搜索网址，涉及的高级操作符有4个，分为：\ninurl和allinurl：inurl和allinurl的使用方法和标题类、正文类一致。\nsite：site高级操作符用于搜索某个特定的域名或者域，比如只搜索微博关于故宫的信息，那么搜索语法为/site:weibo.com 故宫/。而搜索特定的域，则指的是com、cn、edu.cn等域名的后缀，如搜索所有的国内学校研究生招生的情况，则搜索语法为/site:edu.cn 研究生招生/。\ninanchor：inanchor高级操作符用于搜索超链接的文本。比如链接地址为weibo.com/xxx，而这个链接的文本则显示为“我的微博”，在html表示为\u0026lt;a href=\u0026quot;https://weibo.com/xxx\u0026quot;\u0026gt;我的微博\u0026lt;/a\u0026gt;，inanchor就是用于搜索这个链接文本“我的微博”。 该操作符搜索返回的结果并非是网页中是否包含，而是直接返回该链接，比如“我的微博”这个链接存放在我的主页，Google并不会返回我的主页作为结果，而是将\u0026quot;我的微博\u0026quot;这条链接直接作为结果。",
+  "keywords": [
+    "杂物间"
+  ],
+  "articleBody": "前言 学习Google搜索，其目的是用于让自己得到更精准的信息，所以善用Google搜索对于信息收集、安全测试、查找答案等都有着非常大的帮助。而随着时间的变化Google对于语法的更新、规则都在改动，这些改动对于结果都有影响，所以使用前进行测试是非常有必要的。 查阅了诸多资料过后，将Google搜索的操作分为了三个等级，分别为基础搜索、布尔操作符、高级操作符，每个级别的都可以进行配合使用，有些组合起来能够让搜索更加精准，而有些则是不能进行组合。 同时这些搜索方式会与高级搜索设置中的功能重叠，但个人偏向使用语法对比高级搜索设置方便许多，所以后面的内容均使用语法，不会涉及到搜索设置等。 除此之外，还有诸多的网站可以获取到Google语法的途径，比如exploit-db是一个用于记录安全测试的Google语法数据库，这里面记录了非常多因配置失误操作的漏洞，如获取sql备份文件sql.bak等。Google Help提供常用的Google语法等。\n影响搜索的因素 Google在搜索原理的一篇简单的介绍了会影响搜索结果的几个因素，分别为以下7个因素：\n如果为中文，需要进行分词、语法等NLP技术的信息提取。\n查询理解，这个步骤典型的就是修正错别字，比如你搜索“贝京市”，那么算法会将关键词进行修正为“北京市”，所以返回的内容中也是“北京市”相关的内容。这个步骤我没有找到具体的文献，但和步骤1是有较强的联系。\n内容相关性，这个步骤典型的作用就是搜索网页中任何地方是否出现与关键词命中。\n内容质量，这个步骤用于确定网页是否具备权威、专业等，除了常见的网站认证、知名度、访问量等，还有Google的基于网页链接的算法，如PageRank，这种算法类似于投票，越权威的网站被引用/超链接的次数越多。基于这些情况然后进行排序，将这些高质量的网站靠前输出。\n网页可用性，这个步骤用于确定网页是否网页是否“优秀”，而Google是有一套公开的标准，典型的就是网页加载速度、适配各个访问的客户端、是否HTTPS、广告等。\n上下文设置，这个步骤和自己的历史数据、设置有关系，比如你的历史搜索中多次搜索了“巴塞罗那对阿森纳”，当你搜索“巴塞罗那”的时候，可能更加想访问的是“巴塞罗那球队”而不是“巴塞罗那地区”，该部分的影响，可以通过Google搜索主页右下角设置中的“您在Google搜索中的数据设置”删除，或者直接使用无痕模式搜索可以消除该影响。 除了这个，地区也会导致你的搜索结果会有影响，在Google右下角设置中的“搜索设置”里面的“区域设置”可以验证，比如将该设置更改为美国，你搜索\"football\"则是返回的NFL橄榄球职业比赛联盟，而如果将地区设置为英国，返回的则是足球。\n符号，在Google搜索中符号如（、。，/等都不会影响搜索结果，比如你搜索的是/中国北京/，那么结果中\"中国（北京…“这样的结果也会匹配。\n基础搜索 基础搜索是最常见的，里面包含了两种搜索方式：\n关键词查询：关键词查询就是最常用的方式，直接输入关键词查询或者给出多个以空格间隔的关键词，如/中国北京/或者/中国 北京/。但需要注意的是使用关键词查询，会尽可能的分词和理解你的意图（影响搜索的因素中的步骤一），并尽可能的返回有关的内容，那么如/中国北京/，就有可能包含/中国北京/、/中国/、/北京/等结果返回。\n准确查询：精确查询用双引号包裹一个或者多个关键词，与关键词查询不同之处在于精确查询并不会对关键词进行分词，而是原封不动的进行完整的匹配，所以你搜索/中国北京/，就有可能包含\"中国北京”、“中国”、“北京\"等结果返回。而搜索/“中国北京”/，则代表每一个结果都按照\"中国北京\"这个词进行完整的匹配，不会出现\"中国”、“北京\"等结果返回。 而如果精确搜索给出了多个关键词，如/“中国 北京”/，则这个中间的空格代表着顺序，说所以可以理解为查询的含义为在\"中国\"这个词后紧跟着\"北京\"这个关键词。\n除了这两种搜索之外，还包含了几个符号：\n通配符：通配符*与程序中的通配符意义不一样，中文和英文搜索中这里的通配符代表的是一个词，比如/“北京市 故宫”/，将“京”替换为*，也就是/“北*市 故宫”/搜索，那么返回的结果中可能包含着如“北厦门市故宫”、“北秋田市故宮\"等结果。如果将搜索改为/”*市 故宫”/，那么你看见命中的关键词（红色标注）则为“太保市故宮”、“北京市故宫”等词。所以这说明通配符匹配的是一个词，而不是一个字，作用是尽可能的将一个词与前后的关键字进行组合成一个完整的词。\n单字任意符：这个符号对于中文不太友好，中文下呈现的大多数能匹配到标点符号，而代表任意中文字符则不行，如搜索\"湖北省\"、“湖南省\"等相关信息，所以语法为/“湖*省”/，但是返回的则是\"湖省\"和\"湖（省”。 而对于英文则是能替代任意字符，比如/“hac*ing”/，则能搜索到\"hacking\"等结果。\n括号：Google搜索中对于括号是不敏感的，所以如 /北京(（市/ 搜索中放置了一个中文一个英文的括号，都会正常返回“北京市”结果，而在精确操作中同样适用，即/“北京(（市”/也能正确返回“北京市”的结果。 而基于括号这个操作，在搜索过程中就可以利用这个特性进行符合人类识别的分块构建查询，这个在于后面的布尔操作符和高级操作符上使用较多。\n布尔操作符 布尔操作符可以使用于基础搜索以及高级操作符，非常灵活，对于信息筛选的帮助非常大，主要为以下三种：\nAND操作符：该操作符用+表示添加在关键词前。和代码中的不一样，代码中表示的是两者都必须具备，而在Google中，代表的是多添加一个关键词进行搜索，所以这个操作符没有太大的意义，如搜索/北京 +故宫/和/北京 故宫/结果相差不大，这是因为Google本身就会将所有关键词放进搜索条件中进行搜索。\nNOT排除操作符：该操作符用-表示添加在关键词前，与字面意义一样，用于排除某个条件，如关键词返回的结果等，比如想了解/故宫/的信息，但不想看旅游相关的信息，如同程，那么就可以使用该操作符搜索/故宫 -同程/。\nOR操作符：该操作符用|表示添加在两个关键词之间，代表的意义为两个关键词匹配任意一个匹配网页的内容都可以返回，比如/北京|重庆 /，那么将返回北京或者重庆相关的页面。 OR操作符可以用于关键词的多选组合，比如查看北京的地铁规划，那么\"地铁\"一词可能也叫\"轨道\"，“规划\"一词也可能叫\"计划”，那么这个时候就可以通过OR操作符搜索/“北京 地铁|轨道 规划|计划”/（也可以利用括号进行分组，即/“北京 (地铁|轨道) (规划|计划)\"/），那么Google将尝试组合“北京地铁计划”、“北京轨道计划”、“北京地铁规划”、“北京轨道规划”等关键词搜索。\n高级操作符 Google提供的搜索结果中，每条记录包含了六个部分，分别为标题、正文（简介）、URL、时间、缓存、文件类型，所有高级操作符也是围绕着这几个部分进行更为精细的控制，比如针对标题的搜索、正文的搜索、url的搜索等。 操作符有着严格的格式，高级操作符的语法为Operator:value，并且操作符、冒号、值之间不能有空格。如果不按照该格式，Google搜索将会把高级操作符当作关键词进行搜索，而查看自己是否有语法的错误，可以通过返回的结果中命中的红色关键词是否有异常，比如是否包含了高级操作符。 除此之外，前面精准搜索、布尔操作符都可以与高级操作符结合。\n标题类 标题类操作符为intitle和allintitle，用于搜索网页的标题，意味着你关键词的搜索范围仅限于标题。\nintitle：用于搜索单个词是否包含在标题中，比如搜索/intitle:“北京市”/，如果你要查询多个关键词用于搜索标题符合的网页，那么可以使用多个intitle或者使用allintitle。 allintitle：该高级操作符是会将后面所有的单词用于搜索标题，所以如intitle搜索标题中包含\"北京市\"和\"故宫\"的关键词，那么需要写两个intitle，而allintitle则只需要写一个/allintitle:“北京市” “故宫”/，但需要注意all开头的大部分高级操作符与其他操作符进行组合使用的时候会出现问题，所以如果你只是单独的搜索标题那么可以使用allintitle，而如果要与其他条件进行组合，那么建议使用intitle。 正文类 正文类操作符为intext和allintext，用于搜索网页的正文，意味着你的关键词的搜索范围仅限于正文/简介。\nintext：用于搜索单个词是否包含在正文中，比如搜索/intext:北京市/，如果你查询多个同样使用多个intext。 allintext：用于搜索正文中的多个词，同样与allintitle用法一样。 URL类 URL类用于搜索网址，涉及的高级操作符有4个，分为：\ninurl和allinurl：inurl和allinurl的使用方法和标题类、正文类一致。\nsite：site高级操作符用于搜索某个特定的域名或者域，比如只搜索微博关于故宫的信息，那么搜索语法为/site:weibo.com 故宫/。而搜索特定的域，则指的是com、cn、edu.cn等域名的后缀，如搜索所有的国内学校研究生招生的情况，则搜索语法为/site:edu.cn 研究生招生/。\ninanchor：inanchor高级操作符用于搜索超链接的文本。比如链接地址为weibo.com/xxx，而这个链接的文本则显示为“我的微博”，在html表示为我的微博，inanchor就是用于搜索这个链接文本“我的微博”。 该操作符搜索返回的结果并非是网页中是否包含，而是直接返回该链接，比如“我的微博”这个链接存放在我的主页，Google并不会返回我的主页作为结果，而是将\"我的微博\"这条链接直接作为结果。\n时间类 Google提供after和before用于搜索网页发布的时间，两个高级操作符的value格式为YYYY-MM-DD，两个操作符的value，只能单独设置年格式年或者完整日期格式年-月-日，而不能只提供年-月的格式。比如/北京市 before:2020-08/的2020-08就会作为关键词，而应该使用/北京市 before:2020-08-01/或者/北京市 before:2020/。 如果要限定时间范围，则可以同时使用after和before，但是需要注意同时使用，其中一个需要按照完整格式给出。如/北京市 after:2020 before:2021/就无法筛选时间，其他的时间结果也会存在结果当中，而应该使用/北京市 after:2020 before:2021-12-30/或者/北京市 after:2020-01-01 before:2021/。\n缓存类 Google搜索提供用于查看缓存的搜索语法cache，而这个语法不能与其他语法共用，并且语法规则也较为严格，需要输入完整的url，但是大部分的时候是不需要使用这个语法的，而是自己通过搜索结果后，进行查询，而对于没有缓存的页面则会直接返回错误的页面。 缓存中会提供三种版本，完整版、纯文字版、源代码，完整版是Google提供了文字信息，而对于动态加载的数据、图片等则是通过调用原始网页的信息，也就是说你除了和Google服务器进行请求，还可能会和原网站进行请求资源，纯文字版和源代码则只会与Google进行请求，在信息搜集等时候，可以利用该方法避免暴露自己的信息，同时已删除掉的部分网页也可以通过缓存获取到相关的信息。 避免暴露信息的方式使用可以先获取到搜索结构的连接，然后通过替换url字符串直接访问纯文字版本http://webcache.googleusercontent.com/search?q=cache:5YLkdysWgnIJ:替换为完整url\u0026strip=1 来访问目标网址的缓存，比如访问 上面的链接中里面的strip=1代表直接访问纯文本，所以这样你就不需要打开缓存页面然后再选择纯文本版，这样就只会和google服务器请求数据，而不会被目标网站记录。\n文件类型操作符 Google搜索提供了一种以特定文件扩展名结尾的网页搜索语法filetype，这个语法可以方便我们去搜索像pdf/doc/xlsx等指定的文件后缀，这个功能在Google高级设置中能设置，但是高级搜索中仅仅只提供了部分的可选后缀，而通过语法你可以查询其他的特殊文件扩展名的网页，比如搜索包含故宫关键词的pdf文件/故宫 filetype:pdf/、搜索包含故宫的表格文件/故宫 filetype:xlsx/等。 但对于常用的文件类型Google会进行解析，但对于不太常用的文件类型Google则不会解析，常见 类型比如pdf类型即使不是网页pdf后缀，也能够识别出来，这是因为Google在抓去网页的时候会解析内容。比如/故宫 filetype:pdf -pdf/。 除此之外，https://filext.com/list/s 网站搜集了非常多的文件扩展名及用途。\n关键词监控工具 Google搜索提供了一个用于推送关键词监听的工具”google alert”，这个工具可以去更改推送频率、来源、语言等设置，而且搜索框中也支持Google的基础搜索、布尔、高级操作符，当新的结果显示在Google搜索结果中的时候，将会将新信息推送至你设置的邮箱当中。 这个工具对于关键词热度、舆情监控是非常有用的。\n参考资料 《Google Hacking 技术手册》 https://www.indeed.com/career-advice/finding-a-job/google-search-operators https://kinsta.com/blog/google-search-operators/ https://support.google.com/websearch/answer/2466433?hl=en\u0026visit_id=638009788259931665-4261219002\u0026rd=1 https://securitytrails.com/blog/google-hacking-techniques https://www.google.com/search/howsearchworks/how-search-works/ranking-results/ https://www.google.com/alerts# https://developers.google.com/search/docs/advanced/guidelines/webmaster-guidelines?hl=zh-cn ",
+  "wordCount" : "113",
+  "inLanguage": "en",
+  "datePublished": "2022-10-11T01:52:49Z",
+  "dateModified": "2022-10-11T01:52:49Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/posts/google-hacking-test/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yizhou",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "favicon.ico"
+    }
+  }
+}
+</script>
+</head>
 
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
 
+</script>
 
-  </head>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/index.xml" title="Rss">
+                    <span>Rss</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
 
-  <body>
-    <nav class="navigation">
-	
-		<a href="/"> <span class="arrow">←</span>首页</a>
-	
-	<a href="/posts">归档</a>
-	<a href="/tags">标签</a>
-	<a href="/about">关于</a>
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="">Home</a>&nbsp;»&nbsp;<a href="/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Google Hacking Test
+    </h1>
+    <div class="post-meta"><span title='2022-10-11 01:52:49 +0000 UTC'>October 11, 2022</span>
 
-	
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
 
-	
-	  <a class="button" href="https://wuyizhou.com/index.xml">订阅</a>
-	
-</nav>
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%89%8d%e8%a8%80" aria-label="前言">前言</a></li>
+                <li>
+                    <a href="#%e5%bd%b1%e5%93%8d%e6%90%9c%e7%b4%a2%e7%9a%84%e5%9b%a0%e7%b4%a0" aria-label="影响搜索的因素">影响搜索的因素</a></li>
+                <li>
+                    <a href="#%e5%9f%ba%e7%a1%80%e6%90%9c%e7%b4%a2" aria-label="基础搜索">基础搜索</a></li>
+                <li>
+                    <a href="#%e5%b8%83%e5%b0%94%e6%93%8d%e4%bd%9c%e7%ac%a6" aria-label="布尔操作符">布尔操作符</a></li>
+                <li>
+                    <a href="#%e9%ab%98%e7%ba%a7%e6%93%8d%e4%bd%9c%e7%ac%a6" aria-label="高级操作符">高级操作符</a><ul>
+                        
+                <li>
+                    <a href="#%e6%a0%87%e9%a2%98%e7%b1%bb" aria-label="标题类">标题类</a></li>
+                <li>
+                    <a href="#%e6%ad%a3%e6%96%87%e7%b1%bb" aria-label="正文类">正文类</a></li>
+                <li>
+                    <a href="#url%e7%b1%bb" aria-label="URL类">URL类</a></li>
+                <li>
+                    <a href="#%e6%97%b6%e9%97%b4%e7%b1%bb" aria-label="时间类">时间类</a></li>
+                <li>
+                    <a href="#%e7%bc%93%e5%ad%98%e7%b1%bb" aria-label="缓存类">缓存类</a></li>
+                <li>
+                    <a href="#%e6%96%87%e4%bb%b6%e7%b1%bb%e5%9e%8b%e6%93%8d%e4%bd%9c%e7%ac%a6" aria-label="文件类型操作符">文件类型操作符</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%85%b3%e9%94%ae%e8%af%8d%e7%9b%91%e6%8e%a7%e5%b7%a5%e5%85%b7" aria-label="关键词监控工具">关键词监控工具</a></li>
+                <li>
+                    <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" aria-label="参考资料">参考资料</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
 
-
-    <main class="main">
-      
-
-<section id="single">
-    <h1 class="title">Google Hacking Test</h1>
-
-    <div class="tip">
-        <time datetime="2022-10-11 01:52:49 &#43;0000 UTC">2022年10月11日</time>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          5892字
-        </span>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          12分钟
-        </span>
-    </div>
-
-    
-    
-        
-  
-    <aside class="toc">
-      <details>
-          <summary>Table of Contents
-          </summary>
-          <div>
-              <nav id="TableOfContents">
-  <ul>
-    <li><a href="#前言">前言</a></li>
-    <li><a href="#影响搜索的因素">影响搜索的因素</a></li>
-    <li><a href="#基础搜索">基础搜索</a></li>
-    <li><a href="#布尔操作符">布尔操作符</a></li>
-    <li><a href="#高级操作符">高级操作符</a>
-      <ul>
-        <li><a href="#标题类">标题类</a></li>
-        <li><a href="#正文类">正文类</a></li>
-        <li><a href="#url类">URL类</a></li>
-        <li><a href="#时间类">时间类</a></li>
-        <li><a href="#缓存类">缓存类</a></li>
-        <li><a href="#文件类型操作符">文件类型操作符</a></li>
-      </ul>
-    </li>
-    <li><a href="#关键词监控工具">关键词监控工具</a></li>
-    <li><a href="#参考资料">参考资料</a></li>
-  </ul>
-</nav>
-          </div>
-      </details>
-    </aside>
-  
-
-
-    
-
-
-    <div class="content">
-      <h2 id="前言">前言 <a href="#%e5%89%8d%e8%a8%80" class="anchor">🔗</a></h2><p>学习Google搜索，其目的是用于<strong>让自己得到更精准的信息</strong>，所以善用Google搜索对于信息收集、安全测试、查找答案等都有着非常大的帮助。而随着时间的变化Google对于语法的更新、规则都在改动，这些改动对于结果都有影响，所以使用前进行测试是非常有必要的。 查阅了诸多资料过后，将Google搜索的操作分为了三个等级，分别为<strong>基础搜索</strong>、<strong>布尔操作符</strong>、<strong>高级操作符</strong>，每个级别的都可以进行配合使用，有些组合起来能够让搜索更加精准，而有些则是不能进行组合。 同时这些搜索方式会与高级搜索设置中的功能重叠，但个人偏向使用语法对比高级搜索设置方便许多，所以后面的内容均使用语法，不会涉及到搜索设置等。 除此之外，还有诸多的网站可以获取到Google语法的途径，比如<a href="https://www.exploit-db.com/google-hacking-database" target="_blank" rel="noopener">exploit-db</a>是一个用于记录安全测试的Google语法数据库，这里面记录了非常多因配置失误操作的漏洞，如获取sql备份文件<code>sql.bak</code>等。<a href="https://support.google.com/websearch/answer/2466433?hl=en&amp;visit_id=638009788259931665-4261219002&amp;rd=1" target="_blank" rel="noopener">Google Help</a>提供常用的Google语法等。</p>
-<h2 id="影响搜索的因素">影响搜索的因素 <a href="#%e5%bd%b1%e5%93%8d%e6%90%9c%e7%b4%a2%e7%9a%84%e5%9b%a0%e7%b4%a0" class="anchor">🔗</a></h2><p>Google在<a href="https://www.google.com/search/howsearchworks/how-search-works/ranking-results/" target="_blank" rel="noopener">搜索原理</a>的一篇简单的介绍了会影响搜索结果的几个因素，分别为以下7个因素：</p>
+  <div class="post-content"><h2 id="前言">前言<a hidden class="anchor" aria-hidden="true" href="#前言">#</a></h2>
+<p>学习Google搜索，其目的是用于<strong>让自己得到更精准的信息</strong>，所以善用Google搜索对于信息收集、安全测试、查找答案等都有着非常大的帮助。而随着时间的变化Google对于语法的更新、规则都在改动，这些改动对于结果都有影响，所以使用前进行测试是非常有必要的。 查阅了诸多资料过后，将Google搜索的操作分为了三个等级，分别为<strong>基础搜索</strong>、<strong>布尔操作符</strong>、<strong>高级操作符</strong>，每个级别的都可以进行配合使用，有些组合起来能够让搜索更加精准，而有些则是不能进行组合。 同时这些搜索方式会与高级搜索设置中的功能重叠，但个人偏向使用语法对比高级搜索设置方便许多，所以后面的内容均使用语法，不会涉及到搜索设置等。 除此之外，还有诸多的网站可以获取到Google语法的途径，比如<a href="https://www.exploit-db.com/google-hacking-database">exploit-db</a>是一个用于记录安全测试的Google语法数据库，这里面记录了非常多因配置失误操作的漏洞，如获取sql备份文件<code>sql.bak</code>等。<a href="https://support.google.com/websearch/answer/2466433?hl=en&amp;visit_id=638009788259931665-4261219002&amp;rd=1">Google Help</a>提供常用的Google语法等。</p>
+<h2 id="影响搜索的因素">影响搜索的因素<a hidden class="anchor" aria-hidden="true" href="#影响搜索的因素">#</a></h2>
+<p>Google在<a href="https://www.google.com/search/howsearchworks/how-search-works/ranking-results/">搜索原理</a>的一篇简单的介绍了会影响搜索结果的几个因素，分别为以下7个因素：</p>
 <ol>
 <li>
 <p>如果为中文，需要进行分词、语法等NLP技术的信息提取。</p>
@@ -140,7 +350,7 @@
 <p>内容质量，这个步骤用于确定网页是否具备权威、专业等，除了常见的网站认证、知名度、访问量等，还有Google的基于网页链接的算法，如PageRank，这种算法类似于投票，越权威的网站被引用/超链接的次数越多。基于这些情况然后进行排序，将这些高质量的网站靠前输出。</p>
 </li>
 <li>
-<p>网页可用性，这个步骤用于确定网页是否网页是否“优秀”，而Google是有一套<a href="https://developers.google.com/search/docs/appearance/page-experience" target="_blank" rel="noopener">公开的标准</a>，典型的就是网页加载速度、适配各个访问的客户端、是否HTTPS、广告等。</p>
+<p>网页可用性，这个步骤用于确定网页是否网页是否“优秀”，而Google是有一套<a href="https://developers.google.com/search/docs/appearance/page-experience">公开的标准</a>，典型的就是网页加载速度、适配各个访问的客户端、是否HTTPS、广告等。</p>
 </li>
 <li>
 <p>上下文设置，这个步骤和自己的历史数据、设置有关系，比如你的历史搜索中多次搜索了“巴塞罗那对阿森纳”，当你搜索“巴塞罗那”的时候，可能更加想访问的是“巴塞罗那球队”而不是“巴塞罗那地区”，该部分的影响，可以通过Google搜索主页右下角设置中的“您在Google搜索中的数据设置”删除，或者直接使用无痕模式搜索可以消除该影响。 除了这个，地区也会导致你的搜索结果会有影响，在Google右下角设置中的“搜索设置”里面的“区域设置”可以验证，比如将该设置更改为美国，你搜索&quot;football&quot;则是返回的NFL橄榄球职业比赛联盟，而如果将地区设置为英国，返回的则是足球。</p>
@@ -149,7 +359,8 @@
 <p>符号，在Google搜索中符号如<code>（、。，/</code>等都不会影响搜索结果，比如你搜索的是/中国北京/，那么结果中&quot;中国（北京&hellip;&ldquo;这样的结果也会匹配。</p>
 </li>
 </ol>
-<h2 id="基础搜索">基础搜索 <a href="#%e5%9f%ba%e7%a1%80%e6%90%9c%e7%b4%a2" class="anchor">🔗</a></h2><p>基础搜索是最常见的，里面包含了两种搜索方式：</p>
+<h2 id="基础搜索">基础搜索<a hidden class="anchor" aria-hidden="true" href="#基础搜索">#</a></h2>
+<p>基础搜索是最常见的，里面包含了两种搜索方式：</p>
 <ol>
 <li>
 <p>关键词查询：关键词查询就是最常用的方式，直接输入关键词查询或者给出多个以空格间隔的关键词，如/中国北京/或者/中国 北京/。但需要注意的是使用关键词查询，会尽可能的分词和理解你的意图（影响搜索的因素中的步骤一），并尽可能的返回有关的内容，那么如/中国北京/，就有可能包含/中国北京/、/中国/、/北京/等结果返回。</p>
@@ -170,7 +381,8 @@
 <p>括号：Google搜索中对于括号是不敏感的，所以如 /北京(（市/ 搜索中放置了一个中文一个英文的括号，都会正常返回“北京市”结果，而在精确操作中同样适用，即/&ldquo;北京(（市&rdquo;/也能正确返回“北京市”的结果。 而基于括号这个操作，在搜索过程中就可以利用这个特性进行符合人类识别的分块构建查询，这个在于后面的布尔操作符和高级操作符上使用较多。</p>
 </li>
 </ol>
-<h2 id="布尔操作符">布尔操作符 <a href="#%e5%b8%83%e5%b0%94%e6%93%8d%e4%bd%9c%e7%ac%a6" class="anchor">🔗</a></h2><p>布尔操作符可以使用于基础搜索以及高级操作符，非常灵活，对于信息筛选的帮助非常大，主要为以下三种：</p>
+<h2 id="布尔操作符">布尔操作符<a hidden class="anchor" aria-hidden="true" href="#布尔操作符">#</a></h2>
+<p>布尔操作符可以使用于基础搜索以及高级操作符，非常灵活，对于信息筛选的帮助非常大，主要为以下三种：</p>
 <ol>
 <li>
 <p>AND操作符：该操作符用<code>+</code>表示添加在关键词前。和代码中的不一样，代码中表示的是两者都必须具备，而在Google中，代表的是多添加一个关键词进行搜索，所以这个操作符没有太大的意义，如搜索/北京 +故宫/和/北京 故宫/结果相差不大，这是因为Google本身就会将所有关键词放进搜索条件中进行搜索。</p>
@@ -182,18 +394,22 @@
 <p>OR操作符：该操作符用<code>|</code>表示添加在两个关键词之间，代表的意义为两个关键词匹配任意一个匹配网页的内容都可以返回，比如/北京|重庆 /，那么将返回北京或者重庆相关的页面。 OR操作符可以用于关键词的多选组合，比如查看北京的地铁规划，那么&quot;地铁&quot;一词可能也叫&quot;轨道&quot;，&ldquo;规划&quot;一词也可能叫&quot;计划&rdquo;，那么这个时候就可以通过OR操作符搜索/&ldquo;北京 地铁|轨道 规划|计划&rdquo;/（也可以利用括号进行分组，即/&ldquo;北京 (地铁|轨道) (规划|计划)&quot;/），那么Google将尝试组合“北京地铁计划”、“北京轨道计划”、“北京地铁规划”、“北京轨道规划”等关键词搜索。</p>
 </li>
 </ol>
-<h2 id="高级操作符">高级操作符 <a href="#%e9%ab%98%e7%ba%a7%e6%93%8d%e4%bd%9c%e7%ac%a6" class="anchor">🔗</a></h2><p>Google提供的搜索结果中，每条记录包含了六个部分，分别为标题、正文（简介）、URL、时间、缓存、文件类型，所有高级操作符也是围绕着这几个部分进行更为精细的控制，比如针对标题的搜索、正文的搜索、url的搜索等。 操作符有着严格的格式，高级操作符的语法为<code>Operator:value</code>，并且操作符、冒号、值之间不能有空格。如果不按照该格式，Google搜索将会把高级操作符当作关键词进行搜索，而查看自己是否有语法的错误，可以通过返回的结果中命中的红色关键词是否有异常，比如是否包含了高级操作符。 除此之外，前面精准搜索、布尔操作符都可以与高级操作符结合。</p>
-<h3 id="标题类">标题类 <a href="#%e6%a0%87%e9%a2%98%e7%b1%bb" class="anchor">🔗</a></h3><p>标题类操作符为<code>intitle</code>和<code>allintitle</code>，用于搜索网页的标题，意味着你关键词的搜索范围仅限于标题。</p>
+<h2 id="高级操作符">高级操作符<a hidden class="anchor" aria-hidden="true" href="#高级操作符">#</a></h2>
+<p>Google提供的搜索结果中，每条记录包含了六个部分，分别为标题、正文（简介）、URL、时间、缓存、文件类型，所有高级操作符也是围绕着这几个部分进行更为精细的控制，比如针对标题的搜索、正文的搜索、url的搜索等。 操作符有着严格的格式，高级操作符的语法为<code>Operator:value</code>，并且操作符、冒号、值之间不能有空格。如果不按照该格式，Google搜索将会把高级操作符当作关键词进行搜索，而查看自己是否有语法的错误，可以通过返回的结果中命中的红色关键词是否有异常，比如是否包含了高级操作符。 除此之外，前面精准搜索、布尔操作符都可以与高级操作符结合。</p>
+<h3 id="标题类">标题类<a hidden class="anchor" aria-hidden="true" href="#标题类">#</a></h3>
+<p>标题类操作符为<code>intitle</code>和<code>allintitle</code>，用于搜索网页的标题，意味着你关键词的搜索范围仅限于标题。</p>
 <ol>
 <li><code>intitle</code>：用于搜索单个词是否包含在标题中，比如搜索/intitle:&ldquo;北京市&rdquo;/，如果你要查询多个关键词用于搜索标题符合的网页，那么可以使用多个<code>intitle</code>或者使用<code>allintitle</code>。</li>
 <li><code>allintitle</code>：该高级操作符是会将后面所有的单词用于搜索标题，所以如<code>intitle</code>搜索标题中包含&quot;北京市&quot;和&quot;故宫&quot;的关键词，那么需要写两个<code>intitle</code>，而<code>allintitle</code>则只需要写一个/allintitle:&ldquo;北京市&rdquo; &ldquo;故宫&rdquo;/，但需要注意<code>all</code>开头的大部分高级操作符与其他操作符进行组合使用的时候会出现问题，所以如果你只是单独的搜索标题那么可以使用<code>allintitle</code>，而如果要与其他条件进行组合，那么建议使用<code>intitle</code>。</li>
 </ol>
-<h3 id="正文类">正文类 <a href="#%e6%ad%a3%e6%96%87%e7%b1%bb" class="anchor">🔗</a></h3><p>正文类操作符为<code>intext</code>和<code>allintext</code>，用于搜索网页的正文，意味着你的关键词的搜索范围仅限于正文/简介。</p>
+<h3 id="正文类">正文类<a hidden class="anchor" aria-hidden="true" href="#正文类">#</a></h3>
+<p>正文类操作符为<code>intext</code>和<code>allintext</code>，用于搜索网页的正文，意味着你的关键词的搜索范围仅限于正文/简介。</p>
 <ol>
 <li><code>intext</code>：用于搜索单个词是否包含在正文中，比如搜索/intext:北京市/，如果你查询多个同样使用多个<code>intext</code>。</li>
 <li><code>allintext</code>：用于搜索正文中的多个词，同样与<code>allintitle</code>用法一样。</li>
 </ol>
-<h3 id="url类">URL类 <a href="#url%e7%b1%bb" class="anchor">🔗</a></h3><p>URL类用于搜索网址，涉及的高级操作符有4个，分为：</p>
+<h3 id="url类">URL类<a hidden class="anchor" aria-hidden="true" href="#url类">#</a></h3>
+<p>URL类用于搜索网址，涉及的高级操作符有4个，分为：</p>
 <ol>
 <li>
 <p><code>inurl</code>和<code>allinurl</code>：<code>inurl</code>和<code>allinurl</code>的使用方法和标题类、正文类一致。</p>
@@ -205,119 +421,105 @@
 <p><code>inanchor</code>：<code>inanchor</code>高级操作符用于搜索超链接的文本。比如链接地址为<code>weibo.com/xxx</code>，而这个链接的文本则显示为“我的微博”，在html表示为<code>&lt;a href=&quot;https://weibo.com/xxx&quot;&gt;我的微博&lt;/a&gt;</code>，<code>inanchor</code>就是用于搜索这个链接文本“我的微博”。 该操作符搜索返回的结果并非是网页中是否包含，而是直接返回该链接，比如“我的微博”这个链接存放在我的主页，Google并不会返回我的主页作为结果，而是将&quot;我的微博&quot;这条链接直接作为结果。</p>
 </li>
 </ol>
-<h3 id="时间类">时间类 <a href="#%e6%97%b6%e9%97%b4%e7%b1%bb" class="anchor">🔗</a></h3><p>Google提供<code>after</code>和<code>before</code>用于搜索网页发布的时间，两个高级操作符的value格式为<code>YYYY-MM-DD</code>，两个操作符的value，只能单独设置年格式<code>年</code>或者完整日期格式<code>年-月-日</code>，而不能只提供<code>年-月</code>的格式。比如/北京市 before:2020-08/的2020-08就会作为关键词，而应该使用/北京市 before:2020-08-01/或者/北京市 before:2020/。 如果要限定时间范围，则可以同时使用<code>after</code>和<code>before</code>，但是需要注意同时使用，其中一个需要按照完整格式给出。如/北京市 after:2020 before:2021/就无法筛选时间，其他的时间结果也会存在结果当中，而应该使用/北京市 after:2020 before:2021-12-30/或者/北京市 after:2020-01-01 before:2021/。</p>
-<h3 id="缓存类">缓存类 <a href="#%e7%bc%93%e5%ad%98%e7%b1%bb" class="anchor">🔗</a></h3><p>Google搜索提供用于查看缓存的搜索语法<code>cache</code>，而这个语法不能与其他语法共用，并且语法规则也较为严格，需要输入完整的url，但是大部分的时候是不需要使用这个语法的，而是自己通过搜索结果后，进行查询，而对于没有缓存的页面则会直接返回错误的页面。 缓存中会提供三种版本，完整版、纯文字版、源代码，完整版是Google提供了文字信息，而对于动态加载的数据、图片等则是通过调用原始网页的信息，也就是说你除了和Google服务器进行请求，还可能会和原网站进行请求资源，纯文字版和源代码则只会与Google进行请求，在信息搜集等时候，可以利用该方法避免暴露自己的信息，同时已删除掉的部分网页也可以通过缓存获取到相关的信息。 避免暴露信息的方式使用可以先获取到搜索结构的连接，然后通过替换url字符串直接访问纯文字版本<code>http://webcache.googleusercontent.com/search?q=cache:5YLkdysWgnIJ:替换为完整url&amp;strip=1</code> 来访问目标网址的缓存，比如访问 上面的链接中里面的strip=1代表直接访问纯文本，所以这样你就不需要打开缓存页面然后再选择纯文本版，这样就只会和google服务器请求数据，而不会被目标网站记录。</p>
-<h3 id="文件类型操作符">文件类型操作符 <a href="#%e6%96%87%e4%bb%b6%e7%b1%bb%e5%9e%8b%e6%93%8d%e4%bd%9c%e7%ac%a6" class="anchor">🔗</a></h3><p>Google搜索提供了一种以特定文件扩展名结尾的网页搜索语法<code>filetype</code>，这个语法可以方便我们去搜索像pdf/doc/xlsx等指定的文件后缀，这个功能在Google高级设置中能设置，但是高级搜索中仅仅只提供了部分的可选后缀，而通过语法你可以查询其他的特殊文件扩展名的网页，比如搜索包含故宫关键词的pdf文件/故宫 filetype:pdf/、搜索包含故宫的表格文件/故宫 filetype:xlsx/等。 但对于常用的文件类型Google会进行解析，但对于不太常用的文件类型Google则不会解析，常见 类型比如pdf类型即使不是网页pdf后缀，也能够识别出来，这是因为Google在抓去网页的时候会解析内容。比如/故宫 filetype:pdf -pdf/。 除此之外，https://filext.com/list/s 网站搜集了非常多的文件扩展名及用途。</p>
-<h2 id="关键词监控工具">关键词监控工具 <a href="#%e5%85%b3%e9%94%ae%e8%af%8d%e7%9b%91%e6%8e%a7%e5%b7%a5%e5%85%b7" class="anchor">🔗</a></h2><p>Google搜索提供了一个用于推送关键词监听的工具”google alert”，这个工具可以去更改推送频率、来源、语言等设置，而且搜索框中也支持Google的基础搜索、布尔、高级操作符，当新的结果显示在Google搜索结果中的时候，将会将新信息推送至你设置的邮箱当中。 这个工具对于关键词热度、舆情监控是非常有用的。</p>
-<h2 id="参考资料">参考资料 <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="anchor">🔗</a></h2><ol>
+<h3 id="时间类">时间类<a hidden class="anchor" aria-hidden="true" href="#时间类">#</a></h3>
+<p>Google提供<code>after</code>和<code>before</code>用于搜索网页发布的时间，两个高级操作符的value格式为<code>YYYY-MM-DD</code>，两个操作符的value，只能单独设置年格式<code>年</code>或者完整日期格式<code>年-月-日</code>，而不能只提供<code>年-月</code>的格式。比如/北京市 before:2020-08/的2020-08就会作为关键词，而应该使用/北京市 before:2020-08-01/或者/北京市 before:2020/。 如果要限定时间范围，则可以同时使用<code>after</code>和<code>before</code>，但是需要注意同时使用，其中一个需要按照完整格式给出。如/北京市 after:2020 before:2021/就无法筛选时间，其他的时间结果也会存在结果当中，而应该使用/北京市 after:2020 before:2021-12-30/或者/北京市 after:2020-01-01 before:2021/。</p>
+<h3 id="缓存类">缓存类<a hidden class="anchor" aria-hidden="true" href="#缓存类">#</a></h3>
+<p>Google搜索提供用于查看缓存的搜索语法<code>cache</code>，而这个语法不能与其他语法共用，并且语法规则也较为严格，需要输入完整的url，但是大部分的时候是不需要使用这个语法的，而是自己通过搜索结果后，进行查询，而对于没有缓存的页面则会直接返回错误的页面。 缓存中会提供三种版本，完整版、纯文字版、源代码，完整版是Google提供了文字信息，而对于动态加载的数据、图片等则是通过调用原始网页的信息，也就是说你除了和Google服务器进行请求，还可能会和原网站进行请求资源，纯文字版和源代码则只会与Google进行请求，在信息搜集等时候，可以利用该方法避免暴露自己的信息，同时已删除掉的部分网页也可以通过缓存获取到相关的信息。 避免暴露信息的方式使用可以先获取到搜索结构的连接，然后通过替换url字符串直接访问纯文字版本<code>http://webcache.googleusercontent.com/search?q=cache:5YLkdysWgnIJ:替换为完整url&amp;strip=1</code> 来访问目标网址的缓存，比如访问 上面的链接中里面的strip=1代表直接访问纯文本，所以这样你就不需要打开缓存页面然后再选择纯文本版，这样就只会和google服务器请求数据，而不会被目标网站记录。</p>
+<h3 id="文件类型操作符">文件类型操作符<a hidden class="anchor" aria-hidden="true" href="#文件类型操作符">#</a></h3>
+<p>Google搜索提供了一种以特定文件扩展名结尾的网页搜索语法<code>filetype</code>，这个语法可以方便我们去搜索像pdf/doc/xlsx等指定的文件后缀，这个功能在Google高级设置中能设置，但是高级搜索中仅仅只提供了部分的可选后缀，而通过语法你可以查询其他的特殊文件扩展名的网页，比如搜索包含故宫关键词的pdf文件/故宫 filetype:pdf/、搜索包含故宫的表格文件/故宫 filetype:xlsx/等。 但对于常用的文件类型Google会进行解析，但对于不太常用的文件类型Google则不会解析，常见 类型比如pdf类型即使不是网页pdf后缀，也能够识别出来，这是因为Google在抓去网页的时候会解析内容。比如/故宫 filetype:pdf -pdf/。 除此之外，https://filext.com/list/s 网站搜集了非常多的文件扩展名及用途。</p>
+<h2 id="关键词监控工具">关键词监控工具<a hidden class="anchor" aria-hidden="true" href="#关键词监控工具">#</a></h2>
+<p>Google搜索提供了一个用于推送关键词监听的工具”google alert”，这个工具可以去更改推送频率、来源、语言等设置，而且搜索框中也支持Google的基础搜索、布尔、高级操作符，当新的结果显示在Google搜索结果中的时候，将会将新信息推送至你设置的邮箱当中。 这个工具对于关键词热度、舆情监控是非常有用的。</p>
+<h2 id="参考资料">参考资料<a hidden class="anchor" aria-hidden="true" href="#参考资料">#</a></h2>
+<ol>
 <li>《Google Hacking 技术手册》</li>
-<li><a href="https://www.indeed.com/career-advice/finding-a-job/google-search-operators" target="_blank" rel="noopener">https://www.indeed.com/career-advice/finding-a-job/google-search-operators</a></li>
-<li><a href="https://kinsta.com/blog/google-search-operators/" target="_blank" rel="noopener">https://kinsta.com/blog/google-search-operators/</a></li>
-<li><a href="https://support.google.com/websearch/answer/2466433?hl=en&amp;visit" target="_blank" rel="noopener">https://support.google.com/websearch/answer/2466433?hl=en&visit</a>_id=638009788259931665-4261219002&amp;rd=1</li>
-<li><a href="https://securitytrails.com/blog/google-hacking-techniques" target="_blank" rel="noopener">https://securitytrails.com/blog/google-hacking-techniques</a></li>
-<li><a href="https://www.google.com/search/howsearchworks/how-search-works/ranking-results/" target="_blank" rel="noopener">https://www.google.com/search/howsearchworks/how-search-works/ranking-results/</a></li>
-<li><a href="https://www.google.com/alerts#" target="_blank" rel="noopener">https://www.google.com/alerts#</a></li>
-<li><a href="https://developers.google.com/search/docs/advanced/guidelines/webmaster-guidelines?hl=zh-cn" target="_blank" rel="noopener">https://developers.google.com/search/docs/advanced/guidelines/webmaster-guidelines?hl=zh-cn</a></li>
+<li><a href="https://www.indeed.com/career-advice/finding-a-job/google-search-operators">https://www.indeed.com/career-advice/finding-a-job/google-search-operators</a></li>
+<li><a href="https://kinsta.com/blog/google-search-operators/">https://kinsta.com/blog/google-search-operators/</a></li>
+<li><a href="https://support.google.com/websearch/answer/2466433?hl=en&amp;visit">https://support.google.com/websearch/answer/2466433?hl=en&amp;visit</a>_id=638009788259931665-4261219002&amp;rd=1</li>
+<li><a href="https://securitytrails.com/blog/google-hacking-techniques">https://securitytrails.com/blog/google-hacking-techniques</a></li>
+<li><a href="https://www.google.com/search/howsearchworks/how-search-works/ranking-results/">https://www.google.com/search/howsearchworks/how-search-works/ranking-results/</a></li>
+<li><a href="https://www.google.com/alerts#">https://www.google.com/alerts#</a></li>
+<li><a href="https://developers.google.com/search/docs/advanced/guidelines/webmaster-guidelines?hl=zh-cn">https://developers.google.com/search/docs/advanced/guidelines/webmaster-guidelines?hl=zh-cn</a></li>
 </ol>
 
-    </div>
 
-    
-        <div class="tags">
-            
-                <a href="https://wuyizhou.com/tags/%E6%9D%82%E7%89%A9%E9%97%B4">杂物间</a>
-            
-        </div>
-    
-    
-    
+  </div>
 
-</section>
-
-
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/%E6%9D%82%E7%89%A9%E9%97%B4/">杂物间</a></li>
+    </ul>
+  </footer>
+</article>
     </main>
     
-    <footer id="footer">
-    
-        <div id="social">
-
-
-    <a class="symbol" href="https://github.com/wyizhou" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>Github</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
-            <g id="Github" transform="translate(264.000000, 939.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://stackoverflow.com/users/11949960" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>stackoverflow</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
-            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://twitter.com/5yizhou" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
-	 xml:space="preserve">
-<g>
-	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
-		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
-		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
-		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
-		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
-		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
-		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
-		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
-		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
-		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
-		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
-		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
-		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
-		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
-</g>
-</svg>
-
-    </a>
-
-
-</div>
-
-    
-
-    <div class="copyright">
-    
-        © Copyright 2023 Yizhou
-    
-    </div>
-
-    
+<footer class="footer">
+    <span>&copy; 2023 <a href="">Yizhou</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
 </footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
 
-  </body>
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
 </html>

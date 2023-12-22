@@ -1,40 +1,68 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>数学与算法 on Yizhou&#39;s Website</title>
-    <link>https://wuyizhou.com/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95/</link>
-    <description>Recent content in 数学与算法 on Yizhou&#39;s Website</description>
+    <title>数学与算法 on Yizhou</title>
+    <link>/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95/</link>
+    <description>Recent content in 数学与算法 on Yizhou</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 18 Nov 2020 08:51:13 +0000</lastBuildDate>
-    <atom:link href="https://wuyizhou.com/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>(二)漫话中文分词：Trie、KMP、AC自动机</title>
-      <link>https://wuyizhou.com/posts/chinesecutwords-2/</link>
+      <link>/posts/chinesecutwords-2/</link>
       <pubDate>Wed, 18 Nov 2020 08:51:13 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/chinesecutwords-2/</guid>
-      <description>Trie树 🔗在上一篇文章当中，说到了一些匹配的算法，但是算法有了，还得需要一个高效的数据结构，不能只是通过[&amp;lsquo;中国人&amp;rsquo</description>
+      <guid>/posts/chinesecutwords-2/</guid>
+      <description>Trie树 在上一篇文章当中，说到了一些匹配的算法，但是算法有了，还得需要一个高效的数据结构，不能只是通过[&amp;lsquo;中国人&amp;rsquo;, &amp;lsquo;中东人&amp;rsquo;]等结构来进行存放，可以想象一下，如果有几十万的词，那么这个列表的占用的内存非常大。 Trie树，也被称为前缀树，该词源自单词retrieval，发音和try相同，Trie树可为词库提供一种高效的分词数据结构，该结构本质上是一种树状数据结构，比如&amp;quot;中国人&amp;quot;、&amp;ldquo;中东人&amp;quot;三个字符串构造的Trie树为下图，图中能够很清楚的看见，Trie树结构能够很好的节省相同前缀单词所浪费的空间，因为这两个词都是以&amp;quot;中&amp;quot;开头，所以可以使用同一个父辈节点。
+除此之外，Trie树还对查询的速度有一定的优化，如果以列表存放词来说，如果列表存放的词达到了20万个，那么最坏的情况是你需要匹配的词在存放于列表最后，那么就相当于要将这20万个词全部遍历，可想而知浪费了非常多的计算资源。 而Trie查询的次数最大的次数取决于查找的字符串长度，比如中国人，那么查询次数最大仅为3次。 下图为基于同一份10万左右的词典，待分词文本为字符长度150，使用正向最大匹配算法在列表和Trie两种结构上进行分词的运行时间，从下图可以看出来差距非常大。
+Trie树的查找方式则是通过层层查询，而不是直接遍历词典，比如&amp;quot;中国人&amp;rdquo;，首先会查找第一层中是否有&amp;quot;中&amp;quot;这个字符，如果没有查询到则返回查询失败，如果有则继续查找&amp;quot;中&amp;quot;字符对应的下一层是否有&amp;quot;国&amp;quot;，如果没有则返回查询识别，如果有则继续查找&amp;quot;国&amp;quot;下一层是否有&amp;quot;人&amp;quot;，此时找到存在&amp;quot;人&amp;quot;这个节点，并且该节点标注为蓝色，表明是一个词，所以返回该字符串为一个词。 其实要实现这样的数据结构，大致的功能点为下面两点：
+查询词 添加词 除此之外还需要考虑如果标记词的结束节点，首先可以约定，默认情况都返回&amp;quot;False&amp;quot;表示为未查询到或设置失败，而返回&amp;quot;True&amp;quot;则表示查询到或设置成功，每个节点为一个字符，而字典当中的__value表示是否为结束节点（即一个词的尾字符），如果是则为True，不是则为False，整体可以采用函数或者类来定义。 实现代码：
+class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实例定义一个名为_children的对象，用于存放词的Trie结构 self._children = {} def _add_word(self, word): # 定义一个添加词的实例方法 child = self._children # 首先会将_children的对象赋值给child for i,char in enumerate(word): # 然后从头遍历添加词的每一个字符 if char not in child: # 查看当前字符是否存在Trie树上 child[char] = {&amp;#39;__value&amp;#39;: False} # 如果没有则新建一个对象，并设置特殊key__value为False，表明这不是一个结尾字符 if i == (len(word) - 1): # 判断是否为结尾字符 child[char][&amp;#39;__value&amp;#39;] = True # 如果是则将特殊key：__value设为True，表明为结尾字符 child = child[char] # 如果还有字符，则将当前字符对象更新为child，那么下一次查找则是基于上一次对象下 return True # 添加完成返回True def _get_word(self, word): # 查找词 child = self.</description>
     </item>
     <item>
       <title>(一)漫话中文分词：最大匹配,双向最大,最小词数</title>
-      <link>https://wuyizhou.com/posts/chinesecutwords-1/</link>
+      <link>/posts/chinesecutwords-1/</link>
       <pubDate>Sun, 08 Nov 2020 10:36:34 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/chinesecutwords-1/</guid>
-      <description>中文分词是指将文本拆分为单词的过程，而结果集合连接起来是等于原始的文本，而中文分词一直作为NLP领域的比较重要的领域，而大多数的文本挖掘都是</description>
+      <guid>/posts/chinesecutwords-1/</guid>
+      <description>中文分词是指将文本拆分为单词的过程，而结果集合连接起来是等于原始的文本，而中文分词一直作为NLP领域的比较重要的领域，而大多数的文本挖掘都是以分词为基础，但中文不同于英文，英文每个单词是用空格分隔，整体语义上相对于中文难度低很多。 而业务上一直有中文分词的需求，但是之前因为在忙于另外一个项目，所以一直没有研究。 近期稍空闲开始研究了相关的中文分词算法，发现中文分词总体算比较成熟，但是其中对于未登录词或者某个特定专业领域文本大部分算法分词的结果不尽人意，需要结合多种算法或者人工词典才能达到稍微好一点的效果。 中文分词的方式一共有两种，分别为：
+词典分词：如正向最大匹配算法、反向最大匹配算法、双向最大匹配算法、最少词数法等 字标注分词：如HMM（隐马尔可夫）模型等 而这几种方式很难说出谁好谁坏，比如词典分词的方式速度非常快，但对于未登录词的识别又不太好，而HMM和Pkuseg都能识别部分未登录词，但是运行速度又降下来了，这对于在实际应用场景当中是非常致命的问题，所以最大的优解就是集各家所长，比如结巴分词就使用了词典分词算法识别能识别的词，而不能识别的则继续使用了HMM模型来处理。
+词典分词 基于词典的分词算法实际上就是对于类似字典的数据结构进行查询，对于未在词典内的词识别较弱和交集型歧义理解能力也较弱，比如“结婚的和尚未结婚的”，理想的情况是&amp;quot;结婚/的/和/尚未/结婚/的&amp;quot;，而实际中则会被分词为&amp;quot;结婚/的/和尚/未/结婚/的&amp;quot;。 但好在词典分词的速度则非常快，词典分词目前已有非常成熟高效的解决方案，并且有非常多的工具来帮你实现相关的高效数据结构和查询方式，比如Trie树和AC自动机，但在这里为了方便理解和记录，只采用了尽可能简单的方式来记录其几种算法的实现和原理。
+正向最大匹配算法（Forward Maximum Matching） 正向最大匹配算法类似于人的阅读习惯，即从左到右进行识别，而其中的&amp;quot;最大&amp;quot;是基于词典中最长字符的长度作为最大的匹配宽度，然后每次根据这个宽度对文本进行切分并取出来查询词典。如果当前取出来的词能在词典当中查询当则返回，并下一次切分的开始位置为该词的位置+1。而如果当前取出的部分没有在词典中查找到，则将该部分去掉最后一个字符后再进行查找，一直重复直到匹配到了词典中的词。如果整个部分只剩余一个字符，并没有匹配到词典中的词，则将最后剩余的这个字符输出，然后根据这个字符的位置+1开始再次进行切分和查询。 比如，有一段文本&amp;quot;中文分词算法&amp;quot;，字典中只包含了一个词&amp;quot;分词&amp;quot;，这个时候最大的匹配宽度也为2，所以整段文本按照2个字符进行切分。第一次得到&amp;quot;中文&amp;quot;文本，查找词典并无该词，则在该部分上去掉最后的字符，得到&amp;quot;中&amp;quot;，再次查询词典并无该词，此时查找结束，所以不需要再进行匹配，则这个切分记为[&amp;ldquo;中&amp;rdquo;]。 继续进行第二次切分，得到的文本为&amp;quot;文分&amp;quot;，进行查询词典，第一次查询&amp;quot;文分&amp;quot;在字典中不存在，去掉最后一个字符，继续以剩余部分&amp;rsquo;文&amp;rsquo;查询第二次，未查询到，那么返回最后这个字符&amp;quot;文&amp;quot;，加上次的结果记作[&amp;ldquo;中&amp;rdquo;,&amp;ldquo;文&amp;rdquo;] 继续第三次切分，得到文本&amp;quot;分词&amp;quot;，进行查询词典，查询到该词在字典当中，所以直接记录在之前的结果当中，记作[&amp;ldquo;中&amp;rdquo;, &amp;ldquo;文&amp;rdquo;, &amp;ldquo;分词&amp;rdquo;]。 继续第四次切分，得到文本&amp;quot;算法&amp;quot;，进行查询字典，第一次查询&amp;quot;算法&amp;quot;在字典中不存在，去掉最后一个字符，继续以剩余部分&amp;rsquo;算&amp;rsquo;查询第二次，未查询到，那么返回最后这个字符&amp;quot;算&amp;quot;，加上次的结果记作[&amp;ldquo;中&amp;rdquo;, &amp;ldquo;文&amp;rdquo;, &amp;ldquo;分词&amp;rdquo;, &amp;ldquo;算&amp;rdquo;] 继续第五次切分，因为最后只剩余一个字符，所以这个时候可以不进行匹配即返回，所以最终的结果为[&amp;ldquo;中&amp;rdquo;, &amp;ldquo;文&amp;rdquo;, &amp;ldquo;分词&amp;rdquo;, &amp;ldquo;算&amp;rdquo;, &amp;ldquo;法&amp;rdquo;] 整体分词的过程本质对每个分块进行查找，并依次去掉最后字符查询，而网上还有一部分是没有使用最大宽度切分，即会对每个字符到文本结束的位置都会依次遍历，这样的方式实际上会浪费较多的资源，因为即使从头到尾依次遍历匹配，但最长词的长度是固定的，所以真正开始匹配还是从最长词的长度开始，而其余的遍历都是浪费了资源。 正向最大匹配算法具体的实现代码：
+sentence = &amp;#39;中文分词算法&amp;#39; # 输入的句子 cutList = [&amp;#39;分词&amp;#39;] # 分词词典 start = 0 #设置切分起始位置 maxWidth = len(max(cutList, key=len)) # 得到字典当中最大的切分宽度 cut_result = [] # 设置一个空的分词结果 while (start &amp;lt;= len(sentence)): #开始循环，如果start大于等于句子长度则停止分词 end = start + maxWidth # 计算每次切分的停止位置 word = sentence[start: end] # 开始切分，文本为变量start和end的区间内字符 while ( word ) : # python对于空字符串会转换为False if ( word in cutList ) : # 查看第一次切分后是否能在词典中匹配，如果匹配则放入最终的分词结果列表cut_result,并跳出循环 cut_result.</description>
     </item>
     <item>
       <title>理解条件概率</title>
-      <link>https://wuyizhou.com/posts/learning-conditional-probability/</link>
+      <link>/posts/learning-conditional-probability/</link>
       <pubDate>Tue, 03 Nov 2020 09:03:53 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/learning-conditional-probability/</guid>
-      <description>样本空间（Ω） 🔗样本空间通常指实验或随机所有可能的集合，我们常在说一个概率的时候，实际上是默认忽略掉了样本空间，比如说事件A的概率，实际上指</description>
-    </item>
-    <item>
-      <title>理解连续数据和离散数据</title>
-      <link>https://wuyizhou.com/posts/continuous-data-and-discrete-data/</link>
-      <pubDate>Tue, 27 Oct 2020 07:35:35 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/continuous-data-and-discrete-data/</guid>
-      <description>统计学中，将一种类型的数据总称为变量，而变量的数据称为观测，而变量的具体取值为观测值，比如下面的数据中，age和name都是变量，而18和’</description>
+      <guid>/posts/learning-conditional-probability/</guid>
+      <description>样本空间（Ω） 样本空间通常指实验或随机所有可能的集合，我们常在说一个概率的时候，实际上是默认忽略掉了样本空间，比如说事件A的概率，实际上指样本空间中，事件A的数量与样本空间的占比。
+比如丢硬币，硬币只有正面和反面，那么硬币的样本空间则为 ${正面，反面}$，这个时候常说的正面的概率为二分之一，实际指的是正面事件的数量与样本空间的占比，也就是1/2。 再比如说丢骰子，一个骰子有6种可能，分别对应1-6不同的数值，那么丢骰子的样本空间则为${1，2，3，4，5，6}$，这个时候丢到5个事件概率则为数字5在样本空间出现的次数与样本空间总数的占比。
+独立事件 独立事件是指不受过去已发生的事件而影响的事件，典型的例子就是抛硬币，不管你抛多少次硬币始终正面或反面的概率为0.5，而该硬币的样本空间如下：
+独立事件的概率计算公式为如下：
+$$ 事件发生的概率(P) = 事件在样本空间中的数量 / 样本空间的事件总数 $$
+比如用抛硬币的例子，计算正面的概率则为：
+而除了单个独立事件，有些时候也会求多个独立事件的概率，而多个独立事件的概率则是每个独立事件发生的概率的积。 比如掷3次骰子都为6的概率是多少？需要注意因为掷骰子是一个独立事件，即每次掷的骰子样本空间都一样，并且没有因为第一次掷骰子的结果会影响到下一次。 骰子的样本空间为下，从中能够得到单次掷骰子为6的概率为1/6：
+而这个时候只需要将三次掷骰子的概率相乘就得到了三次都为6的概率：
+相关事件 相关事件和独立事件是相对的，相关事件的发生概率会受到过去已发生事件的影响，每个事件都和上一个事件有关联，这些事件便是相关的。 比如一个布袋中有5个球，其中包含2个蓝球，三个红球，布袋(样本空间)则为：
+这个时候如果随机拿一颗蓝球的概率是多少？概率为2/5。 但是此时求第二次拿到蓝球的概率是多少？这个时候就会有两种情况发生：
+第一次拿到红球，这个时候整个样本空间少了一个红球，所以第二次拿到蓝球的概率为2/4 第二次拿到蓝球，这个时候整个样本空间少了一个篮球，所以第二次拿到蓝球的概率为1/4 用图表示则为：
+所以此时，如果算第一次拿到红球后，第二次拿到蓝球的概率则为：
+如果算第一次拿到蓝球后，第二次拿到红球的概率则为：
+条件概率 条件概率是研究相关事件的，指的是当B事件发生后，A事件发生的概率，用&amp;quot;｜&amp;quot;来表示&amp;quot;以下发生的条件下&amp;quot;，表示为公式：
+比如上面的例子，第二个蓝球的概率是多少，这个问题就是条件概率，因为第二次抽中蓝球的概率是基于第一次拿了一颗球过后发生的事件。 这个时候可以将第一次抽中红球记作事件A，第二次抽蓝球为事件B，因为第二次抽球是在事件A发生的情况下而发生的，所以记作 $P(B|A)$ ，表示在A发生后，B发生的概率。 而这个概率可以根据下图来得到，即2/4：
+这里的条件概率本质是二级概率，该情况可以用图来表达，第一次抽球的样本空间为整个样本空间：
+当第一次抽球(A事件)发生后，B事件的样本空间则是基于A事件发生后的样本空间，即下图中A圆圈内的样本空间：
+联合概率 联合概率指两个事件共同发生的概率，比如A和B事件共同发生的概率表示为：
+联合概率的计算分为两种情况，一种为独立事件，比如前面掷骰子，计算公式则为多个独立事件事件的积，表示为：
+另一种则为相关事件，比如上面的抽球的例子，则可以通过反推来计算，表示为：
+这里这样计算是因为P(B|A)只得到了B在A发生后的概率，也就是在发生后的样本空间上计算的，所以P(B|A)表示的只有下图这么一部分发生的概率：
+而在这个时候乘以P(A)的概率，则就能表示如下这整个部分：
+全概率 导致一个事件发生的原因有很多种，那么该事件发生的概率就是每种原因引起该事件发生的概率总和，这句话能够很好的解释全概率。 而全概率公式就可以计算出一个事件的全部概率，公式为：
+而根据联合概率的计算方法，可以写成下面这样：
+还是拿红蓝球的例子来说，如果需要计算P(B)，这个时候可以利用全概率公式，则将能引起事件B发生的每个概率相加，即可得到P(B)。 在红篮球例子当中，引起事件B的原因有两种，分别为：先拿到红球，然后抽中蓝球的概率和先拿到蓝球抽中蓝球的概率。 根据图中第一种先拿到了红球引起B事件的发生的概率为 $(3/5) * (2/4) = 0.3$
+根据图中第二种先拿到了蓝球引起B事件的发生的概率为 $(2/5) * (1/4) = 0.1 $
+这个时候得到了所有能引起B事件发生的原因的概率，所以：
+$$ P(B) = 0.3 + 0.</description>
     </item>
   </channel>
 </rss>

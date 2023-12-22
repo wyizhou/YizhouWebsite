@@ -1,263 +1,367 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <title>Javascript自定义事件 | Yizhou&#39;s Website</title>
+<html lang="en" dir="auto">
 
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
-<meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="自定义事件在很多地方都会用到，然后跟着书实例了几次，然后详细注释，也算给自己做了一个笔记。 1 //定义一个自定义事件类 2 //定义一个实例属性用">
-<meta name="generator" content="Hugo 0.121.1">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Javascript自定义事件 | Yizhou</title>
+<meta name="keywords" content="开发者手册">
+<meta name="description" content="自定义事件在很多地方都会用到，然后跟着书实例了几次，然后详细注释，也算给自己做了一个笔记。
+1 //定义一个自定义事件类 2 //定义一个实例属性用以单独为每一个实例创建独立的事件集 3 function EventTarget() { 4 5 this.handles = {}; 6 7 }; 8 9 EventTarget.prototype = { 10 11 //构造函数的指针指向事件本身 12 constructor: EventTarget, 13 14 15 //添加事件代码的函数，接受两个参数，一个为事件的类型一个为事件的处理程序 16 addHandle: function(type, handle) { 17 18 19 //检测添加的事件类型是否存在 20 if(typeof this.handles\[type\] == &#39;undefined&#39;){ 21 22 23 //如果不存在则新创建一个，类型为数组,如果存在则push进数组 24 this.handles\[type\] = \[\]; 25 }; 26 27 28 this.handles\[type\].push(handle); 29 30 }, 31 32 //事件触发函数，接受一个对象，对象至少包括一个type属性 33 fire: function(event) { 34 35 36 //检测传入进来的对象target属性是否存在，如果没有则设置一个指向当前实例的指针 37 if(!">
+<meta name="author" content="">
+<link rel="canonical" href="/posts/javascript-custom-event/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="mask-icon" href="safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
-  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+            .list {
+                background: var(--theme);
+            }
 
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
 
-<link rel="stylesheet" href="/css/style.css">
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
 
-
-
-<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-
-
-
-
-  
-
-
-
-
-
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-          "HTML-CSS": { scale: 85 },
-          tex2jax: {
-            inlineMath: [['$','$'], ['\\(','\\)']],
-            processEscapes: true
-          }
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
         });
-    </script>
-    
-    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+    });
+</script>
+<meta property="og:title" content="Javascript自定义事件" />
+<meta property="og:description" content="自定义事件在很多地方都会用到，然后跟着书实例了几次，然后详细注释，也算给自己做了一个笔记。
+1 //定义一个自定义事件类 2 //定义一个实例属性用以单独为每一个实例创建独立的事件集 3 function EventTarget() { 4 5 this.handles = {}; 6 7 }; 8 9 EventTarget.prototype = { 10 11 //构造函数的指针指向事件本身 12 constructor: EventTarget, 13 14 15 //添加事件代码的函数，接受两个参数，一个为事件的类型一个为事件的处理程序 16 addHandle: function(type, handle) { 17 18 19 //检测添加的事件类型是否存在 20 if(typeof this.handles\[type\] == &#39;undefined&#39;){ 21 22 23 //如果不存在则新创建一个，类型为数组,如果存在则push进数组 24 this.handles\[type\] = \[\]; 25 }; 26 27 28 this.handles\[type\].push(handle); 29 30 }, 31 32 //事件触发函数，接受一个对象，对象至少包括一个type属性 33 fire: function(event) { 34 35 36 //检测传入进来的对象target属性是否存在，如果没有则设置一个指向当前实例的指针 37 if(!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/javascript-custom-event/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2015-01-18T18:31:00+00:00" />
+<meta property="article:modified_time" content="2015-01-18T18:31:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Javascript自定义事件"/>
+<meta name="twitter:description" content="自定义事件在很多地方都会用到，然后跟着书实例了几次，然后详细注释，也算给自己做了一个笔记。
+1 //定义一个自定义事件类 2 //定义一个实例属性用以单独为每一个实例创建独立的事件集 3 function EventTarget() { 4 5 this.handles = {}; 6 7 }; 8 9 EventTarget.prototype = { 10 11 //构造函数的指针指向事件本身 12 constructor: EventTarget, 13 14 15 //添加事件代码的函数，接受两个参数，一个为事件的类型一个为事件的处理程序 16 addHandle: function(type, handle) { 17 18 19 //检测添加的事件类型是否存在 20 if(typeof this.handles\[type\] == &#39;undefined&#39;){ 21 22 23 //如果不存在则新创建一个，类型为数组,如果存在则push进数组 24 this.handles\[type\] = \[\]; 25 }; 26 27 28 this.handles\[type\].push(handle); 29 30 }, 31 32 //事件触发函数，接受一个对象，对象至少包括一个type属性 33 fire: function(event) { 34 35 36 //检测传入进来的对象target属性是否存在，如果没有则设置一个指向当前实例的指针 37 if(!"/>
 
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Javascript自定义事件",
+      "item": "/posts/javascript-custom-event/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Javascript自定义事件",
+  "name": "Javascript自定义事件",
+  "description": "自定义事件在很多地方都会用到，然后跟着书实例了几次，然后详细注释，也算给自己做了一个笔记。\n1 //定义一个自定义事件类 2 //定义一个实例属性用以单独为每一个实例创建独立的事件集 3 function EventTarget() { 4 5 this.handles = {}; 6 7 }; 8 9 EventTarget.prototype = { 10 11 //构造函数的指针指向事件本身 12 constructor: EventTarget, 13 14 15 //添加事件代码的函数，接受两个参数，一个为事件的类型一个为事件的处理程序 16 addHandle: function(type, handle) { 17 18 19 //检测添加的事件类型是否存在 20 if(typeof this.handles\\[type\\] == \u0026#39;undefined\u0026#39;){ 21 22 23 //如果不存在则新创建一个，类型为数组,如果存在则push进数组 24 this.handles\\[type\\] = \\[\\]; 25 }; 26 27 28 this.handles\\[type\\].push(handle); 29 30 }, 31 32 //事件触发函数，接受一个对象，对象至少包括一个type属性 33 fire: function(event) { 34 35 36 //检测传入进来的对象target属性是否存在，如果没有则设置一个指向当前实例的指针 37 if(!",
+  "keywords": [
+    "开发者手册"
+  ],
+  "articleBody": "自定义事件在很多地方都会用到，然后跟着书实例了几次，然后详细注释，也算给自己做了一个笔记。\n1 //定义一个自定义事件类 2 //定义一个实例属性用以单独为每一个实例创建独立的事件集 3 function EventTarget() { 4 5 this.handles = {}; 6 7 }; 8 9 EventTarget.prototype = { 10 11 //构造函数的指针指向事件本身 12 constructor: EventTarget, 13 14 15 //添加事件代码的函数，接受两个参数，一个为事件的类型一个为事件的处理程序 16 addHandle: function(type, handle) { 17 18 19 //检测添加的事件类型是否存在 20 if(typeof this.handles\\[type\\] == 'undefined'){ 21 22 23 //如果不存在则新创建一个，类型为数组,如果存在则push进数组 24 this.handles\\[type\\] = \\[\\]; 25 }; 26 27 28 this.handles\\[type\\].push(handle); 29 30 }, 31 32 //事件触发函数，接受一个对象，对象至少包括一个type属性 33 fire: function(event) { 34 35 36 //检测传入进来的对象target属性是否存在，如果没有则设置一个指向当前实例的指针 37 if(!event.target) { 38 event.target = this; 39 }; 40 41 //检测传入的对象里面事件类型是否存在 42 if(this.handles\\[event.type\\] instanceof Array) { 43 44 45 //如果存在则把此事件集赋值给handles变量 46 var handles = this.handles\\[event.type\\]; 47 48 49 //循环检测事件集中的事件处理程序，并且执行每一个事件处理程序 50 var i; 51 for(i= 0, len = handles.length; i",
+  "wordCount" : "209",
+  "inLanguage": "en",
+  "datePublished": "2015-01-18T18:31:00Z",
+  "dateModified": "2015-01-18T18:31:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/posts/javascript-custom-event/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yizhou",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "favicon.ico"
+    }
+  }
+}
+</script>
+</head>
 
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
 
+</script>
 
-  </head>
-
-  <body>
-    <nav class="navigation">
-	
-		<a href="/"> <span class="arrow">←</span>首页</a>
-	
-	<a href="/posts">归档</a>
-	<a href="/tags">标签</a>
-	<a href="/about">关于</a>
-
-	
-
-	
-	  <a class="button" href="https://wuyizhou.com/index.xml">订阅</a>
-	
-</nav>
-
-
-    <main class="main">
-      
-
-<section id="single">
-    <h1 class="title">Javascript自定义事件</h1>
-
-    <div class="tip">
-        <time datetime="2015-01-18 18:31:00 &#43;0000 UTC">2015年01月18日</time>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          727字
-        </span>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          2分钟
-        </span>
-    </div>
-
-    
-    
-        
-  
-
-
-    
-
-
-    <div class="content">
-      <p>自定义事件在很多地方都会用到，然后跟着书实例了几次，然后详细注释，也算给自己做了一个笔记。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span> <span style="color:#666">1</span> <span style="color:#666">//</span><span style="">定义一个自定义事件类</span>
-</span></span><span style="display:flex;"><span> <span style="color:#666">2</span> <span style="color:#666">//</span><span style="">定义一个实例属性用以单独为每一个实例创建独立的事件集</span>
-</span></span><span style="display:flex;"><span> <span style="color:#666">3</span> function EventTarget() { <span style="color:#666">4</span> 
-</span></span><span style="display:flex;"><span> <span style="color:#666">5</span>     this<span style="color:#666">.</span>handles <span style="color:#666">=</span> {}; <span style="color:#666">6</span> 
-</span></span><span style="display:flex;"><span> <span style="color:#666">7</span> };
-</span></span><span style="display:flex;"><span> <span style="color:#666">8</span> 
-</span></span><span style="display:flex;"><span> <span style="color:#666">9</span>  EventTarget<span style="color:#666">.</span>prototype <span style="color:#666">=</span> { <span style="color:#666">10</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">11</span>      <span style="color:#666">//</span><span style="">构造函数的指针指向事件本身</span>
-</span></span><span style="display:flex;"><span><span style="color:#666">12</span> constructor: EventTarget, <span style="color:#666">13</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">14</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">15</span>      <span style="color:#666">//</span><span style="">添加事件代码的函数，接受两个参数，一个为事件的类型一个为事件的处理程序</span>
-</span></span><span style="display:flex;"><span><span style="color:#666">16</span>      addHandle: function(type, handle) { <span style="color:#666">17</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">18</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">19</span>         <span style="color:#666">//</span><span style="">检测添加的事件类型是否存在</span>
-</span></span><span style="display:flex;"><span><span style="color:#666">20</span>          <span style="color:#a2f;font-weight:bold">if</span>(<span style="color:#a2f">typeof</span> this<span style="color:#666">.</span>handles\[type\] <span style="color:#666">==</span> <span style="color:#b44">&#39;undefined&#39;</span>){ <span style="color:#666">21</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">22</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">23</span>          <span style="color:#666">//</span><span style="">如果不存在则新创建一个，类型为数组</span>,<span style="">如果存在则</span>push进数组
-</span></span><span style="display:flex;"><span><span style="color:#666">24</span>              this<span style="color:#666">.</span>handles\[type\] <span style="color:#666">=</span> \[\]; <span style="color:#666">25</span> }; <span style="color:#666">26</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">27</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">28</span>          this<span style="color:#666">.</span>handles\[type\]<span style="color:#666">.</span>push(handle); <span style="color:#666">29</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">30</span> }, <span style="color:#666">31</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">32</span>      <span style="color:#666">//</span><span style="">事件触发函数，接受一个对象，对象至少包括一个</span>type属性
-</span></span><span style="display:flex;"><span><span style="color:#666">33</span>      fire: function(event) { <span style="color:#666">34</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">35</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">36</span>          <span style="color:#666">//</span><span style="">检测传入进来的对象</span>target属性是否存在<span style="">，如果没有则设置一个指向当前实例的指针</span>
-</span></span><span style="display:flex;"><span><span style="color:#666">37</span>          <span style="color:#a2f;font-weight:bold">if</span>(<span style="color:#666">!</span>event<span style="color:#666">.</span>target) { <span style="color:#666">38</span>              event<span style="color:#666">.</span>target <span style="color:#666">=</span> this; <span style="color:#666">39</span> }; <span style="color:#666">40</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">41</span>          <span style="color:#666">//</span><span style="">检测传入的对象里面事件类型是否存在</span>
-</span></span><span style="display:flex;"><span><span style="color:#666">42</span>          <span style="color:#a2f;font-weight:bold">if</span>(this<span style="color:#666">.</span>handles\[event<span style="color:#666">.</span>type\] instanceof <span style="color:#d2413a;font-weight:bold">Array</span>) { <span style="color:#666">43</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">44</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">45</span>              <span style="color:#666">//</span><span style="">如果存在则把此事件集赋值给</span>handles变量
-</span></span><span style="display:flex;"><span><span style="color:#666">46</span>              <span style="color:#a2f;font-weight:bold">var</span> handles <span style="color:#666">=</span> this<span style="color:#666">.</span>handles\[event<span style="color:#666">.</span>type\]; <span style="color:#666">47</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">48</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">49</span>              <span style="color:#666">//</span><span style="">循环检测事件集中的事件处理程序，并且执行每一个事件处理程序</span>
-</span></span><span style="display:flex;"><span><span style="color:#666">50</span>              <span style="color:#a2f;font-weight:bold">var</span> i; <span style="color:#666">51</span>              <span style="color:#a2f;font-weight:bold">for</span>(i<span style="color:#666">=</span> <span style="color:#666">0</span>, len <span style="color:#666">=</span> handles<span style="color:#666">.</span>length; i<span style="color:#666">&lt;</span>len; i<span style="color:#666">++</span>) { <span style="color:#666">52</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">53</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">54</span>                  <span style="color:#666">//</span><span style="">执行事件处理程序，并且传入</span>event对象
-</span></span><span style="display:flex;"><span><span style="color:#666">55</span> handles\[i\](event); <span style="color:#666">56</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">57</span> }; <span style="color:#666">58</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">59</span> } <span style="color:#666">60</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">61</span> }, <span style="color:#666">62</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">63</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">64</span>      <span style="color:#666">//</span><span style="">删除事件程序，接受两个参数，一个为事件类型，一个为事件处理程序</span>
-</span></span><span style="display:flex;"><span><span style="color:#666">65</span>      removeHandles: function(type,handle) { <span style="color:#666">66</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">67</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">68</span>          <span style="color:#666">//</span><span style="">检测事件类型是否存在</span>
-</span></span><span style="display:flex;"><span><span style="color:#666">69</span>          <span style="color:#a2f;font-weight:bold">if</span>(this<span style="color:#666">.</span>handles\[type\] instanceof <span style="color:#d2413a;font-weight:bold">Array</span>) { <span style="color:#666">70</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">71</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">72</span>              <span style="color:#666">//</span><span style="">把此事件的引用赋值给</span>handles变量
-</span></span><span style="display:flex;"><span><span style="color:#666">73</span>              <span style="color:#a2f;font-weight:bold">var</span> handles <span style="color:#666">=</span> this<span style="color:#666">.</span>handles\[type\]; <span style="color:#666">74</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">75</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">76</span>              <span style="color:#666">//</span><span style="">循环此事件类型集</span>
-</span></span><span style="display:flex;"><span><span style="color:#666">77</span>              <span style="color:#a2f;font-weight:bold">var</span> i; <span style="color:#666">78</span>              <span style="color:#a2f;font-weight:bold">for</span>(i<span style="color:#666">=</span> <span style="color:#666">0</span>, len <span style="color:#666">=</span> handles<span style="color:#666">.</span>length; i <span style="color:#666">&lt;</span> len; i<span style="color:#666">++</span>) { <span style="color:#666">79</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">80</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">81</span>                  <span style="color:#666">//</span><span style="">检查此事件集中每一个事件处理程序是否和传入进来的</span>handle绝对等于<span style="">。</span>
-</span></span><span style="display:flex;"><span><span style="color:#666">82</span>                  <span style="color:#a2f;font-weight:bold">if</span>(handles\[i\] <span style="color:#666">===</span> handle) { <span style="color:#666">83</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">84</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">85</span>                  <span style="color:#666">//</span><span style="">如果等于跳出当前循环，不等于继续循环</span>
-</span></span><span style="display:flex;"><span><span style="color:#666">86</span>                      <span style="color:#a2f;font-weight:bold">break</span>; <span style="color:#666">87</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">88</span> }; <span style="color:#666">89</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">90</span> }; <span style="color:#666">91</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">92</span> 
-</span></span><span style="display:flex;"><span><span style="color:#666">93</span>              <span style="color:#666">//</span><span style="">通过数组的</span>splice方法<span style="">，把获取到的事件位置</span>i值<span style="">，已经数值</span><span style="color:#666">1</span><span style="">传入进</span>splice方法删除事件处理程序<span style="">。</span>
-</span></span><span style="display:flex;"><span><span style="color:#666">94</span>              handles<span style="color:#666">.</span>splice(i,<span style="color:#666">1</span>); <span style="color:#666">95</span> }; <span style="color:#666">96</span> }; <span style="color:#666">97</span> }; <span style="color:#666">98</span>     
-</span></span></code></pre></div>
-    </div>
-
-    
-        <div class="tags">
-            
-                <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-            
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
         </div>
-    
-    
-    
+        <ul id="menu">
+            <li>
+                <a href="/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/index.xml" title="Rss">
+                    <span>Rss</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
 
-</section>
-
-
-    </main>
-    
-    <footer id="footer">
-    
-        <div id="social">
-
-
-    <a class="symbol" href="https://github.com/wyizhou" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>Github</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
-            <g id="Github" transform="translate(264.000000, 939.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://stackoverflow.com/users/11949960" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>stackoverflow</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
-            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://twitter.com/5yizhou" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
-	 xml:space="preserve">
-<g>
-	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
-		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
-		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
-		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
-		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
-		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
-		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
-		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
-		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
-		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
-		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
-		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
-		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
-		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
-</g>
-</svg>
-
-    </a>
-
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="">Home</a>&nbsp;»&nbsp;<a href="/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Javascript自定义事件
+    </h1>
+    <div class="post-meta"><span title='2015-01-18 18:31:00 +0000 UTC'>January 18, 2015</span>
 
 </div>
+  </header> 
 
-    
+  <div class="post-content"><p>自定义事件在很多地方都会用到，然后跟着书实例了几次，然后详细注释，也算给自己做了一个笔记。</p>
+<pre tabindex="0"><code> 1 //定义一个自定义事件类
+ 2 //定义一个实例属性用以单独为每一个实例创建独立的事件集
+ 3 function EventTarget() { 4 
+ 5     this.handles = {}; 6 
+ 7 };
+ 8 
+ 9  EventTarget.prototype = { 10 
+11      //构造函数的指针指向事件本身
+12 constructor: EventTarget, 13 
+14 
+15      //添加事件代码的函数，接受两个参数，一个为事件的类型一个为事件的处理程序
+16      addHandle: function(type, handle) { 17 
+18 
+19         //检测添加的事件类型是否存在
+20          if(typeof this.handles\[type\] == &#39;undefined&#39;){ 21 
+22 
+23          //如果不存在则新创建一个，类型为数组,如果存在则push进数组
+24              this.handles\[type\] = \[\]; 25 }; 26 
+27 
+28          this.handles\[type\].push(handle); 29 
+30 }, 31 
+32      //事件触发函数，接受一个对象，对象至少包括一个type属性
+33      fire: function(event) { 34 
+35 
+36          //检测传入进来的对象target属性是否存在，如果没有则设置一个指向当前实例的指针
+37          if(!event.target) { 38              event.target = this; 39 }; 40 
+41          //检测传入的对象里面事件类型是否存在
+42          if(this.handles\[event.type\] instanceof Array) { 43 
+44 
+45              //如果存在则把此事件集赋值给handles变量
+46              var handles = this.handles\[event.type\]; 47 
+48 
+49              //循环检测事件集中的事件处理程序，并且执行每一个事件处理程序
+50              var i; 51              for(i= 0, len = handles.length; i&lt;len; i++) { 52 
+53 
+54                  //执行事件处理程序，并且传入event对象
+55 handles\[i\](event); 56 
+57 }; 58 
+59 } 60 
+61 }, 62 
+63 
+64      //删除事件程序，接受两个参数，一个为事件类型，一个为事件处理程序
+65      removeHandles: function(type,handle) { 66 
+67 
+68          //检测事件类型是否存在
+69          if(this.handles\[type\] instanceof Array) { 70 
+71 
+72              //把此事件的引用赋值给handles变量
+73              var handles = this.handles\[type\]; 74 
+75 
+76              //循环此事件类型集
+77              var i; 78              for(i= 0, len = handles.length; i &lt; len; i++) { 79 
+80 
+81                  //检查此事件集中每一个事件处理程序是否和传入进来的handle绝对等于。
+82                  if(handles\[i\] === handle) { 83 
+84 
+85                  //如果等于跳出当前循环，不等于继续循环
+86                      break; 87 
+88 }; 89 
+90 }; 91 
+92 
+93              //通过数组的splice方法，把获取到的事件位置i值，已经数值1传入进splice方法删除事件处理程序。
+94              handles.splice(i,1); 95 }; 96 }; 97 }; 98     
+</code></pre>
 
-    <div class="copyright">
-    
-        © Copyright 2023 Yizhou
-    
-    </div>
+  </div>
 
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
     
+<footer class="footer">
+    <span>&copy; 2023 <a href="">Yizhou</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
 </footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
 
-  </body>
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
 </html>

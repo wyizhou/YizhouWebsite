@@ -1,1805 +1,553 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <title>Yizhou&#39;s Website</title>
+<html lang="en" dir="auto">
 
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
-<meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="Yizhou&#39;s blog">
-<meta name="generator" content="Hugo 0.121.1">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Posts | Yizhou</title>
+<meta name="keywords" content="">
+<meta name="description" content="Posts - Yizhou">
+<meta name="author" content="">
+<link rel="canonical" href="/posts/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link rel="icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="mask-icon" href="safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/posts/index.xml">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
-  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+            .list {
+                background: var(--theme);
+            }
 
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
 
-<link rel="stylesheet" href="/css/style.css">
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
 
-
-
-<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-
-
-
-
-  
-
-
-
-
-
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-          "HTML-CSS": { scale: 85 },
-          tex2jax: {
-            inlineMath: [['$','$'], ['\\(','\\)']],
-            processEscapes: true
-          }
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
         });
-    </script>
-    
-    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+    });
+</script>
+<meta property="og:title" content="Posts" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/posts/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Posts"/>
+<meta name="twitter:description" content=""/>
 
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "/posts/"
+    }
+  ]
+}
+</script>
+</head>
 
-  
-    <link href="/posts/index.xml" rel="alternate" type="application/rss+xml" title="Yizhou&#39;s Website" />
-    <link href="/posts/index.xml" rel="feed" type="application/rss+xml" title="Yizhou&#39;s Website" />
-  
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
 
+</script>
 
-
-  </head>
-
-  <body>
-    <nav class="navigation">
-	
-		<a href="/"> <span class="arrow">←</span>首页</a>
-	
-	<a href="/posts">归档</a>
-	<a href="/tags">标签</a>
-	<a href="/about">关于</a>
-
-	
-
-	
-	  <a class="button" href="https://wuyizhou.com/index.xml">订阅</a>
-	
-</nav>
-
-
-    <main class="main">
-      
-<header class="profile">
-    
-        <img class="avatar" alt="avatar" src="/images/avatar.png" />
-    
-
-    <h1>Yizhou&#39;s Website</h1>
-    
-    
-      <h2>DataAnalysis / Math / Hardware</h2>
-    
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/index.xml" title="Rss">
+                    <span>Rss</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="">Home</a></div>
+  <h1>
+    Posts
+    <a href="/posts/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+  </h1>
 </header>
 
-<section id="archive">
-    
-        <div class="group">
-            <h3 class="key">
-                2023
-            </h3>
-
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2023-12-11 13:53:48 &#43;0000 UTC">12/11</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/aurora-project-4/">
-                          4-极光计划实证：经历了熊市才算成长
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9E%81%E5%85%89%E8%AE%A1%E5%88%92">极光计划</a>
-                              
-                                  <a href="https://wuyizhou.com/tags/%E7%90%86%E8%B4%A2%E4%B8%8E%E6%8A%95%E8%B5%84">理财与投资</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2023-11-08 13:37:34 &#43;0000 UTC">11/08</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/aurora-project-3/">
-                          #3-极光计划实证：小起小落
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9E%81%E5%85%89%E8%AE%A1%E5%88%92">极光计划</a>
-                              
-                                  <a href="https://wuyizhou.com/tags/%E7%90%86%E8%B4%A2%E4%B8%8E%E6%8A%95%E8%B5%84">理财与投资</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2023-10-19 13:24:56 &#43;0000 UTC">10/19</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/home-nas-2023/">
-                          最近搭建了一台家用Nas
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2023-10-08 13:54:12 &#43;0000 UTC">10/08</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/aurora-project-2/">
-                          #2-极光计划实证：当头一棒
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9E%81%E5%85%89%E8%AE%A1%E5%88%92">极光计划</a>
-                              
-                                  <a href="https://wuyizhou.com/tags/%E7%90%86%E8%B4%A2%E4%B8%8E%E6%8A%95%E8%B5%84">理财与投资</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2023-09-08 15:55:07 &#43;0000 UTC">09/08</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/aurora-project-1/">
-                          #1-极光计划实证：启航
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9E%81%E5%85%89%E8%AE%A1%E5%88%92">极光计划</a>
-                              
-                                  <a href="https://wuyizhou.com/tags/%E7%90%86%E8%B4%A2%E4%B8%8E%E6%8A%95%E8%B5%84">理财与投资</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-                      
-        </div>
-    
-        <div class="group">
-            <h3 class="key">
-                2022
-            </h3>
-
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2022-10-21 04:52:07 &#43;0000 UTC">10/21</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/gpu-server-lxd-multiplexing/">
-                          GPU服务器的多人环境搭建
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2022-10-11 01:52:49 &#43;0000 UTC">10/11</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/google-hacking-test/">
-                          Google Hacking Test
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9D%82%E7%89%A9%E9%97%B4">杂物间</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2022-09-06 05:02:51 &#43;0000 UTC">09/06</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/lxc-openwrt/">
-                          基于LXC容器的Openwrt搭建
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2022-06-10 07:49:01 &#43;0000 UTC">06/10</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/elasticsearch-config-node/">
-                          Elasticsearch节点配置
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2022-04-22 01:52:54 &#43;0000 UTC">04/22</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/frontend-terms/">
-                          前端的技术栈理解
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-                      
-        </div>
-    
-        <div class="group">
-            <h3 class="key">
-                2021
-            </h3>
-
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2021-06-26 06:48:33 &#43;0000 UTC">06/26</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/inteliigence-terms/">
-                          人工智能基础名词理解
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">数据分析与机器学习</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-                      
-        </div>
-    
-        <div class="group">
-            <h3 class="key">
-                2020
-            </h3>
-
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2020-11-18 08:51:13 &#43;0000 UTC">11/18</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/chinesecutwords-2/">
-                          (二)漫话中文分词：Trie、KMP、AC自动机
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95">数学与算法</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2020-11-08 10:36:34 &#43;0000 UTC">11/08</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/chinesecutwords-1/">
-                          (一)漫话中文分词：最大匹配,双向最大,最小词数
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95">数学与算法</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2020-11-03 09:03:53 &#43;0000 UTC">11/03</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/learning-conditional-probability/">
-                          理解条件概率
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95">数学与算法</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2020-10-27 07:35:35 &#43;0000 UTC">10/27</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/continuous-data-and-discrete-data/">
-                          理解连续数据和离散数据
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95">数学与算法</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-                      
-        </div>
-    
-        <div class="group">
-            <h3 class="key">
-                2018
-            </h3>
-
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2018-06-25 13:21:31 &#43;0000 UTC">06/25</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/python-list/">
-                          Python数据集合
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2018-06-25 09:26:05 &#43;0000 UTC">06/25</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/python-datatype/">
-                          Python数据类型与操作符
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2018-06-25 03:46:41 &#43;0000 UTC">06/25</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/apache2-https/">
-                          Apache2-https安装教程
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2018-06-04 08:29:36 &#43;0000 UTC">06/04</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/python-generator/">
-                          Python生成器
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2018-06-04 02:45:42 &#43;0000 UTC">06/04</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/python-list-render/">
-                          Python 列表生成表达式
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2018-06-01 04:23:15 &#43;0000 UTC">06/01</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/python-func-par/">
-                          Python函数参数
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2018-05-29 10:24:42 &#43;0000 UTC">05/29</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/anaconda/">
-                          Anaconda入门教程
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2018-05-23 08:22:38 &#43;0000 UTC">05/23</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/python-coding-settings/">
-                          Python头部注释
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2018-03-14 07:48:49 &#43;0000 UTC">03/14</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/html-table-preloaded/">
-                          HTML表格的加载优化
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2018-02-23 16:45:57 &#43;0000 UTC">02/23</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/learning-assembly-4/">
-                          汇编语言学习笔记（四）：寄存器[内存访问]
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2018-02-09 09:06:14 &#43;0000 UTC">02/09</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/learning-assembly-3/">
-                          汇编语言学习笔记（三）：初识Debug
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2018-02-05 15:38:40 &#43;0000 UTC">02/05</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/learning-assembly-2/">
-                          汇编语言学习笔记（二）：寄存器
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2018-02-01 13:55:06 &#43;0000 UTC">02/01</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/learning-assembly-1/">
-                          汇编语言学习笔记（一）：基础知识
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-                      
-        </div>
-    
-        <div class="group">
-            <h3 class="key">
-                2017
-            </h3>
-
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-10-05 08:26:39 &#43;0000 UTC">10/05</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mariadb-swap/">
-                          MariaDB swap空间没有配置导致的出错问题
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维&#39;</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-09-29 08:46:10 &#43;0000 UTC">09/29</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/homenas/">
-                          家庭NAS搭建
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-09-24 06:43:23 &#43;0000 UTC">09/24</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/lamp/">
-                          LAMP环境搭建
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-08-26 10:08:26 &#43;0000 UTC">08/26</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-auth/">
-                          Mongodb 身份验证
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-08-26 09:42:07 &#43;0000 UTC">08/26</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-backup/">
-                          Mongodb 备份及恢复
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-08-26 09:17:22 &#43;0000 UTC">08/26</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-data-repair/">
-                          Mongodb 数据修复
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-08-25 13:14:20 &#43;0000 UTC">08/25</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-monitoring/">
-                          Mongodb 监测
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-08-23 12:03:05 &#43;0000 UTC">08/23</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-shares/">
-                          Mongodb 分片
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-08-21 12:22:01 &#43;0000 UTC">08/21</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-replica/">
-                          Mongodb 副本集
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-08-20 15:17:26 &#43;0000 UTC">08/20</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-mapreduce/">
-                          Mongodb MapReduce
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-08-10 14:18:52 &#43;0000 UTC">08/10</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-aggregate/">
-                          Mongodb 聚合
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-08-09 08:27:12 &#43;0000 UTC">08/09</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-gridfs/">
-                          Mongodb GridFS
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-08-09 07:43:18 &#43;0000 UTC">08/09</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-special-collection-index/">
-                          Mongodb特殊索引和集合
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-08-08 12:28:45 &#43;0000 UTC">08/08</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-index/">
-                          Mongodb索引
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-08-04 08:07:53 &#43;0000 UTC">08/04</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-find/">
-                          Mongodb查询
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-08-03 07:45:26 &#43;0000 UTC">08/03</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-update-modifier/">
-                          Mongodb更新修改器
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-08-02 11:48:04 &#43;0000 UTC">08/02</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb-shell/">
-                          Mongodb Shell
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-08-01 15:36:33 &#43;0000 UTC">08/01</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mongodb/">
-                          Mongodb基础知识
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-07-18 13:32:33 &#43;0000 UTC">07/18</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mounty-software/">
-                          Mac软件推荐-Mounty
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9D%82%E7%89%A9%E9%97%B4">杂物间</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-07-18 07:46:51 &#43;0000 UTC">07/18</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/es6-class/">
-                          ES6-Class类
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-07-17 09:53:10 &#43;0000 UTC">07/17</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/es7-async/">
-                          ES7-async函数
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-07-16 16:32:08 &#43;0000 UTC">07/16</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/es6-promise/">
-                          es6-promise
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-07-16 06:26:06 &#43;0000 UTC">07/16</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/es6-generator/">
-                          ES6-Generator函数
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-07-15 13:43:25 &#43;0000 UTC">07/15</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/es6-iterator/">
-                          ES6-iterator遍历接口
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-07-11 08:54:39 &#43;0000 UTC">07/11</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/es6-map-weamap/">
-                          ES6新特性-Map和WeakMap
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-07-10 07:43:42 &#43;0000 UTC">07/10</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/es6-set-weakset/">
-                          es6新特性:Set和WeakSet
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-07-06 07:25:12 &#43;0000 UTC">07/06</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/ecmascript-symbol/">
-                          es6新数据类型-Symbol
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-07-06 02:22:32 &#43;0000 UTC">07/06</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/es6-arrow-function/">
-                          ES6箭头函数
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-07-05 08:18:49 &#43;0000 UTC">07/05</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/ecmascript-func/">
-                          ES6函数的扩展
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2017-06-06 11:06:26 &#43;0000 UTC">06/06</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/webpack/">
-                          Webpack快速入门教程
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-                      
-        </div>
-    
-        <div class="group">
-            <h3 class="key">
-                2016
-            </h3>
-
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2016-07-17 03:07:00 &#43;0000 UTC">07/17</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/nodejs-gb2312/">
-                          Nodejs 处理gb2312内容乱码问题
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-                      
-        </div>
-    
-        <div class="group">
-            <h3 class="key">
-                2015
-            </h3>
-
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2015-03-27 20:01:00 &#43;0000 UTC">03/27</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/javascript-closure/">
-                          浅谈Javascript闭包
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2015-03-23 21:37:00 &#43;0000 UTC">03/23</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/js-event/">
-                          事件捕获与事件冒泡
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2015-03-23 01:05:00 &#43;0000 UTC">03/23</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/js-call-apply/">
-                          Call与Apply
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2015-01-27 19:34:00 &#43;0000 UTC">01/27</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mac-alipay-plugins/">
-                          Mac支付宝插件风波
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9D%82%E7%89%A9%E9%97%B4">杂物间</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2015-01-18 18:31:00 &#43;0000 UTC">01/18</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/javascript-custom-event/">
-                          Javascript自定义事件
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2015-01-13 01:23:00 &#43;0000 UTC">01/13</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/json/">
-                          JSON数据格式
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2015-01-11 19:50:00 &#43;0000 UTC">01/11</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/nodejs-publicwechat-api/">
-                          Nodejs微信公众号接口
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2015-01-09 07:57:00 &#43;0000 UTC">01/09</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/kail-install-parallels-tools/">
-                          Kail安装Parallels tools
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2015-01-08 00:37:00 &#43;0000 UTC">01/08</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/html5-cross-documents-send-messages/">
-                          HTML5跨文档消息传递
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2015-01-07 20:09:00 &#43;0000 UTC">01/07</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/htmlimageelements/">
-                          HTMLImageElement类型的简便利用
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2015-01-07 01:41:00 &#43;0000 UTC">01/07</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/html-from/">
-                          HTML表单脚本
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2015-01-06 02:47:00 &#43;0000 UTC">01/06</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/javascript-dom-event/">
-                          JavascriptDOM事件
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2015-01-04 21:37:00 &#43;0000 UTC">01/04</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/javascript-get-css/">
-                          Javascript访问css样式信息
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-                      
-        </div>
-    
-        <div class="group">
-            <h3 class="key">
-                2014
-            </h3>
-
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2014-10-09 07:35:00 &#43;0000 UTC">10/09</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/mac-java-version/">
-                          Mac下修改默认的Java版本
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2014-08-17 20:28:00 &#43;0000 UTC">08/17</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/raspberrypi-timemachine-samba/">
-                          树莓派实现TimeMachine以及samba服务
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2014-04-16 21:16:00 &#43;0000 UTC">04/16</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/apache-setting-access/">
-                          服务器设置Apache对htaccess支持
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2014-04-13 07:25:00 &#43;0000 UTC">04/13</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/apache-mysql-php-server/">
-                          配置Apache&#43;Mysql&#43;Php
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4">服务和运维</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2014-02-13 01:14:00 &#43;0000 UTC">02/13</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/javascript-bool/">
-                          javscript布尔操作符
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-                      
-        </div>
-    
-        <div class="group">
-            <h3 class="key">
-                2013
-            </h3>
-
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2013-11-12 23:09:00 &#43;0000 UTC">11/12</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/javascript-reduce/">
-                          Javascript中的迭代、归并方法
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2013-11-07 03:20:11 &#43;0000 UTC">11/07</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/subway-entertainment-terminal-security/">
-                          成都地铁终端设备沙盒破解进入系统
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%AE%89%E5%85%A8">网络与安全</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2013-08-21 14:04:13 &#43;0000 UTC">08/21</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/short-xss/">
-                          Short XSS
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%AE%89%E5%85%A8">网络与安全</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-            
-                <div class="value">
-                  <div class="date">
-                    <time datetime="2013-02-10 03:23:43 &#43;0000 UTC">02/10</time>
-                  </div>
-                  <div class="title">
-                      <a href="https://wuyizhou.com/posts/js-sokoban-game/">
-                          Javascript原生实现推箱子游戏
-                      </a>
-
-                      
-                          <div class="tags">
-                              
-                                  <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-                              
-                          </div>
-                      
-                  </div>
-                </div>
-                      
-        </div>
-    
-
-
-</section>
-
-
-
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">4-极光计划实证：经历了熊市才算成长
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 最近两个月A股反反复复，10月份跌破3000点后又回到了3000，最近又跌下去了，第二次跌破3000的我反而心态比一次更好了，所以说经历熊市才是最好的成长方式。
+但我仔细想过过这个事情，主要还是因为我投入的钱太少了，即使目前的钱全部亏完，最多心疼，但对于我目前来说造不成太大的心理伤害。
+最近在思考”长期持有“这句话，我个人最近一直再思考着这类的话，我个人觉得”长期持有“这句话没有问题，但很容易误导，让大家都觉得只要一直持有就会上涨，实际情况远比所谓的”长期持有“复杂，因为大家搞投资本质上不是只是看看上涨过过瘾，是来赚钱的，所以大部分例子中的回测都是拉到了很多年，实际上仔细一看，每年的波动非常大，如果不幸在高点，那么其他人5年可以浮盈达到15%，而你甚至还浮亏。
+之所以说这么多，其实最主要的问题还是想说”长期持有“是没有问题，但是一定是在基于”好价格&#43;好资产&#43;长期持有“，”有知有行“这样具备投顾服务特性的APP是完全没有问题的，只需要做好信任主理人，然后长期持有，因为投顾会在里面帮你去平衡整体的价格，比如有知有行的长钱钱包会在股市上行的时候卖掉部分权益类基金，转而去提升债权类基金。
+实证 从2023年7月份开始，我开始实施退休计划，我将该计划称为“极光计划”，争取在45岁存够300万，然后每年7%的作为生活费过上退休的生活。
+实证记录我在每个月1-10号进行更新，主要记录上个月的情况。
+计划进度 当前极光计划完成度 0.1955%（当前资产 ÷ 目标资产），浮亏 133.73 元。
+预算及储蓄 2023年整体预算情况为：
+11月的储蓄率为59.477%。支出方面本月对比上月有所提高，超出的部分主要和家人出行游玩。从10月份开始调整了餐饮后，整体觉得目前是比较合适的。
+投资组合 愿望清单 最近家里面很早之前购买的小米净化器3传感器出现了问题，经常在睡觉的时候，转速自动调整为最大，导致吵闹得很，所以又将小米全效净化器恢复回来了。</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-12-11 13:53:48 +0000 UTC'>December 11, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to 4-极光计划实证：经历了熊市才算成长" href="/posts/aurora-project-4/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">#3-极光计划实证：小起小落
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 最近一个月算是第一次关注投资以来经历的第一次“小起小落”，上证下到了3000点以下，自己的基金也最高亏到了190元，目前仍然浮亏。
+为什么是小起小落呢？自己总结了一下，可能是两个原因，其一是因为自己投入资金并不多，其二可能投入的钱并不会影响到生活，所以也就不在乎了，但我自己臆想，应该第一种可能性较大。
+在上个月月底自己从小结伴的表姐被我一顿洗脑买了一部分基金，但整体不多闹着玩的投入了400-500元，但到了跌到3000点附近的时候，表姐给我发了一条消息，附上了一张截图（图片大概是某个网络博主说A股没有希望了），意思是要先撤退不玩了，也就是默认赞同了A股没有希望这一说。
+但好在平时关注了几个风格比较喜欢的博主，常被这些博主有理有据的“按摩”，反而到期待这个市场是怎么走向。
+对于市场不好的时候，我个人思路是A股越跌，优质资产就越多，毕竟“好价格&#43;好资产&#43;长期持有=高回报”，如果真正出现了A股一直跌，那么反正大家持有都为人民币，一直跌下去，也就是说明中国经济不行了，那么人民币也就会随之贬值，当然这种说法有点PUA，也不全无道理。
+上面这种思路，我记得橡树资本的创始人霍华德·马克斯（名字还是现查才记住）在《周期》一书中还应用到了投资当中，并且也获得了非常好的回报。
+最近在看也大的公众号连载《减重日记》系列，看了几期后，颠覆了平常对于减肥认知，同时也将《中国居民膳食指南》这本书加入了待看清单中，准备后面有时间了多了解了解。
+实证 从2023年7月份开始，我开始实施退休计划，我将该计划称为“极光计划”，争取在45岁存够300万，然后每年7%的作为生活费过上退休的生活。
+实证记录我在每个月1-10号进行更新，主要记录上个月的情况。
+计划进度 当前极光计划完成度 0.1634%（当前资产 ÷ 目标资产），浮亏 96.49 元。
+预算及储蓄 2023年整体预算情况为：
+10月的储蓄率为39.85%，因给自己买入了重疾险，所以储蓄部分降低了。
+本月支出因为国庆节回老家，消费过高，导致分摊预算中一直存在一笔待摊销奋勇，正在逐月通过结余和购物预算进行分摊。
+本月日常餐饮结余的一部分正好填补了交通费超出的一部分，主要超出的部分在于外出打车，整体次数为5次。
+但通过此次实施的情况来看，交通费目前的预算是不太合理的，因为在日常生活中，即使自己有车的情况下，打车很难避免，所以准备在11月将其提高至900元。
+投资组合 投资组合本月没有变化。
+愿望清单 本月的愿望清单将Apple Watch S8购入了，这是因为最近看见也大发的公众号连载《减重日记》系列中提到对于长时间带Apple Watch可以通过健康应用找到“静息能量”和“活动能量”两个数据，这两个数据相加就可以代表当天消耗了多少卡路里，而这个值我觉得非常有用的地方在于，以前每天减肥不知道到底吃多少？只能按照能少吃则少吃的概念，但这个数据就提供了一个很好的参考。
+除此之外，加上Apple Watch 9出来了，Apple Watch8市场价格开始下降，正好看见我们一个做数码产品的朋友在出售一块二手的Apple Watch 8 45 GPS版本，价格1300，属于非常香的价格了。
+同时本月愿望清单中删除了小米智能电蒸锅，这个删除主要的原因在于产品的塑料问题，了解了一翻后发现这个产品的蒸盖是塑料的，所以暂时放弃了。
+关于净化器，目前和家人讨论了一番后，觉得似乎性价比不高，这是因为本质上散甲醛最好的方式还是通风，所以空气净化器的应用场景就只有在夏天、空调屋了，但四川这边马上进入冬天，实际上可以接受随时开着窗子，而冬天一过，我们整体的装修时间已经达到了小一年了，所以也就放弃了。</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-11-08 13:37:34 +0000 UTC'>November 8, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to #3-极光计划实证：小起小落" href="/posts/aurora-project-3/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">最近搭建了一台家用Nas
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>从两个月前，我着手搭建了一套家用Nas，起因之前自己的资料一直存放在ICloud，因为自己的资料比较多，在600多G，所以自己一直购买的国区2T，每个月68元，一年816元，也不算便宜了。再加上自己的资料和储存的数据越来越大，所以就有就有了这个需求。
+对于资料不多、储存量不大的用户，不建议使用Nas，使用自带的云储存足够了，自己组建Nas只有在一定储存量级，才会有价值，所以对于数据量少的朋友，看看就行了，别折腾了。
+同时自己电脑有两台，一台苹果笔记本，一台Windows笔记本，ICloud对于Windows系统同步是真的难用，甚至打开文件夹都会卡顿，所以也是其自己搭建Nas的一个小因素了。
+选购之前对比了多种方式，购买其他国内云储存服务、自己购买云主机自己搭建、购买成品NAS、自己搭组NAS。
+先说说前两者，国内云服务研究了一番后，排除了，具体原因暂时不好说。然后就是云主机搭建，后面研究一番发现不论国内还是国内的云主机，硬盘都贵得要死。
+再说说后两者，也是我纠结最久的，成品Nas的优点就是不用折腾、省心以及有技术服务支撑，缺点就是配置低、价格贵。自己组Nas的优点在于便宜、配置高，缺点就是折腾，也不省心。
+那作为以技术出身的人来说，自己组Nas的缺点到成了一个有趣的过程，而配置高也满足了技术人员常常的幻想”配置不够“这一假说。
+所以最终思考了一下，准备折腾一下自己，组建Nas就成了最优选择。
+选购 既然是自己组建，就得自己挑选硬件、考虑配置、选择系统，系统我选择的是群晖，也就是所谓的黑群晖，主要考虑到配套的软件足够好用，关于硬件选配，可以参考隔壁网这篇文章《2022年组建群晖实体机的一些建议 - 黑白群晖 - 隔壁网 (gebi1.com)》。
+我的配置目前是：
+CPU：考虑到需要看电影做解码，所以选择了i3-8100T，然后带T属于低功耗，对于Nas来说也完全够用了。 内存：32G。 硬盘：8TB硬盘两块，用于存放资料、文件。16TB硬盘一块，用于存放电影。 主板：选择了大厂微星的Z370M Mortar。 机箱：Treasure宝藏盒，快700多的一个机箱了，已经算比较贵了，但是买回来看了一下外观，真香。 风扇：利民AXP90 电源：Flex台达250W电源 这里需要说一个事情，我没有配备缓存，群晖的系统可以配备2块M2 Nvme硬盘作为缓存组，可以用于读写缓存，单盘只能作为读缓存。我研究了一番后，决定还是不用缓存，第一个对于我这样的家用环境上缓存提升不大，也有很多家用小伙伴测试后发了相关的结论。第二个就是缓存可能导致故障，第三个性价比不高。
+系统 系统采用的是群晖，既然是自己搭建的，所以也就是所谓的黑群晖了，采用的引导是最简单的引导arpl-i18n，该引导是基于巴西大佬arpl的版本上改进的，对于两者我还真不知道差距在哪里，但只要好用，然后用的人多就行了。
+然后黑群晖的引导是需要一个U盘的，正常情况下U盘可以插在机箱前面或者后面，但是对于花了700多买了这么漂亮的机箱，U盘插在前后，犹如”一坨牛屎抹在鲜花上“。
+所以我就购买了一个主板的usb插座，然后将引导U盘插在上面，这样就可以把usb隐藏在机箱内了。
+备份 我的备份组合主要集中为四种，分别RAID1&#43;Cloud Sync&#43;Hyper Backup网盘&#43;Hyper Backup硬盘，其中RAID1虽然说起来不算是”备份“方案，但本质提供冗余还是一种数据的保障，所以也就算了进来。
+Hyper Backup则是提供了一个完整的套件、文件增量备份，每天执行一次。
+Cloud Sync则是作为一个补充，提供一个实时的文件同步，将文件同步到我的Onedrive，至于为什么是Onedrive，第一个原因是支持，第二个原因是因为我每年要买Office365，所以有1TB的免费网盘容量。
+Hyper Backup是目前我觉得最好的备份方案，Hyper Backup支持备份到云服务商、本地USB储存设备等方式。Hyper Backup我采用了两种方式，分别为阿里云盘通过Alist以WebDAV的方式挂载到本地，然后Hyper Backup选择WebDAV方式进行备份，好处在于阿里云盘服务器在国内比较稳定，关于如何通过查看Alist关于阿里云盘的文档。
+第二种方式，我采用的是本地USB插入硬盘的方式，这个方式有个好处在于能无限扩大备份目的地的容量，比如你可以通过一个硬盘盒做多个盘用USB接入，同时配置好了也比较省电省电。
+为什么说省电呢？在设置为USB为备份目的地的时候，配置可以选择，当备份完成后自动断开卸载USB，然后再加上硬盘盒的自动休眠，就可以在备份完成后的耗电降到最低，比如下图（因为我目前已经设置完成，所以找不到这个选项了，就借用了一张图片）。
+但这种方式有一个问题，就是你在下次备份的时候没有办法自动挂载，你需要通过定时任务，将在定时的自动备份任务开始之前将USB重新挂载好。
+重新挂载USB需要两个步骤，第一个步骤确定USB编号，需要打开群晖的SSH，然后进入到终端后使用lsusb命令，我找到我备份目的地的硬盘为2-3：
+第二个步骤是将如下代码放入群晖的任务计划，选择运行的用户为root（一定注意，卸载挂载外置设备需要root权限）：
+然后将如下代码放入脚本中，其中的2-3需要替换为备份的外置目的地设备编号。
+echo 0 &gt; /sys/bus/usb/devices/2-3/authorized echo 1 &gt; /sys/bus/usb/devices/2-3/authorized 最后，设定好计划时间，我目前是在Hyper Backup之前的5分钟挂载。
+结尾 说完了后，说说成品Nas和自己搭建Nas推荐哪个，整体就是完全不建议没有技术或者不想折腾的人来自己搭建Nas，更建议直接买群晖或者其他厂商的成品Nas，对于有技术的用户，这种方式就挺推荐的。
+搭建到如今，也算是对稳定性比较信任了，将自己照片、文件都转移到了群晖，同时也说服了自己的爱人将手机照片转到了群晖，不得不说群晖的配套软件是真的好用，买软件送硬件也不是无道理，看来以后买一个白裙也不是不可以。
+参考文章 # Synology NAS 的 USB 外接硬碟在系統中的順序 / HyperBackup 備份後自動卸載該如何重新掛載 2022年组建群晖实体机的一些建议 - 黑白群晖 - 隔壁网 (gebi1....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-10-19 13:24:56 +0000 UTC'>October 19, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to 最近搭建了一台家用Nas" href="/posts/home-nas-2023/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">#2-极光计划实证：当头一棒
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 最近想了一个方式，找了一些基金的历史数据，并且做了一些回测，下面是我做了回测后在也大的知识星球上提出的提问以及也大回复的内容。
+也大，最近一直在思考实现你提到的Mini财务自由，我采集了2019年5月1日至2023年9月15日的数据，制作了两组永久组合的数据，分别为：
+黄金基金：易方达黄金ETF(159934)。偏股基金：兴全合润混合LOF（163406）。货币基金：易方达中债1-3年国开债A(007169)。债券基金：易方达中债7-10年国开债A(003358)。 黄金基金：易方达黄金ETF(159934)。偏股基金：兴全合润混合LOF（163406）。货币基金：长城收益宝货币A(004972)。债券基金：招商产业债券A(217022) 上面两种主要验证也大之前提到的永久组合里面原书建议货币为短期国债、债券则为长期国债，这里用国开行的准国债作为国债，然后再根据也打原文章中提到的国内配置普通债券和货币基金即可，所以这里做了两组。
+参数情况为：
+当每个月的第一个交易日，自动追加1万资金，4个基金各25%。 每年2月10日，自动提取资金的7%和10%两种情况（7%和10%的区别，考虑了3%的通货膨胀） 初始资金1万元，4个基金各25%。 第一种组合，在每年提取10%的生活费的情况下，结果为总投入资金为530,000，总提取生活费为107634，总收益为6.37%，提取后的收益为-13.93%。
+第一种组合，在每年提取7%的生活费的情况下，结果为总投入资金为530,000，总提取生活费为77635，总收益为6.43%，提取后的收益为8.2%。
+第二种组合，在每年提取10%的生活费的情况下，结果为总投入资金为530,000，总提取生活费为109550，总收益为8.02%，提取后的收益为-12.64%。 ![[fcba6de9b99ab585ad3816aa88c6bd49_MD5.png]]
+第二种组合，在每年提取7%的生活费的情况下，结果为总投入资金为530,000，总提取生活费为79044，总收益为8.17%，提取后的收益为-6.73%
+经过上面的数据验证，我有几个疑问需要想向也大请教：
+经过上面的数据测试，我理解的后一种方式应该属于可行，因为在经济很差的环境下只计算出亏损6.7%，不知道这样解读是不是有错误的认知？ 我理解的债券，大部分是属于企业债，在正常的环境下，债券涨股票跌，反之一样，我理解的属于正常的资金左右流动。但对于市场差的情况下，比如这几年大经济环境不好，两者都在跌，这样风险还是很高，这对于永久组合来说是不是有点反其道而行？ 对于上述数据，也大还有其他的见解吗？ 也大的回复为：
+为什么要选择永久组合作为被动收入的回测策略呢？ 如果想要 mini 版财务自由，思考的前提条件应该是【预期收益大于提款比率】，但永久组合本身的预期收益率不太可能达到 7%～10% 这样的收益。所以用永久组合来做这个回测感觉意义不是特别大，得出的结论也因此不太有参考性。 另外做回测还需要有意识地确定回测的起止时间，这一点对于永久组合的影响倒是不太大，因为组合本身比较平稳。但对于其他权益类投资占比更高，波动更大的投资，需要更仔细地选择回测的起止时间，起止点最好能涵盖一整轮牛熊。 我自己也做过一些回测，发现除了资产配置的比例，留有一定比例的备用金，在市场低估时期避免直接提取投资、伤害本金，也有利于改善长期收益：自由之路提前 2 年 思路供你参考 不过对于这样提出想法、数据验证的回测思路还是很点赞的，喜欢这样有理有据的思考 👍 可以问问是有什么回测工具吗？还是自己写的代卖？最后的数据图很漂亮～
+实证 从2023年7月份开始，我开始实施退休计划，我将该计划称为“极光计划”，争取在45岁存够300万，然后每年7%的作为生活费过上退休的生活。
+实证记录我在每个月1-10号进行更新，主要记录上个月的情况。
+这是第二期次记录，这个月整体对自己的基金进行了部分调整，并增加了部分QDII投资美股标普500和纳斯达克100以及投资全球债券的基金。
+计划进度 当前极光计划完成度 0.1322%（当前资产 ÷ 目标资产），累计亏损 0.8252%，浮亏 33.01 元。
+预算及储蓄 9月的储蓄率为60.5%，整体结余情况为0。
+这个月国庆节回到了老家，导致预算严重超支，达到了3484元，估计往后的大半年时间得慢慢分摊了，也算是开局来了一个当头一棒。
+除此之外，从9月开始，增加了应急资金账户，应急资金账户是预计存够1年的生活费（后期可能增加），所以将储蓄和投资的一部分钱分摊到该账户当中了。
+9月份预算实施情况如下：
+投资组合 投资组合这个月做了更新，增加了可以投资海外市场的QDII基金，我目前采用80%国内市场&#43;20%海外市场，国内则进一步分为50%的偏股&#43;30%债券，海外则是70%的偏股&#43;30%债券。
+投资海外市场本质也是一种风险分摊，但目前海外市场美股中，大部分我个人觉得在比较高的位置，可能后期虽然按照相关比例投资，但可能会考虑将一部分投入海外的基金放入到货币中备用。
+愿望清单 愿望清单中的Apple Watch已进入删除队列，已无购买欲望，同时增加了Apple Pencli和空气净化器，电子笔的作用主要最近发现书比较麻烦，用IPad反而方便携带和看书，所以有了这个想法。
+净化器则是准备12月月初准备搬进新房子，有点担心安全问题，所以净化器加入待选名单，其中两个净化器都是小米出的具备甲醛催化技术的净化器。
+这个东西我查阅了资料，发现和之前的除甲醛方案不一样，之前的除甲醛方案是通过滤芯（带活性炭）进行吸附，而长时间下来，滤芯里面堆积了甲醛不说，还会随着使用，效果也慢慢降低。而小米的这个催化技术则是将其分解成二氧化碳和水，并且官方声称的不用更换催化滤芯，有兴趣的朋友可以看看拆废 7 个净化器滤芯，除甲醛怎么选空气净化器？_哔哩哔哩_bilibili。
+同时之前的大部分净化器滤芯是采用的复合滤芯，也就是活性炭涂层都在一起，那这就有个问题，装修过房子的朋友都知道，活性炭的炭包在使用一段时间后，可以通过在阳光下的爆晒，将其内部吸附的物质释放出去，从而可以达到重复利用，但是对于复合滤芯无法达到了，要不然一起换要不然就不换。
+而小米全效净化器以及Ultra款，活性炭是单独分开的，这也就是说可以无形中省下一部分钱。
+彩蛋 关于前言做的回测，发现实际上算的结果有问题，所以在后面进行更正，也欢迎讨论，拜了个拜。</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-10-08 13:54:12 +0000 UTC'>October 8, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to #2-极光计划实证：当头一棒" href="/posts/aurora-project-2/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">#1-极光计划实证：启航
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 这是一篇关于投资的文章，也是第一期（较为啰嗦），记录了一个30岁的男人，通过理财、投资，在45岁之前达到”财务自由“，对于财务自由，我比较赞同也大的这篇文章中提到的定义，
+被动收入：充足的本金和投资能力，并且投资的收益能够覆盖全部的生活支出。 为自己而活：而财务自由的在于通过财务自由让自己将时间投入到热爱的事情上。 简单富足：无需大富大贵，只保证体面、正常的生活开销。 关于该计划，也是一路学习、摸索过来，从大概今年开始断断续续的学习投资、理财，期间也关注了很多的优秀博主，大量泛读文章，如今也算是摸着一点门槛了，期间觉得博主通过理财投资完成了一些&#34;退休计划&#34;，比较憧憬，所以也就有了这个计划。
+对于计划这个事，我在之前早早就有了几次规划，但是觉得不太成熟，就一直迭代、反复否定、学习，才产生了这次自己觉得比较靠谱的方案，而这个”靠谱“不是这个计划一定能赚钱，而是来自于对计划中投资的东西有个七七八八的了解，知道自己投的是什么，知道投的基金会投什么。
+虽然自己仍然处于学习的过程中，但是回顾之前学习投资理财的过程，发现仍然还是踩了非常多的坑，我学习方式是通过孟岩创建的”有知有行“为主线，然后再结合大量的文章碎片化学习，这样的方式好处在于不枯燥、见效快、现学现用。
+但上面提到的这种方式也有坏处，因为缺少底层理论支撑，越到后面越容易显现出理论不足的缺陷，所以在学习投资理财的过程中发现，学习一门新的知识，时间充足下还是建议从理论开始，而关于从理论开始学习打基础的时候，框架很重要，而学习的框架有很多可以借鉴，比如”简七读财“的文章所提到的：
+入门可以参考一下理财规划师的培训教材，或者银行 / 基金 / 证券公司从业人员资格考试的基础教材，都可以快速建立起一个专业框架
+说多了，还是回头来说说”极光计划“，为什么叫”极光“呢？因为我从很早之前一直都想去一次挪威看看极光，并且可以住在下图这样的民宿中，所以这个计划叫”极光计划“也算是一个愿景了。
+这个计划我打算耗时15年，时间够长，但随着自身的竞争力提升，可能工资会上涨，所以计划提前也是很正常，当然不排除失业、工资降低等导致计划无法执行下去。
+明确的计划 财务自由的目标是采用”躺赚“的方式，存够300万，因我本身涉及到部分买房的借钱以及贷款，所以每个月准备拿40%钱用于投资，然后按照15年内平均年化在10%，也就差不多了。
+当然这个自己也不是自己凭空想象出来的，而是通过大致估算（因为前期没有认真记账和做预算，所以根据自己的年收入和存款率做了一个估算）大概需要每年20-25万的生活开销，再按照投资的10%的收益，取其中7%作为每年的生活费用（3%不算入是因为防止通货膨胀），所以这样算下来每年也就是需要300万的资金。
+关于每个月需要存多少钱，然后最终按照理想情况的需要多少月，可以通过(Investment Calculator)工具进行估算。
+提升收入 没有一夜暴富，要慢慢接受变富，普通人投资的钱绝大部分来自于工资收入，所以努力提升自身的竞争力，在投资上专业人士为了提升百分之几的收益率想尽办法，自己有这个闲心去研究提升收益率（研究了也是白研究），不如提升自己的竞争力，从而提高工资比这个容易多了。
+开始储蓄 规划自己的工资最好的方式来自于预算，预算表面看来是限制消费，而实际上预算是在合理的情况下保证消费合理，不会因为有预算降低了自己的幸福感。
+关于预算建议用表格先把自己的收入、开销列出来，然后就知道自己每月的整体情况，然后每月的预算控制推荐用MoneyWIZ，网上有很多的教程。
+投资意识 投资需要注意两个事情，第一个是慢慢变富，第二个投资本质就是认知变现的过程。世界上没有一夜暴富，也不是说要等”有钱“才能理财，并且在这个过程中投资的本质也是你将你学习到的知识变现的过程，让钱自己赚钱，即被动收入，所以持续的学习投资也是持续的变现的过程。
+理性决策 生活中有非常多的决策，比如是否换手机、是否换车、是先买房还是先投资等，这些都需要理性的决策。
+目前我采用的是两个工具，第一个是”愿望清单“，我把愿望清单看作冷静期等待工具，比如当我想买一个Apple Watch的时候，我就先丢进愿望清单，并且设置一个优先级别”高“，然后每周检查一遍清单，过了4周，我基本上将Apple Watch的等级优先级降低为了”低“。同时每个月我会检查，前3个月加入愿望清单中的东西如果还保持低，那么就会删除这项，说明该物品只是一时兴起导致的购买欲望。
+第二个则是”致命三问“，通过如下三点审问自己，如果其中一点都不符合，说明需要考虑这个东西的实际是否有用了。
+零浪费Check：这笔消费符合零浪费原则吗？有没有和已有的物品功能重合？ 省钱Check：这笔消费能反过来省钱吗？ 节省时间Check：这笔消费能帮我省时间吗？省下的时间能变成钱吗？ 比如我想要买的Apple Watch：
+零浪费Check：没有重叠，但目前健身只需要电视即可以跟着做，Apple Watch只能采集数据的作用，有点浪费。 省钱Check：好像没有省钱的作用。 节省时间Check：好像没有省时间的作用。 根据上述的自问，Apple Watch实际只有第一条满足了，所以可以再观察观察。
+实证 上面的前言说完了，这部分就开始说说计划的主要内容，这部分主要包含了计划进度、预算以及储蓄情况、愿望清单、投资组合。
+实证我与每月月初的1-10日发布，用于记录上一月的情况。
+计划进度 当前极光计划完成度 0.1003%（当前资产 ÷ 目标资产），自 2023 年 8 月起，累计收益率 0.37%，浮盈 7.32 元。
+预算及储蓄 每个月所有生活预算为2910元，除此之外还设定了攒点钱、分摊预算、奖励预算三个预算，每个预算都设立了结余的功能，也就是当前月每月用完或者用超都会转移到下个月一起算。
+攒点钱的作用为每个月如果有结余的话，则把预算转移到这里面，分摊预算是遇见购买大件或者吃饭等非个人消费，将其放在这里面，其作用是后期每月分摊，直至其分摊完成，有点像自己搞的分期记录。
+8月份预算实施情况如下：
+愿望清单 愿望清单目前只有一个Apple Watch，并且优先级已经经过3周的调整至低了。
+投资组合 投资组合我目前采用的方式是前期抄作用，后期通过学习慢慢配置组合。目前照搬了股票类中的沪深300、中证红利、创业板、中证500，货币和债券全抄。
+目前自己分配股票60%，债券30%，货币10%。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-09-08 15:55:07 +0000 UTC'>September 8, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to #1-极光计划实证：启航" href="/posts/aurora-project-1/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">GPU服务器的多人环境搭建
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>环境 CPU: Intel(R) Xeon(R) Gold 6154* 2
+Momery: 128G GPU: 3080TI * 2
+Disk: 16T HD &amp; 512 SSD
+System: Ubuntu 22.04 Server
+前言 因为最近团队对于GPU的需求量增加，但之前都是在工作电脑上直接使用GPU进行训练和使用，而几个人中只有一两台电脑有显卡，所以后期就更新了服务器。 随之而来的就会产生一个问题，大家直接用账号密码链接上去每个人的环境、配置都会造成环境、冲突，甚至导致系统出错，所有就有必要通过容器的解决方案让每个人都隔离，相互不影响，并且不能直接操作到宿主机，以保证所有人操作都在容器进行而不影响到宿主机，除此之外也需要给每一个容器映射显卡。 在这个基础上有三个相关的技术，分别为Docker、LXC、虚拟机（PVE、ESXI等）。首先排除掉Docker，Docker比较适用应用级的层面上，不符合需求。虚拟机虽然可以直通显卡等，但直通单张显卡后，其他虚拟机无法使用。所以最后就锁定到了LXD，LXD由Canonical有限公司发起，是一个类容器管理系统，而底层则基于LXC容器，额外提供了更加方便的API接口、分布式、网络管理、储存管理等，同时Ubuntu 22.04自集成了LXD，所以这里部署也是通过LXD来管理LXC容器。
+准备 16T的机械盘，分为两个分区（分区可以使用fdisk），分1T用于给LXC作储存池，剩余的15T用于挂载到宿主机下的/data目录，后期映射到每个容器的/data目录下，用于所有容器之间的数据互传和数据存储（因为相互之间的数据不涉及隐私，所以可以共用），这样的好处在于大家都将重要的数据放置/data，即使容器出现了问题，也不会影响到数据的丢失问题。 显卡驱动可以直接通过Ubuntu的GPU驱动安装，如果你没有安装显卡驱动，你可以直接输入nvidia-smi，会得到相关的提示，而不用安装网上的教程去设置，因为非常麻烦。 使用apt安装zfsutils-linux，前者用于安装LXD的储存池驱动，LXD支持多种储存池，这用于储存LXD、LXC相关的数据。 使用apt安装bridge-utils，该工具是用于管理和创建网桥设备所需要的工具和程序。 初始化LXD 通过命令执行sudo lxd init，就会得到如下的问题：
+LXD Clustering：用于集群配置，单节点不需要，默认为no，回车即可 new storage pool：需要创建一个存储池，输入yes Name of storage pool：给存储池命名，默认为default，回车即可 storage backend：存储后端，默认使用zfs，回车即可 Create a new ZFS pool：需要创建一个ZFS池，默认为no，输入yes use an existing block device：使用现有的块设备（硬盘），输入yes Path to block device：输入现有的硬盘，比如我的为sda1，那么就输入/dev/sda1 MAAS server：MAAS是一个用于将物理机视为云服务器的集群服务，默认为no，回车即可 new local network bridge：是否创建一个新的桥接网络，输入yes new bridge be called：命名新的网桥名称，默认即可 IPv4：IPv4相关配置，默认为auto，回车即可 IPv6：IPv6相关配置，默认为auto，回车即可 would you like lxd to be available over the network：使用想通过网络访问LXD，默认为no，回车即可 would you like stale cached images to be updated automatically：默认yes，回车即可 YAML printed：是否打印出lxd init的配置信息，默认为no，回车即可 创建容器模板 创建容器模板的意义在于你可以设置一个基础配置的容器，然后基于这个容器进行复制出多个容器出来，而不用再针对每个容器进行重复的基础设置。 在使用前需要下载一个已打包的容器镜像，因为需要下载，所以可以使用清华大学的国内镜像用于提升下载镜像的速度。 添加清华大学镜像源：...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-10-21 04:52:07 +0000 UTC'>October 21, 2022</span></footer>
+  <a class="entry-link" aria-label="post link to GPU服务器的多人环境搭建" href="/posts/gpu-server-lxd-multiplexing/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Google Hacking Test
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 学习Google搜索，其目的是用于让自己得到更精准的信息，所以善用Google搜索对于信息收集、安全测试、查找答案等都有着非常大的帮助。而随着时间的变化Google对于语法的更新、规则都在改动，这些改动对于结果都有影响，所以使用前进行测试是非常有必要的。 查阅了诸多资料过后，将Google搜索的操作分为了三个等级，分别为基础搜索、布尔操作符、高级操作符，每个级别的都可以进行配合使用，有些组合起来能够让搜索更加精准，而有些则是不能进行组合。 同时这些搜索方式会与高级搜索设置中的功能重叠，但个人偏向使用语法对比高级搜索设置方便许多，所以后面的内容均使用语法，不会涉及到搜索设置等。 除此之外，还有诸多的网站可以获取到Google语法的途径，比如exploit-db是一个用于记录安全测试的Google语法数据库，这里面记录了非常多因配置失误操作的漏洞，如获取sql备份文件sql.bak等。Google Help提供常用的Google语法等。
+影响搜索的因素 Google在搜索原理的一篇简单的介绍了会影响搜索结果的几个因素，分别为以下7个因素：
+如果为中文，需要进行分词、语法等NLP技术的信息提取。
+查询理解，这个步骤典型的就是修正错别字，比如你搜索“贝京市”，那么算法会将关键词进行修正为“北京市”，所以返回的内容中也是“北京市”相关的内容。这个步骤我没有找到具体的文献，但和步骤1是有较强的联系。
+内容相关性，这个步骤典型的作用就是搜索网页中任何地方是否出现与关键词命中。
+内容质量，这个步骤用于确定网页是否具备权威、专业等，除了常见的网站认证、知名度、访问量等，还有Google的基于网页链接的算法，如PageRank，这种算法类似于投票，越权威的网站被引用/超链接的次数越多。基于这些情况然后进行排序，将这些高质量的网站靠前输出。
+网页可用性，这个步骤用于确定网页是否网页是否“优秀”，而Google是有一套公开的标准，典型的就是网页加载速度、适配各个访问的客户端、是否HTTPS、广告等。
+上下文设置，这个步骤和自己的历史数据、设置有关系，比如你的历史搜索中多次搜索了“巴塞罗那对阿森纳”，当你搜索“巴塞罗那”的时候，可能更加想访问的是“巴塞罗那球队”而不是“巴塞罗那地区”，该部分的影响，可以通过Google搜索主页右下角设置中的“您在Google搜索中的数据设置”删除，或者直接使用无痕模式搜索可以消除该影响。 除了这个，地区也会导致你的搜索结果会有影响，在Google右下角设置中的“搜索设置”里面的“区域设置”可以验证，比如将该设置更改为美国，你搜索&#34;football&#34;则是返回的NFL橄榄球职业比赛联盟，而如果将地区设置为英国，返回的则是足球。
+符号，在Google搜索中符号如（、。，/等都不会影响搜索结果，比如你搜索的是/中国北京/，那么结果中&#34;中国（北京…“这样的结果也会匹配。
+基础搜索 基础搜索是最常见的，里面包含了两种搜索方式：
+关键词查询：关键词查询就是最常用的方式，直接输入关键词查询或者给出多个以空格间隔的关键词，如/中国北京/或者/中国 北京/。但需要注意的是使用关键词查询，会尽可能的分词和理解你的意图（影响搜索的因素中的步骤一），并尽可能的返回有关的内容，那么如/中国北京/，就有可能包含/中国北京/、/中国/、/北京/等结果返回。
+准确查询：精确查询用双引号包裹一个或者多个关键词，与关键词查询不同之处在于精确查询并不会对关键词进行分词，而是原封不动的进行完整的匹配，所以你搜索/中国北京/，就有可能包含&#34;中国北京”、“中国”、“北京&#34;等结果返回。而搜索/“中国北京”/，则代表每一个结果都按照&#34;中国北京&#34;这个词进行完整的匹配，不会出现&#34;中国”、“北京&#34;等结果返回。 而如果精确搜索给出了多个关键词，如/“中国 北京”/，则这个中间的空格代表着顺序，说所以可以理解为查询的含义为在&#34;中国&#34;这个词后紧跟着&#34;北京&#34;这个关键词。
+除了这两种搜索之外，还包含了几个符号：
+通配符：通配符*与程序中的通配符意义不一样，中文和英文搜索中这里的通配符代表的是一个词，比如/“北京市 故宫”/，将“京”替换为*，也就是/“北*市 故宫”/搜索，那么返回的结果中可能包含着如“北厦门市故宫”、“北秋田市故宮&#34;等结果。如果将搜索改为/”*市 故宫”/，那么你看见命中的关键词（红色标注）则为“太保市故宮”、“北京市故宫”等词。所以这说明通配符匹配的是一个词，而不是一个字，作用是尽可能的将一个词与前后的关键字进行组合成一个完整的词。
+单字任意符：这个符号对于中文不太友好，中文下呈现的大多数能匹配到标点符号，而代表任意中文字符则不行，如搜索&#34;湖北省&#34;、“湖南省&#34;等相关信息，所以语法为/“湖*省”/，但是返回的则是&#34;湖省&#34;和&#34;湖（省”。 而对于英文则是能替代任意字符，比如/“hac*ing”/，则能搜索到&#34;hacking&#34;等结果。
+括号：Google搜索中对于括号是不敏感的，所以如 /北京(（市/ 搜索中放置了一个中文一个英文的括号，都会正常返回“北京市”结果，而在精确操作中同样适用，即/“北京(（市”/也能正确返回“北京市”的结果。 而基于括号这个操作，在搜索过程中就可以利用这个特性进行符合人类识别的分块构建查询，这个在于后面的布尔操作符和高级操作符上使用较多。
+布尔操作符 布尔操作符可以使用于基础搜索以及高级操作符，非常灵活，对于信息筛选的帮助非常大，主要为以下三种：
+AND操作符：该操作符用&#43;表示添加在关键词前。和代码中的不一样，代码中表示的是两者都必须具备，而在Google中，代表的是多添加一个关键词进行搜索，所以这个操作符没有太大的意义，如搜索/北京 &#43;故宫/和/北京 故宫/结果相差不大，这是因为Google本身就会将所有关键词放进搜索条件中进行搜索。
+NOT排除操作符：该操作符用-表示添加在关键词前，与字面意义一样，用于排除某个条件，如关键词返回的结果等，比如想了解/故宫/的信息，但不想看旅游相关的信息，如同程，那么就可以使用该操作符搜索/故宫 -同程/。
+OR操作符：该操作符用|表示添加在两个关键词之间，代表的意义为两个关键词匹配任意一个匹配网页的内容都可以返回，比如/北京|重庆 /，那么将返回北京或者重庆相关的页面。 OR操作符可以用于关键词的多选组合，比如查看北京的地铁规划，那么&#34;地铁&#34;一词可能也叫&#34;轨道&#34;，“规划&#34;一词也可能叫&#34;计划”，那么这个时候就可以通过OR操作符搜索/“北京 地铁|轨道 规划|计划”/（也可以利用括号进行分组，即/“北京 (地铁|轨道) (规划|计划)&#34;/），那么Google将尝试组合“北京地铁计划”、“北京轨道计划”、“北京地铁规划”、“北京轨道规划”等关键词搜索。
+高级操作符 Google提供的搜索结果中，每条记录包含了六个部分，分别为标题、正文（简介）、URL、时间、缓存、文件类型，所有高级操作符也是围绕着这几个部分进行更为精细的控制，比如针对标题的搜索、正文的搜索、url的搜索等。 操作符有着严格的格式，高级操作符的语法为Operator:value，并且操作符、冒号、值之间不能有空格。如果不按照该格式，Google搜索将会把高级操作符当作关键词进行搜索，而查看自己是否有语法的错误，可以通过返回的结果中命中的红色关键词是否有异常，比如是否包含了高级操作符。 除此之外，前面精准搜索、布尔操作符都可以与高级操作符结合。
+标题类 标题类操作符为intitle和allintitle，用于搜索网页的标题，意味着你关键词的搜索范围仅限于标题。
+intitle：用于搜索单个词是否包含在标题中，比如搜索/intitle:“北京市”/，如果你要查询多个关键词用于搜索标题符合的网页，那么可以使用多个intitle或者使用allintitle。 allintitle：该高级操作符是会将后面所有的单词用于搜索标题，所以如intitle搜索标题中包含&#34;北京市&#34;和&#34;故宫&#34;的关键词，那么需要写两个intitle，而allintitle则只需要写一个/allintitle:“北京市” “故宫”/，但需要注意all开头的大部分高级操作符与其他操作符进行组合使用的时候会出现问题，所以如果你只是单独的搜索标题那么可以使用allintitle，而如果要与其他条件进行组合，那么建议使用intitle。 正文类 正文类操作符为intext和allintext，用于搜索网页的正文，意味着你的关键词的搜索范围仅限于正文/简介。
+intext：用于搜索单个词是否包含在正文中，比如搜索/intext:北京市/，如果你查询多个同样使用多个intext。 allintext：用于搜索正文中的多个词，同样与allintitle用法一样。 URL类 URL类用于搜索网址，涉及的高级操作符有4个，分为：
+inurl和allinurl：inurl和allinurl的使用方法和标题类、正文类一致。
+site：site高级操作符用于搜索某个特定的域名或者域，比如只搜索微博关于故宫的信息，那么搜索语法为/site:weibo.com 故宫/。而搜索特定的域，则指的是com、cn、edu.cn等域名的后缀，如搜索所有的国内学校研究生招生的情况，则搜索语法为/site:edu.cn 研究生招生/。
+inanchor：inanchor高级操作符用于搜索超链接的文本。比如链接地址为weibo.com/xxx，而这个链接的文本则显示为“我的微博”，在html表示为&lt;a href=&#34;https://weibo.com/xxx&#34;&gt;我的微博&lt;/a&gt;，inanchor就是用于搜索这个链接文本“我的微博”。 该操作符搜索返回的结果并非是网页中是否包含，而是直接返回该链接，比如“我的微博”这个链接存放在我的主页，Google并不会返回我的主页作为结果，而是将&#34;我的微博&#34;这条链接直接作为结果。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-10-11 01:52:49 +0000 UTC'>October 11, 2022</span></footer>
+  <a class="entry-link" aria-label="post link to Google Hacking Test" href="/posts/google-hacking-test/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">基于LXC容器的Openwrt搭建
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前期工作 环境和机器配置：
+机器：5105v4 i226-v版本
+pve： 7.1.2，内核Linux 5.13.19-2-pve
+准备工作：
+将网线连接到pve管理口，如果已安装openwrt，然后关闭原openwrt虚拟机，删除直通的网卡。
+准备一份没有引导的openwrt固件包，可以是img也可以是tar.gz，但一定是没有引导的包，可以看文件名中包含rootfs字符，比如openwrt-x86-64-generic-ext4-rootfs.img或openwrt-21.02.0-x86-64-rootfs.tar.gz（前者是我自己编译的，重点在于rootfs）。
+PVE直通配置 连接到PVE，输入命令：
+nano /etc/default/grub 找到下面这一行：
+GRUB_CMDLINE_LINUX_DEFAULT=&#34;quiet&#34; 然后添加&#34;intel_iommu=on&#34;，这是英特尔的直通配置，AMD需要自行查找配置命令：
+GRUB_CMDLINE_LINUX_DEFAULT=&#34;quiet intel_iommu=on&#34; 然后更新引导：
+update-grub 修改nano /etc/modules内核模块文件，添加直通的驱动，让系统启动的时候载入这些驱动：
+vfio vfio_iommu_type1 vfio_pci vfio_virqfd 执行命令来更新内核：
+update-initramfs -u -k all. 创建基础环境文件包 tar.gz格式 如果包后缀为tar.gz，则通过scp直接上传至pve，以下[]内的字符根据自己情况进行替换（包括[和]符号），然后跳至下一章节：
+scp [固件路径.tar.gz] root@[pveIP地址]:/var/lib/vz/template/cache img格式 上传固件：
+scp [固件路径.img] root@[pveIP地址]:/root 这里需要注意，如果你的固件包是带squashfs字符，比如openwrt-x86-64-generic-squashfs-rootfs.img，你需要按照下面的方式进行解压。 安装解压包：
+apt install squashfs-tools 解压镜像文件：
+unsquashfs [固件路径.img] 解压完成后你在同级目录下会得到squashfs-root文件夹，然后进入该文件夹，跳至3步骤。 如果你是不带squashfs字符，比如openwrt-x86-64-generic-ext4-rootfs.img，则需要通过挂载镜像，得到内部文件，首先创建一个挂载点（下面操作在root目录中进行）：
+mkdir op 然后挂载镜像：
+mount -t ext4 -o loop [固件路径.img] /root/op 然后进入/root/op，跳至3步骤（完成后，通过使用umount /root/op进行卸载镜像）。
+打包为pve的CT模板包： 进入上述2步骤中得到的文件夹中，然后使用下列命令进行打包，得到的文件下文称为op-ct模版：
+tar zcf /var/lib/vz/template/cache/[固件名称].tar.gz ....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-09-06 05:02:51 +0000 UTC'>September 6, 2022</span></footer>
+  <a class="entry-link" aria-label="post link to 基于LXC容器的Openwrt搭建" href="/posts/lxc-openwrt/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Elasticsearch节点配置
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>节点配置 配置Java 因为Elasticsearch是Java编写的，所以在使用Elasticsearch之前，需要构建好Java的环境。而Elasticsearch会在每个发行版中包含一个推荐JVM版本。同时官方也推荐使用捆绑的JVM版本。 所以有两种方式来配置JVM：
+使用捆绑JVM 手动安装适配当前Elasticsearch的JVM版本 如果是通过下载解压包，则解压后会在第一层目录中看见一个名为jdk的目录，这个就是自带的推荐JVM，默认情况下，如果环境中没有设置ES_JAVA_HOME在启动的时候，则会直接使用自带的JVM。 如果安装了JVM，但需要使用自带JVM或者使用指定的JVM，则可以找到esdir/bin/Elasticsearch-env文件，然后找到下面的内容：
+# now set the path to java ES_JAVA_HOME=&#34;/home/elastic/Elasticsearch-8.2.0/jdk&#34; # 添加这段内容，路径需要自行修改 if [ ! -z &#34;$ES_JAVA_HOME&#34; ]; then JAVA=&#34;$ES_JAVA_HOME/bin/java&#34; JAVA_TYPE=&#34;ES_JAVA_HOME&#34; Java堆内存配置 Elasticsearch使用Java编写的，所以Java的堆内存越大，Elasticsearch可用的堆内存越多，缓存的数据也就越多。但是过于太大的堆内存，可能是垃圾回收暂停。 除此之外，官方还建议堆内存的大小设置不要超过对象指针（oops）的阈值。不同的系统阈值有所不同，而在大多数系统上26GB是安全，而有些可能可用高达30G。 查看是否超过了oops阈值，可用两种方法。第一种为API：
+_nodes/_all/jvm { ... &#34;using_compressed_ordinary_object_pointers&#34;: &#34;true&#34;, ... } 第二种为检查日志：
+[2022-06-09T06:17:15,837][INFO ][o.e.e.NodeEnvironment ] [xxx-p1] heap size [28gb], compressed ordinary object pointers [true] 设置堆内存大小通过设置Elasticsearch配置文件中的jvm.options文件，但在生产环境中尽量不要使用该文件直接修改，而是在java.options.d目录中新添加一个后缀为.options的文件。 配置文件中通过-Xms和-Xmx来设置最小和最大的堆内存：
+esdir/config/jvm.options.d/heap.options -Xms16g -Xmx16g 官方建议将该值设置为一致的，并且该值应该小于物理内存的50%。因为除了堆内存，JVM本身也需要一定的内存，除此之外，Elasticsearch底层使用的Lucence，Lucence段存放在单独的文件中，而OS会将部分常用段进行缓存（热段），便于加快应用的访问性能，所以没有足够的内存给OS进行缓存，那么同样会降低Elasticsearch的性能。 下面是因为堆内存设置过大，导致JVM内存不够的报错：
+Exception in thread &#34;main&#34; java.lang.RuntimeException: starting java failed with [1] output: # # There is insufficient memory for the Java Runtime Environment to continue....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-06-10 07:49:01 +0000 UTC'>June 10, 2022</span></footer>
+  <a class="entry-link" aria-label="post link to Elasticsearch节点配置" href="/posts/elasticsearch-config-node/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">前端的技术栈理解
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>最近几年单页应用程序发展非常迅速，从早期通过Javascript写入大量html模版去做单页程序（SPA），到现在的React、Vue（最为流行），但不得不说，前端的技术进步太快了，稍不关注技术，就会出来很多的新的技术。
+但归根结底，每次新的技术出来，埋头深入发现远比想象的复杂，而到了一定的时间后则能够想明白一些事情，这也就是&#34;深入浅出&#34;的道理。 单页应用是一个复杂的技术，要解决这些问题，出现了很多&#34;框架&#34;、工具，比如React、Vue、React-router、Redux等。对于新手来说更是学了一圈后出来也是懵的。但总体来说，React和Vue这类库本质都没有什么区别，都是为了解决SPA提出的方案。这类库大部分主要的理念是将Web应用划分为一个一个的组件为单元，这些组件可以包含另一个组件，以此来达到复用性。
+而每个组件不可能都显示一样，那这样复用性是没有意义的。 那这个时候提出了“状态”的概念，来让每个复用的组件显示不同的内容，状态分为了props和state，props是由外部传入进来的状态，state则是组件内部自己的状态。而这类UI库对于状态的变化，都会根据一些优秀的算法去重新渲染组件，并且渲染的时候仅仅涉及到改变的那一部分内容。
+之所以需要状态，其实告诉React这类库需要监听哪些值，方便在改变这些值的时候，React可以及时的进行计算和重新渲染组件。 比如下面的代码就可以通过传递name值进行重复使用包含&lt;h2&gt;标签的组件，这种方式传递的状态在内部就是使用props获取。
+&lt;Header name=&#39;hello&#39;&gt; // 输出：&lt;h2&gt;Hello&lt;/h2&gt; &lt;Header name=&#39;world&#39;&gt; // 输出：&lt;h2&gt;world&lt;/h2&gt; 而state则更多用于组件内部，比如当你鼠标点击需要获取一个报价，这个时候组件内部会发起一个请求，从服务器获取到报价后返回，改变状态，UI库进行重新渲染，这个时候就能获取到报价。 虽然说React提供了这些方便的功能，也提倡组件化和重复使用，但很多的组件是需要自己去一个一个写的。那这个时候，就有很多个人、组织开发出了&#34;组件库&#34;，“组件库&#34;中包含了很多已经开发好可复用的组件，可以直接通过调用直接使用，这就是我们为什么看见除了React还有Ant Design、MaterialUI库。
+介绍完UI库和组件库后，单页应用还差一个东西，就是路由功能，路由也可以通过简单的Javascript来判断，比如当点击了一个链接后，Javascript将当前页面内容清除（隐藏），然后再渲染点击的目标内容。但是这个时候有一些问题，比如需要编写大量的代码、丢失浏览器的前进后退、没有办法收藏等问题（后面两个问题可以再通过增加代码去解决）。所以React-router-dom`这类的库就出现了，把所有的底层的逻辑和代码都进行封装提供一些接口，即大部分的人不需要再编写、理解这类的代码直接可以开箱即用，这也就是这类路由库出现的原因。 我们从前面了解到了状态分别为props和state，一个是外部，一个是内部的。
+那这个时候如果组件的嵌套过于&#34;多层次&#34;了后，比如从顶层的组件需要传递一个状态到第N层的组件中，那么每一层即使不需要不处理也要将状态进行传递，那这个时候涉及到的组件其中会包含非常多的和组件无关的代码。 所以这个时候需要一个通用的状态管理的解决方案（如Redux），让整个Web应用都共享一个大的状态，需要多层传递的状态则可以放在这个大状态内部，让不关心有些状态的组件不用去关心无关状态，而有些状态的组件去关心自己关心的状态。
+Redux本身设计是非常有趣的，整个应用的状态不能直接修改，这是因为如果大家都直接修改很有可能会造成状态的管理的混乱，所以Redux的修改状态流程是组件发起动作-&gt;Dispatch函数接收动作-&gt;reducer处理动作-&gt;影响状态-&gt;重新渲染组件。</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-04-22 01:52:54 +0000 UTC'>April 22, 2022</span></footer>
+  <a class="entry-link" aria-label="post link to 前端的技术栈理解" href="/posts/frontend-terms/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="/posts/page/2/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
     </main>
     
-    <footer id="footer">
-    
-        <div id="social">
-
-
-    <a class="symbol" href="https://github.com/wyizhou" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>Github</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
-            <g id="Github" transform="translate(264.000000, 939.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://stackoverflow.com/users/11949960" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>stackoverflow</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
-            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://twitter.com/5yizhou" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
-	 xml:space="preserve">
-<g>
-	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
-		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
-		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
-		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
-		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
-		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
-		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
-		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
-		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
-		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
-		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
-		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
-		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
-		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
-</g>
-</svg>
-
-    </a>
-
-
-</div>
-
-    
-
-    <div class="copyright">
-    
-        © Copyright 2023 Yizhou
-    
-    </div>
-
-    
+<footer class="footer">
+    <span>&copy; 2023 <a href="">Yizhou</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
 </footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
 
-  </body>
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
 </html>

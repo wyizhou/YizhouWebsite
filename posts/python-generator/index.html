@@ -1,300 +1,420 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <title>Python生成器 | Yizhou&#39;s Website</title>
+<html lang="en" dir="auto">
 
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
-<meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="什么是生成器(generator)？ 🔗在Python中提供了一种名为generator的对象，他是通过next函数去中断执行并且genera">
-<meta name="generator" content="Hugo 0.121.1">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Python生成器 | Yizhou</title>
+<meta name="keywords" content="开发者手册">
+<meta name="description" content="什么是生成器(generator)？ 在Python中提供了一种名为generator的对象，他是通过next函数去中断执行并且generator对象具有Iterable对象，也就是说可以用于for循环，generator最大的作用是按需生成值，这个是什么意思呢？当我们需要一组元素很多的列表的时候会占用很大的内存，比如你需要生成一组从0-100000的列表，那么这个列表的长度将有10万，这是多么大的列表？如果比这个数值更大呢？那么很大一部分内存都将用来保存这个列表。
+list(range(100000)) 类似于上面这样的情况，我们可以用generator对象来按需生成数值来供我们处理，你可以把generator对象理解为一种状态机，里面保存着每次执行后的状态而并不是一次性的生成所有的值，我们就相当于导演，generator对象就像一个演员，我们叫他cut的时候，他就会停止，这样的好处就是一次性只返回一个或少量的值，不会一次性大量生成所有的值而导致内存的紧缺。
+生成器(generator)函数 生成器函数和普通函数很相似，为什么？因为你看见一个函数内部只要出现yield标识符，那么这个函数肯定就是generator对象函数，比如下面的代码：
+#普通函数 def ad(a,b): return a &#43; b #generator函数 def ad(a,b): yield a &#43; b return None 但是他们的执行过程却不一样，普通函数调用过后就马上执行内部的代码并返回，而generator对象函数却是保存了内部的状态，等待你需要的时候再去执行，而执行我们通过next函数去调用并且在内部执行的时候遇见了下一个yield标识符就会停止执行并返回yield标识符后面的值。
+#普通函数 def ad(a,b): return a &#43; b #generator函数 def ad(a,b): yield a &#43; b return None #普通函数执行 ad(1,5) #6 b = ad(1,5) #此时保存了状态 next(b) #6 通过next函数调用generator函数执行 生成器(generator)表达式 生成器表达式和列表表达式很像，但是有一点不同的是列表表达式由[]组成，而生成器表达式由()组成，就像下面的代码一样：
+l = [x * x for x in range(5)] #列表表达式 g = (x * x for x in range(5)) #生成器表达式 generator对象是需要通过next函数调用执行，并且返回的值是按循环生成的每个元素，我们每次用next执行我们的generator对象后，generator对象会保存执行后的状态，直到没有元素或者遇见return语句后抛出一个StopIteration错误来表示已经执行完毕，下面的代码是通过手动执行generator对象和通过for自动执行。">
+<meta name="author" content="">
+<link rel="canonical" href="/posts/python-generator/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="mask-icon" href="safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
-  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+            .list {
+                background: var(--theme);
+            }
 
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
 
-<link rel="stylesheet" href="/css/style.css">
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
 
-
-
-<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-
-
-
-
-  
-
-
-
-
-
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-          "HTML-CSS": { scale: 85 },
-          tex2jax: {
-            inlineMath: [['$','$'], ['\\(','\\)']],
-            processEscapes: true
-          }
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
         });
-    </script>
-    
-    <script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
+    });
+</script>
+<meta property="og:title" content="Python生成器" />
+<meta property="og:description" content="什么是生成器(generator)？ 在Python中提供了一种名为generator的对象，他是通过next函数去中断执行并且generator对象具有Iterable对象，也就是说可以用于for循环，generator最大的作用是按需生成值，这个是什么意思呢？当我们需要一组元素很多的列表的时候会占用很大的内存，比如你需要生成一组从0-100000的列表，那么这个列表的长度将有10万，这是多么大的列表？如果比这个数值更大呢？那么很大一部分内存都将用来保存这个列表。
+list(range(100000)) 类似于上面这样的情况，我们可以用generator对象来按需生成数值来供我们处理，你可以把generator对象理解为一种状态机，里面保存着每次执行后的状态而并不是一次性的生成所有的值，我们就相当于导演，generator对象就像一个演员，我们叫他cut的时候，他就会停止，这样的好处就是一次性只返回一个或少量的值，不会一次性大量生成所有的值而导致内存的紧缺。
+生成器(generator)函数 生成器函数和普通函数很相似，为什么？因为你看见一个函数内部只要出现yield标识符，那么这个函数肯定就是generator对象函数，比如下面的代码：
+#普通函数 def ad(a,b): return a &#43; b #generator函数 def ad(a,b): yield a &#43; b return None 但是他们的执行过程却不一样，普通函数调用过后就马上执行内部的代码并返回，而generator对象函数却是保存了内部的状态，等待你需要的时候再去执行，而执行我们通过next函数去调用并且在内部执行的时候遇见了下一个yield标识符就会停止执行并返回yield标识符后面的值。
+#普通函数 def ad(a,b): return a &#43; b #generator函数 def ad(a,b): yield a &#43; b return None #普通函数执行 ad(1,5) #6 b = ad(1,5) #此时保存了状态 next(b) #6 通过next函数调用generator函数执行 生成器(generator)表达式 生成器表达式和列表表达式很像，但是有一点不同的是列表表达式由[]组成，而生成器表达式由()组成，就像下面的代码一样：
+l = [x * x for x in range(5)] #列表表达式 g = (x * x for x in range(5)) #生成器表达式 generator对象是需要通过next函数调用执行，并且返回的值是按循环生成的每个元素，我们每次用next执行我们的generator对象后，generator对象会保存执行后的状态，直到没有元素或者遇见return语句后抛出一个StopIteration错误来表示已经执行完毕，下面的代码是通过手动执行generator对象和通过for自动执行。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/python-generator/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-06-04T08:29:36+00:00" />
+<meta property="article:modified_time" content="2018-06-04T08:29:36+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python生成器"/>
+<meta name="twitter:description" content="什么是生成器(generator)？ 在Python中提供了一种名为generator的对象，他是通过next函数去中断执行并且generator对象具有Iterable对象，也就是说可以用于for循环，generator最大的作用是按需生成值，这个是什么意思呢？当我们需要一组元素很多的列表的时候会占用很大的内存，比如你需要生成一组从0-100000的列表，那么这个列表的长度将有10万，这是多么大的列表？如果比这个数值更大呢？那么很大一部分内存都将用来保存这个列表。
+list(range(100000)) 类似于上面这样的情况，我们可以用generator对象来按需生成数值来供我们处理，你可以把generator对象理解为一种状态机，里面保存着每次执行后的状态而并不是一次性的生成所有的值，我们就相当于导演，generator对象就像一个演员，我们叫他cut的时候，他就会停止，这样的好处就是一次性只返回一个或少量的值，不会一次性大量生成所有的值而导致内存的紧缺。
+生成器(generator)函数 生成器函数和普通函数很相似，为什么？因为你看见一个函数内部只要出现yield标识符，那么这个函数肯定就是generator对象函数，比如下面的代码：
+#普通函数 def ad(a,b): return a &#43; b #generator函数 def ad(a,b): yield a &#43; b return None 但是他们的执行过程却不一样，普通函数调用过后就马上执行内部的代码并返回，而generator对象函数却是保存了内部的状态，等待你需要的时候再去执行，而执行我们通过next函数去调用并且在内部执行的时候遇见了下一个yield标识符就会停止执行并返回yield标识符后面的值。
+#普通函数 def ad(a,b): return a &#43; b #generator函数 def ad(a,b): yield a &#43; b return None #普通函数执行 ad(1,5) #6 b = ad(1,5) #此时保存了状态 next(b) #6 通过next函数调用generator函数执行 生成器(generator)表达式 生成器表达式和列表表达式很像，但是有一点不同的是列表表达式由[]组成，而生成器表达式由()组成，就像下面的代码一样：
+l = [x * x for x in range(5)] #列表表达式 g = (x * x for x in range(5)) #生成器表达式 generator对象是需要通过next函数调用执行，并且返回的值是按循环生成的每个元素，我们每次用next执行我们的generator对象后，generator对象会保存执行后的状态，直到没有元素或者遇见return语句后抛出一个StopIteration错误来表示已经执行完毕，下面的代码是通过手动执行generator对象和通过for自动执行。"/>
 
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Python生成器",
+      "item": "/posts/python-generator/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Python生成器",
+  "name": "Python生成器",
+  "description": "什么是生成器(generator)？ 在Python中提供了一种名为generator的对象，他是通过next函数去中断执行并且generator对象具有Iterable对象，也就是说可以用于for循环，generator最大的作用是按需生成值，这个是什么意思呢？当我们需要一组元素很多的列表的时候会占用很大的内存，比如你需要生成一组从0-100000的列表，那么这个列表的长度将有10万，这是多么大的列表？如果比这个数值更大呢？那么很大一部分内存都将用来保存这个列表。\nlist(range(100000)) 类似于上面这样的情况，我们可以用generator对象来按需生成数值来供我们处理，你可以把generator对象理解为一种状态机，里面保存着每次执行后的状态而并不是一次性的生成所有的值，我们就相当于导演，generator对象就像一个演员，我们叫他cut的时候，他就会停止，这样的好处就是一次性只返回一个或少量的值，不会一次性大量生成所有的值而导致内存的紧缺。\n生成器(generator)函数 生成器函数和普通函数很相似，为什么？因为你看见一个函数内部只要出现yield标识符，那么这个函数肯定就是generator对象函数，比如下面的代码：\n#普通函数 def ad(a,b): return a + b #generator函数 def ad(a,b): yield a + b return None 但是他们的执行过程却不一样，普通函数调用过后就马上执行内部的代码并返回，而generator对象函数却是保存了内部的状态，等待你需要的时候再去执行，而执行我们通过next函数去调用并且在内部执行的时候遇见了下一个yield标识符就会停止执行并返回yield标识符后面的值。\n#普通函数 def ad(a,b): return a + b #generator函数 def ad(a,b): yield a + b return None #普通函数执行 ad(1,5) #6 b = ad(1,5) #此时保存了状态 next(b) #6 通过next函数调用generator函数执行 生成器(generator)表达式 生成器表达式和列表表达式很像，但是有一点不同的是列表表达式由[]组成，而生成器表达式由()组成，就像下面的代码一样：\nl = [x * x for x in range(5)] #列表表达式 g = (x * x for x in range(5)) #生成器表达式 generator对象是需要通过next函数调用执行，并且返回的值是按循环生成的每个元素，我们每次用next执行我们的generator对象后，generator对象会保存执行后的状态，直到没有元素或者遇见return语句后抛出一个StopIteration错误来表示已经执行完毕，下面的代码是通过手动执行generator对象和通过for自动执行。",
+  "keywords": [
+    "开发者手册"
+  ],
+  "articleBody": "什么是生成器(generator)？ 在Python中提供了一种名为generator的对象，他是通过next函数去中断执行并且generator对象具有Iterable对象，也就是说可以用于for循环，generator最大的作用是按需生成值，这个是什么意思呢？当我们需要一组元素很多的列表的时候会占用很大的内存，比如你需要生成一组从0-100000的列表，那么这个列表的长度将有10万，这是多么大的列表？如果比这个数值更大呢？那么很大一部分内存都将用来保存这个列表。\nlist(range(100000)) 类似于上面这样的情况，我们可以用generator对象来按需生成数值来供我们处理，你可以把generator对象理解为一种状态机，里面保存着每次执行后的状态而并不是一次性的生成所有的值，我们就相当于导演，generator对象就像一个演员，我们叫他cut的时候，他就会停止，这样的好处就是一次性只返回一个或少量的值，不会一次性大量生成所有的值而导致内存的紧缺。\n生成器(generator)函数 生成器函数和普通函数很相似，为什么？因为你看见一个函数内部只要出现yield标识符，那么这个函数肯定就是generator对象函数，比如下面的代码：\n#普通函数 def ad(a,b): return a + b #generator函数 def ad(a,b): yield a + b return None 但是他们的执行过程却不一样，普通函数调用过后就马上执行内部的代码并返回，而generator对象函数却是保存了内部的状态，等待你需要的时候再去执行，而执行我们通过next函数去调用并且在内部执行的时候遇见了下一个yield标识符就会停止执行并返回yield标识符后面的值。\n#普通函数 def ad(a,b): return a + b #generator函数 def ad(a,b): yield a + b return None #普通函数执行 ad(1,5) #6 b = ad(1,5) #此时保存了状态 next(b) #6 通过next函数调用generator函数执行 生成器(generator)表达式 生成器表达式和列表表达式很像，但是有一点不同的是列表表达式由[]组成，而生成器表达式由()组成，就像下面的代码一样：\nl = [x * x for x in range(5)] #列表表达式 g = (x * x for x in range(5)) #生成器表达式 generator对象是需要通过next函数调用执行，并且返回的值是按循环生成的每个元素，我们每次用next执行我们的generator对象后，generator对象会保存执行后的状态，直到没有元素或者遇见return语句后抛出一个StopIteration错误来表示已经执行完毕，下面的代码是通过手动执行generator对象和通过for自动执行。\ng = (x for x in range(5)) #生成器表达式 next(g) #0 next(g) #1 next(g) #2 next(g) #3 next(g) #4 next(g) # Traceback (most recent call last): File \"\", line 1, in next(g) StopIteration 从上面的代码看出来当我们调用内部的代码已经执行完了后，我们再次执行就会扔出StopIteration类型的错误，当然我们也可以直接给next设置默认返回值，当执行完内部的所有代码后就会返回这个默认值\ng = (x for x in range(5)) #生成器表达式 next(g,'ok') #0 next(g,'ok') #1 next(g,'ok') #2 next(g,'ok') #3 next(g,'ok') #4 next(g,'ok') #返回 'ok' ",
+  "wordCount" : "127",
+  "inLanguage": "en",
+  "datePublished": "2018-06-04T08:29:36Z",
+  "dateModified": "2018-06-04T08:29:36Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/posts/python-generator/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yizhou",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "favicon.ico"
+    }
+  }
+}
+</script>
+</head>
 
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
 
+</script>
 
-  </head>
-
-  <body>
-    <nav class="navigation">
-	
-		<a href="/"> <span class="arrow">←</span>首页</a>
-	
-	<a href="/posts">归档</a>
-	<a href="/tags">标签</a>
-	<a href="/about">关于</a>
-
-	
-
-	
-	  <a class="button" href="https://wuyizhou.com/index.xml">订阅</a>
-	
-</nav>
-
-
-    <main class="main">
-      
-
-<section id="single">
-    <h1 class="title">Python生成器</h1>
-
-    <div class="tip">
-        <time datetime="2018-06-04 08:29:36 &#43;0000 UTC">2018年06月04日</time>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          1199字
-        </span>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          3分钟
-        </span>
-    </div>
-
-    
-    
-        
-  
-    <aside class="toc">
-      <details>
-          <summary>Table of Contents
-          </summary>
-          <div>
-              <nav id="TableOfContents">
-  <ul>
-    <li><a href="#什么是生成器generator">什么是生成器(generator)？</a></li>
-    <li><a href="#生成器generator函数">生成器(generator)函数</a></li>
-    <li><a href="#生成器generator表达式">生成器(generator)表达式</a></li>
-  </ul>
-</nav>
-          </div>
-      </details>
-    </aside>
-  
-
-
-    
-
-
-    <div class="content">
-      <h2 id="什么是生成器generator">什么是生成器(generator)？ <a href="#%e4%bb%80%e4%b9%88%e6%98%af%e7%94%9f%e6%88%90%e5%99%a8generator" class="anchor">🔗</a></h2><p>在Python中提供了一种名为<code>generator</code>的对象，他是通过<code>next</code>函数去中断执行并且<code>generator</code>对象具有<code>Iterable</code>对象，也就是说可以用于<code>for</code>循环，<code>generator</code>最大的作用是按需生成值，这个是什么意思呢？当我们需要一组元素很多的列表的时候会占用很大的内存，比如你需要生成一组从0-100000的列表，那么这个列表的长度将有10万，这是多么大的列表？如果比这个数值更大呢？那么很大一部分内存都将用来保存这个列表。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>list(range(100000)) 
-</span></span></code></pre></div><p>类似于上面这样的情况，我们可以用<code>generator</code>对象来按需生成数值来供我们处理，你可以把<code>generator</code>对象理解为一种状态机，里面保存着每次执行后的状态而并不是一次性的生成所有的值，我们就相当于导演，<code>generator</code>对象就像一个演员，我们叫他cut的时候，他就会停止，这样的好处就是一次性只返回一个或少量的值，不会一次性大量生成所有的值而导致内存的紧缺。</p>
-<h2 id="生成器generator函数">生成器(generator)函数 <a href="#%e7%94%9f%e6%88%90%e5%99%a8generator%e5%87%bd%e6%95%b0" class="anchor">🔗</a></h2><p>生成器函数和普通函数很相似，为什么？因为你看见一个函数内部只要出现<code>yield</code>标识符，那么这个函数肯定就是<code>generator</code>对象函数，比如下面的代码：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>#普通函数
-</span></span><span style="display:flex;"><span>def ad(a,b):
-</span></span><span style="display:flex;"><span>    return a + b
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>#generator函数
-</span></span><span style="display:flex;"><span>def ad(a,b):
-</span></span><span style="display:flex;"><span>    yield a + b
-</span></span><span style="display:flex;"><span>    return None 
-</span></span></code></pre></div><p>但是他们的执行过程却不一样，普通函数调用过后就马上执行内部的代码并返回，而<code>generator</code>对象函数却是保存了内部的状态，等待你需要的时候再去执行，而执行我们通过<code>next</code>函数去调用并且在内部执行的时候遇见了下一个<code>yield</code>标识符就会停止执行并返回<code>yield</code>标识符后面的值。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>#普通函数
-</span></span><span style="display:flex;"><span>def ad(a,b):
-</span></span><span style="display:flex;"><span>    return a + b
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>#generator函数
-</span></span><span style="display:flex;"><span>def ad(a,b):
-</span></span><span style="display:flex;"><span>    yield a + b
-</span></span><span style="display:flex;"><span>    return None
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>#普通函数执行
-</span></span><span style="display:flex;"><span>ad(1,5)
-</span></span><span style="display:flex;"><span>#6
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>b = ad(1,5)
-</span></span><span style="display:flex;"><span>#此时保存了状态
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>next(b)
-</span></span><span style="display:flex;"><span>#6 通过next函数调用generator函数执行 
-</span></span></code></pre></div><h2 id="生成器generator表达式">生成器(generator)表达式 <a href="#%e7%94%9f%e6%88%90%e5%99%a8generator%e8%a1%a8%e8%be%be%e5%bc%8f" class="anchor">🔗</a></h2><p>生成器表达式和列表表达式很像，但是有一点不同的是列表表达式由<code>[]</code>组成，而生成器表达式由<code>()</code>组成，就像下面的代码一样：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>l = [x * x for x in range(5)]
-</span></span><span style="display:flex;"><span>#列表表达式
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>g = (x * x for x in range(5))
-</span></span><span style="display:flex;"><span>#生成器表达式 
-</span></span></code></pre></div><p><code>generator</code>对象是需要通过<code>next</code>函数调用执行，并且返回的值是按循环生成的每个元素，我们每次用next执行我们的<code>generator</code>对象后，<code>generator</code>对象会保存执行后的状态，直到没有元素或者遇见<code>return</code>语句后抛出一个<code>StopIteration</code>错误来表示已经执行完毕，下面的代码是通过手动执行<code>generator</code>对象和通过<code>for</code>自动执行。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>g = (x for x in range(5))
-</span></span><span style="display:flex;"><span>#生成器表达式
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>next(g)
-</span></span><span style="display:flex;"><span>#0
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>next(g)
-</span></span><span style="display:flex;"><span>#1
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>next(g)
-</span></span><span style="display:flex;"><span>#2
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>next(g)
-</span></span><span style="display:flex;"><span>#3
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>next(g)
-</span></span><span style="display:flex;"><span>#4
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>next(g)
-</span></span><span style="display:flex;"><span>#
-</span></span><span style="display:flex;"><span>Traceback (most recent call last):
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  File &#34;&lt;ipython-input-18-e734f8aca5ac&gt;&#34;, line 1, in &lt;module&gt;
-</span></span><span style="display:flex;"><span>    next(g)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>StopIteration 
-</span></span></code></pre></div><p>从上面的代码看出来当我们调用内部的代码已经执行完了后，我们再次执行就会扔出<code>StopIteration</code>类型的错误，当然我们也可以直接给<code>next</code>设置默认返回值，当执行完内部的所有代码后就会返回这个默认值</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>g = (x for x in range(5))
-</span></span><span style="display:flex;"><span>#生成器表达式
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>next(g,&#39;ok&#39;)
-</span></span><span style="display:flex;"><span>#0
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>next(g,&#39;ok&#39;)
-</span></span><span style="display:flex;"><span>#1
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>next(g,&#39;ok&#39;)
-</span></span><span style="display:flex;"><span>#2
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>next(g,&#39;ok&#39;)
-</span></span><span style="display:flex;"><span>#3
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>next(g,&#39;ok&#39;)
-</span></span><span style="display:flex;"><span>#4
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>next(g,&#39;ok&#39;)
-</span></span><span style="display:flex;"><span>#返回 &#39;ok&#39; 
-</span></span></code></pre></div>
-    </div>
-
-    
-        <div class="tags">
-            
-                <a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C">开发者手册</a>
-            
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
         </div>
-    
-    
-    
+        <ul id="menu">
+            <li>
+                <a href="/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/index.xml" title="Rss">
+                    <span>Rss</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
 
-</section>
-
-
-    </main>
-    
-    <footer id="footer">
-    
-        <div id="social">
-
-
-    <a class="symbol" href="https://github.com/wyizhou" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>Github</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
-            <g id="Github" transform="translate(264.000000, 939.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://stackoverflow.com/users/11949960" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>stackoverflow</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-488.000000, -1163.000000)">
-            <g id="stackoverflow" transform="translate(488.000000, 1163.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M42.0860128,53.5922927 L22.9745951,53.6011499 L22.9729497,49.5538824 L42.0835447,49.5440929 L42.0860128,53.5922927 L42.0860128,53.5922927 Z M55,30.6708298 L51.7306912,12 L47.7087256,12.6920259 L50.9775643,31.3628557 L55,30.6708298 L55,30.6708298 Z M42.5455518,44.3547147 L23.5156994,42.616026 L23.1410164,46.6470941 L42.1712214,48.3841513 L42.5455518,44.3547147 L42.5455518,44.3547147 Z M43.8009984,39.0731519 L25.3459811,34.1539179 L24.285633,38.0621508 L42.7419431,42.9819676 L43.8009984,39.0731519 L43.8009984,39.0731519 Z M46.2103463,34.4436411 L29.7494464,24.8164635 L27.6748215,28.3015328 L44.1365441,37.9292931 L46.2103463,34.4436411 L46.2103463,34.4436411 Z M50.2466504,31.6088756 L46.8745036,33.8883189 L36.106599,18.2318456 L39.4792159,15.9517031 L50.2466504,31.6088756 Z M45.3315807,40.2784283 L48.5799693,40.2784283 L48.5799693,60 L17,60 L17,40.2784283 L20.2648427,40.2784283 L20.2648427,56.8243495 L45.3315807,56.8243495 L45.3315807,40.2784283 Z" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://twitter.com/5yizhou" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
-	 xml:space="preserve">
-<g>
-	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
-		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
-		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
-		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
-		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
-		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
-		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
-		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
-		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
-		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
-		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
-		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
-		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
-		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
-</g>
-</svg>
-
-    </a>
-
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="">Home</a>&nbsp;»&nbsp;<a href="/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Python生成器
+    </h1>
+    <div class="post-meta"><span title='2018-06-04 08:29:36 +0000 UTC'>June 4, 2018</span>
 
 </div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
 
-    
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e4%bb%80%e4%b9%88%e6%98%af%e7%94%9f%e6%88%90%e5%99%a8generator" aria-label="什么是生成器(generator)？">什么是生成器(generator)？</a></li>
+                <li>
+                    <a href="#%e7%94%9f%e6%88%90%e5%99%a8generator%e5%87%bd%e6%95%b0" aria-label="生成器(generator)函数">生成器(generator)函数</a></li>
+                <li>
+                    <a href="#%e7%94%9f%e6%88%90%e5%99%a8generator%e8%a1%a8%e8%be%be%e5%bc%8f" aria-label="生成器(generator)表达式">生成器(generator)表达式</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
 
-    <div class="copyright">
-    
-        © Copyright 2023 Yizhou
-    
-    </div>
+  <div class="post-content"><h2 id="什么是生成器generator">什么是生成器(generator)？<a hidden class="anchor" aria-hidden="true" href="#什么是生成器generator">#</a></h2>
+<p>在Python中提供了一种名为<code>generator</code>的对象，他是通过<code>next</code>函数去中断执行并且<code>generator</code>对象具有<code>Iterable</code>对象，也就是说可以用于<code>for</code>循环，<code>generator</code>最大的作用是按需生成值，这个是什么意思呢？当我们需要一组元素很多的列表的时候会占用很大的内存，比如你需要生成一组从0-100000的列表，那么这个列表的长度将有10万，这是多么大的列表？如果比这个数值更大呢？那么很大一部分内存都将用来保存这个列表。</p>
+<pre tabindex="0"><code>list(range(100000)) 
+</code></pre><p>类似于上面这样的情况，我们可以用<code>generator</code>对象来按需生成数值来供我们处理，你可以把<code>generator</code>对象理解为一种状态机，里面保存着每次执行后的状态而并不是一次性的生成所有的值，我们就相当于导演，<code>generator</code>对象就像一个演员，我们叫他cut的时候，他就会停止，这样的好处就是一次性只返回一个或少量的值，不会一次性大量生成所有的值而导致内存的紧缺。</p>
+<h2 id="生成器generator函数">生成器(generator)函数<a hidden class="anchor" aria-hidden="true" href="#生成器generator函数">#</a></h2>
+<p>生成器函数和普通函数很相似，为什么？因为你看见一个函数内部只要出现<code>yield</code>标识符，那么这个函数肯定就是<code>generator</code>对象函数，比如下面的代码：</p>
+<pre tabindex="0"><code>#普通函数
+def ad(a,b):
+    return a + b
 
+#generator函数
+def ad(a,b):
+    yield a + b
+    return None 
+</code></pre><p>但是他们的执行过程却不一样，普通函数调用过后就马上执行内部的代码并返回，而<code>generator</code>对象函数却是保存了内部的状态，等待你需要的时候再去执行，而执行我们通过<code>next</code>函数去调用并且在内部执行的时候遇见了下一个<code>yield</code>标识符就会停止执行并返回<code>yield</code>标识符后面的值。</p>
+<pre tabindex="0"><code>#普通函数
+def ad(a,b):
+    return a + b
+
+#generator函数
+def ad(a,b):
+    yield a + b
+    return None
+
+#普通函数执行
+ad(1,5)
+#6
+
+b = ad(1,5)
+#此时保存了状态
+
+next(b)
+#6 通过next函数调用generator函数执行 
+</code></pre><h2 id="生成器generator表达式">生成器(generator)表达式<a hidden class="anchor" aria-hidden="true" href="#生成器generator表达式">#</a></h2>
+<p>生成器表达式和列表表达式很像，但是有一点不同的是列表表达式由<code>[]</code>组成，而生成器表达式由<code>()</code>组成，就像下面的代码一样：</p>
+<pre tabindex="0"><code>l = [x * x for x in range(5)]
+#列表表达式
+
+g = (x * x for x in range(5))
+#生成器表达式 
+</code></pre><p><code>generator</code>对象是需要通过<code>next</code>函数调用执行，并且返回的值是按循环生成的每个元素，我们每次用next执行我们的<code>generator</code>对象后，<code>generator</code>对象会保存执行后的状态，直到没有元素或者遇见<code>return</code>语句后抛出一个<code>StopIteration</code>错误来表示已经执行完毕，下面的代码是通过手动执行<code>generator</code>对象和通过<code>for</code>自动执行。</p>
+<pre tabindex="0"><code>g = (x for x in range(5))
+#生成器表达式
+
+next(g)
+#0
+
+next(g)
+#1
+
+next(g)
+#2
+
+next(g)
+#3
+
+next(g)
+#4
+
+next(g)
+#
+Traceback (most recent call last):
+
+  File &#34;&lt;ipython-input-18-e734f8aca5ac&gt;&#34;, line 1, in &lt;module&gt;
+    next(g)
+
+StopIteration 
+</code></pre><p>从上面的代码看出来当我们调用内部的代码已经执行完了后，我们再次执行就会扔出<code>StopIteration</code>类型的错误，当然我们也可以直接给<code>next</code>设置默认返回值，当执行完内部的所有代码后就会返回这个默认值</p>
+<pre tabindex="0"><code>g = (x for x in range(5))
+#生成器表达式
+
+next(g,&#39;ok&#39;)
+#0
+
+next(g,&#39;ok&#39;)
+#1
+
+next(g,&#39;ok&#39;)
+#2
+
+next(g,&#39;ok&#39;)
+#3
+
+next(g,&#39;ok&#39;)
+#4
+
+next(g,&#39;ok&#39;)
+#返回 &#39;ok&#39; 
+</code></pre>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
     
+<footer class="footer">
+    <span>&copy; 2023 <a href="">Yizhou</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
 </footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
 
-  </body>
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
 </html>

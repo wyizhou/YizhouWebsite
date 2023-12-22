@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>服务和运维 | Yizhou</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="canonical" href="/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link rel="icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="mask-icon" href="safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/index.xml">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+<meta property="og:title" content="服务和运维" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="服务和运维"/>
+<meta name="twitter:description" content=""/>
+
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/index.xml" title="Rss">
+                    <span>Rss</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="">Home</a>&nbsp;»&nbsp;<a href="/tags/">Tags</a></div>
+  <h1>
+    服务和运维
+    <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Mongodb 数据修复
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>介绍 很多时候我们看见数据目录下有一个mongodb.lock文件，这个文件在开启了日志系统后不会出现，在没有开启日志系统的情况下非常重要，并且有时发现重新启动数据库的时候无法启动了，然后删除mongodb.lock又可以启动了，但是尽量不要这样做。
+当Mongodb启动的时候会建立一个mongodb.lock文件，而正常退出的时候就会删除这个文件，但是遇见非正常退出，这个文件就滞留了，Mongodb就会得知上一次是非正常退出，所以第一时间不是删除这个文件启动，而是尝试着修复数据，再进行启动。
+mongod –repair mongod内置了一个修复数据的选项，这个工具相比与下面介绍的另一种工具来说这种在修复的速度上要稍微快一下，我们只需指定修复的数据库路径，然后加上选项就可以进行修复了。
+$ mongod --dbpath /data/blog --repair mongodump –repair 相比上一种介绍的修复工具，mongodump的修复功能更加接近底层，数据恢复可能更好，但是需要在已经执行的实例上面进行修复，并且效率上面会比上一种要稍慢。
+$ mongodump --dbpath /data/blog --repair 参考 MongoDB权威指南(第2版)
+Mongodb Docs</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-08-26 09:17:22 +0000 UTC'>August 26, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to Mongodb 数据修复" href="/posts/mongodb-data-repair/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Mongodb 监测
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>介绍 为什么要进行监控状态，因为在实际的情况中可能会发生一下无法预计的情况，比如阻塞的问题，阻塞的原因会有很多种情况造成，如果当我们查询文档的时候发生了阻塞，那么就会影响到后面的操作，甚至无法对后面的操作进行响应。
+我们可以通过监控很快速的找到到底是哪里出了问题，这样有助于我们快速定位所在的问题，从而得到解决。
+Mongodb官方提供了三种用语分析Mongodb的方式：
+Mongodb自带的监控工具：用于提供数据库活动的实时报告 数据库命令：以更真实的情况返回数据库状态的统计信息 第三方平台托管监控 Mongodb自带监控工具 mongostat mongostat是官方随同mongodb下载包中一同下载的，你可以找到安装目录或者解压目录进行使用。
+我们可以通过mongostat --help()进行查询可用选项，也可以通过官方文档进行查询。
+Mongostat默认所返回的信息都是基于秒为单位，比如返回的insert指的是每秒插入数据库的对象数，而如果我们限制了返回时间，那么这个返回的结果是基于限制时间的平均值。
+-O 和 -o 这两个选项功能非常实用，按照正常的情况，Mongostat输出的报告会有很多我们不需要的列，所以我们可以通过-o来实现，这个选项设置后只会包含我们选择想要列，并且这个选项可以重新命名列的名字，除此之外-o和-O还可以添加一些服务器状态到报表中，可以参考ServerStatus。
+默认的mongostat输出的内容大概如下，并且每秒钟都会返回一个状态：
+insert query update delete getmore command flushes mapped vsize res faults qrw arw net_in net_out conn time *0 *0 *0 *0 0 2|0 0 0B 2.39G 14.0M 0 0|0 0|0 286b 13.8k 1 Aug 24 17:34:17.615 *0 *0 *0 *0 0 1|0 0 0B 2.39G 14.0M 0 0|0 0|0 285b 13.7k 1 Aug 24 17:34:18....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-08-25 13:14:20 +0000 UTC'>August 25, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to Mongodb 监测" href="/posts/mongodb-monitoring/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Mongodb 分片
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>介绍 分片是指将数据拆分，并分散放在多个服务器中组成一个集群，这可以将N台服务器的性能集中到一起来处理数据，这将很大程度的提高数据处理的速度。
+在Mongodb的分片中必须具备三个角色：
+路由服务器：用于处理和响应请求，并把各个分片服务器查询到的结果处理合并然后返回。 配置服务器(configServer)：存储集群、数据的描述信息。 分片服务器：用于储存拆分的数据服务器。 而这三个角色都是普通的数据库，只是扮演的角色不一样。
+它们的请求、响应流程就如下图中表示一样：
+因为所有的应用程序都是通过路由进行请求，所以对于应用程序来说，它没有什么不同就如请求一个普通数据服务器一样：
+搭建配置服务器 首先我们需要搭建配置服务器，配置服务器如同分片的大脑，保存着集群和数据的描述信息。
+因为Mongodb3.4版本后需要配置服务器必须配置为副本集，所以需要给配置服务器配置副本集，如果你还清楚如何搭建副本集，你可以试着看看我的上一篇文章《Mongodb 副本集》。
+首先建立三个空的数据库目录，用于搭建配置服务器的副本集，并分别启动它们，在启动的时候需要加上我们副本集的名称和--configsvr来表示这是一个配置服务器，并分别指定不同的端口。
+$ mkdir config0 config1 config2 $ mongod --dbpath config0 --replSet conServer --configsvr --port 27020 $ mongod --dbpath config1 --replSet conServer --configsvr --port 27021 $ mongod --dbpath config2 --replSet conServer --configsvr --port 27020 然后通过mongo随意进入一个副本集成员，并为配置服务器的副本集进行配置：
+$ mongo --port 27020 --host localhost &gt; var conf = { _id: &#39;conServer&#39;, version: 1, members: [ { _id: 0, host: &#39;localhost:27020&#39; }, { _id: 1, host: &#39;localhost:27021&#39; }, { _id: 2, host: &#39;localhost:27022&#39; } ] }; &gt; rs....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-08-23 12:03:05 +0000 UTC'>August 23, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to Mongodb 分片" href="/posts/mongodb-shares/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Mongodb 副本集
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>介绍 Mongodb官方提供了一个复制功能，它提供冗余的功能，它可以将数据保存在不同服务器上，并保持多个服务器的数据一致性。
+当主要提供数据的服务器出现了问题不能访问等问题，副本集中的其他服务器会自动替代主要提供数据的服务器进行提供数据功能。
+副本集中有三个角色：
+主节点：所有副节点的数据均来自于主节点，并且只能对主节点进行读写操作。 副节点：数据来自于主节点，可以进行读取操作，但是不能进行写操作。 仲裁者：不含数据也不与客户端交流，只在选举主节点的时候进行投票。 选举机制 Mongodb最多支持50个副本集成员以及最多7个选举成员，启动副本集后将开始第一次选举，在选举过程中，所有副本集成员都只能读取，直到选举出主节点后主节点才能进行读写，但是在这个期间副本成员可以提供查询服务。
+而主节点要保持主节点的位置需要每两秒发送一个ping请求，如果10秒内没有得到响应则标记为不可访问，当一半以上的副本集成员不可访问，那么主节点将降级为副节点。
+其中设置成员的priority值可以优先成员主节点，这个值介于0-1000之间，默认为1，如果这个值为0，那么它的votes值也为0，只要votes为0的成员不能投选举票，但是可以投否决票。但是我们也可以手动设置成员priority值为大于1的成员是否有投票权利。
+在进行选举的时候，其他成员会作以下几点判断来进行投票参与选举的成员是否能作为主节点，选举步骤：
+自己是否能与主节点通讯。 参与选举的成员是否比其他参与选举的成员数据最新。 如果参与选举的成员数据相等则尝试使用具有最高priority的值的成员。 仲裁者 仲裁者的出现是为了避免只有两个成员的副本集，两个成员的副本集投票可能无法满足一半以上的投票情况。
+仲裁者不负责数据和客户端交流，只有参与选举的功能，需要注意的是仲裁者一旦设置过后就再也无法变为非仲裁者了。
+部署副本集 首先部署一个副本集很简单，下面的代码是部署了一个本地含有三个成员的副本集。
+建立三个成员的副本集，首先你得建立三个数据库的存放目录：
+mkdir -p ./replDb/s0 ./replDb/s1 ./replDb/s2 然后我们启动三个副本集成员，其中replSet参数后面跟的是副本集的名称，将需要有关联的成员的副本集名称要一致。
+mongod --dbpath ./replDb/s0 --port 27017 --replSet s0 mongod --dbpath ./replDb/s0 --port 27018 --replSet s0 mongod --dbpath ./replDb/s0 --port 27019 --replSet s0 创建仲裁者也同样非常简单，建立一个空的数据目录，然后和其他副本集成员一样设置同样的副本集名称启动，最后通过rs.add方法的第二个参数设置为true：
+mongod --dbpath ./replDb/s5 --port 27020 --replSet s0 mongod --port 27017 --host localhost &gt; rs.add(&#39;localhost:27020&#39;, true); 然后通过Mongo Shell进入到端口为27017的成员中，并配置副本集。
+mongod --port 27017 --host localhost 进入到Mongo Shell后通过rs....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-08-21 12:22:01 +0000 UTC'>August 21, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to Mongodb 副本集" href="/posts/mongodb-replica/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Mongodb MapReduce
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 在上一节中说到了appregate聚合功能，聚合功能已经非常强大了，但是如果你还是无法通过聚合解决问题的话，那么你可能需要使用MapReduce了。
+MapReduce提供了Javascript的解释器，所以非常的强大，并且MapReduce可以在多台服务器之间并行的执行，将一个大问题拆分为多个小问题然后分发执行并返回，但是这样的代价就是牺牲了速度，所以才产品发布环境中尽量不要使用MapReduce，因为会很慢很慢。
+MapReduce分为两个部分，一个为map一个为reduce，它们两个都是一个纯Js函数，map分别对作用的集合里的每一个文档传入自身函数进行调用返回了一个不同键值对组成的一个列表，就像下面这样：
+[ a: [1,3,4], b: [5,3,4] ] 而reduce就是对map执行完后的一个列表进行统计，最后返回。Reduce非常像appregate中的group分组。
+如果上面的文字你还是听着有点模糊不清，那么下面这张图可以很好的帮助你理解MapReduce,然后看完文章你一定要在执行环境下实验，才能更好的理解强大的MapReduce，因为MapReduce不止存在于Mongodb中，它是由Google解决分布式计算提出的一种概念，Mongodb只是对这个概念的实现，所以MapReduce会出现在任何的一种数据库中。
+图片原地址：壮壮熊
+官方语法 官方文档中MapReduce的语法如下：
+db.collection.mapReduce( &lt;map&gt;, &lt;reduce&gt;, { out: &lt;collection&gt;, query: &lt;document&gt;, sort: &lt;document&gt;, limit: &lt;number&gt;, finalize: &lt;function&gt;, scope: &lt;document&gt;, jsMode: &lt;boolean&gt;, verbose: &lt;boolean&gt;, bypassDocumentValidation: &lt;boolean&gt; } ); 除了上面所说的map和reduce函数之外，Mongodb还增加了一个选项，在这里选项里面我们可以快速的筛选一部分文档，给MapReduce，这么做的愿意是尽可能的让MapReduce执行更快，比如上面的query可以过滤一些不符合的文档、sort排序、limit限制返回的文档数量等，如果你需要筛选文档、排序、限制等操作，尽量在选项中进行操作，因为如果你让1000文档每个文档遍历给Js函数快还是让Mongodb内部查询1000个文档快？当然是后者。
+Map map函数的作用是对集合中的每个文档进行调用，map函数是一个纯Js函数，它接受一个this对象，这个this对象代表的就是每个文档，我们可以通过this.xxx来调用文档里面的键值，并在内部调用一个名为emit的函数用于生成列表传给reduce函数，emit函数接受两个参数key和value，然后会将相同键名的合成一个键，并把值储存在一个数组当中，通常可以将这个过程称为“洗牌”。
+function map(){ emit(this.num, this.str); } 通常返回的文档大概为：
+[ 5: [&#39;a&#39;, &#39;b&#39;], 6: [&#39;b&#39;, &#39;d&#39;] ] Reduce reduce函数通过map函数里面的洗牌，接受一个key和values，返回的所有文档中只会存在一个唯一的key，如果相同key的值则储存在数组中，在这一步我们可以将key键名相同的值进行操作然后返回一个对象，最后得到结果，这一步一般称为简化。
+function reduce(key, values){ return {values: values} } 实例 mapReduce函数返回的是一个集合的引用，我们可以通过.运算符直接运行Mongodb提供的一些集合操作方法。除此之外我们还可以通过选项中的out设置一个临时的集合，我们可以通过db.xxx来访问这个临时的集合。
+下面的例子是通过MapReduce找到含有num为5的文档，并返回所有含有num为5的文档中str键的值。
+通过下面的代码我们插入100个文档
+for(var i = 0; i &lt; 100; i&#43;&#43;){ db....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-08-20 15:17:26 +0000 UTC'>August 20, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to Mongodb MapReduce" href="/posts/mongodb-mapreduce/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Mongodb 聚合
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考 MongoDB权威指南(第2版)
+Mongodb Docs
+前言 Mongodb提供了一个强大的处理框架，可以对集合中的文档进行各种组合、过滤、输出，如果你通过Mongodb其他的查询方法无法处理你的查询或者查询难度很高，那么你可以试试聚合。
+这里我们只讲解一下常用的聚合管道操作符，其他的可以自行到官方文档进行查询。
+语法 官方文档的聚合语法是这样的：
+db.collection.aggregate（pipeline，options); 聚合：计算集合或视图中数据的聚合值，并且聚合接受一个数组，数组的每一个成员都是对象，对象里面子键都代表一个管道操作，按照顺序的从第一个管道操作到最后一个，每次操作完的文档返回给下一个管道操作。
+pipeline： 一系列数据聚合操作或阶段。有关详细信息，请参阅 聚合管道运算，在版本2.6中更改：该方法仍然可以将流水线阶段接受为单独的参数，而不是数组中的元素; 但是，如果不指定pipeline为数组，则不能指定 options参数。
+options:可选的。aggregate()传递给aggregate命令的附加选项。版本2.6中的新功能，仅当您指定pipeline为数组时可用。
+大概我们可以把聚合理解为对文档进行一系列的操作从而达到我们需要的查询文档，聚合提供了很多管道操作符，这些管道操作符就像一根一根的管道一些，而我们通过聚合操作的文档就像管道里面的水，这根管道流下来的水继续流到下一根管道，直到没有了管道，水就流出来了。 我将在下面讲解几个常用的管道操作符，你也可以单独使用其中任意的管道操作符，分别为：
+match(过滤): 过滤文档流，只允许匹配的文档未修改地传递到下一个流水线阶段。$match 使用标准的MongoDB查询。对于每个输入文档，输出一个文档（匹配）或零个文档（不匹配）。
+$project(映射)：重新整理流中的每个文档，例如添加新字段或删除现有字段。对于每个输入文档，输出一个文档。
+$group(分组)：通过一些指定的累加器将组文档输出到下一阶段，为每个不同的分组输出文档。
+$unwind(拆分)：从输入文档中解构一个数组字段，以输出每个元素的文档。每个输出文档用元素值替换数组。对于每个输入文档，输出n个文档，其中n是数组元素的数量，对于空数组可以为零。
+$sort(排序)：按指定的排序键重新排序文档流。
+$limit(限制)：将前n个文档传递到管道，n是一个数字。
+$skip(跳过)：将前n个文档丢弃，后面的部分传递到管道。
+上面的顺序一般是我们常用的顺序，首先我们筛选一部分文档，然后从筛选中整理一份更加便于我们操作的文档，然后在对整理好的文档通过一些表达式来分组整理，然后通过排序、限制、跳过，得到我们最终的结果。 在管道操作符中如果需要指定文档中的某个键的时候，需要在键名前面加上$符号，比如文档中的name键，在管道操作中要指定它就得这样写$name。 并且我们所有的操作的文档都不是操作储存在硬盘中的数据，我们操作的文档都是储存在内存当中，所以不影响原始数据。
+管道操作符 $match $match应尽量放在聚合的最前面，因为$match使用的是Mongodb的标准查询，所以可以使用索引来提高我们的效率，其次是可以过滤掉不需要的文档，让后续的操作更加效率。 既然是标准的查询我们就可以使用标准查询里面所有操作符。 下面来大概演示一下$match的操作方法： 实例的文档结构如下:
+{ &#34;_id&#34; : ObjectId(&#34;512bc95fe835e68f199c8686&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 80, &#34;views&#34; : 100 } { &#34;_id&#34; : ObjectId(&#34;512bc962e835e68f199c8687&#34;), &#34;author&#34; : &#34;dave&#34;, &#34;score&#34; : 85, &#34;views&#34; : 521 } { &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b257&#34;), &#34;author&#34; : &#34;ahn&#34;, &#34;score&#34; : 60, &#34;views&#34; : 1000 } { &#34;_id&#34; : ObjectId(&#34;55f5a192d4bede9ac365b258&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 55, &#34;views&#34; : 5000 } { &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b259&#34;), &#34;author&#34; : &#34;annT&#34;, &#34;score&#34; : 60, &#34;views&#34; : 50 } { &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25a&#34;), &#34;author&#34; : &#34;li&#34;, &#34;score&#34; : 94, &#34;views&#34; : 999 } { &#34;_id&#34; : ObjectId(&#34;55f5a1d3d4bede9ac365b25b&#34;), &#34;author&#34; : &#34;ty&#34;, &#34;score&#34; : 95, &#34;views&#34; : 1000 } 查询author键的值为dave的文档：...</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-08-10 14:18:52 +0000 UTC'>August 10, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to Mongodb 聚合" href="/posts/mongodb-aggregate/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Mongodb GridFS
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考 MongoDB权威指南(第2版)
+Mongodb Docs
+前言 Mongodb提供了一个轻量级的文件系统来专门处理超过16MB的文件，这个文件系统叫GridFS，它的使用非常简单，几乎所有的Mongodb驱动程序都提供了GridFS API。GridFS将集合放在一个共享的储存区域，GridFS使用两个集合来存储我们存放的数据：
+fs.files：这个集合当中的每一个文档都表示一个文件的信息 fs.chunks：这个集合中存放实际的数据内容 GridFS存储的文件无法进行修改，如果要进行修改只能删除修改的文档，然后再将修改完的文档重新保存。
+下面讲一下如何使用Mongodb提供的mongodfiles客户端来操作GridFS数据：
+mongofiles &lt;options&gt; &lt;commands&gt; &lt;filename&gt; mongofiles命令的组成部分是：
+options:您可以使用一个或多个这些选项来控制其行为mongofiles。 commands:使用这些命令之一来确定动作mongofiles。 filename:本地文件系统上的一个文件的名称，也可以是一个GridFS对象。 mongodfiles默认链接到本地127.0.0.1:27017的数据库上面，如果需要指定数据库和地址需要像下面这样来，然后后面根着需要执行的命令。
+mongofiles --host 127.0.0.1 -p 27017 需要执行的命令 常用的命令有四个：
+list：列出数据库GridFS中的文件 put：将文件系统中的文件上传到GridFS get：用于将GridFS中的文件下载到文件系统中 search：用于搜索GridFS系统中的文件 delete：用于删除GridFS系统中的文件 比如我将一个含有文本xsscript的txt文件上传到GridFS中：
+$ echo &#34;xsscript&#34; &gt; t.txt $ ./mongofiles put t.txt connected to: localhost added file: t.txt 搜索文件：
+$ ./mongofiles list 2017-08-09T16:18:06.985&#43;0800 connected to: localhost t.txt 9 $ ./mongofiles search t 2017-08-09T16:21:42.994&#43;0800 connected to: localhost t.txt 9 下载文件到当前文件系统中：
+$ ....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-08-09 08:27:12 +0000 UTC'>August 9, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to Mongodb GridFS" href="/posts/mongodb-gridfs/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Mongodb特殊索引和集合
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考 MongoDB权威指南(第2版)
+Mongodb Docs
+特殊集合 封顶集合 封顶集合和普通集合不一样，普通集合的大小是可以随着数据的增加而增加的，封顶集合是在创建的时候就已经设置了集合的大小。
+封顶集合的大小已经满了后，当再次插入数据的时候，它会把最老的数据丢掉，然后写入新数据，封顶集合不难看出很适合当log型数据库。
+创建封顶集合 创建封顶集合我们需要显式的创建集合，因为需要在显式创建的方法中设置一些选项，同时我们需要在选项中设置两个选项capped和size。
+db.createCollection(&#39;test&#39;, { capped: true, size: 10485760 }) 上面的代码中capped设置为true代表创建的文档是一个封顶文档，而设置了capped为true后，必须指定size选项，size选项是指定的固定集合的大小，单位为字节(Byte)。
+除此这两个设置外，还可以指定max选项，设置它过后，可以控制总体文档的数量，如果超过设置的数量，就把最老的数据丢掉，写入新数据。
+db.createCollection(&#39;test&#39;, { capped: true, size: 10485760, max: 5000 }) 上面的代码设置了三个选项，其中一个表示创建封顶集合，一个是封顶集合的大小，还有一个是封顶集合的最大文档数量。集合的大小和集合的文档数量，只要其中一个条件满足都会从最老的数据位置开始覆盖写入。
+需要注意的是封顶集合一旦创建就不能在改变，只有通过删除此集合然后在新建。
+封顶集合的自然排序是由旧到新的，如果我们需要由新到旧的顺序查询我们的文档，我们可以通过下面的代码来执行：
+db.test.find({}).sort({$natural: -1}); 文档验证集合 我们在创建集合的时候可以通过设置一个或多个键的值验证机制，这样当写入数据的时候，Mongodb会进行验证，如果通过则写入，如果没有通过则抛出错误，设置验证文档通过validator选项，它接受一个对象，在里面可以使用元操作符$。
+比如下面的代码我设置了一个文档必须设置一个name值，并且值必须为String类型：
+db.createCollection(&#39;blog&#39;, { validator: { name: { $type: &#39;string&#39; } } }); 然后我们试着插入一个带name的文档但值为数值和插入一个带name的文档值为字符串类型。
+&gt; db.blog.insert({name: 123, age: 18}) WriteResult({ &#34;nInserted&#34; : 0, &#34;writeError&#34; : { &#34;code&#34; : 121, &#34;errmsg&#34; : &#34;Document failed validation&#34; } }) 从上面的返回中可以看到错误消息提示的是文档验证失败，而我们试着插入一个合法的数据看看返回的是什么：...</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-08-09 07:43:18 +0000 UTC'>August 9, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to Mongodb特殊索引和集合" href="/posts/mongodb-special-collection-index/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Mongodb索引
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考 MongoDB权威指南(第2版)
+Mongodb Docs
+前言 建立索引对于任何需要提高查询速度的数据库来说都非常重要，那么索引究竟是一个什么？首先来看看下面是《区块链:技术驱动金融》这本书的前两章的目录。
+第1章密码学及加密货币概述----------1 1.1密码学哈希函数----------4 1.2哈希指针及数据结构----------14 1.3数字签名----------19 1.4公钥即身份----------24 1.5两种简单的加密货币----------26 第2章比特币如何做到去中心化----------35 2.1中心化与去中心化----------37 2.2分布式共识----------39 2.3使用区块链达成没有身份的共识----------44 2.4奖励机制与工作量证明----------51 2.5总结----------59 通过目录，我们能很快很清楚的知道这本书写了什么，而我们也能很快从中查找到我们感兴趣的内容在哪一页，如果没有目录，我们将会一篇一篇的去翻阅我们想了解的内容，而索引可以比作数据库的目录。
+效率 explain()是官方提供的一个用于返回当前查询过程信息的一个方法，通过这个命令，我们可以知道查询的过程，以便于我们进行优化，explain()支持这些操作的过程查询：
+aggregate() count() distinct() find() group() remove() update() explain()方法接受三种可选字符串作为参数和两种布尔值，官方是这样来介绍的：
+可选的。指定说明输出的详细程度模式。该模式会影响explain()返回信息的数量和行为。可能的模式有：“queryPlanner”， “executionStats”，和&#34;allPlansExecution&#34;。 默认模式是&#34;queryPlanner&#34;。 为了向后兼容早期版本 cursor.explain()，MongoDB解释true为 “allPlansExecution&#34;和false “queryPlanner”。 aggregate()忽略verbosity参数并在queryPlanner模式下执行。
+首先我们插入100000条数据，可以通过下面代码来循环插入：
+for(var i = 0; i &lt; 100000; i&#43;&#43;) { db.test.insert({ id: i, username: &#39;user&#39; &#43; i }); } 然后我们通过explain()方法看看查询含有username:user108键值的文档过程：
+db.test.find({username: &#39;user108&#39;}).explain(true); 返回的结果大概为：
+{ &#34;queryPlanner&#34; : { &#34;plannerVersion&#34; : 1, &#34;namespace&#34; : &#34;blog.test&#34;, &#34;indexFilterSet&#34; : false, &#34;parsedQuery&#34; : { &#34;username&#34; : { &#34;$eq&#34; : &#34;user4&#34; } }, &#34;winningPlan&#34; : { &#34;stage&#34; : &#34;COLLSCAN&#34;, &#34;filter&#34; : { &#34;username&#34; : { &#34;$eq&#34; : &#34;user4&#34; } }, &#34;direction&#34; : &#34;forward&#34; }, &#34;rejectedPlans&#34; : [ ] }, &#34;executionStats&#34; : { &#34;executionSuccess&#34; : true, &#34;nReturned&#34; : 1, &#34;executionTimeMillis&#34; : 48, &#34;totalKeysExamined&#34; : 0, &#34;totalDocsExamined&#34; : 100000, &#34;executionStages&#34; : { &#34;stage&#34; : &#34;COLLSCAN&#34;, &#34;filter&#34; : { &#34;username&#34; : { &#34;$eq&#34; : &#34;user4&#34; } }, &#34;nReturned&#34; : 1, &#34;executionTimeMillisEstimate&#34; : 37, &#34;works&#34; : 100002, &#34;advanced&#34; : 1, &#34;needTime&#34; : 100000, &#34;needYield&#34; : 0, &#34;saveState&#34; : 782, &#34;restoreState&#34; : 782, &#34;isEOF&#34; : 1, &#34;invalidates&#34; : 0, &#34;direction&#34; : &#34;forward&#34;, &#34;docsExamined&#34; : 100000 }, &#34;allPlansExecution&#34; : [ ] }, &#34;serverInfo&#34; : { &#34;host&#34; : &#34;YizhoudeMacBook-Pro....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-08-08 12:28:45 +0000 UTC'>August 8, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to Mongodb索引" href="/posts/mongodb-index/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Mongodb查询
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考 MongoDB权威指南(第2版)
+Mongodb Documentation
+前言 在Mongodb中查询的方法常用的有两个find和findOne，前者返回所有匹配的文档，而后者返回匹配的第一个文档，它的用法很简单。第一个是它的查询条件，第二个是指定返回文档中字段的过滤器，这个的作用也就是说你想显示哪些字段或者你想不显示哪些字段。并且该方法返回的是一个Cursor对象。
+需要注意的是，find方法查询的时候会查询数组的成员是否符合查询条件，如果查询条件符合，将会把整个数组返回。
+db.collection.find(query, projection) 比如下面通过find语句，查询blog集合中作者为xsscript的文档，并且只返回作者和文章内容。
+db.blog.find({author: &#39;xsscript&#39;}, {author: 1, content: 1}); 在过滤器中，你如果没有显示的声明不返回_id键，默认都会返回，除非显示的声明_id: 0。还有比如在过滤器中设置了auther: 1，那么只会返回_id和auther两个键值，如果你只需要过滤一些不希望显示的值，那么就在过滤器中设置你需要不显示的键并把值设为0，这样文档中所有的值除了你设置不返回的都会返回。
+如果你需要查询多个值匹配的文档，你可以像下面代码所示，把你需要的条件都写在第一个参数对象中，这样的查询其实是AND查询，下面的代码查询了集合中所有文档中作者是xsscript,时间为20170701，并且只返回作者、时间、内容，其中_id不显示。
+db.blog.find({author: &#39;xsscript&#39;, time: 20170701},{ author: 1, content: 1, time: 1, _id: 0 }) 条件查询 一个键可以存在多个条件
+比较操作符 $lt、$lte、gt、gte这四个比较查询符分别表示&lt;、&lt;=、&gt;、&gt;=，可以将其比较查询符组合起来查询，这个代码对于范围查询的筛选非常有用。比如我需要查询年龄大于17岁到25岁之间的文档，代码如下面所示：
+db.test.find({ age: { $gt: 18, $lte: 25 } }); 包含查询操作符 $in操作符是多个条件针对一个键的值进行匹配，比如我需要查询年龄在18、20、25、30的文档，就可以使用$in操作符：
+db.test.find({ age: { $in: [18, 20, 25, 30] } }); $or操作符是多个条件匹配多个键值，它非常有用，就有点类似于JS中的||符号，比如我需要查询一个文档中含有age: 18或者含有name: joe的文档，就可以使用$or操作符，比如下面的代码
+db.test.find({ $or: [ {age: 18}, {name: &#39;joe&#39;} ] }) 对应$in和$or操作符的还有一个反义的即$nin和$nor操作符，后两个操作符的意思是返回不包含查询条件匹配到的所有文档，但是注意，如果在使用后者的两个操作符进行查询的话，会存在一个问题需要注意，比如下面...</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-08-04 08:07:53 +0000 UTC'>August 4, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to Mongodb查询" href="/posts/mongodb-find/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/page/3/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="">Yizhou</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
