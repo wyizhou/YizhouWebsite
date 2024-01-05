@@ -14,7 +14,7 @@
 1 var nimg = document.createElement(&#34;img&#34;); 2 3 nimg.addEventListener(&#34;load&#34;,function(){alert(1)},false); 4 5 nimg.src = &#34;http://www.baidu.com/img/baidu\_jgylogo3.gif&#34;; 6 //执行到这里的时候会弹窗，说明监听到事件。 ">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/htmlimageelements/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -80,7 +80,10 @@
         });
     });
 </script>
-<meta property="og:title" content="HTMLImageElement类型的简便利用" />
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/style.css" /><meta property="og:title" content="HTMLImageElement类型的简便利用" />
 <meta property="og:description" content="这个是我在复习书籍的时候看见的，当时一个同学想通过页面发送请求，但是数据量不是太大，所以用的get方式，但是页面用表单提交请求的话会让页面进行跳转，当时我在网上查了一点资料，发现基本上都是通过ajax请求，无奈现在还没有学习到ajax这一部分，于是翻书，正好看到这里了。所以后面的代码改了过后，一句话解决了问题。
 1 var chunk = 数据; var url = &#34;http://www.baidu.com&#34;; document.createElement(&#34;img&#34;).src = url &#43; &#34;&amp;&#34; &#43; chunk; 在Javascript中对于图片格式进行了实现类型为HTMLImageElement继承自HTMLElement，这个类型拥有img标签公有的特性名对应的属性，可以通过这些属性进行设置。 HTMLImageElement类型是一个动态的类型，也就是说不添加进DOM树中还是能够加载，这个过程我把它叫做&quot;预加载&quot;，如下：
 1 var nimg = document.createElement(&#34;img&#34;); nimg.src = &#34;http://www.baidu.com/img/baidu\_jgylogo3.gif&#34;; //当执行到这一条语句的时候，此时它就会预加载，即使你没有添加进DOM树中，没有添加进DOM树只是你看不见。 如何来验证这个问题？我通过添加load事件来监听是否加载完成，如果加载完成则弹窗，这里我把顺序分成在监听前设置src属性，和监听后设置src属性。 第一种方式：先设置src属性后监听
@@ -248,12 +251,27 @@
     <ul class="post-tags">
       <li><a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a></li>
     </ul>
-  </footer>
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="wyizhou/YizhouWebsite"
+        data-repo-id="R_kgDOK59ReQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOK59Rec4CcNSZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

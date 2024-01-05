@@ -14,7 +14,7 @@ thead tbody tfoot 在使用过程中，只需要把这三个标签相应的行�
 &lt;table border=&#34;10px&#34; width=&#34;500px&#34;&gt; &lt;caption&gt;test&lt;/caption&gt; &lt;thead&gt; &lt;tr&gt; &lt;th&gt;加载本地数据&lt;/th&gt; &lt;th&gt;加载本地数据&lt;/th&gt; &lt;th&gt;加载本地数据&lt;/th&gt; &lt;th&gt;加载本地数据&lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;远程加载数据&lt;/td&gt; &lt;td&gt;远程加载数据&lt;/td&gt; &lt;td&gt;远程加载数据&lt;/td&gt; &lt;td&gt;远程加载数据&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;tfoot&gt; &lt;tr&gt; &lt;td&gt;等待远程加载数据后计算数据&lt;/td&gt; &lt;td&gt;等待远程加载数据后计算数据&lt;/td&gt; &lt;td&gt;等待远程加载数据后计算数据&lt;/td&gt; &lt;td&gt;等待远程加载数据后计算数据&lt;/td&gt; &lt;/tr&gt; &lt;/tfoot&gt; &lt;/table&gt; ">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/html-table-preloaded/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -80,7 +80,10 @@ thead tbody tfoot 在使用过程中，只需要把这三个标签相应的行�
         });
     });
 </script>
-<meta property="og:title" content="HTML表格的加载优化" />
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/style.css" /><meta property="og:title" content="HTML表格的加载优化" />
 <meta property="og:description" content="在HTML设计数据展示的时候会经常使用到HTML表格来展示数据，但是如果数据量过大，就导致表格显示慢，因为在HTML中，表格的显示是需要等待内部所有数据都加载完毕才会显示整个表格，这样对用户体验很不好，比如下面这样：
 &lt;table border=&#34;10px&#34; width=&#34;500px&#34;&gt; &lt;caption&gt;test&lt;/caption&gt; &lt;tr&gt; &lt;th&gt;加载本地数据&lt;/th&gt; &lt;th&gt;加载本地数据&lt;/th&gt; &lt;th&gt;加载本地数据&lt;/th&gt; &lt;th&gt;加载本地数据&lt;/th&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;远程加载数据&lt;/td&gt; &lt;td&gt;远程加载数据&lt;/td&gt; &lt;td&gt;远程加载数据&lt;/td&gt; &lt;td&gt;远程加载数据&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;等待远程加载数据后计算数据&lt;/td&gt; &lt;td&gt;等待远程加载数据后计算数据&lt;/td&gt; &lt;td&gt;等待远程加载数据后计算数据&lt;/td&gt; &lt;td&gt;等待远程加载数据后计算数据&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; 在html中，有三种标记专门针对html表格进行优化结构化，而不虚要向上面的表格那样需要等待全部数据加载完毕后才能显示表格，而结构化的好处就是当表格加载完一部分就显示完一部分，这三个表示表格结构化的标签为：
 thead tbody tfoot 在使用过程中，只需要把这三个标签相应的行包含就可以了，使用后对代码的理解也会更加方便，需要注意的是，这三个标签是包含在table标签内的，并且它们的顺序是可以颠倒的，但是它们出现的位置始终是表头、表主体、表脚。
@@ -292,12 +295,27 @@ thead tbody tfoot 在使用过程中，只需要把这三个标签相应的行�
     <ul class="post-tags">
       <li><a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a></li>
     </ul>
-  </footer>
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="wyizhou/YizhouWebsite"
+        data-repo-id="R_kgDOK59ReQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOK59Rec4CcNSZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

@@ -15,7 +15,7 @@ $ mongodump --dbpath /data/blog --repair 参考 MongoDB权威指南(第2版)
 Mongodb Docs">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/mongodb-data-repair/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -81,7 +81,10 @@ Mongodb Docs">
         });
     });
 </script>
-<meta property="og:title" content="Mongodb 数据修复" />
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/style.css" /><meta property="og:title" content="Mongodb 数据修复" />
 <meta property="og:description" content="介绍 很多时候我们看见数据目录下有一个mongodb.lock文件，这个文件在开启了日志系统后不会出现，在没有开启日志系统的情况下非常重要，并且有时发现重新启动数据库的时候无法启动了，然后删除mongodb.lock又可以启动了，但是尽量不要这样做。
 当Mongodb启动的时候会建立一个mongodb.lock文件，而正常退出的时候就会删除这个文件，但是遇见非正常退出，这个文件就滞留了，Mongodb就会得知上一次是非正常退出，所以第一时间不是删除这个文件启动，而是尝试着修复数据，再进行启动。
 mongod &ndash;repair mongod内置了一个修复数据的选项，这个工具相比与下面介绍的另一种工具来说这种在修复的速度上要稍微快一下，我们只需指定修复的数据库路径，然后加上选项就可以进行修复了。
@@ -269,12 +272,27 @@ Mongodb Docs"/>
     <ul class="post-tags">
       <li><a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/">服务和运维</a></li>
     </ul>
-  </footer>
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="wyizhou/YizhouWebsite"
+        data-repo-id="R_kgDOK59ReQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOK59Rec4CcNSZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

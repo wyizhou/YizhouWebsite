@@ -13,7 +13,7 @@ readFile(&#39;1.txt&#39;, (err, data) =&gt; { if(err) {return err} let data1 = d
 var files1 = new Promise((resolve, reject) =&gt; { readFile(&#39;1.txt&#39;, (err, data) =&gt; { if(err) {return err} resolve(data); }); }); var files2 = new Promise((resolve, reject) =&gt; { readFile(&#39;2.">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/es7-async/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -79,7 +79,10 @@ var files1 = new Promise((resolve, reject) =&gt; { readFile(&#39;1.txt&#39;, (er
         });
     });
 </script>
-<meta property="og:title" content="ES7-async函数" />
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/style.css" /><meta property="og:title" content="ES7-async函数" />
 <meta property="og:description" content="参考文档：MDN
 概念 ES7提供了一个异步解决方案async函数容易，它的作用非常简单，几个异步操作并且这几个是有依赖的，如果按照我们往常的使用方法有几种，下面是一个读取文件的例子，需要读取文件1-3.txt，首先看看callback的写法：
 readFile(&#39;1.txt&#39;, (err, data) =&gt; { if(err) {return err} let data1 = data; readFile(&#39;2.txt&#39;, (err, data) =&gt; { if(err) {return err } let data2 = data; readFile(&#39;3.txt&#39;, (err, data) =&gt; { if(err) {return err} let data3 = data; return dataAll = data1.toString() &#43; data2.toString() &#43; data3.toString(); }); }); }); 从上面的代码看出来，这样的回调函数很难辨别，也很难理解，而且多个回调函数嵌套，编写代码的人员也过后回头看也会感觉到头疼，这就是我们常说的&quot;callback hell&quot;。下面还有一种Promise的写法：
@@ -359,12 +362,27 @@ files()
     <ul class="post-tags">
       <li><a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a></li>
     </ul>
-  </footer>
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="wyizhou/YizhouWebsite"
+        data-repo-id="R_kgDOK59ReQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOK59Rec4CcNSZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

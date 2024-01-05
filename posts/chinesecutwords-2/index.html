@@ -14,7 +14,7 @@ Trie树的查找方式则是通过层层查询，而不是直接遍历词典，�
 class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实例定义一个名为_children的对象，用于存放词的Trie结构 self._children = {} def _add_word(self, word): # 定义一个添加词的实例方法 child = self._children # 首先会将_children的对象赋值给child for i,char in enumerate(word): # 然后从头遍历添加词的每一个字符 if char not in child: # 查看当前字符是否存在Trie树上 child[char] = {&#39;__value&#39;: False} # 如果没有则新建一个对象，并设置特殊key__value为False，表明这不是一个结尾字符 if i == (len(word) - 1): # 判断是否为结尾字符 child[char][&#39;__value&#39;] = True # 如果是则将特殊key：__value设为True，表明为结尾字符 child = child[char] # 如果还有字符，则将当前字符对象更新为child，那么下一次查找则是基于上一次对象下 return True # 添加完成返回True def _get_word(self, word): # 查找词 child = self.">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/chinesecutwords-2/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -80,7 +80,10 @@ class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实
         });
     });
 </script>
-<meta property="og:title" content="(二)漫话中文分词：Trie、KMP、AC自动机" />
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/style.css" /><meta property="og:title" content="(二)漫话中文分词：Trie、KMP、AC自动机" />
 <meta property="og:description" content="Trie树 在上一篇文章当中，说到了一些匹配的算法，但是算法有了，还得需要一个高效的数据结构，不能只是通过[&lsquo;中国人&rsquo;, &lsquo;中东人&rsquo;]等结构来进行存放，可以想象一下，如果有几十万的词，那么这个列表的占用的内存非常大。 Trie树，也被称为前缀树，该词源自单词retrieval，发音和try相同，Trie树可为词库提供一种高效的分词数据结构，该结构本质上是一种树状数据结构，比如&quot;中国人&quot;、&ldquo;中东人&quot;三个字符串构造的Trie树为下图，图中能够很清楚的看见，Trie树结构能够很好的节省相同前缀单词所浪费的空间，因为这两个词都是以&quot;中&quot;开头，所以可以使用同一个父辈节点。
 除此之外，Trie树还对查询的速度有一定的优化，如果以列表存放词来说，如果列表存放的词达到了20万个，那么最坏的情况是你需要匹配的词在存放于列表最后，那么就相当于要将这20万个词全部遍历，可想而知浪费了非常多的计算资源。 而Trie查询的次数最大的次数取决于查找的字符串长度，比如中国人，那么查询次数最大仅为3次。 下图为基于同一份10万左右的词典，待分词文本为字符长度150，使用正向最大匹配算法在列表和Trie两种结构上进行分词的运行时间，从下图可以看出来差距非常大。
 Trie树的查找方式则是通过层层查询，而不是直接遍历词典，比如&quot;中国人&rdquo;，首先会查找第一层中是否有&quot;中&quot;这个字符，如果没有查询到则返回查询失败，如果有则继续查找&quot;中&quot;字符对应的下一层是否有&quot;国&quot;，如果没有则返回查询识别，如果有则继续查找&quot;国&quot;下一层是否有&quot;人&quot;，此时找到存在&quot;人&quot;这个节点，并且该节点标注为蓝色，表明是一个词，所以返回该字符串为一个词。 其实要实现这样的数据结构，大致的功能点为下面两点：
@@ -422,12 +425,27 @@ class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实
     <ul class="post-tags">
       <li><a href="https://wuyizhou.com/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95/">数学与算法</a></li>
     </ul>
-  </footer>
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="wyizhou/YizhouWebsite"
+        data-repo-id="R_kgDOK59ReQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOK59Rec4CcNSZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

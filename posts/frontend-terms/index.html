@@ -17,7 +17,7 @@
 Redux本身设计是非常有趣的，整个应用的状态不能直接修改，这是因为如果大家都直接修改很有可能会造成状态的管理的混乱，所以Redux的修改状态流程是组件发起动作-&gt;Dispatch函数接收动作-&gt;reducer处理动作-&gt;影响状态-&gt;重新渲染组件。">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/frontend-terms/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -83,7 +83,10 @@ Redux本身设计是非常有趣的，整个应用的状态不能直接修改，
         });
     });
 </script>
-<meta property="og:title" content="前端的技术栈理解" />
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/style.css" /><meta property="og:title" content="前端的技术栈理解" />
 <meta property="og:description" content="最近几年单页应用程序发展非常迅速，从早期通过Javascript写入大量html模版去做单页程序（SPA），到现在的React、Vue（最为流行），但不得不说，前端的技术进步太快了，稍不关注技术，就会出来很多的新的技术。
 但归根结底，每次新的技术出来，埋头深入发现远比想象的复杂，而到了一定的时间后则能够想明白一些事情，这也就是&quot;深入浅出&quot;的道理。 单页应用是一个复杂的技术，要解决这些问题，出现了很多&quot;框架&quot;、工具，比如React、Vue、React-router、Redux等。对于新手来说更是学了一圈后出来也是懵的。但总体来说，React和Vue这类库本质都没有什么区别，都是为了解决SPA提出的方案。这类库大部分主要的理念是将Web应用划分为一个一个的组件为单元，这些组件可以包含另一个组件，以此来达到复用性。
 而每个组件不可能都显示一样，那这样复用性是没有意义的。 那这个时候提出了“状态”的概念，来让每个复用的组件显示不同的内容，状态分为了props和state，props是由外部传入进来的状态，state则是组件内部自己的状态。而这类UI库对于状态的变化，都会根据一些优秀的算法去重新渲染组件，并且渲染的时候仅仅涉及到改变的那一部分内容。
@@ -254,12 +257,27 @@ Redux本身设计是非常有趣的，整个应用的状态不能直接修改，
     <ul class="post-tags">
       <li><a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a></li>
     </ul>
-  </footer>
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="wyizhou/YizhouWebsite"
+        data-repo-id="R_kgDOK59ReQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOK59Rec4CcNSZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

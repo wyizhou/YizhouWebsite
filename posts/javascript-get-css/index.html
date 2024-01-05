@@ -19,7 +19,7 @@
 在DOM2级中为style对象定义的方法和属性是无法获取到从其他样式叠层应用的样式信息，DOM2级样式增强 document.defaultView，提供了getComputedStyle计算方法。这个方法接受两个参数，要计算的元素和一个伪元素字符串(如：”:after”)。这个方法可以获取任何通过叠层应用来的样式信息。但是返回的任何结果只能读不能写，因为这些信息是已经计算的结果。 IE不支持getComputedStyle()方法，但是IE有一个类似的方法实现的，这个方法定义在IE浏览器style对象里面的currentStyle属性。这个属性放回一个包含当前元素全部计算过后的样式信息。">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/javascript-get-css/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -85,7 +85,10 @@
         });
     });
 </script>
-<meta property="og:title" content="Javascript访问css样式信息" />
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/style.css" /><meta property="og:title" content="Javascript访问css样式信息" />
 <meta property="og:description" content="DOM2级样式为style对象定义了一些属性和方法，可以通过这些方法属性来访问或者修改元素的样式信息：
 1、cssText：可读写，在读的情况下以字符串形式返回元素的css代码，在写的情况下以字符串形式重写整个元素的css代码
 2、length：返回当前元素应用的css属性数量。
@@ -262,12 +265,27 @@
     <ul class="post-tags">
       <li><a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a></li>
     </ul>
-  </footer>
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="wyizhou/YizhouWebsite"
+        data-repo-id="R_kgDOK59ReQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOK59Rec4CcNSZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

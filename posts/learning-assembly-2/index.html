@@ -45,7 +45,7 @@ jmp 段地址:偏移地址 它可以直接修改CS和IP寄存器的值，比如�
 jmp 2AE3:3，执行后：CS=2AE3H，IP=0003H，CPU将从内存单元2AE33H执行指令。 jmp 3:0B16，执行后：CS=0003H，IP=0B16H，CPU将从内存单元00B46H执行指令。 我们也可以只修改IP偏移地址：">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/learning-assembly-2/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -111,7 +111,10 @@ jmp 2AE3:3，执行后：CS=2AE3H，IP=0003H，CPU将从内存单元2AE33H执行
         });
     });
 </script>
-<meta property="og:title" content="汇编语言学习笔记（二）：寄存器" />
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/style.css" /><meta property="og:title" content="汇编语言学习笔记（二）：寄存器" />
 <meta property="og:description" content="为什么要了解寄存器 为什么了解寄存器？因为CPU是计算机的大脑，可以通过指令读写寄存器实现对CPU的控制，你试想一下如果你的大脑不能控制只能控制手和脚等，不就等于扯线木偶了？
 寄存器只是CPU内部的一个器件，对于汇编来说CPU中比较重要的三个器件：
 运算器：对数据进行处理 控制器：控制各种器件工作 寄存器：对数据进行储存 而在CPU内部，这三个器件包括其他器件都是靠CPU内部总线相连，这里的内部总线是指的CPU内部器件的总线，而上一章节说的总线是CPU与外部器件比如显卡、内存等器件的总线。
@@ -495,12 +498,27 @@ jmp bx 执行后把bx中的数据传送到IP寄存器中
     <ul class="post-tags">
       <li><a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a></li>
     </ul>
-  </footer>
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="wyizhou/YizhouWebsite"
+        data-repo-id="R_kgDOK59ReQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOK59Rec4CcNSZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

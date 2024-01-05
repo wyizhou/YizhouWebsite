@@ -23,7 +23,7 @@ db.createCollection(&#39;blog&#39;, { validator: { name: { $type: &#39;string&#3
 &gt; db.blog.insert({name: 123, age: 18}) WriteResult({ &#34;nInserted&#34; : 0, &#34;writeError&#34; : { &#34;code&#34; : 121, &#34;errmsg&#34; : &#34;Document failed validation&#34; } }) 从上面的返回中可以看到错误消息提示的是文档验证失败，而我们试着插入一个合法的数据看看返回的是什么：">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/mongodb-special-collection-index/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -89,7 +89,10 @@ db.createCollection(&#39;blog&#39;, { validator: { name: { $type: &#39;string&#3
         });
     });
 </script>
-<meta property="og:title" content="Mongodb特殊索引和集合" />
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/style.css" /><meta property="og:title" content="Mongodb特殊索引和集合" />
 <meta property="og:description" content="参考 MongoDB权威指南(第2版)
 Mongodb Docs
 特殊集合 封顶集合 封顶集合和普通集合不一样，普通集合的大小是可以随着数据的增加而增加的，封顶集合是在创建的时候就已经设置了集合的大小。
@@ -440,12 +443,27 @@ db.blog.find({$text: {$search: &#39;asd789&#39;}});
     <ul class="post-tags">
       <li><a href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/">服务和运维</a></li>
     </ul>
-  </footer>
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="wyizhou/YizhouWebsite"
+        data-repo-id="R_kgDOK59ReQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOK59Rec4CcNSZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

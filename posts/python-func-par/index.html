@@ -16,7 +16,7 @@ def power(x,y=2): return x * y power(2,5) # 10 power(2) # 4 可变参数 可变�
 # 可变参数通过参数名前输入一个&#39;**&#39;号，标记为这是一个关键字参数，并传入name=value形式的参数 def power(name,**other): print(&#39;name:{}, other:{}&#39;.format(name,other)) power(&#39;trick&#39;, a=1,b=2) # name:trick, other:{&#39;a&#39;: 1, &#39;b&#39;: 2} 命名关键字参数 命名关键字参数是对于关键字参数的补充，当定义关键字参数的时候我们是没有办法对关键字参数可控的，而命名关键字参数就可以控制关键字参数的名字以及接收关键字的个数，比如下面的代码只接收&rsquo;city&rsquo;和&rsquo;email&rsquo;两个关键字参数。">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/python-func-par/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -82,7 +82,10 @@ def power(x,y=2): return x * y power(2,5) # 10 power(2) # 4 可变参数 可变�
         });
     });
 </script>
-<meta property="og:title" content="Python函数参数" />
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/style.css" /><meta property="og:title" content="Python函数参数" />
 <meta property="og:description" content="位置参数 位置参数是指定了多少参数，就必须输入多少参数，否则就会报错。也可以把位置参数理解为必须参数，如果没有输入同等的参数，就会报错，比如下面的代码，计算两个数的乘积。
 def power(x,y): return x * y power(2,5) # 10 power(2) #报错 默认参数 默认参数指的是可以给一个参数设置一个默认值，如果用户没有输入这个参数，那么在函数内部就会用这个参数设置的默认值进行计算，比如说下面的函数是返回两个数的乘积，如果用户没有输入第二个数，就默认为数值&#39;2&rsquo;。
 def power(x,y=2): return x * y power(2,5) # 10 power(2) # 4 可变参数 可变参数是定义函数的时候不确定函数有多少个值，但是都会去接收进行计算，在函数内部是把所有的参数组合成一个不可变的元组数列。
@@ -350,12 +353,27 @@ print(power())
     <ul class="post-tags">
       <li><a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a></li>
     </ul>
-  </footer>
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="wyizhou/YizhouWebsite"
+        data-repo-id="R_kgDOK59ReQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOK59Rec4CcNSZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

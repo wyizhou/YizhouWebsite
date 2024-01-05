@@ -36,7 +36,7 @@ site：site高级操作符用于搜索某个特定的域名或者域，比如只
 inanchor：inanchor高级操作符用于搜索超链接的文本。比如链接地址为weibo.com/xxx，而这个链接的文本则显示为“我的微博”，在html表示为&lt;a href=&quot;https://weibo.com/xxx&quot;&gt;我的微博&lt;/a&gt;，inanchor就是用于搜索这个链接文本“我的微博”。 该操作符搜索返回的结果并非是网页中是否包含，而是直接返回该链接，比如“我的微博”这个链接存放在我的主页，Google并不会返回我的主页作为结果，而是将&quot;我的微博&quot;这条链接直接作为结果。">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/google-hacking-test/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -102,7 +102,10 @@ inanchor：inanchor高级操作符用于搜索超链接的文本。比如链接�
         });
     });
 </script>
-<meta property="og:title" content="Google Hacking Test" />
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/style.css" /><meta property="og:title" content="Google Hacking Test" />
 <meta property="og:description" content="前言 学习Google搜索，其目的是用于让自己得到更精准的信息，所以善用Google搜索对于信息收集、安全测试、查找答案等都有着非常大的帮助。而随着时间的变化Google对于语法的更新、规则都在改动，这些改动对于结果都有影响，所以使用前进行测试是非常有必要的。 查阅了诸多资料过后，将Google搜索的操作分为了三个等级，分别为基础搜索、布尔操作符、高级操作符，每个级别的都可以进行配合使用，有些组合起来能够让搜索更加精准，而有些则是不能进行组合。 同时这些搜索方式会与高级搜索设置中的功能重叠，但个人偏向使用语法对比高级搜索设置方便许多，所以后面的内容均使用语法，不会涉及到搜索设置等。 除此之外，还有诸多的网站可以获取到Google语法的途径，比如exploit-db是一个用于记录安全测试的Google语法数据库，这里面记录了非常多因配置失误操作的漏洞，如获取sql备份文件sql.bak等。Google Help提供常用的Google语法等。
 影响搜索的因素 Google在搜索原理的一篇简单的介绍了会影响搜索结果的几个因素，分别为以下7个因素：
 如果为中文，需要进行分词、语法等NLP技术的信息提取。
@@ -448,12 +451,27 @@ inanchor：inanchor高级操作符用于搜索超链接的文本。比如链接�
     <ul class="post-tags">
       <li><a href="https://wuyizhou.com/tags/%E6%9D%82%E7%89%A9%E9%97%B4/">杂物间</a></li>
     </ul>
-  </footer>
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="wyizhou/YizhouWebsite"
+        data-repo-id="R_kgDOK59ReQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOK59Rec4CcNSZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

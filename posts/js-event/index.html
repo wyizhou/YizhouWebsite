@@ -19,7 +19,7 @@ DOM2级事件 W3C在很久之前就着手规划事件，把事件分为两个部
 关于兼容问题，从IE9开始的浏览器以及现在的Safari、firefox、chrome、opera浏览器都支持DOM2级事件，但是如果要兼容IE9以下的浏览器，那就需要使用时间冒泡类型来兼容IE9以后的浏览器了。">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/js-event/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -85,7 +85,10 @@ DOM2级事件 W3C在很久之前就着手规划事件，把事件分为两个部
         });
     });
 </script>
-<meta property="og:title" content="事件捕获与事件冒泡" />
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/style.css" /><meta property="og:title" content="事件捕获与事件冒泡" />
 <meta property="og:description" content="事件流 在理解这两个概念之前可以先来理解一个概念叫：事件流，指的是触发事件的先后顺序。可以把事件冒泡和事件捕获想成对于事件流的一种实现方式。
 很久之前IE和网景公司对于事件实现的时候产生一个方面的共识，那就是当我们点击一个网页的时候，点击页面内任何一个元素，那么点击的不只是那一个元素，而是整个页面。相当于一个同心圆，我们手指指向中心的时候，其实指向的不只是中心圆，而是所有的圆。如下图。但是在关于如何实现事件流的时候，两个公司却给出了截然相反的理念。
 事件冒泡 这个由微软提出并使用在IE浏览器中，事件冒泡的基本理念是从特定目标到不特定目标的顺序进行触发。那么触发的顺序就如同下图：
@@ -309,12 +312,27 @@ DOM2级事件 W3C在很久之前就着手规划事件，把事件分为两个部
     <ul class="post-tags">
       <li><a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a></li>
     </ul>
-  </footer>
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="wyizhou/YizhouWebsite"
+        data-repo-id="R_kgDOK59ReQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOK59Rec4CcNSZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

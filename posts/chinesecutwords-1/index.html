@@ -14,7 +14,7 @@
 sentence = &#39;中文分词算法&#39; # 输入的句子 cutList = [&#39;分词&#39;] # 分词词典 start = 0 #设置切分起始位置 maxWidth = len(max(cutList, key=len)) # 得到字典当中最大的切分宽度 cut_result = [] # 设置一个空的分词结果 while (start &lt;= len(sentence)): #开始循环，如果start大于等于句子长度则停止分词 end = start &#43; maxWidth # 计算每次切分的停止位置 word = sentence[start: end] # 开始切分，文本为变量start和end的区间内字符 while ( word ) : # python对于空字符串会转换为False if ( word in cutList ) : # 查看第一次切分后是否能在词典中匹配，如果匹配则放入最终的分词结果列表cut_result,并跳出循环 cut_result.">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/chinesecutwords-1/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -80,7 +80,10 @@ sentence = &#39;中文分词算法&#39; # 输入的句子 cutList = [&#39;分词
         });
     });
 </script>
-<meta property="og:title" content="(一)漫话中文分词：最大匹配,双向最大,最小词数" />
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/style.css" /><meta property="og:title" content="(一)漫话中文分词：最大匹配,双向最大,最小词数" />
 <meta property="og:description" content="中文分词是指将文本拆分为单词的过程，而结果集合连接起来是等于原始的文本，而中文分词一直作为NLP领域的比较重要的领域，而大多数的文本挖掘都是以分词为基础，但中文不同于英文，英文每个单词是用空格分隔，整体语义上相对于中文难度低很多。 而业务上一直有中文分词的需求，但是之前因为在忙于另外一个项目，所以一直没有研究。 近期稍空闲开始研究了相关的中文分词算法，发现中文分词总体算比较成熟，但是其中对于未登录词或者某个特定专业领域文本大部分算法分词的结果不尽人意，需要结合多种算法或者人工词典才能达到稍微好一点的效果。 中文分词的方式一共有两种，分别为：
 词典分词：如正向最大匹配算法、反向最大匹配算法、双向最大匹配算法、最少词数法等 字标注分词：如HMM（隐马尔可夫）模型等 而这几种方式很难说出谁好谁坏，比如词典分词的方式速度非常快，但对于未登录词的识别又不太好，而HMM和Pkuseg都能识别部分未登录词，但是运行速度又降下来了，这对于在实际应用场景当中是非常致命的问题，所以最大的优解就是集各家所长，比如结巴分词就使用了词典分词算法识别能识别的词，而不能识别的则继续使用了HMM模型来处理。
 词典分词 基于词典的分词算法实际上就是对于类似字典的数据结构进行查询，对于未在词典内的词识别较弱和交集型歧义理解能力也较弱，比如“结婚的和尚未结婚的”，理想的情况是&quot;结婚/的/和/尚未/结婚/的&quot;，而实际中则会被分词为&quot;结婚/的/和尚/未/结婚/的&quot;。 但好在词典分词的速度则非常快，词典分词目前已有非常成熟高效的解决方案，并且有非常多的工具来帮你实现相关的高效数据结构和查询方式，比如Trie树和AC自动机，但在这里为了方便理解和记录，只采用了尽可能简单的方式来记录其几种算法的实现和原理。
@@ -344,12 +347,27 @@ print(sentence)
     <ul class="post-tags">
       <li><a href="https://wuyizhou.com/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95/">数学与算法</a></li>
     </ul>
-  </footer>
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="wyizhou/YizhouWebsite"
+        data-repo-id="R_kgDOK59ReQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOK59Rec4CcNSZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

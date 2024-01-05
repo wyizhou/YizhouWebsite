@@ -30,7 +30,7 @@ SP=SP-2，SS:SP指向当前栈顶前面的单元，以当前栈顶起前面的�
 在内存单元中，可能存放数据，代码，也有可能存放其他应用的数据代码等，如果超出了就会出现其他未知的问题，在8086CPU中，并没有什么机制来预防这样的问题，应为8086CPU只需要关注栈顶在哪里，并不会关注栈的空间有多大，所以我们需要特别注意，这是非常危险的一个操作。">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/learning-assembly-4/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -96,7 +96,10 @@ SP=SP-2，SS:SP指向当前栈顶前面的单元，以当前栈顶起前面的�
         });
     });
 </script>
-<meta property="og:title" content="汇编语言学习笔记（四）：寄存器[内存访问]" />
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/style.css" /><meta property="og:title" content="汇编语言学习笔记（四）：寄存器[内存访问]" />
 <meta property="og:description" content="内存中字的储存 在8086CPU中，寄存器为16位，可以储存一个字(1Word=2Byte)，拿ax来说，低8位放在al中，高8位放在ah中。
 在内存单元一个内存单元只能存储一个字节，那么如果存储一个字型数据就会用到两个内存单元，低8位放在低地址当中，高8位放在高地址当中，比如下图中，储存了两个字型数据，一个是4E20H，一个是0012H，它们的存放数据大概如下：
 而当连续两个内存单元储存的是一个字型数据的时候，可以将这字型数据的起始地址称为N地址字单元，比如00001内存单元和00002内存单元，可以直接称为00001地址字单元。
@@ -357,12 +360,27 @@ mov [0001H],al
     <ul class="post-tags">
       <li><a href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">开发者手册</a></li>
     </ul>
-  </footer>
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="wyizhou/YizhouWebsite"
+        data-repo-id="R_kgDOK59ReQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOK59Rec4CcNSZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

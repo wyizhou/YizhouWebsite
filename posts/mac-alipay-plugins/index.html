@@ -15,7 +15,7 @@ com.alipay.refresher.plist com.alipay.DispatcherService.plist 发现“com.alipa
 ~/Library/Alipay /Library/Application Support/Alipay /Library/LaunchDaemons/com.alipay.DispatcherService.plist ~/Library/LaunchAgents/com.alipay.refresher.plist ~/Library/Internet Plug-Ins/ali_(npali_).plugin 4、正确姿势安装 首先到官方下载名为wkaliedit.dmg的插件包 然后载入过后提取installer.pkg文件，解压installer.pkg包提取output.pkg包 右键显示包内容打开output.pkg包，解压Payload包(此包为gzip格式，如果不能直接解压，请在终端下解压(tar zxvf Payload))，得到alipay包 右键显示包内容打开alipay包，依次进入Contents-Resources，找到其中两个zip包，aliedit.zip和npalicdo.zip 解压两个包，并把解压的两个文件“aliedit.plugin”、“npalicdo.plugin”放到”~/Library/Internet Plug-Ins文件下 重启浏览器 ">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/mac-alipay-plugins/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e087fd1dc76e73a35ae6d7028ddc1ba41e0131e7f9b3a6e2d019a208e6d6c4b5.css" integrity="sha256-4If9Hcduc6Na5tcCjdwbpB4BMef5s6bi0BmiCObWxLU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -81,7 +81,10 @@ com.alipay.refresher.plist com.alipay.DispatcherService.plist 发现“com.alipa
         });
     });
 </script>
-<meta property="og:title" content="Mac支付宝插件风波" />
+
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/style.css" /><meta property="og:title" content="Mac支付宝插件风波" />
 <meta property="og:description" content="1、前言 首先我喜欢看一些创业的书，很多书里都会有马云的身影，马云也算是对我有一定的影响，从而我对淘宝也产生了一定的好感。但是关于这次插件事情，我对阿里产生了一些排斥的心里作用。我并不想吐槽淘宝，也不是吐槽马云，阿里不是万达，整个阿里并不是马云想干啥就干啥，所以这些事情也不可能说是马云的一句之作，我看见网上很多人因为这个事情在吐槽马云，我都为马云兄背黑锅这件事情感到蛋疼。仁者见仁智者见智吧！
 2、可疑进程 无意中看到一篇文章在说Mac上支付宝插件有点异常，我查看了自己的进程，发现确实存在一个可疑的“AlipayDispatcherService”进程，同时这个进程会监控浏览器的配置文件，通过kill结束这个进程后发现“AlipayDispatcherService”进程会再次启动，我找出了以下两个相关的阿里服务：
 com.alipay.refresher.plist com.alipay.DispatcherService.plist 发现“com.alipay.DispatcherService.plist”服务调用“com.alipay.refresher.plist”服务不断重启“AlipayDispatcherService”，理清楚调用顺序过后，关闭这个进程相对简单了，首先禁用两个服务：
@@ -289,12 +292,27 @@ sudo launchctl unload &lt;span class=&#34;pun&#34;&gt;~&lt;span class=&#34;str&#
     <ul class="post-tags">
       <li><a href="https://wuyizhou.com/tags/%E6%9D%82%E7%89%A9%E9%97%B4/">杂物间</a></li>
     </ul>
-  </footer>
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="wyizhou/YizhouWebsite"
+        data-repo-id="R_kgDOK59ReQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOK59Rec4CcNSZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2023 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
