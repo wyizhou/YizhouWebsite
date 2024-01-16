@@ -184,6 +184,29 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Mongodb GridFS
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>参考 MongoDB权威指南(第2版)
+Mongodb Docs
+前言 Mongodb提供了一个轻量级的文件系统来专门处理超过16MB的文件，这个文件系统叫GridFS，它的使用非常简单，几乎所有的Mongodb驱动程序都提供了GridFS API。GridFS将集合放在一个共享的储存区域，GridFS使用两个集合来存储我们存放的数据：
+fs.files：这个集合当中的每一个文档都表示一个文件的信息 fs.chunks：这个集合中存放实际的数据内容 GridFS存储的文件无法进行修改，如果要进行修改只能删除修改的文档，然后再将修改完的文档重新保存。
+下面讲一下如何使用Mongodb提供的mongodfiles客户端来操作GridFS数据：
+mongofiles &lt;options&gt; &lt;commands&gt; &lt;filename&gt; mongofiles命令的组成部分是：
+options:您可以使用一个或多个这些选项来控制其行为mongofiles。 commands:使用这些命令之一来确定动作mongofiles。 filename:本地文件系统上的一个文件的名称，也可以是一个GridFS对象。 mongodfiles默认链接到本地127.0.0.1:27017的数据库上面，如果需要指定数据库和地址需要像下面这样来，然后后面根着需要执行的命令。
+mongofiles --host 127.0.0.1 -p 27017 需要执行的命令 常用的命令有四个：
+list：列出数据库GridFS中的文件 put：将文件系统中的文件上传到GridFS get：用于将GridFS中的文件下载到文件系统中 search：用于搜索GridFS系统中的文件 delete：用于删除GridFS系统中的文件 比如我将一个含有文本xsscript的txt文件上传到GridFS中：
+$ echo &#34;xsscript&#34; &gt; t.txt $ ./mongofiles put t.txt connected to: localhost added file: t.txt 搜索文件：
+$ ./mongofiles list 2017-08-09T16:18:06.985&#43;0800 connected to: localhost t.txt 9 $ ./mongofiles search t 2017-08-09T16:21:42.994&#43;0800 connected to: localhost t.txt 9 下载文件到当前文件系统中：
+$ ....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-08-09 08:27:12 +0000 UTC'>August 9, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to Mongodb GridFS" href="https://wuyizhou.com/posts/mongodb-gridfs/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Mongodb特殊索引和集合
     </h2>
   </header>
@@ -386,27 +409,6 @@ var files1 = new Promise((resolve, reject) =&gt; { readFile(&#39;1.txt&#39;, (er
   </div>
   <footer class="entry-footer"><span title='2017-07-17 09:53:10 +0000 UTC'>July 17, 2017</span></footer>
   <a class="entry-link" aria-label="post link to ES7-async函数" href="https://wuyizhou.com/posts/es7-async/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">es6-promise
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>书籍参考：《ECMAScript 6入门》 作者：阮一峰
-文档参考：MDN
-概念 Promise最初在社区提出的一个异步解决的方案，最后ES6将它加入了正式的标准，并规定了统一的写法。
-在使用Promise之前，你需要注意下面几个点：
-1.Promise有三个状态:Pending(进行中)、Resolved(已完成)、Rejected(已失败)，这三个状态我们无法去改变，并且在一个Promise中只有两个可能，一种是从Pending到Resolved，另一种是Pending到Rejected。当结果发生后，这个状态就凝固了，也就是说我们无法去改变Promise对象的任何状态，如果再次调用这个Promise对象，返回的将是凝固状态的结果。
-2.Promise在执行的过程中无法取消，并且我们也无法知道它执行到哪一步，我们只能知道返回的是已完成还是已失败。
-3.Promise实例创建后会立即执行
-下面的代码部署了一个Promise对象异步加载图片的例子，可以看到用Promise对象来编写异步代码是非常的清晰。
-var imgs = new Promise((resolve, reject) =&gt; { let img = new Image(); img.src = &#39;http://xxx.com/img.jpg&#39;; img.onload = function(){ resolve(&#39;加载成功&#39;); } img.onerror = function(){ reject(&#39;加载失败&#39;); } }); 在部署了Promise对象后，我们可以通过Promise的实例来调用then()方法，then()方法接受两个函数，这两个函数分别指定resolved和rejected状态返回的回调函数。第二个函数可以不指定，也就是说不返回错误，只得到完成的结果。
-var imgs = new Promise((resolve, reject) =&gt; { let img = new Image(); img.src = &#39;http://xxx.com/img.jpg&#39;; img.onload = function(){ resolve(&#39;加载成功&#39;); } img.onerror = function(){ reject(&#39;加载失败&#39;); } }); imgs.then(function(value){ console.log(value); }, function(error){ console....</p>
-  </div>
-  <footer class="entry-footer"><span title='2017-07-16 16:32:08 +0000 UTC'>July 16, 2017</span></footer>
-  <a class="entry-link" aria-label="post link to es6-promise" href="https://wuyizhou.com/posts/es6-promise/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

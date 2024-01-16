@@ -184,6 +184,40 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">HTML表单脚本
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>在HTML中，表单由标签构成。在javascript中，是由HTMLFormElement类型构成，这个类型继承自HTMLElement类型。
+HTMLFormElement类型具有以下单独的属性和方法：
+acceptCharset: 服务器能够处理的字符集（HTML中的accept-charset） action：请求的URL地址（HTML中的action） method：请求的http类型，是为POST还是为GET（HTML中的method） elements：表单里的所有组件的集合，类型为HTMLCollection length：表单里所有组件的数量 enctype：请求编码的类型（HTML中的enctype） name：表单的名称（HTML中表单的name） submit()：用编程方式提交表单 reset()：将表单里所有可填写的组件内容置空 target：用于发送请求和接收响应的窗口名字（HTML中的target） document.form属性 可以通过document.form来获取整个页面的form表单，返回一个集合，可以通过数值的索引活着name值来查找特定的表单：
+var oneform = document.form[0];
+var twoform = document.form[twoform];
+elements属性 每个表单都会有一个elements属性，里面包含了表单内所有组件的集合，它是一个有序的列表，里面包含了按顺序的组件索引，可以通过数值索引和name值来访问里面的组件。
+var oneform = document.form[0];
+var oneinput = oneform.elements[0];
+submit()、reset() 可以通过编程方式提交表单，在表单的引用上调用submit()方法可以提交表单，但是不触发submit事件。相对于reset()方法，可以通过调用执行置空，但是它会触发reset事件。
+focus()、blur()方法 focus()方法用户将浏览器的焦点设置到当前表单组件，而blur()方法则是将当前表单组件的焦点移开。
+表单字段事件 blur：当组件失去焦点的时候触发事件 change：值产生变化的时候触发事件 focus：当组件获得焦点的时候触发事件 select()方法、select选择事件、selectionStart、selectionEnd 在和文本框的引用上调用此方法可以选择文本框的全部内容。
+var inp = document.getElementsByTagName(“input”)[0];
+input.addEventListener(“focus”,function(event){
+event.target.select();
+},false);select事件，当发生选择文本或者select()方法的时候发生
+var inp = document.getElementsByTagName(“input”)[0];
+input.addEventListener(“select”,function(event){
+alert(this.type);
+},false); selectionStart属性和selectionEnd属性表示在文本框里面选择的文本开始位置和结束位置。
+var area123 = document.getElementsByTagName(“area”)[0];
+area123.value.substring(area123.selectionStart,area123.selectionEnd);substring()方法是基于字符串偏移量执行的操作。所以这里直接给这两个值可以获得文本。
+剪贴板事件 HTML5把剪贴板事件纳入了规范，纳入规范的几个事件为：
+beforecopy：在发生复制操作前发触发 copy：在发生复制操作时触发 beforecut：在发生剪切操作前触发 cut：在发生剪切时出发 beforepaste：在发生粘贴操作前触发 paste：在发生粘贴时触发 Safari、chrome、firefox浏览器在三个操作前发生事件表现在针对文本框的上下文菜单中，而ie则是在触发copy、cut、paste事件前触发其他三个事件。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-07 01:41:00 +0000 UTC'>January 7, 2015</span></footer>
+  <a class="entry-link" aria-label="post link to HTML表单脚本" href="https://wuyizhou.com/posts/html-from/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">JavascriptDOM事件
     </h2>
   </header>
@@ -370,50 +404,6 @@ reduceRight() 在数组中项从最后一个开始一直到第一个逆向的运
   </div>
   <footer class="entry-footer"><span title='2013-11-07 03:20:11 +0000 UTC'>November 7, 2013</span></footer>
   <a class="entry-link" aria-label="post link to 成都地铁终端设备沙盒破解进入系统" href="https://wuyizhou.com/posts/subway-entertainment-terminal-security/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Short XSS
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>文章作者：xsscript(原网名Crackkay)
-0x00 背景 关键时候长度不够怎么办？
-在实际的情况中如果你不够长怎么办呢？看医生？吃药？做手术？。。。。。。。。。。。。。。算了，既然自身硬件不足，那么就把缺点变优点吧。熟话说：小是小威力好。
-熟话说的好，要能长能短，收放自如。在很多的情况中，我们构造的语句是被限制在一定的字符数内。所以这个就是考验你能短的时候能不能短，能长的时候能不能长的时候到了。
-0x01 现实中的悲剧 这是一个活生生的悲剧，一个平台上面，一个二逼朋友有妹子的平台账号，但是二逼朋友想进妹子的QQ空间，用平台的备注插QQ-XSS代码，但是因为限制的字符太短，最终抱头痛哭。于是就有了下图所发生：
-0x02 怎么变”短” &#34;&gt;alert(1)
-………………………..27 letters?
-Alert(1)? No Run? Impossible? No! 在实际情况中，可以通过短向量或者其他的短向量去测试存在XSS的地方，为什么可以这样？HTML是一门”不太严格”的解释语言，即使没有，很多浏览器也照样可以解释为
-&lt;h1&gt;xss 可以解释为: &lt;h1&gt;xss&lt;/h1&gt; S1:
-S2:
-S3：
-但是如果在攻击的时候，我往往需要用到很多标签、属性来达到我们的目的。下面列出一些比较猥琐的利用
-&lt;svg/onload=domain=id&gt;
-S1:在chrome浏览器存在一个同域读取漏洞，为什么说同域呢？
-S2:在chrome下如果我们访问www.baidu.com，通过控制台来设置一下域为空，document.domain=&#34;&#34;，就会出现以下的错误。
-S3:为什么说chrome浏览器存在一个同域读取漏洞呢?下面我们通过访问www.baidu.com.来访问一下（com后面还有一个.）并设置一下域为空
-document.domain=&#34;&#34;设置结果就会出现以下图片所示。
-S4:这个怎么利用？
-首先说一个问题，就是说，在同域的情况下，DOM是互通的。就相当于我a可以写b的，b也可以同样写a的。那我们该怎么来利用呢？我们可以干很多事情，比如说重写页面钓鱼，或者盗取同域Cookie。下面我就用Chrome的控制台来演示一下这个内容读取漏洞。
-S5:先来看看两段代码：
-本地构造的攻击页面如下：
-&lt;!DOCTYPE html&gt; &lt;html&gt; &lt;body&gt; &lt;h1&gt;这是a.com./12.html&lt;/h1&gt; &lt;svg/onload=domain=id&gt; &lt;/body&gt; &lt;/html&gt; 存在缺陷的XSS页面如下：
-&lt;!DOCTYPE html&gt; &lt;html&gt; &lt;body&gt; &lt;h1&gt;这是b.com./11.html&lt;/h1&gt; &lt;svg/onload=domain=id&gt; &lt;/body&gt; &lt;/html&gt; S6:下面我们通过访问我们构造的攻击页面，也就是a.com./12.html，然后读取domain看看，结果如下图：
-S7:然后我们在控制台里面用window.open()方法打开打开存在缺陷的XSS页面.然后同样用domain查看域.
-S8:我们从上面就可以查看出，现在a.com.和b.com.都是处于同一域下面，那么就可以实现DOM相通的概念了。
-S9:通过DOM重写页面测试，测试结果如下图：
-S10:其实这个方法的用处很多，比如说我找到XXX的XSS页面，我通过把域置空，然后在自己站上构造一个页面，怎么构造就要看你的思维了，通过同域的DOM操作，可以钓鱼的方式盗取COOKIE、密码等。
-&lt;svg/onload=eval(name)&gt;
-S1:先把代码文译一下：
-&lt;svg/onload=eval(window.name)&gt;
-S2:这一段代码通过svg载入的时候执行onload事件，执行的时候通过windows.name传递给eval执行，如果我们自己构造一个攻击页面，然后传递的XSS代码呢？下面看一段代码：
-本地构造的攻击页面：
-&lt;!DOCTYPE html&gt; &lt;html&gt; &lt;body&gt; [http://11.html](http://11.html) &lt;/body&gt; &lt;/html&gt; 存在缺陷的XSS页面：...</p>
-  </div>
-  <footer class="entry-footer"><span title='2013-08-21 14:04:13 +0000 UTC'>August 21, 2013</span></footer>
-  <a class="entry-link" aria-label="post link to Short XSS" href="https://wuyizhou.com/posts/short-xss/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

@@ -184,6 +184,27 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Python 列表生成表达式
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>如何生成列表？ 先试想一下，如果你需要生成1-50的数值列表，如果没有列表生成式你将会这样来做：
+x = [] i = 1 while i &lt;= 50: x.append(i) i &#43;= 1 还有一种方法就是通过range函数生成整数数列，然后通过list函数生成一个列表返回，大概操作如下：
+list(range(0,50)) 当然range函数提供了第三个参数，用于设置步数，你可以理解为间隔数，比如我只需要返回0-50中的偶尔，那么我用range生成的数列需要每隔两个数生成一个：
+list(range(0,50,2)) 列表生成表达式 列表生成式是Python内置的’列表’生成器，那列表生成表达式有什么用？首先我们尝试解决上面的第一个问题：
+[x for x in range(0,50)] 那如果要生成0-50每个数的乘积怎么做？可以像下面的代码一样来做：
+[x * x for x in range(0,50)] 那如果要生成0-50的数列，但是在其中40数值不需要生成，就可以在表达式中使用判断：
+[x for x in range(0,50) if x != 40] 这种使用方法也是最常用的，其他的多层循环不去说明，因为多层循环在表达式中使用，结构化并不清晰，容易造成歧义。
+现在我们大概看出来了列表生成表达式的使用方法，整理一下可以大概理解为：
+[x for x in range(0,50) if x != 50] [生成的值 可迭代对象 条件语句] 可迭代对象 什么是可迭代对象？你可以直接理解为可用于for循环的对象都可以叫为可迭代对象，那我们怎么知道哪些对象是可以迭代的？我们可以通过isinstance检查目前的集合类型的数据是否具有collections模块中Iterable对象，如果有那么就可以进行迭代：
+from collections import Iterable isinstance([], Iterable) # True isinstance({}, Iterable) #True isinstance(100, Iterable) #false 从上面看字典也是可以进行迭代的，下面的代码就是列表表达式对字典进行处理生成列表，并将首字母更改为大写，并且下面是在列表生成表达式中产生了两个变量。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2018-06-04 02:45:42 +0000 UTC'>June 4, 2018</span></footer>
+  <a class="entry-link" aria-label="post link to Python 列表生成表达式" href="https://wuyizhou.com/posts/python-list-render/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Python函数参数
     </h2>
   </header>
@@ -435,30 +456,6 @@ total used free shared buff/cache available Mem: 992 315 331 0 344 525 Swap: 0 0
   </div>
   <footer class="entry-footer"><span title='2017-10-05 08:26:39 +0000 UTC'>October 5, 2017</span></footer>
   <a class="entry-link" aria-label="post link to MariaDB swap空间没有配置导致的出错问题" href="https://wuyizhou.com/posts/mariadb-swap/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">家庭NAS搭建
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>前言 最近因为装了家庭影院买了盒子，再加上之前自己也想购买一个NAS，选过来选过去挑选了群晖NAS，但是无奈价格太贵，除了统一性、稳定性和群晖自身开发的系统之外没有任何的性价比可言，四硬盘位的NAS卖的更是离谱。
-家里有一台淘汰掉的主机，然后再加上自己有几块闲置的硬盘，便想出了自己搭建NAS服务器，因为每个IT男家中总会有那么一台或几台淘汰下来的机器和硬盘，即使你要组装一台新的机器，性价比也非常高。
-再加上自行组建NAS可玩性、灵活度较高，所以就敲定了这个方案。
-在3年前自己玩弄树莓派写了一篇文章，如今照着做了一遍感觉很多命令变化挺大的，所以也是重写一篇关于nas搭建的文章的动力。
-在配置的时候本来我想搭建一个下载服务器，找到mldonkey搭建，但是无奈配置了半天也没有搞定所以也就放弃了。最后我的解决方案是通过其他电脑下载然后拷贝到nas中。
-环境 系统我采用了Ubuntu 16.04 Server，因为在稳定性和节省系统资源比desktop版更胜一筹。如果你是想通过无线网络搭建NAS，那么第一次你需要使用网线连接安装Wi-Fi相关的包，如果没有网线或者你只需要无线网络，那么你可以使用desktop版本，因为desktop版自带了无线网卡的驱动。
-方案 搭建samba服务器，用于储存一些非私人资料，比如软件安装包、ISO镜像文件等，把samba共享给电视盒子，可以直接观看硬盘里面的电影。 搭建Time Machine，因为本人常用的是MacBook笔记本，所以搭建Time Machine就显得非常必要了 搭建seafile私有云服务，并提供给外网端口，用于外部访问。 为什么要搭建seafile，虽然Time Machine可以备份我的资料，但是无法让我在外面没有带电脑的时候取得资料，并且搭建seafile也算是一个双备份，因为上面的三个服务都是单独的一块硬盘，即使Time Machine或者seafile其中一个硬盘损坏，也不会造成数据丢失。
-准备工作 首先你可以查看你的硬盘情况，你可以通过lsblk命令查看，并通过fdisk命令进行分区。
-在三块硬盘分区好了后，我们开始格式化分区。我的环境中sda1用于samba，sdb1用于seafile，sdc1用于time machine，那么需要分别格式为不同的格式。
-因为time machine需要hfsplus格式，所以在格式化之前我们需要安装关于hfsplus的包。
-&gt; apt install hfsplus hfsutils hfsprogs 然后我们开始格式化三个分区。
-&gt; mkfs.ntfs -v /dev/sda1 &amp;&amp; mkfs.ext4 -v /dev/sdb1 &amp;&amp; mkfs.hfsplus -h /dev/sdc1 挂载三个分区
-&gt; mkdir /var/samba &amp;&amp; mkdir /var/seafile &amp;&amp; mkdir /var/timemachine &gt; mount -t ntfs /dev/sda1 /var/samba &amp;&amp; mount -t ext4 /dev/sdb1 /var/seafile &amp;&amp; mount -t hfsplus /dev/sdc1 /var/timemachine 然后通过lsblk命令检测三个分区是否挂载成功。...</p>
-  </div>
-  <footer class="entry-footer"><span title='2017-09-29 08:46:10 +0000 UTC'>September 29, 2017</span></footer>
-  <a class="entry-link" aria-label="post link to 家庭NAS搭建" href="https://wuyizhou.com/posts/homenas/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

@@ -184,6 +184,27 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">es6-promise
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>书籍参考：《ECMAScript 6入门》 作者：阮一峰
+文档参考：MDN
+概念 Promise最初在社区提出的一个异步解决的方案，最后ES6将它加入了正式的标准，并规定了统一的写法。
+在使用Promise之前，你需要注意下面几个点：
+1.Promise有三个状态:Pending(进行中)、Resolved(已完成)、Rejected(已失败)，这三个状态我们无法去改变，并且在一个Promise中只有两个可能，一种是从Pending到Resolved，另一种是Pending到Rejected。当结果发生后，这个状态就凝固了，也就是说我们无法去改变Promise对象的任何状态，如果再次调用这个Promise对象，返回的将是凝固状态的结果。
+2.Promise在执行的过程中无法取消，并且我们也无法知道它执行到哪一步，我们只能知道返回的是已完成还是已失败。
+3.Promise实例创建后会立即执行
+下面的代码部署了一个Promise对象异步加载图片的例子，可以看到用Promise对象来编写异步代码是非常的清晰。
+var imgs = new Promise((resolve, reject) =&gt; { let img = new Image(); img.src = &#39;http://xxx.com/img.jpg&#39;; img.onload = function(){ resolve(&#39;加载成功&#39;); } img.onerror = function(){ reject(&#39;加载失败&#39;); } }); 在部署了Promise对象后，我们可以通过Promise的实例来调用then()方法，then()方法接受两个函数，这两个函数分别指定resolved和rejected状态返回的回调函数。第二个函数可以不指定，也就是说不返回错误，只得到完成的结果。
+var imgs = new Promise((resolve, reject) =&gt; { let img = new Image(); img.src = &#39;http://xxx.com/img.jpg&#39;; img.onload = function(){ resolve(&#39;加载成功&#39;); } img.onerror = function(){ reject(&#39;加载失败&#39;); } }); imgs.then(function(value){ console.log(value); }, function(error){ console....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-07-16 16:32:08 +0000 UTC'>July 16, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to es6-promise" href="https://wuyizhou.com/posts/es6-promise/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">ES6-Generator函数
     </h2>
   </header>
@@ -371,30 +392,6 @@ var request = require(&#39;request&#39;); var iconv = require(&#39;iconv-lite&#3
   </div>
   <footer class="entry-footer"><span title='2016-07-17 03:07:00 +0000 UTC'>July 17, 2016</span></footer>
   <a class="entry-link" aria-label="post link to Nodejs 处理gb2312内容乱码问题" href="https://wuyizhou.com/posts/nodejs-gb2312/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">浅谈Javascript闭包
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>垃圾回收器 我个人把闭包抽象的称之为”阻止垃圾回收器的函数”或者”有权访问另一个函数内部变量的函数&#34;(当然这个是我个人的理解方式，每个人可能会有不同的理解方式)，为什么这样说？这样说还得说说垃圾回收器，一些编程语言如C语言对于内存管理是由程序员说了算，也就是说程序员决定这个变量是否还需要，如果不需要就释放这个变量占用的空间，而这个变量也不复存在了，这样做的好处是可以及时释放内存空间，让那些需要使用内存空间的程序来使用。
-而在Javascript中，我们是不需要这样做的，Javascript有一个叫”垃圾回收器”的系统，它会自动对于那些我们不再使用的变量进行回收。那问题来了，它怎么知道我们不再需要这个变量了？在Javascript里面有两个回收机制一个为：”引用计数”，另外一个为&#34;标记清除&#34;，垃圾回收器会根据代码里面对变量的调用(引用)来判断，如果这个变量的调用(引用)为0那么就表示可以回收了。
-引用计数 引用计数是如何工作？拿一个例子来说吧：
-“有一家公司的小明，他工作是和销售有关的，所以他每天会开公司的车去见客户、接客户进行推销。而取得公车的步骤需要向管车的王大爷进行预约，然后王大爷会把预约纪录到今天的预约表上，使用完后需要把车交给王大爷并把记录划掉。有一天小明需要使用公车，小明打电话给王大爷表明他下午两点会使用公车，王大爷随后把此次预约纪录到了今天的预约表上，到了约定时间，小明取到了公车。随后与客户一番见面商谈过后把公车交还给王大爷，王大爷同时也把预约表上的小明这一条记录给划掉，王大爷随后看了看预约表，今天没有人预约了，看来可以早点下班了，于是把车停回车库下班了。”
-其实上面的例子可以看出来，王大爷相当于”垃圾回收器”，而王大爷依据什么来进行处理回收的？是根据预约表，而这个预约表就相当于”引用计数”,当这个预约表上没有人预约公车的时候，王大爷就把车停回了车库，当然如果还有预约王大爷还得一直等待预约表上没有任何预约了才能把车停回车库并下班。也就相当于当这个变量没有人在需要使用的时候，这个变量就可以被“回收”了。
-标记清除 这一节点很感谢&#34;linkFly“前辈指出我的错误，我错误的把&#34;引用计数&#34;理解为最常用的计数了，所以在这里感谢”linkFly“前辈。
-目前&#34;标记清除&#34;技术是最常用的一种内存回收机制，现在chrome和Safari以及新版本IE、opera等浏览器均采用这样的内存回收机制。
-“标记清除&#34;不同于&#34;引用计数”，标记清除更加简单，相当于告诉我们这个变量能使用或者不能用。当一个变量声明的时候，变量会被标记为&#34;进入环境”,而当变量离开了环境过后就标记为&#34;离开环境&#34;。
-标记清除的工作方式大概为：
-首先javascript会在全局中给所有的变量加上标记，然后去掉在环境中的变量以及环境中被引用的变量的标记，其他被标记的变量表示可以清除的变量，在垃圾回收器执行的时候将会把这些变量清除掉。
-什么是闭包？ 在正常的回收机制下，当我们不再使用这个函数或者变量的时候就会被回收，不再使用是指在当前我们执行的状态之后没有出现在调用(引用)变量的语句了。下面有一个例子，简单的介绍了一下闭包，例子中logHello被赋值一个自执行匿名函数返回的函数，这个函数是有权限访问自执行匿名函数内部的log_num变量的，这样的函数被称为闭包，因为返回的函数内部有一个对自执行匿名函数内部log_num变量的引用。
-1 var logHello; 2 3 4 logHello = ( function () { 5 6 var log\_num = 20; 7 8 return function() { 9 10 return log\_num; 11 12 }; 13 14 } )(); 下面还有一个例子，logHello被赋值自执行函数返回的一个对象，这个对象里面包含了两个方法”read”和”write”，这两个方法都属于闭包，他们都有权访问log_name变量。”read”负责读取log_name这个变量的值,而”write”负责重写log_name的值，在外部是没有任何情况直接访问log_name变量的，只能通过这两个方法来进行间接的访问和设置这个变量，这样的方法同样属于闭包。
-1 var logHello; 2 3 logHello = ( function () { 4 5 var log\_name = &#39;wyz&#39;; 6 7 return { 8 read: function () { 9 return log\_name; 10 }, 11 12 write: function (newValue) { 13 log\_name = newValue; 14 } 15 }; 16 17 } )(); 闭包是怎么形成的？ 从上面可以知道判断一个变量是否可以回收，根据这个变量的是否被引用就可以判断，比如下面例中，局部变量log_name被返回的匿名函数引用，那么就不会被垃圾回收器回收，这就是闭包的形成，因为闭包会保持对变量引用，让垃圾回收器不会回收此变量。...</p>
-  </div>
-  <footer class="entry-footer"><span title='2015-03-27 20:01:00 +0000 UTC'>March 27, 2015</span></footer>
-  <a class="entry-link" aria-label="post link to 浅谈Javascript闭包" href="https://wuyizhou.com/posts/javascript-closure/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

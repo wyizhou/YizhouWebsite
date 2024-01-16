@@ -184,6 +184,30 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">家庭NAS搭建
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 最近因为装了家庭影院买了盒子，再加上之前自己也想购买一个NAS，选过来选过去挑选了群晖NAS，但是无奈价格太贵，除了统一性、稳定性和群晖自身开发的系统之外没有任何的性价比可言，四硬盘位的NAS卖的更是离谱。
+家里有一台淘汰掉的主机，然后再加上自己有几块闲置的硬盘，便想出了自己搭建NAS服务器，因为每个IT男家中总会有那么一台或几台淘汰下来的机器和硬盘，即使你要组装一台新的机器，性价比也非常高。
+再加上自行组建NAS可玩性、灵活度较高，所以就敲定了这个方案。
+在3年前自己玩弄树莓派写了一篇文章，如今照着做了一遍感觉很多命令变化挺大的，所以也是重写一篇关于nas搭建的文章的动力。
+在配置的时候本来我想搭建一个下载服务器，找到mldonkey搭建，但是无奈配置了半天也没有搞定所以也就放弃了。最后我的解决方案是通过其他电脑下载然后拷贝到nas中。
+环境 系统我采用了Ubuntu 16.04 Server，因为在稳定性和节省系统资源比desktop版更胜一筹。如果你是想通过无线网络搭建NAS，那么第一次你需要使用网线连接安装Wi-Fi相关的包，如果没有网线或者你只需要无线网络，那么你可以使用desktop版本，因为desktop版自带了无线网卡的驱动。
+方案 搭建samba服务器，用于储存一些非私人资料，比如软件安装包、ISO镜像文件等，把samba共享给电视盒子，可以直接观看硬盘里面的电影。 搭建Time Machine，因为本人常用的是MacBook笔记本，所以搭建Time Machine就显得非常必要了 搭建seafile私有云服务，并提供给外网端口，用于外部访问。 为什么要搭建seafile，虽然Time Machine可以备份我的资料，但是无法让我在外面没有带电脑的时候取得资料，并且搭建seafile也算是一个双备份，因为上面的三个服务都是单独的一块硬盘，即使Time Machine或者seafile其中一个硬盘损坏，也不会造成数据丢失。
+准备工作 首先你可以查看你的硬盘情况，你可以通过lsblk命令查看，并通过fdisk命令进行分区。
+在三块硬盘分区好了后，我们开始格式化分区。我的环境中sda1用于samba，sdb1用于seafile，sdc1用于time machine，那么需要分别格式为不同的格式。
+因为time machine需要hfsplus格式，所以在格式化之前我们需要安装关于hfsplus的包。
+&gt; apt install hfsplus hfsutils hfsprogs 然后我们开始格式化三个分区。
+&gt; mkfs.ntfs -v /dev/sda1 &amp;&amp; mkfs.ext4 -v /dev/sdb1 &amp;&amp; mkfs.hfsplus -h /dev/sdc1 挂载三个分区
+&gt; mkdir /var/samba &amp;&amp; mkdir /var/seafile &amp;&amp; mkdir /var/timemachine &gt; mount -t ntfs /dev/sda1 /var/samba &amp;&amp; mount -t ext4 /dev/sdb1 /var/seafile &amp;&amp; mount -t hfsplus /dev/sdc1 /var/timemachine 然后通过lsblk命令检测三个分区是否挂载成功。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-09-29 08:46:10 +0000 UTC'>September 29, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to 家庭NAS搭建" href="https://wuyizhou.com/posts/homenas/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">LAMP环境搭建
     </h2>
   </header>
@@ -385,29 +409,6 @@ $skip(跳过)：将前n个文档丢弃，后面的部分传递到管道。
   </div>
   <footer class="entry-footer"><span title='2017-08-10 14:18:52 +0000 UTC'>August 10, 2017</span></footer>
   <a class="entry-link" aria-label="post link to Mongodb 聚合" href="https://wuyizhou.com/posts/mongodb-aggregate/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Mongodb GridFS
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>参考 MongoDB权威指南(第2版)
-Mongodb Docs
-前言 Mongodb提供了一个轻量级的文件系统来专门处理超过16MB的文件，这个文件系统叫GridFS，它的使用非常简单，几乎所有的Mongodb驱动程序都提供了GridFS API。GridFS将集合放在一个共享的储存区域，GridFS使用两个集合来存储我们存放的数据：
-fs.files：这个集合当中的每一个文档都表示一个文件的信息 fs.chunks：这个集合中存放实际的数据内容 GridFS存储的文件无法进行修改，如果要进行修改只能删除修改的文档，然后再将修改完的文档重新保存。
-下面讲一下如何使用Mongodb提供的mongodfiles客户端来操作GridFS数据：
-mongofiles &lt;options&gt; &lt;commands&gt; &lt;filename&gt; mongofiles命令的组成部分是：
-options:您可以使用一个或多个这些选项来控制其行为mongofiles。 commands:使用这些命令之一来确定动作mongofiles。 filename:本地文件系统上的一个文件的名称，也可以是一个GridFS对象。 mongodfiles默认链接到本地127.0.0.1:27017的数据库上面，如果需要指定数据库和地址需要像下面这样来，然后后面根着需要执行的命令。
-mongofiles --host 127.0.0.1 -p 27017 需要执行的命令 常用的命令有四个：
-list：列出数据库GridFS中的文件 put：将文件系统中的文件上传到GridFS get：用于将GridFS中的文件下载到文件系统中 search：用于搜索GridFS系统中的文件 delete：用于删除GridFS系统中的文件 比如我将一个含有文本xsscript的txt文件上传到GridFS中：
-$ echo &#34;xsscript&#34; &gt; t.txt $ ./mongofiles put t.txt connected to: localhost added file: t.txt 搜索文件：
-$ ./mongofiles list 2017-08-09T16:18:06.985&#43;0800 connected to: localhost t.txt 9 $ ./mongofiles search t 2017-08-09T16:21:42.994&#43;0800 connected to: localhost t.txt 9 下载文件到当前文件系统中：
-$ ....</p>
-  </div>
-  <footer class="entry-footer"><span title='2017-08-09 08:27:12 +0000 UTC'>August 9, 2017</span></footer>
-  <a class="entry-link" aria-label="post link to Mongodb GridFS" href="https://wuyizhou.com/posts/mongodb-gridfs/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

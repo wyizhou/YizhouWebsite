@@ -184,6 +184,50 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Short XSS
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>文章作者：xsscript(原网名Crackkay)
+0x00 背景 关键时候长度不够怎么办？
+在实际的情况中如果你不够长怎么办呢？看医生？吃药？做手术？。。。。。。。。。。。。。。算了，既然自身硬件不足，那么就把缺点变优点吧。熟话说：小是小威力好。
+熟话说的好，要能长能短，收放自如。在很多的情况中，我们构造的语句是被限制在一定的字符数内。所以这个就是考验你能短的时候能不能短，能长的时候能不能长的时候到了。
+0x01 现实中的悲剧 这是一个活生生的悲剧，一个平台上面，一个二逼朋友有妹子的平台账号，但是二逼朋友想进妹子的QQ空间，用平台的备注插QQ-XSS代码，但是因为限制的字符太短，最终抱头痛哭。于是就有了下图所发生：
+0x02 怎么变”短” &#34;&gt;alert(1)
+………………………..27 letters?
+Alert(1)? No Run? Impossible? No! 在实际情况中，可以通过短向量或者其他的短向量去测试存在XSS的地方，为什么可以这样？HTML是一门”不太严格”的解释语言，即使没有，很多浏览器也照样可以解释为
+&lt;h1&gt;xss 可以解释为: &lt;h1&gt;xss&lt;/h1&gt; S1:
+S2:
+S3：
+但是如果在攻击的时候，我往往需要用到很多标签、属性来达到我们的目的。下面列出一些比较猥琐的利用
+&lt;svg/onload=domain=id&gt;
+S1:在chrome浏览器存在一个同域读取漏洞，为什么说同域呢？
+S2:在chrome下如果我们访问www.baidu.com，通过控制台来设置一下域为空，document.domain=&#34;&#34;，就会出现以下的错误。
+S3:为什么说chrome浏览器存在一个同域读取漏洞呢?下面我们通过访问www.baidu.com.来访问一下（com后面还有一个.）并设置一下域为空
+document.domain=&#34;&#34;设置结果就会出现以下图片所示。
+S4:这个怎么利用？
+首先说一个问题，就是说，在同域的情况下，DOM是互通的。就相当于我a可以写b的，b也可以同样写a的。那我们该怎么来利用呢？我们可以干很多事情，比如说重写页面钓鱼，或者盗取同域Cookie。下面我就用Chrome的控制台来演示一下这个内容读取漏洞。
+S5:先来看看两段代码：
+本地构造的攻击页面如下：
+&lt;!DOCTYPE html&gt; &lt;html&gt; &lt;body&gt; &lt;h1&gt;这是a.com./12.html&lt;/h1&gt; &lt;svg/onload=domain=id&gt; &lt;/body&gt; &lt;/html&gt; 存在缺陷的XSS页面如下：
+&lt;!DOCTYPE html&gt; &lt;html&gt; &lt;body&gt; &lt;h1&gt;这是b.com./11.html&lt;/h1&gt; &lt;svg/onload=domain=id&gt; &lt;/body&gt; &lt;/html&gt; S6:下面我们通过访问我们构造的攻击页面，也就是a.com./12.html，然后读取domain看看，结果如下图：
+S7:然后我们在控制台里面用window.open()方法打开打开存在缺陷的XSS页面.然后同样用domain查看域.
+S8:我们从上面就可以查看出，现在a.com.和b.com.都是处于同一域下面，那么就可以实现DOM相通的概念了。
+S9:通过DOM重写页面测试，测试结果如下图：
+S10:其实这个方法的用处很多，比如说我找到XXX的XSS页面，我通过把域置空，然后在自己站上构造一个页面，怎么构造就要看你的思维了，通过同域的DOM操作，可以钓鱼的方式盗取COOKIE、密码等。
+&lt;svg/onload=eval(name)&gt;
+S1:先把代码文译一下：
+&lt;svg/onload=eval(window.name)&gt;
+S2:这一段代码通过svg载入的时候执行onload事件，执行的时候通过windows.name传递给eval执行，如果我们自己构造一个攻击页面，然后传递的XSS代码呢？下面看一段代码：
+本地构造的攻击页面：
+&lt;!DOCTYPE html&gt; &lt;html&gt; &lt;body&gt; [http://11.html](http://11.html) &lt;/body&gt; &lt;/html&gt; 存在缺陷的XSS页面：...</p>
+  </div>
+  <footer class="entry-footer"><span title='2013-08-21 14:04:13 +0000 UTC'>August 21, 2013</span></footer>
+  <a class="entry-link" aria-label="post link to Short XSS" href="https://wuyizhou.com/posts/short-xss/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Javascript原生实现推箱子游戏
     </h2>
   </header>
