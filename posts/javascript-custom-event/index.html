@@ -11,7 +11,7 @@
 1 //定义一个自定义事件类 2 //定义一个实例属性用以单独为每一个实例创建独立的事件集 3 function EventTarget() { 4 5 this.handles = {}; 6 7 }; 8 9 EventTarget.prototype = { 10 11 //构造函数的指针指向事件本身 12 constructor: EventTarget, 13 14 15 //添加事件代码的函数，接受两个参数，一个为事件的类型一个为事件的处理程序 16 addHandle: function(type, handle) { 17 18 19 //检测添加的事件类型是否存在 20 if(typeof this.handles\[type\] == &#39;undefined&#39;){ 21 22 23 //如果不存在则新创建一个，类型为数组,如果存在则push进数组 24 this.handles\[type\] = \[\]; 25 }; 26 27 28 this.handles\[type\].push(handle); 29 30 }, 31 32 //事件触发函数，接受一个对象，对象至少包括一个type属性 33 fire: function(event) { 34 35 36 //检测传入进来的对象target属性是否存在，如果没有则设置一个指向当前实例的指针 37 if(!">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/javascript-custom-event/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a8f329a89028c2356cb4f3650b14732202f51894615d7b3cfa1c3da20473eba1.css" integrity="sha256-qPMpqJAowjVstPNlCxRzIgL1GJRhXXs8&#43;hw9ogRz66E=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -205,6 +205,11 @@
                     <span>Rss</span>
                 </a>
             </li>
+            <li>
+                <a href="https://wuyizhou.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -212,7 +217,7 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="https://wuyizhou.com">Home</a>&nbsp;»&nbsp;<a href="https://wuyizhou.com/posts/">Posts</a></div>
+    
     <h1 class="post-title entry-hint-parent">
       Javascript自定义事件
     </h1>
@@ -315,9 +320,10 @@
 <footer class="footer">
     <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+    </span>
+    <span>
+        Build: 2024-01-19 15:35:10
     </span>
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">

@@ -15,7 +15,7 @@ com.alipay.refresher.plist com.alipay.DispatcherService.plist 发现“com.alipa
 ~/Library/Alipay /Library/Application Support/Alipay /Library/LaunchDaemons/com.alipay.DispatcherService.plist ~/Library/LaunchAgents/com.alipay.refresher.plist ~/Library/Internet Plug-Ins/ali_(npali_).plugin 4、正确姿势安装 首先到官方下载名为wkaliedit.dmg的插件包 然后载入过后提取installer.pkg文件，解压installer.pkg包提取output.pkg包 右键显示包内容打开output.pkg包，解压Payload包(此包为gzip格式，如果不能直接解压，请在终端下解压(tar zxvf Payload))，得到alipay包 右键显示包内容打开alipay包，依次进入Contents-Resources，找到其中两个zip包，aliedit.zip和npalicdo.zip 解压两个包，并把解压的两个文件“aliedit.plugin”、“npalicdo.plugin”放到”~/Library/Internet Plug-Ins文件下 重启浏览器 ">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/mac-alipay-plugins/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a8f329a89028c2356cb4f3650b14732202f51894615d7b3cfa1c3da20473eba1.css" integrity="sha256-qPMpqJAowjVstPNlCxRzIgL1GJRhXXs8&#43;hw9ogRz66E=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -217,6 +217,11 @@ com.alipay.refresher.plist com.alipay.DispatcherService.plist 发现“com.alipa
                     <span>Rss</span>
                 </a>
             </li>
+            <li>
+                <a href="https://wuyizhou.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -224,7 +229,7 @@ com.alipay.refresher.plist com.alipay.DispatcherService.plist 发现“com.alipa
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="https://wuyizhou.com">Home</a>&nbsp;»&nbsp;<a href="https://wuyizhou.com/posts/">Posts</a></div>
+    
     <h1 class="post-title entry-hint-parent">
       Mac支付宝插件风波
     </h1>
@@ -314,9 +319,10 @@ sudo launchctl unload &lt;span class=&#34;pun&#34;&gt;~&lt;span class=&#34;str&#
 <footer class="footer">
     <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+    </span>
+    <span>
+        Build: 2024-01-19 15:35:10
     </span>
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">

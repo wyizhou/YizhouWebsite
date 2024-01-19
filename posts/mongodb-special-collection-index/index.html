@@ -23,7 +23,7 @@ db.createCollection(&#39;blog&#39;, { validator: { name: { $type: &#39;string&#3
 &gt; db.blog.insert({name: 123, age: 18}) WriteResult({ &#34;nInserted&#34; : 0, &#34;writeError&#34; : { &#34;code&#34; : 121, &#34;errmsg&#34; : &#34;Document failed validation&#34; } }) 从上面的返回中可以看到错误消息提示的是文档验证失败，而我们试着插入一个合法的数据看看返回的是什么：">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/mongodb-special-collection-index/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a8f329a89028c2356cb4f3650b14732202f51894615d7b3cfa1c3da20473eba1.css" integrity="sha256-qPMpqJAowjVstPNlCxRzIgL1GJRhXXs8&#43;hw9ogRz66E=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -241,6 +241,11 @@ db.createCollection(&#39;blog&#39;, { validator: { name: { $type: &#39;string&#3
                     <span>Rss</span>
                 </a>
             </li>
+            <li>
+                <a href="https://wuyizhou.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -248,7 +253,7 @@ db.createCollection(&#39;blog&#39;, { validator: { name: { $type: &#39;string&#3
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="https://wuyizhou.com">Home</a>&nbsp;»&nbsp;<a href="https://wuyizhou.com/posts/">Posts</a></div>
+    
     <h1 class="post-title entry-hint-parent">
       Mongodb特殊索引和集合
     </h1>
@@ -465,9 +470,10 @@ db.blog.find({$text: {$search: &#39;asd789&#39;}});
 <footer class="footer">
     <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+    </span>
+    <span>
+        Build: 2024-01-19 15:35:10
     </span>
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">

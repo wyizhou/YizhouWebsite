@@ -16,7 +16,7 @@ System: Ubuntu 22.04 Server
 LXD Clustering：用于集群配置，单节点不需要，默认为no，回车即可 new storage pool：需要创建一个存储池，输入yes Name of storage pool：给存储池命名，默认为default，回车即可 storage backend：存储后端，默认使用zfs，回车即可 Create a new ZFS pool：需要创建一个ZFS池，默认为no，输入yes use an existing block device：使用现有的块设备（硬盘），输入yes Path to block device：输入现有的硬盘，比如我的为sda1，那么就输入/dev/sda1 MAAS server：MAAS是一个用于将物理机视为云服务器的集群服务，默认为no，回车即可 new local network bridge：是否创建一个新的桥接网络，输入yes new bridge be called：命名新的网桥名称，默认即可 IPv4：IPv4相关配置，默认为auto，回车即可 IPv6：IPv6相关配置，默认为auto，回车即可 would you like lxd to be available over the network：使用想通过网络访问LXD，默认为no，回车即可 would you like stale cached images to be updated automatically：默认yes，回车即可 YAML printed：是否打印出lxd init的配置信息，默认为no，回车即可 创建容器模板 创建容器模板的意义在于你可以设置一个基础配置的容器，然后基于这个容器进行复制出多个容器出来，而不用再针对每个容器进行重复的基础设置。 在使用前需要下载一个已打包的容器镜像，因为需要下载，所以可以使用清华大学的国内镜像用于提升下载镜像的速度。 添加清华大学镜像源：">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/gpu-server-lxd-multiplexing/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a8f329a89028c2356cb4f3650b14732202f51894615d7b3cfa1c3da20473eba1.css" integrity="sha256-qPMpqJAowjVstPNlCxRzIgL1GJRhXXs8&#43;hw9ogRz66E=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -220,6 +220,11 @@ LXD Clustering：用于集群配置，单节点不需要，默认为no，回车�
                     <span>Rss</span>
                 </a>
             </li>
+            <li>
+                <a href="https://wuyizhou.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -227,7 +232,7 @@ LXD Clustering：用于集群配置，单节点不需要，默认为no，回车�
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="https://wuyizhou.com">Home</a>&nbsp;»&nbsp;<a href="https://wuyizhou.com/posts/">Posts</a></div>
+    
     <h1 class="post-title entry-hint-parent">
       GPU服务器的多人环境搭建
     </h1>
@@ -426,9 +431,10 @@ LXD Clustering：用于集群配置，单节点不需要，默认为no，回车�
 <footer class="footer">
     <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+    </span>
+    <span>
+        Build: 2024-01-19 15:35:10
     </span>
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">

@@ -22,7 +22,7 @@
 1 var logHello; 2 3 logHello = ( function () { 4 5 var log\_name = &#39;wyz&#39;; 6 7 return { 8 read: function () { 9 return log\_name; 10 }, 11 12 write: function (newValue) { 13 log\_name = newValue; 14 } 15 }; 16 17 } )(); 闭包是怎么形成的？ 从上面可以知道判断一个变量是否可以回收，根据这个变量的是否被引用就可以判断，比如下面例中，局部变量log_name被返回的匿名函数引用，那么就不会被垃圾回收器回收，这就是闭包的形成，因为闭包会保持对变量引用，让垃圾回收器不会回收此变量。">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/javascript-closure/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a8f329a89028c2356cb4f3650b14732202f51894615d7b3cfa1c3da20473eba1.css" integrity="sha256-qPMpqJAowjVstPNlCxRzIgL1GJRhXXs8&#43;hw9ogRz66E=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -238,6 +238,11 @@
                     <span>Rss</span>
                 </a>
             </li>
+            <li>
+                <a href="https://wuyizhou.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -245,7 +250,7 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="https://wuyizhou.com">Home</a>&nbsp;»&nbsp;<a href="https://wuyizhou.com/posts/">Posts</a></div>
+    
     <h1 class="post-title entry-hint-parent">
       浅谈Javascript闭包
     </h1>
@@ -353,9 +358,10 @@
 <footer class="footer">
     <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+    </span>
+    <span>
+        Build: 2024-01-19 15:35:10
     </span>
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">

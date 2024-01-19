@@ -16,7 +16,7 @@ def power(x,y=2): return x * y power(2,5) # 10 power(2) # 4 可变参数 可变�
 # 可变参数通过参数名前输入一个&#39;**&#39;号，标记为这是一个关键字参数，并传入name=value形式的参数 def power(name,**other): print(&#39;name:{}, other:{}&#39;.format(name,other)) power(&#39;trick&#39;, a=1,b=2) # name:trick, other:{&#39;a&#39;: 1, &#39;b&#39;: 2} 命名关键字参数 命名关键字参数是对于关键字参数的补充，当定义关键字参数的时候我们是没有办法对关键字参数可控的，而命名关键字参数就可以控制关键字参数的名字以及接收关键字的个数，比如下面的代码只接收&rsquo;city&rsquo;和&rsquo;email&rsquo;两个关键字参数。">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/python-func-par/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.4c51aef91d05d77ecd7c5b483ef32cc63225f0eaf908a524ee8244fdc56f0281.css" integrity="sha256-TFGu&#43;R0F137NfFtIPvMsxjIl8Or5CKUk7oJE/cVvAoE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a8f329a89028c2356cb4f3650b14732202f51894615d7b3cfa1c3da20473eba1.css" integrity="sha256-qPMpqJAowjVstPNlCxRzIgL1GJRhXXs8&#43;hw9ogRz66E=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/favicon.ico">
@@ -220,6 +220,11 @@ def power(x,y=2): return x * y power(2,5) # 10 power(2) # 4 可变参数 可变�
                     <span>Rss</span>
                 </a>
             </li>
+            <li>
+                <a href="https://wuyizhou.com/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -227,7 +232,7 @@ def power(x,y=2): return x * y power(2,5) # 10 power(2) # 4 可变参数 可变�
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="https://wuyizhou.com">Home</a>&nbsp;»&nbsp;<a href="https://wuyizhou.com/posts/">Posts</a></div>
+    
     <h1 class="post-title entry-hint-parent">
       Python函数参数
     </h1>
@@ -375,9 +380,10 @@ print(power())
 <footer class="footer">
     <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
     <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+    </span>
+    <span>
+        Build: 2024-01-19 15:35:10
     </span>
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
