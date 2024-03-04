@@ -41,36 +41,5 @@ inurl和allinurl：inurl和allinurl的使用方法和标题类、正文类一致
 site：site高级操作符用于搜索某个特定的域名或者域，比如只搜索微博关于故宫的信息，那么搜索语法为/site:weibo.com 故宫/。而搜索特定的域，则指的是com、cn、edu.cn等域名的后缀，如搜索所有的国内学校研究生招生的情况，则搜索语法为/site:edu.cn 研究生招生/。
 inanchor：inanchor高级操作符用于搜索超链接的文本。比如链接地址为weibo.com/xxx，而这个链接的文本则显示为“我的微博”，在html表示为&amp;lt;a href=&amp;quot;https://weibo.com/xxx&amp;quot;&amp;gt;我的微博&amp;lt;/a&amp;gt;，inanchor就是用于搜索这个链接文本“我的微博”。 该操作符搜索返回的结果并非是网页中是否包含，而是直接返回该链接，比如“我的微博”这个链接存放在我的主页，Google并不会返回我的主页作为结果，而是将&amp;quot;我的微博&amp;quot;这条链接直接作为结果。</description>
     </item>
-    <item>
-      <title>Mac软件推荐-Mounty</title>
-      <link>https://wuyizhou.com/posts/mounty-software/</link>
-      <pubDate>Tue, 18 Jul 2017 13:32:33 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mounty-software/</guid>
-      <description>前言 在Mac上面访问NTFS格式的移动设备或者分区很简单，但是如果你要对NTFS进行写操作，就得使用其他的方式，比如打开Mac自身支持NTFS的读写 、购买付费软件NTFS For Mac 、Paragon NTFS等，还或者通过免费软件，比如下面要介绍的一款Mounty。
-通过终端工具等系统命令操作很麻烦，特别是对不懂命令行的人来说更加头疼。如果是付费软件那么你就得支持一笔费用，此费用还不小，每当Macos或者付费软件版本大更新的时候就会进行一次更新，那这次更新当然不是免费的，你还得付费这次的升级费用。
-我找了很多个免费的NTFS读写工具，终于找到了一款非常满意的NTFS读写工具并且支持中文，但是存在一些小问题，可能不该叫它工具，该叫App。如果你觉得好用，我非常赞同你支持开发者捐赠费用，通过下图所标记的地方进行捐赠
-使用 Mounty是一个完全免费的App，通过Mounty的官方网站下载，你可以在右侧的Get: Click to install栏目找到下载方式。
-下面后是一个DMG文件，双击打开它，你就会看到它只是一个App，把它拖移到Applications下面
-然后在你的Launchpad找到它并打开它，打开过后它没有单独的一个App界面，它会在你上方的工具栏中显示一个小图标，图标中有一个字母M，就如下图一样
-如果你需要让Mounty每次启动，那么你需要点击图片弹出了一个菜单，你只需要点击开机时自启动，比如下图
-打开Mounty后你就不需要做什么操作了，你只需要把你要读写的NTFS格式的设备插上你的电脑，它会自动监测。当我们插入U盘过后，它会提示你如下图中所示
-如果你不需要写操作，只需要点击不用了,谢谢，如果你需要读写操作，点击是的，当然！就可以进行读写操作了。
-BUG 在新的MacOS 10.12.5系统中会存在一些BUG
-当我们要进行读写操作的时候，在MacOS自带的Finder资源管理器中，无法找到我们的移动设备，只能通过点击图标，有一个在Finder中显示，才能进行管理文件。并且卸载移动设备也只能通过点击图片卸载，如果只是读操作，那么在Finder中能找到此移动设备。
-当我们插入U盘的时候能够识别移动设备的标识符，但是当我们选择读写操作的时候，那么在图标上无法显示移动设备标识符，就像下图一样，所以当我们插入多个移动设备的时候我们可能得挨个点击在Finder中显示来辨别哪个移动设备。目前已经有认给官方反应了，很快官方也会作出更新。
-文完</description>
-    </item>
-    <item>
-      <title>Mac支付宝插件风波</title>
-      <link>https://wuyizhou.com/posts/mac-alipay-plugins/</link>
-      <pubDate>Tue, 27 Jan 2015 19:34:00 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/mac-alipay-plugins/</guid>
-      <description>1、前言 首先我喜欢看一些创业的书，很多书里都会有马云的身影，马云也算是对我有一定的影响，从而我对淘宝也产生了一定的好感。但是关于这次插件事情，我对阿里产生了一些排斥的心里作用。我并不想吐槽淘宝，也不是吐槽马云，阿里不是万达，整个阿里并不是马云想干啥就干啥，所以这些事情也不可能说是马云的一句之作，我看见网上很多人因为这个事情在吐槽马云，我都为马云兄背黑锅这件事情感到蛋疼。仁者见仁智者见智吧！
-2、可疑进程 无意中看到一篇文章在说Mac上支付宝插件有点异常，我查看了自己的进程，发现确实存在一个可疑的“AlipayDispatcherService”进程，同时这个进程会监控浏览器的配置文件，通过kill结束这个进程后发现“AlipayDispatcherService”进程会再次启动，我找出了以下两个相关的阿里服务：
-com.alipay.refresher.plist com.alipay.DispatcherService.plist 发现“com.alipay.DispatcherService.plist”服务调用“com.alipay.refresher.plist”服务不断重启“AlipayDispatcherService”，理清楚调用顺序过后，关闭这个进程相对简单了，首先禁用两个服务：
-&amp;lt;pre class=&amp;#34;prettyprint&amp;#34; prettyprinted=&amp;#34;&amp;#34;&amp;gt;&amp;lt;span class=&amp;#34;pln&amp;#34;&amp;gt;sudo launchctl unload &amp;lt;span class=&amp;#34;pun&amp;#34;&amp;gt;/&amp;lt;span class=&amp;#34;typ&amp;#34;&amp;gt;Library&amp;lt;span class=&amp;#34;pun&amp;#34;&amp;gt;/&amp;lt;span class=&amp;#34;typ&amp;#34;&amp;gt;LaunchDaemons&amp;lt;span class=&amp;#34;pun&amp;#34;&amp;gt;/&amp;lt;span class=&amp;#34;pln&amp;#34;&amp;gt;com&amp;lt;span class=&amp;#34;pun&amp;#34;&amp;gt;.&amp;lt;span class=&amp;#34;pln&amp;#34;&amp;gt;alipay&amp;lt;span class=&amp;#34;pun&amp;#34;&amp;gt;.&amp;lt;span class=&amp;#34;typ&amp;#34;&amp;gt;DispatcherService&amp;lt;span class=&amp;#34;pun&amp;#34;&amp;gt;.&amp;lt;span class=&amp;#34;pln&amp;#34;&amp;gt;plist sudo launchctl unload &amp;lt;span class=&amp;#34;pun&amp;#34;&amp;gt;~&amp;lt;span class=&amp;#34;str&amp;#34;&amp;gt;/Library/&amp;lt;span class=&amp;#34;typ&amp;#34;&amp;gt;LaunchAgents&amp;lt;span class=&amp;#34;pun&amp;#34;&amp;gt;/&amp;lt;span class=&amp;#34;pln&amp;#34;&amp;gt;com&amp;lt;span class=&amp;#34;pun&amp;#34;&amp;gt;.&amp;lt;span class=&amp;#34;pln&amp;#34;&amp;gt;alipay&amp;lt;span class=&amp;#34;pun&amp;#34;&amp;gt;.&amp;lt;span class=&amp;#34;pln&amp;#34;&amp;gt;refresher&amp;lt;span class=&amp;#34;pun&amp;#34;&amp;gt;.&amp;lt;span class=&amp;#34;pln&amp;#34;&amp;gt;plist&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt; 然后执行命令结束掉“AlipayDispatcherService”进程：
-&amp;lt;pre class=&amp;#34;prettyprint&amp;#34; prettyprinted=&amp;#34;&amp;#34;&amp;gt;&amp;lt;span class=&amp;#34;pln&amp;#34;&amp;gt;kill &amp;lt;span class=&amp;#34;pun&amp;#34;&amp;gt;-&amp;lt;span class=&amp;#34;lit&amp;#34;&amp;gt;9&amp;lt;span class=&amp;#34;pln&amp;#34;&amp;gt; &amp;lt;span class=&amp;#34;typ&amp;#34;&amp;gt;AlipayDispatcherService&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt; 3、找出藏身之地 我查看了支付宝插件包里面的“preinstall”文件，列出了一些目录安装文件的目录，可以通过查看是否存在相关文件进一步确认并删除：
-~/Library/Alipay /Library/Application Support/Alipay /Library/LaunchDaemons/com.alipay.DispatcherService.plist ~/Library/LaunchAgents/com.alipay.refresher.plist ~/Library/Internet Plug-Ins/ali_(npali_).plugin 4、正确姿势安装 首先到官方下载名为wkaliedit.dmg的插件包 然后载入过后提取installer.pkg文件，解压installer.pkg包提取output.pkg包 右键显示包内容打开output.pkg包，解压Payload包(此包为gzip格式，如果不能直接解压，请在终端下解压(tar zxvf Payload))，得到alipay包 右键显示包内容打开alipay包，依次进入Contents-Resources，找到其中两个zip包，aliedit.zip和npalicdo.zip 解压两个包，并把解压的两个文件“aliedit.plugin”、“npalicdo.plugin”放到”~/Library/Internet Plug-Ins文件下 重启浏览器 </description>
-    </item>
   </channel>
 </rss>

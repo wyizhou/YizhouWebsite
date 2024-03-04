@@ -18,6 +18,7 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <link rel="alternate" type="application/rss+xml" href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/index.xml">
+<link rel="alternate" hreflang="en" href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">
 <noscript>
     <style>
         #theme-toggle,
@@ -103,7 +104,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://wuyizhou.com" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
+            <a href="https://wuyizhou.com/" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -125,6 +126,8 @@
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
             </div>
         </div>
         <ul id="menu">
@@ -192,161 +195,6 @@ Redux本身设计是非常有趣的，整个应用的状态不能直接修改，
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Python数据集合
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>列表 列表是有序可变的数据集合，并且一对[]来表示这是一个列表，元素之间逗号分隔，每个数据之间有逗号分隔，列表基本上可以包含很多数据类型，下面就是一个典型的列表：
-list = [1,2.2,&#39;ok&#39;,bool] 在上面的列表中存储了数据(整型、浮点型、字符串、布尔值)，包含我们下面看见的几种集合类型都是可以当作列表的子元素的。
-当然也可以从列表中取出数据，因为列表是有序的，所以我们可以通过索引从0开始进行取数据,你需要注意的是所有可以用索引进行得到值的都是从0开始，比如下面的代码取出了列表第一个和第三个数据。
-list = [1,2.2,&#39;ok&#39;,bool] list[0] # 1 list[2] # &#39;ok&#39; 除了0开始的整数，还可以用负数，比如-1表示倒数第一个值，-2表示倒数第二个值，以此类推。
-list = [1,2.2,&#39;ok&#39;,bool] list[-1] # bool list[-2] # &#39;ok&#39; 列表切片 除此之外，列表还支持切片的功能，就相当于一块肉，我们通过菜刀把这块肉切成一片一片的，方便我们炒菜（方便处理）。切片同样和索引一样存在列表变量名后的[]里面，大概语法如下：
-list[起始位置:截至位置(但不包括本位置的值):步数] 下面的代码我获取了从第一个到第四个的值（但不包括第四个值）：
-list = [1,2.2,&#39;ok&#39;,bool] list[0:3] # 1,2.2,&#39;ok&#39; 也可以设置步数，作用就是比如我们设置2，就会每隔两个值就返回一个值：
-list = [1,2.2,&#39;ok&#39;,bool] list[0:4:1] #[1, &#39;ok&#39;] 当然同样可以设置负数，可以自行测试！
-列表查询 列表查询可以用于判断一个值是否在列表当中，通过in和not in来进行，其中in表示一个值是否包含在列表当中，如果包含则返回True，反之返回False，而not in则是对in的结果进行取反，比如下面的代码则表示了判断值2.2是不是存在于列表当中以及对in结果进行取反。
-list = [1,2.2,&#39;ok&#39;,bool] print(2.2 in list) #返回 True print(2.2 not in list) #返回False 元组 元组是有序不可变的数据集合，并且用一对()来进行表示，元素之间逗号分隔，当你定义好元组那一刻，元组里面的所有数据就不能够进行修改了，你只能读取里面的数据而无法修改和添加数据，比如下面，我定义了一组元组后，我通过修改第一个元素产生错误：
-tple = (1,2,3,4) tple[0] # 1 tple[0] = &#39;m&#39; &#34;&#34;&#34; Traceback (most recent call last): File &#34;&lt;ipython-input-21-cae8ab2b1ade&gt;&#34;, line 1, in &lt;module&gt; tple[0] = m TypeError: &#39;tuple&#39; object does not support item assignment 在上面这一行就会明显提醒你tuple对象不支持修改。 &#34;&#34;&#34; 集合 集合是可变无序的数据集合，并且用一对{}表示，元素之间逗号分隔，还需要特别注意的是集合是一个包含唯一元素的可变无序集合数据类型,集合的一个用途是快速删除列表中的重复项 ，集合是无序的，既然是无序那么就没有办法进行索引，我们只能通过两个方法进行添加和删除数据并返回，添加通过add()方法，删除是pop()方法，添加是随机插入到集合当中的任何位置，而删除是从集合当中随机取出一个值删除并返回。比如下面的操作：...</p>
-  </div>
-  <footer class="entry-footer"><span title='2018-06-25 13:21:31 +0000 UTC'>June 25, 2018</span></footer>
-  <a class="entry-link" aria-label="post link to Python数据集合" href="https://wuyizhou.com/posts/python-list/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Python数据类型与操作符
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>算术运算符 &#43; 加 - 减 * 乘 / 除 % 取余（相除后的余数） ** 取幂（注意 ^ 并不执行该运算，你可能在其他语言中见过这种情形） // 相除后向下取整到最接近的整数 整数、浮点数 数字值可以用到两种 python 数据类型：
-int - 表示整数值 float - 表示小数或浮点数值 你可以通过以下语法创建具有某个数据类型的值：
-x = int(4.7) # x is now an integer 4 y = float(4) # y is now a float of 4.0 你可以使用函数 type 检查数据类型：
-&gt;&gt;&gt; print(type(x)) int &gt;&gt;&gt; print(type(y)) float 布尔型运算符、比较运算符和逻辑运算符 布尔数据类型存储的是值 True 或 False，通常分别表示为 1 或 0。
-通常有 6 个比较运算符会获得布尔值：
-比较运算符 符号使用情况...</p>
-  </div>
-  <footer class="entry-footer"><span title='2018-06-25 09:26:05 +0000 UTC'>June 25, 2018</span></footer>
-  <a class="entry-link" aria-label="post link to Python数据类型与操作符" href="https://wuyizhou.com/posts/python-datatype/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Python生成器
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>什么是生成器(generator)？ 在Python中提供了一种名为generator的对象，他是通过next函数去中断执行并且generator对象具有Iterable对象，也就是说可以用于for循环，generator最大的作用是按需生成值，这个是什么意思呢？当我们需要一组元素很多的列表的时候会占用很大的内存，比如你需要生成一组从0-100000的列表，那么这个列表的长度将有10万，这是多么大的列表？如果比这个数值更大呢？那么很大一部分内存都将用来保存这个列表。
-list(range(100000)) 类似于上面这样的情况，我们可以用generator对象来按需生成数值来供我们处理，你可以把generator对象理解为一种状态机，里面保存着每次执行后的状态而并不是一次性的生成所有的值，我们就相当于导演，generator对象就像一个演员，我们叫他cut的时候，他就会停止，这样的好处就是一次性只返回一个或少量的值，不会一次性大量生成所有的值而导致内存的紧缺。
-生成器(generator)函数 生成器函数和普通函数很相似，为什么？因为你看见一个函数内部只要出现yield标识符，那么这个函数肯定就是generator对象函数，比如下面的代码：
-#普通函数 def ad(a,b): return a &#43; b #generator函数 def ad(a,b): yield a &#43; b return None 但是他们的执行过程却不一样，普通函数调用过后就马上执行内部的代码并返回，而generator对象函数却是保存了内部的状态，等待你需要的时候再去执行，而执行我们通过next函数去调用并且在内部执行的时候遇见了下一个yield标识符就会停止执行并返回yield标识符后面的值。
-#普通函数 def ad(a,b): return a &#43; b #generator函数 def ad(a,b): yield a &#43; b return None #普通函数执行 ad(1,5) #6 b = ad(1,5) #此时保存了状态 next(b) #6 通过next函数调用generator函数执行 生成器(generator)表达式 生成器表达式和列表表达式很像，但是有一点不同的是列表表达式由[]组成，而生成器表达式由()组成，就像下面的代码一样：
-l = [x * x for x in range(5)] #列表表达式 g = (x * x for x in range(5)) #生成器表达式 generator对象是需要通过next函数调用执行，并且返回的值是按循环生成的每个元素，我们每次用next执行我们的generator对象后，generator对象会保存执行后的状态，直到没有元素或者遇见return语句后抛出一个StopIteration错误来表示已经执行完毕，下面的代码是通过手动执行generator对象和通过for自动执行。...</p>
-  </div>
-  <footer class="entry-footer"><span title='2018-06-04 08:29:36 +0000 UTC'>June 4, 2018</span></footer>
-  <a class="entry-link" aria-label="post link to Python生成器" href="https://wuyizhou.com/posts/python-generator/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Python 列表生成表达式
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>如何生成列表？ 先试想一下，如果你需要生成1-50的数值列表，如果没有列表生成式你将会这样来做：
-x = [] i = 1 while i &lt;= 50: x.append(i) i &#43;= 1 还有一种方法就是通过range函数生成整数数列，然后通过list函数生成一个列表返回，大概操作如下：
-list(range(0,50)) 当然range函数提供了第三个参数，用于设置步数，你可以理解为间隔数，比如我只需要返回0-50中的偶尔，那么我用range生成的数列需要每隔两个数生成一个：
-list(range(0,50,2)) 列表生成表达式 列表生成式是Python内置的’列表’生成器，那列表生成表达式有什么用？首先我们尝试解决上面的第一个问题：
-[x for x in range(0,50)] 那如果要生成0-50每个数的乘积怎么做？可以像下面的代码一样来做：
-[x * x for x in range(0,50)] 那如果要生成0-50的数列，但是在其中40数值不需要生成，就可以在表达式中使用判断：
-[x for x in range(0,50) if x != 40] 这种使用方法也是最常用的，其他的多层循环不去说明，因为多层循环在表达式中使用，结构化并不清晰，容易造成歧义。
-现在我们大概看出来了列表生成表达式的使用方法，整理一下可以大概理解为：
-[x for x in range(0,50) if x != 50] [生成的值 可迭代对象 条件语句] 可迭代对象 什么是可迭代对象？你可以直接理解为可用于for循环的对象都可以叫为可迭代对象，那我们怎么知道哪些对象是可以迭代的？我们可以通过isinstance检查目前的集合类型的数据是否具有collections模块中Iterable对象，如果有那么就可以进行迭代：
-from collections import Iterable isinstance([], Iterable) # True isinstance({}, Iterable) #True isinstance(100, Iterable) #false 从上面看字典也是可以进行迭代的，下面的代码就是列表表达式对字典进行处理生成列表，并将首字母更改为大写，并且下面是在列表生成表达式中产生了两个变量。...</p>
-  </div>
-  <footer class="entry-footer"><span title='2018-06-04 02:45:42 +0000 UTC'>June 4, 2018</span></footer>
-  <a class="entry-link" aria-label="post link to Python 列表生成表达式" href="https://wuyizhou.com/posts/python-list-render/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Python函数参数
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>位置参数 位置参数是指定了多少参数，就必须输入多少参数，否则就会报错。也可以把位置参数理解为必须参数，如果没有输入同等的参数，就会报错，比如下面的代码，计算两个数的乘积。
-def power(x,y): return x * y power(2,5) # 10 power(2) #报错 默认参数 默认参数指的是可以给一个参数设置一个默认值，如果用户没有输入这个参数，那么在函数内部就会用这个参数设置的默认值进行计算，比如说下面的函数是返回两个数的乘积，如果用户没有输入第二个数，就默认为数值&#39;2’。
-def power(x,y=2): return x * y power(2,5) # 10 power(2) # 4 可变参数 可变参数是定义函数的时候不确定函数有多少个值，但是都会去接收进行计算，在函数内部是把所有的参数组合成一个不可变的元组数列。
-可以把可变参数理解为函数参数的个数是可以不固定的，比如计算用户输入的所有数值之和，此时的参数是不可控的，这种情况就可以使用可变参数，比如下面的代码是计算用户输入的所有数值之和。
-# 可变参数通过参数名前输入一个&#39;*&#39;号，标记为这是一个可变参数 def power(*num): sum = 0 for x in num: sum &#43;= x return sum power(2,5) # 7 power(2) # 2 power(2,5,6,7,8,9,10,22) # 69 关键字参数 关键字参数允许传入任意个含参数名的参数与值，并在内部自动组成一个dict类型的数据，比如我需要处理一些注册的信息，但是只有名字是必须的，其他的都是可选的，你可以把关键字参数理解为以name=value形式的这样的参数的个数是不固定的参数。
-比如下面的代码就是处理一个注册的信息，如果有人填了选填的部分，就把参数传入到函数进行处理。
-# 可变参数通过参数名前输入一个&#39;**&#39;号，标记为这是一个关键字参数，并传入name=value形式的参数 def power(name,**other): print(&#39;name:{}, other:{}&#39;.format(name,other)) power(&#39;trick&#39;, a=1,b=2) # name:trick, other:{&#39;a&#39;: 1, &#39;b&#39;: 2} 命名关键字参数 命名关键字参数是对于关键字参数的补充，当定义关键字参数的时候我们是没有办法对关键字参数可控的，而命名关键字参数就可以控制关键字参数的名字以及接收关键字的个数，比如下面的代码只接收’city’和’email’两个关键字参数。...</p>
-  </div>
-  <footer class="entry-footer"><span title='2018-06-01 04:23:15 +0000 UTC'>June 1, 2018</span></footer>
-  <a class="entry-link" aria-label="post link to Python函数参数" href="https://wuyizhou.com/posts/python-func-par/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Anaconda入门教程
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Anaconda是什么？ Anaconda可以理解为Python的软件发行版，可以用来管理包、环境，但是Anaconda主要针对于数据科学。
-Anaconda附带了conda、Python以及150和科学有关的包及其依赖包，其中由conda负责管理包和环境，由conda安装的包会自动去安装依赖包，所以只知道需要安装的包叫什么名字，而不用去管这个包依赖的有哪些包。
-Conda和pip的区别在于都是包管理器，但是conda还提供了环境管理，什么是环境管理呢？
-你可以把它想象为虚拟机，每个虚拟机都有一个独立的环境，互相可以安装不同版本的软件，比如说我虚拟机1安装word2007，虚拟机2安装word2016。
-Anaconda安装 首先需要到官网下载，然后根据自身的系统选择相应的版本进行安装，安装过后进入到终端就可以使用conda进行管理包和管理环境。
-但是第一次下载过后建议升级更新，因为从官网下载的软件包很有可能不是最新的，所以最好进行一次更新
-conda upgrade --all Anaconda 包管理命令 conda提供了一些基本的包管理命令供用户使用：
-conda list ---查看已安装的包列表 conda install package_name ---安装指定的包，可以同时安装多个包，包名之间以逗号分隔开。 conda install package_name=version ---安装指定版本的包，包后面跟随版本，适用于多个包安装 conda remove package_name ---卸载已经安装的包 conda search search_name ---搜索包 Anaconda 环境管理命令 假如你有这样的一个问题，你本机需要安装python2对老的代码进行运行，但是你又会用python3对新的代码进行运行，那这个时候就会很麻烦了，你会下载两个版本的python，并在系统中设置相应的命令别名，那如果还有其他的包呢？是不是都会为每一个包设置一个别名？所以环境管理就有很大的作用了。
-你可以把环境想象为虚拟机，每个虚拟机之间互相影响，可以安装不同的版本的包，你可以通过下面的代码来创建一个环境，并默认安装python为最新的版本：
-conda create -n env_name env_name为你创建环境的名字 那如果我要安装其他的包呢？有两个办法，一个是通过下面的方式，还有一个就是进入到环境后通过conda install package_name安装：
-conda create -n env_name package_name,... 在环境名后面跟着你需要安装的包名，可以多个 那如果我需要指定python版本呢？通过在环境名字后加上python=2来指定版本：
-conda create -n env_name python=2 安装好环境过后，我们可以通过下面的代码来查看目前已经创建的所有环境：
-conda env list 现在安装好后可以进入环境中了，通过下面的代码进入环境，当你成功进入环境过后，你会看见终端提示符中有环境的名称(env_name) ~ $
-Uinx/Linux/Mac: source activate env_name Windows: activate env_name 退出当前的环境用下面的代码：...</p>
-  </div>
-  <footer class="entry-footer"><span title='2018-05-29 10:24:42 +0000 UTC'>May 29, 2018</span></footer>
-  <a class="entry-link" aria-label="post link to Anaconda入门教程" href="https://wuyizhou.com/posts/anaconda/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Python头部注释
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>#!/usr/bin/env python3 # -*- coding: utf-8 -*- 在刚开始学习Python的时候遇到了上面的疑问，这些疑问感觉很奇怪，应为对于Nodejs这样的语言，这些问题是不会存在的，后来了解了一下关于这些疑问，觉得还是非常有用。
-比如在Nodejs当中我用高版本新特性的Node写了一段程序，我只能在文件中说明这是使用什么版本的Node，但是如果用户无法注意到这个问题，很有可能他电脑里面使用的是低版本的Node，可能就会发生错误，而Python如果这样声明了过后就会解决掉这个问题。
-默认脚本语言解释器 一般在python文件中第一行都有一个注释，上面指定了这个脚本语言需要用什么解释器来解释，Nodejs需要用Node解释器解释，perl需要用perl解释，python当然也需要用python脚本解释器来解释了。
-一般第一行会存在两种格式：
-!/usr/bin/python !/usr/bin/env python3或者2 这两种方式都是可行的，但是会存在一种问题，第一种写法的作用就是不管你在哪一台Linux机器上面执行这个python文件，都只会调用/usr/bin/python脚本解释器，如果在这个路径中没有找到python解释器将不能得到执行。
-而第二种方式是利用的Linux系统的特性，在Linux系统特性下面会存在一个env，它保存着系统的环境变量，就相当于windows下的PATH。而像第二种设置方式去设置的话，系统会首先找到/usr/bin/env文件，然后再去寻找python3或2可执行程序来解释脚本。
-编码执行注释 在Python中，默认的编码为ASCII作为标准编码，那么如何使用其他编码在源文件内进行中文输入呢？Python官方定义一个注释的格式，关于这份文档可以到官网查看。
-# -*- coding: utf-8 -*- </p>
-  </div>
-  <footer class="entry-footer"><span title='2018-05-23 08:22:38 +0000 UTC'>May 23, 2018</span></footer>
-  <a class="entry-link" aria-label="post link to Python头部注释" href="https://wuyizhou.com/posts/python-coding-settings/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">HTML表格的加载优化
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>在HTML设计数据展示的时候会经常使用到HTML表格来展示数据，但是如果数据量过大，就导致表格显示慢，因为在HTML中，表格的显示是需要等待内部所有数据都加载完毕才会显示整个表格，这样对用户体验很不好，比如下面这样：
-&lt;table border=&#34;10px&#34; width=&#34;500px&#34;&gt; &lt;caption&gt;test&lt;/caption&gt; &lt;tr&gt; &lt;th&gt;加载本地数据&lt;/th&gt; &lt;th&gt;加载本地数据&lt;/th&gt; &lt;th&gt;加载本地数据&lt;/th&gt; &lt;th&gt;加载本地数据&lt;/th&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;远程加载数据&lt;/td&gt; &lt;td&gt;远程加载数据&lt;/td&gt; &lt;td&gt;远程加载数据&lt;/td&gt; &lt;td&gt;远程加载数据&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;等待远程加载数据后计算数据&lt;/td&gt; &lt;td&gt;等待远程加载数据后计算数据&lt;/td&gt; &lt;td&gt;等待远程加载数据后计算数据&lt;/td&gt; &lt;td&gt;等待远程加载数据后计算数据&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt; 在html中，有三种标记专门针对html表格进行优化结构化，而不虚要向上面的表格那样需要等待全部数据加载完毕后才能显示表格，而结构化的好处就是当表格加载完一部分就显示完一部分，这三个表示表格结构化的标签为：
-thead tbody tfoot 在使用过程中，只需要把这三个标签相应的行包含就可以了，使用后对代码的理解也会更加方便，需要注意的是，这三个标签是包含在table标签内的，并且它们的顺序是可以颠倒的，但是它们出现的位置始终是表头、表主体、表脚。
-比如向下面这样：
-&lt;table border=&#34;10px&#34; width=&#34;500px&#34;&gt; &lt;caption&gt;test&lt;/caption&gt; &lt;thead&gt; &lt;tr&gt; &lt;th&gt;加载本地数据&lt;/th&gt; &lt;th&gt;加载本地数据&lt;/th&gt; &lt;th&gt;加载本地数据&lt;/th&gt; &lt;th&gt;加载本地数据&lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;远程加载数据&lt;/td&gt; &lt;td&gt;远程加载数据&lt;/td&gt; &lt;td&gt;远程加载数据&lt;/td&gt; &lt;td&gt;远程加载数据&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;tfoot&gt; &lt;tr&gt; &lt;td&gt;等待远程加载数据后计算数据&lt;/td&gt; &lt;td&gt;等待远程加载数据后计算数据&lt;/td&gt; &lt;td&gt;等待远程加载数据后计算数据&lt;/td&gt; &lt;td&gt;等待远程加载数据后计算数据&lt;/td&gt; &lt;/tr&gt; &lt;/tfoot&gt; &lt;/table&gt; </p>
-  </div>
-  <footer class="entry-footer"><span title='2018-03-14 07:48:49 +0000 UTC'>March 14, 2018</span></footer>
-  <a class="entry-link" aria-label="post link to HTML表格的加载优化" href="https://wuyizhou.com/posts/html-table-preloaded/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
     <h2 class="entry-hint-parent">汇编语言学习笔记（四）：寄存器[内存访问]
     </h2>
   </header>
@@ -376,21 +224,144 @@ SP=SP-2，SS:SP指向当前栈顶前面的单元，以当前栈顶起前面的�
   <footer class="entry-footer"><span title='2018-02-23 16:45:57 +0000 UTC'>February 23, 2018</span></footer>
   <a class="entry-link" aria-label="post link to 汇编语言学习笔记（四）：寄存器[内存访问]" href="https://wuyizhou.com/posts/learning-assembly-4/"></a>
 </article>
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="next" href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/page/2/">Next&nbsp;&nbsp;»
-    </a>
-  </nav>
-</footer>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">汇编语言学习笔记（三）：初识Debug
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>什么是Debug？Debug是DOS、Windows提供的8086程序调试工具，可以查看CPU各种寄存器的内容，内存情况和机器码级跟踪程序的运行。
+Debug一共有20多个命令，但我们在目前为止会使用到Debug的6个命令：
+R命令：查看、改变寄存器的内容 D命令：查看内存中的内容 E命令：改写内存中的内容 U命令：将内存中的机器指令翻译成汇编指令 T命令：执行一条机器指令 A命令：以汇编指令的格式向内存中写入一条机器指令 Windows下的Debug 在Windows下自带提供了Debug，可以直接通过Window提供的DOS进入到Debug，可以通过开始命令，输入cmd然后进入到DOS界面后直接输入Debug后就进行Debug程序了。
+Mac下的Debug 在Mac下，你需要通过Boxer这个程序来模拟DOS环境，打开后类似于这样的界面：
+点击Open a DOS prompt后就会弹出如下的界面，可以在这个环境下使用任何的DOS界面：
+但是这个DOS环境只包含了最基础的DOS环境，所以这个DOS环境是不带Debug程序的，你需要下载一个Debug程序或者下载由我提供的一个学习汇编需要的程序包，然后解压后把这个文件夹拖放进DOS窗口后，你就会看见Boxer提供的DOS环境会自动把这个目录加载成C盘，这样就可以正常使用Debug程序了，类似于下图这样：
+进入界面后，你会看见一个&#34;-“后面跟着闪烁的下划线，说明已经进入Debug。
+R命令 R命令有两个作用：
+查看当前CPU的各个寄存器状态、以及当前CS、IP指向的代码以及机器指令翻译后的汇编指令。 修改各个寄存器的内容 输入r后，会返回当前CPU的各个寄存器状态，就如下图这样：
+如果需要修改某个寄存器的内容，可以通过r命令后跟一个寄存器的命令，比如r ax，输入后会返回一个ax当前寄存器的内容，然后会有一个提示符:等待输入，比如下图中，通过r ax命令设置ax的内容为1000H：
+D命令 通过下面的格式可以查看需要的内容中的内容：
+d 段地址:偏移地址 比如下图用d命令查看内容20000H处的内容：
+返回的内容中包含了三个显示部分：
+第一部分位于最左边类似于2000:0000，是每行开始的第一个内存单元的段地址和偏移地址。 第二部分位于中间的十六进制编码，是开始部分的内存单元一直显示128个内存单元的内容，而每行等于16个字节，注意在每行在第八个内存单元的后面会有一个-来分割，有利于我们辨识。 第三部分位于最右边，是每个内存单元中的数据可以对应显示的ASCII，如果没有对应的ASCII码，就会用.代替。 还有一种限制D命令输出的方式，可以通过使用结束偏移地址来限制D命令的返回结果，它的格式为：
+d 段地址:偏移地址 结束偏移地址 比如下图中只需要返回内存地址为2000:0000到2000:0009的十个内存单元的内容：
+E命令 e 段地址:偏移地址 可以通过E命令来改写内存中的内容，不管是汇编指令还是数据。
+通过E命令可以连续更改也可以更改一个内存单元，当修改指定内存单元的内容时，会把当前内存单元的内容显示出来，然后用一个.号连接需要写入的数据，比如需要修改内存单元20000H的内容为10，然后再用d命令查看修改后的内容：
+当然也可以连续修改指定内存单元后的连续内存单元中的内容，只需要在输入需要写入的内存单元后按空格间，会自动跳到下一个内存单元进行修改，直到按回车键，就会写入内存：
+U命令 u命令会将某一段内存单元中的内容翻译成汇编指令，并返回16个内存单元的内容，返回的内容中包含三部分：
+每一条机器指令的地址 对应的机器指令 对应的汇编指令 比如查看内存单元2000:0000的数据，并翻译成汇编指令：
+当然也可以限制返回的内容，比如下面返回内存单元2000:0000到内存单元2000:0009的汇编指令：
+这里需要注意的是在计算机中储存在内存单元中的不管是数据还是代码，都是以二进制形式储存的，所以是代码还是数据，得看程序员怎么去控制。
+T命令 T命令是执行当前CS和IP指向的内存单元中的汇编指令，执行后IP自动增加代码长度并正确的指向到下一个代码的内存单元：
+A命令 以汇编指令的方式写入到内存单元，格式为：
+a 段地址:偏移地址 当指定修改某一个内存单元的内容时，会显示出当前修改的内存单元地址，并等待输入汇编指令，当输入完成后会自动跳到上一条代码长度后的内存单元继续等待输入，如果不想继续写入汇编指令，按回车键就结束写入。
+比如下图中，通过在内存单元20000H处以汇编指令形式写入：
+mov ax,20 并通过u命令查看内存单元20000H处是否写入成功：
+并且再通过r命令查看当前AX寄存器的内容，然后修改CS和IP寄存器，让CPU代码指针指向20000H处
+然后用t命令执行，再次查看AX寄存器的结果：</p>
+  </div>
+  <footer class="entry-footer"><span title='2018-02-09 09:06:14 +0000 UTC'>February 9, 2018</span></footer>
+  <a class="entry-link" aria-label="post link to 汇编语言学习笔记（三）：初识Debug" href="https://wuyizhou.com/posts/learning-assembly-3/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">汇编语言学习笔记（二）：寄存器
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>为什么要了解寄存器 为什么了解寄存器？因为CPU是计算机的大脑，可以通过指令读写寄存器实现对CPU的控制，你试想一下如果你的大脑不能控制只能控制手和脚等，不就等于扯线木偶了？
+寄存器只是CPU内部的一个器件，对于汇编来说CPU中比较重要的三个器件：
+运算器：对数据进行处理 控制器：控制各种器件工作 寄存器：对数据进行储存 而在CPU内部，这三个器件包括其他器件都是靠CPU内部总线相连，这里的内部总线是指的CPU内部器件的总线，而上一章节说的总线是CPU与外部器件比如显卡、内存等器件的总线。
+8086CPU 每个CPU寄存器和结构都是不相同的，而王爽《汇编语言》第三版主要讲的是在8086CPU上面操作的汇编，所以我这个笔记(教程)也是跟着王爽《汇编语言》第三版这本书学习。
+在8086CPU中有14个寄存器，并且每个寄存器都是16位(2Byte)，每个寄存器的名字不一样，这些寄存器的名字分别为：AX、BX、CX、DX、SI、DI、SP、BP、IP、CS、SS、DS、ES、PSW。而关于这些寄存器的作用，需要用的时候再去理解，现在就当认识一下啦～
+通用寄存器 AX、BX、CX、DX这四个寄存器可以来存放一般的数据，所以通常称为通用寄存器。以AX寄存器为例，寄存器的逻辑结构为下图：
+8086CPU每个寄存器都是16位，2而8086上一代CPU的寄存器为8位，所以8086CPU为了保证兼容性，AX、BX、CX、DX这四个寄存器都可以分为两个独立的8位寄存器来使用。
+AX可分为：AH和AL BX可分为：BH和BL CX可分为：CH和CL DX可分为：DH和DL 而这些命名也是有规律的，AH表示AX寄存器的高8位，AL表示AX寄存器的低8位。以AX为例，AX寄存器分为两个独立8为寄存器的逻辑结构为下图：
+为了保证兼容性8086CPU同时也可以处理两种尺寸的数据：
+字节：byte，一个字节由8个bit组成，可以存放在8位寄存器中，比如AH、AL 字：word，一个字由两个字节组成，可以直接放在16位寄存器中，比如AX 下图是数据20000(十六进制为4E20H)保存在寄存器AX当中的示意图：
+如果把AX寄存器当作一个整体看，那么里面的值就是字型数据20000(4E20H)，如果把寄存器分成两个8位寄存器看，那么AH就是字节型数据78(4EH)，而AL就是字节型数据32(20H)。
+几条汇编指令 通过下面几条简单的汇编指令来熟悉一下汇编指令，至于其他的一些汇编指令会在后期介绍。下面表中会列出汇编指令和相应的指令含义。
+在汇编语言当中，如果你操作寄存器的时候需要运算的字节大小超过了寄存器能存储的大小，CPU会抛弃高位(但是CPU并不是真正的丢弃这个值，后面会说到为什么)，保留相应的低位，什么意思呢？比如下面的汇编指令：
+mov ah,88H add ah,ah 上面代码运算后的结果为110H，但是因为操作的是8位寄存器，也就是只能保存两个16进制(16进制一个位等于4位二进制，两个16进制等于8位二进制)，所以这里CPU丢去了高位1H，保留了10H。而这种情况同样在16位中也会有。
+16位结构的CPU 之前提到过8086CPU上一代CPU是8位CPU，而8086CPU是16位CPU，那么什么是16位CPU？什么是8位CPU？有三个方面来描述CPU的结构特性：
+运算器最多一次性可以计算16位数据 寄存器最多一次性能存储16位数据 寄存器和运算器之间最多一次性能传输16位数据 **通过上面简单的说，就是说8086CPU能一次性处理、传输、暂存信息的长度为16位。**那32位计算机呢？同样是一次性处理、传输、暂存信息的长度为32位。
+物理地址 在上一章节说过CPU会把所有储存器看成一个一维线性空间，每个储存器在这个空间中都有自己的地址，我们将这个地址称为物理地址，比如就像下图一样：
+而CPU访问存储器的时候是通过地址总线来寻址的，而寻址必须通过物理地址来寻址。
+在CPU向地址总线发出物理地址之前需要先在内部形成这个一维的线性空间，那么物理地址是怎样形成的呢？不同的CPU可以有不同的形成物理地址的方式，下面来讨论一下8086CPU形成物理地址的方式。
+8086CPU给出物理地址的方法 8086CPU有20位地址总线用于相连外部的存储器，最多可以传输20位地址。在将物理地址发出到地址总线寻址之前，必须在CPU中处理、传输、暂存，而8086CPU是16位结构的CPU，意味着8086只能一次性发出16位的地址，也意味着只有64KB的寻址能力，所以8086CPU在设计上采用了用两个16位地址来合成20位的物理地址的方法。
+它的大概实现就是由CPU的相关部件提供两个16位地址，一个为段地址，一个为偏移地址，他们通过CPU内部的一个地址加法器计算这个地址得到一个20位的物理地址，然后通过CPU内部的地址总线传输到地址总线上进行寻址，比如下图：
+而这个地址加法器采用的计算方式是物理地址=基础地址(段地址X16)&#43;偏移地址，比如8086CPU要访问123C8H内存单元的时候，地址加法器的工作流程大致如下：
+关于这样的计算方式，还有一种更为常见的说法是左移4位，因为上面的物理地址都是用16进制表示的，而一位16进制等于4位二进制。在计算机存储的任何信息都是以二进制存放的，所以这里指的左移4位，是指的二进制左移4位，而二进制左移4位相当于16进制X16，相当于10进制的该数乘以2的4次方，下图中可以很好的对比数据：
+比如我们要访问一个内存单元，用描述来说“数据在21F60H当中”，这句话对于8086PC机一般不这样描述，一般用两种说法表示：
+数据存在内存2000:1F60单元中 数据存在内存的2000段中的1F60单元中 段的概念 说到段，可能都会误认为储存器是分为一段一段的，实际上不是，因为CPU把所有的储存器看作一个一维的线性空间，所以CPU把所有的储存器看作的都是一个整体。
+而这个划分来自于CPU的寻址方式，因为8086CPU用的是“基础地址(段地址X16&#43;偏移地址)”得到的，所以使我们可以分段的管理这些内存，但是需要知道的是段地址X16必然是16的倍数，而偏移地址位16位，所以一个段最大长度为64KB，比如下图中表示的两个“段”：
+在这个之前提到过，段地址是由相关部件提供的，这个部件也是寄存器，但是它只用来存放段地址，所以称为段寄存器，在8086中有4个段寄存器，分别有4个：CS、DS、SS、ES。当8086CPU要访问内存时，由这4个段寄存器提供内存单位的段地址，这里先看看CS。
+CS段寄存器和IP指令指针寄存器 因为在计算机中储存的数据都是二进制，计算机并不知道这些二进制是代码还是数据，所以数据和代码是完全由程序员说了算，而怎么来让计算机知道这是代码？这是数据？通过CS和IP寄存器。
+CS和IP是8086CPU中最为关键的两个寄存器，这两个寄存器指示了CPU当前要读取的指令地址。
+CS为代码段寄存器，IP为指令指针寄存器，在8086CPU中通过CSX16&#43;IP得到需读取执行的代码，当每次执行代码后IP的值会自动加上当前已经读取执行的代码长度，以使CPU可以正确的执行一下一条命令。
+所以CS和IP是表示的CPU任意时刻当前需要读取执行的代码，下图中是一个CPU读取执行代码的过程：
+在8086CPU加电或复位后（即CPU刚开始工作的时候）CS和IP被设置为CS=FFFFH，IP=0000H，也就是说8086PC机刚启动的时候，FFFF0H内存单元中的指令是8086PC机启动后执行的第一条指令。
+修改CS和IP 程序员可以通过修改CS、IP到达控制CPU执行哪一段代码，我们之前可以通过传送指令MOV来修改通用寄存器，但是传送指令MOV并不能来修改CS、IP寄存器，而8086CPU提供了另外的指令来改变CS、IP的值，这一类指令我们统称为转移指令。
+jmp指令就是一条简单的转移指令，它的作用是用指令修改当前CPU需要执行的代码内存单元地址，通过修改CS的段地址以及IP的偏移地址。它的使用方法是：
+jmp 段地址:偏移地址 它可以直接修改CS和IP寄存器的值，比如下面这样：
+jmp 2AE3:3，执行后：CS=2AE3H，IP=0003H，CPU将从内存单元2AE33H执行指令。 jmp 3:0B16，执行后：CS=0003H，IP=0B16H，CPU将从内存单元00B46H执行指令。 我们也可以只修改IP偏移地址：...</p>
+  </div>
+  <footer class="entry-footer"><span title='2018-02-05 15:38:40 +0000 UTC'>February 5, 2018</span></footer>
+  <a class="entry-link" aria-label="post link to 汇编语言学习笔记（二）：寄存器" href="https://wuyizhou.com/posts/learning-assembly-2/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">汇编语言学习笔记（一）：基础知识
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 此文章如出现歧义或错误的地方请谅解，这篇文章是我在学习汇编的时候同时记录下来的笔记，然后通过教程的方式发表出来，因为通过这样的方式发表出来，可以锻炼自己的语言组织能力，并且能够把问题思考懂了，然后再通过初学者的角度来记录这片文章，从而巩固自己的知识。如果有任何错误歧义的地方，可以通过邮箱与我取得联系。
+为什么学习汇编？ 首先在现在用汇编语言来写用户层面上的应用是很少的了，当然也有一些应用比如驱动、boot loader等。既然已经很少有人用汇编写用户层面的应用了，但是为什么要学习？因为汇编语言是作用于硬件上工作的语言，有便于理解计算机工作的原理，以后学习高级语言更为有利，特别是对于反汇编、破解这一块的技术对汇编语言的学习是必须的。
+机器语言 机器语言，顾名思义就是机器能看懂的语言，因为计算机智能看懂0和1，通电为1，没有通电为0，所以机器语言就是0和1组成的，也就是二进制。比如：01010000。
+汇编语言 而汇编语言就是机器语言的一种表达方式，便于程序员更好的去记忆理解。比如机器码为01010000对应的汇编指令就是PUSH AX。
+汇编语言包含两个部分：汇编指令、编译器指令（比如符号运算、伪指令等）。
+计算机是没有办法计算加减乘除运算符的，而加减乘除是通过编译器转换成计算机能够识别的逻辑运算符（或、与、非），然后利用这些逻辑运算符的组合达到加减乘除的一个效果。
+编译器 编译器的作用就是把汇编语言转换成机器能够识别的机器语言，可以大概理解编译器就是一个扫描仪，把汇编语言的指令对应相应的机器码翻译出来。
+它们大致的关系是：程序员编写汇编语言通过编译器转换汇编语言为机器语言后交给计算机执行。
+存储器 首先来了解存储器，为什么要了解存储器，因为学习汇编就是操作CPU与这些存储器进行交换数据，存储器不止是硬盘，CPU内部也有存储器、内存、bios、显卡都是存储器，每个存储单元可以存储1字节(Byte)，也就是等于8bit。而每个存储器都会被划分为若干个存储单元，而所有的储存单元都会被CPU看成是一个内存，比如01开始是BIOS，05开始是显卡等。，比如下图：
+内存是一个计算机仅次于CPU的硬件的，CPU无法直接读取硬盘中的数据，而是内存读取硬盘的数据后，CPU从内存中读取的。
+在*NIX系统中经常会看见一个叫swap的交换文件，这个文件就是虚拟内存，它的作用就是当内存满了后，把暂时不用的数据放在这个交换文件中，当你需要读取这部分数据的时候，内存会再次从虚拟内存中加载数据到内存中，所以从虚拟内存中实际上等于从硬盘加载数据，所以速度比较慢。
+指令和数据 指令和数据对于计算机来说都是一堆0和1，比如下面的一串机器码：
+1000100111011000：等于89D8H
+1000100111011000：等于MOV AX,BX
+上面两个同样的机器码确表达出了不同的意思，那么计算机如何来分辨我们这串机器码到底是数据还是指令？这个完全由我们来决定它是指令还是数据。
+CPU对存储器的读写 首先CPU与其他芯片都有电路线连接，而这些电路线一般称为总线，总线又分为三种，分别为：地址总线、控制总线、数据总线。而这三类总线，是CPU与其他芯片通讯的重要部件。
+CPU想要对存储器进行读写，必须通过三类通讯的交互，而这三类通讯是通过上面不同的总线进行通讯的：
+地址信息：如果不清楚储存单元的地址，就随便找一个，有可能把需要从bios中读取的数据变为从显卡中读取了。
+读写信息：通过读写信息，CPU才知道是读取指定地址的数据还是写入指定地址数据。
+数据信息：当上面两部分完成了，那么如果是读，就读取数据，如果是写就写入数据。
+知道了CPU如何进行数据的读写，而该去怎么操作计算机去执行这步的操作？通过机器码，比如：
+MOV AX,[3]
+翻译成机器码就等于：
+10100001 00000011 00000000
+当CPU接收到这条机器码就会执行我们上面代码所代表的操作。
+地址总线 CPU通过地址总线来对存储器进行寻址，比如要从03储存单元读取数据，那么地址总线上面传输的信息为：00000011。从这里就能知道如果地址总线越多表示的不同数字就越多，CPU寻址的范围就越大，因为一根地址总线可以表示0和1两种信息，那10根地址总线，寻址的就是2的10次方，等于1024，因为计算器从0开始计算，所以最小能表示0个，最大能表示1023个。
+数据总线 而数据总线有多少根也决定了CPU与其他存储器的传输能力，8088CPU数据总线有8根，所以一次性能传输8个二进制位，8086CPU数据总线有16根，所以一次性可以传输16个二进制位。
+比如要传输一个8D9AH数据，8088CPU需要分两次传输，第一次传输8D，第二次传输9A。而8086CPU只需要传输一次8D9A。所以数据总线的根数决定了数据的传输速度。
+控制总线 控制总线有多少根也决定了CPU对于储存器的控制能力，而需要注意的是控制总线指的是一个总称，控制总线是由几根不同的控制线构成的。
+而当读取信息的时候控制总线中有一个专门负责读取信号的控制线有低电平的时候表示读取。
+而写入数据的时候，同样控制总线中也有一根专门负责写入信号的控制线，当向它输出低电平的时候表示写入。</p>
+  </div>
+  <footer class="entry-footer"><span title='2018-02-01 13:55:06 +0000 UTC'>February 1, 2018</span></footer>
+  <a class="entry-link" aria-label="post link to 汇编语言学习笔记（一）：基础知识" href="https://wuyizhou.com/posts/learning-assembly-1/"></a>
+</article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com/">Yizhou</a></span>
     <span>
         <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
     </span>
     <span>
-        Build: 2024-02-09 17:06:12
+        Build: 2024-03-04 08:19:59
     </span>
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">

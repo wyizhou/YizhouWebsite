@@ -18,6 +18,7 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <link rel="alternate" type="application/rss+xml" href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/index.xml">
+<link rel="alternate" hreflang="en" href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/">
 <noscript>
     <style>
         #theme-toggle,
@@ -103,7 +104,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://wuyizhou.com" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
+            <a href="https://wuyizhou.com/" accesskey="h" title="Yizhou (Alt + H)">Yizhou</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -125,6 +126,8 @@
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
             </div>
         </div>
         <ul id="menu">
@@ -262,163 +265,37 @@ tar zcf /var/lib/vz/template/cache/[固件名称].tar.gz ....</p>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Elasticsearch节点配置
+    <h2 class="entry-hint-parent">树莓派实现TimeMachine以及samba服务
     </h2>
   </header>
   <div class="entry-content">
-    <p>节点配置 配置Java 因为Elasticsearch是Java编写的，所以在使用Elasticsearch之前，需要构建好Java的环境。而Elasticsearch会在每个发行版中包含一个推荐JVM版本。同时官方也推荐使用捆绑的JVM版本。 所以有两种方式来配置JVM：
-使用捆绑JVM 手动安装适配当前Elasticsearch的JVM版本 如果是通过下载解压包，则解压后会在第一层目录中看见一个名为jdk的目录，这个就是自带的推荐JVM，默认情况下，如果环境中没有设置ES_JAVA_HOME在启动的时候，则会直接使用自带的JVM。 如果安装了JVM，但需要使用自带JVM或者使用指定的JVM，则可以找到esdir/bin/Elasticsearch-env文件，然后找到下面的内容：
-# now set the path to java ES_JAVA_HOME=&#34;/home/elastic/Elasticsearch-8.2.0/jdk&#34; # 添加这段内容，路径需要自行修改 if [ ! -z &#34;$ES_JAVA_HOME&#34; ]; then JAVA=&#34;$ES_JAVA_HOME/bin/java&#34; JAVA_TYPE=&#34;ES_JAVA_HOME&#34; Java堆内存配置 Elasticsearch使用Java编写的，所以Java的堆内存越大，Elasticsearch可用的堆内存越多，缓存的数据也就越多。但是过于太大的堆内存，可能是垃圾回收暂停。 除此之外，官方还建议堆内存的大小设置不要超过对象指针（oops）的阈值。不同的系统阈值有所不同，而在大多数系统上26GB是安全，而有些可能可用高达30G。 查看是否超过了oops阈值，可用两种方法。第一种为API：
-_nodes/_all/jvm { ... &#34;using_compressed_ordinary_object_pointers&#34;: &#34;true&#34;, ... } 第二种为检查日志：
-[2022-06-09T06:17:15,837][INFO ][o.e.e.NodeEnvironment ] [xxx-p1] heap size [28gb], compressed ordinary object pointers [true] 设置堆内存大小通过设置Elasticsearch配置文件中的jvm.options文件，但在生产环境中尽量不要使用该文件直接修改，而是在java.options.d目录中新添加一个后缀为.options的文件。 配置文件中通过-Xms和-Xmx来设置最小和最大的堆内存：
-esdir/config/jvm.options.d/heap.options -Xms16g -Xmx16g 官方建议将该值设置为一致的，并且该值应该小于物理内存的50%。因为除了堆内存，JVM本身也需要一定的内存，除此之外，Elasticsearch底层使用的Lucence，Lucence段存放在单独的文件中，而OS会将部分常用段进行缓存（热段），便于加快应用的访问性能，所以没有足够的内存给OS进行缓存，那么同样会降低Elasticsearch的性能。 下面是因为堆内存设置过大，导致JVM内存不够的报错：
-Exception in thread &#34;main&#34; java.lang.RuntimeException: starting java failed with [1] output: # # There is insufficient memory for the Java Runtime Environment to continue....</p>
+    <p>最近一段时间感觉用移动硬盘备份Mac电脑很不方便，因为要把移动硬盘拿出来，还要插上电脑备份，看了一下AirPort，但是价钱太贵，况且只能用于Mac备份并不能用于其他的Samba服务等，感觉不太划算，于是打算自己做一个TimeMacheine以及samba服务，TimeMacheine服务主要用于Mac备份，而samba用于局域网内的电脑上的一些文件存放。
+准备工作： 1、树莓派
+2、移动硬盘
+3、5V电源适配器以及连接线
+4、无线USB网卡或者有线
+5、SD卡（新版本的是TF卡）
+6、操作系统，关于操作系统，你可以到raspberry官方网站进行下载并通过win32diskimager软件进行写入。
+在这里我自己的设备信息为： 1、树莓派2代
+2、西数移动硬盘2TB自带电源
+3、5V电源适配器以及连接线
+4、有线网络
+5、SD卡16GB金士顿
+6、raspbian操作系统
+查看自己的移动硬盘是否加载，lsblk结果： 1 NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT sda 8:0 0 1.8T 0 disk |-sda1 8:1 0 977.9G 0 part `-sda2 &lt;span style=&#34;color:#800080;&#34;&gt;8&lt;/span&gt;:&lt;span style=&#34;color:#800080;&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#800080;&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#800080;&#34;&gt;885&lt;/span&gt;.1G &lt;span style=&#34;color:#800080;&#34;&gt;0&lt;/span&gt; part mmcblk0 &lt;span style=&#34;color:#800080;&#34;&gt;179&lt;/span&gt;:&lt;span style=&#34;color:#800080;&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#800080;&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#800080;&#34;&gt;14&lt;/span&gt;.6G &lt;span style=&#34;color:#800080;&#34;&gt;0&lt;/span&gt; disk |-mmcblk0p1 &lt;span style=&#34;color:#800080;&#34;&gt;179&lt;/span&gt;:&lt;span style=&#34;color:#800080;&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#800080;&#34;&gt;0&lt;/span&gt; 56M &lt;span style=&#34;color:#800080;&#34;&gt;0&lt;/span&gt; part /boot` \-mmcblk0p2 179:2 0 3G 0 part / 在这里我是把我的硬盘分为两个分区，/dev/sda1 为ntfs格式、/dev/sda2 为 hfs格式，如果你需要进行分区可以通过fdisk以及cfdisk进行分区。...</p>
   </div>
-  <footer class="entry-footer"><span title='2022-06-10 07:49:01 +0000 UTC'>June 10, 2022</span></footer>
-  <a class="entry-link" aria-label="post link to Elasticsearch节点配置" href="https://wuyizhou.com/posts/elasticsearch-config-node/"></a>
+  <footer class="entry-footer"><span title='2014-08-17 20:28:00 +0000 UTC'>August 17, 2014</span></footer>
+  <a class="entry-link" aria-label="post link to 树莓派实现TimeMachine以及samba服务" href="https://wuyizhou.com/posts/raspberrypi-timemachine-samba/"></a>
 </article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Apache2-https安装教程
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>环境 CentOS Linux release 7.5.1804 Apache/2.4.6 (CentOS) root用户 前言 首先我们需要建立vhost文件，在目前的环境中安装的Apache会自动把目录为/etc/httpd/conf.d下的所有*.conf文件引入到配置文件/etc/httpd/conf/httpd.conf中加载，所以我们只需要在/etc/httpd/conf.d目录下配置我们的虚拟主机文件。
-免费的证书我们可以通过证书授权机构Let’s Encrypt 获取，并且我们可以通过Certbot（由Let’s Encrypt推出的获取证书的客户端 ）进行生成证书，Certbot提供了几种方式进行生产，我们选择最简单的方式certbot-auto来进行自动配置
-0x0001 通过编辑器编辑vhost文件
-vim /etc/httpd/conf.d/vhost.conf 添加以下的内容，括号及括号内的内容自行去掉
-&lt;VirtualHost *:80&gt; ServerAdmin XXX@xxx.cn(邮箱) directoryIndex index.html index.php index.htm ServerName XXXX.com(域名) DocumentRoot /www/web(网站目录) &lt;Directory &#34;/www/web(网站目录)&#34;&gt; Options -Indexes AllowOverride All Require all granted &lt;/Directory&gt; &lt;/VirtualHost&gt; 添加完内容后进行保存，并且我们用下面的命令来检查配置文件的语法是否有错误
-httpd -t 如果测试是没有问题的，此时我们就可以重启服务器让配置文件生效
-systemctl restart httpd 0x0002 这一步我们进行配置https，我们这里使用的是文章最开始提到的自动安装脚本，其他的安装方式以及如果文章离你查看的时间比较久远，建议你参照Certbot官方进行配置。
-首先下载Certbot到当前目录下，并让Certbot具有执行权限
-wget https://dl.eff.org/certbot-auto chmod a&#43;x certbot-auto 执行当前目录下的certbot-auto，然后跟着提示操作就可以执行了
-certbot-auto --apache 0X0003 我们可以通过renew进行查看证书的有效期，还可以通过renew --dry-run命令来更新证书，如果你需要自动更新可以参照官网或者其他脚本程序来进行实现也是没有任何问题的
-certbot-auto renew 查看证书有效期 certbot-auto renew --dry-run 更新证书有效期 </p>
-  </div>
-  <footer class="entry-footer"><span title='2018-06-25 03:46:41 +0000 UTC'>June 25, 2018</span></footer>
-  <a class="entry-link" aria-label="post link to Apache2-https安装教程" href="https://wuyizhou.com/posts/apache2-https/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">MariaDB swap空间没有配置导致的出错问题
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>之前自己写的一篇关于搭建lamp的文章，在运行过程中会出现一些莫名其妙的错误导致mariadb错误，然后必须手动重启mariadb才能正常启动服务。
-于是在mariadb的日志文件中查看到错误信息，/var/log/mariadb/mariadb。
-171002 10:56:34 [ERROR] Plugin &#39;InnoDB&#39; init function returned error. 171002 10:56:34 [ERROR] Plugin &#39;InnoDB&#39; registration as a STORAGE ENGINE failed. 171002 10:56:34 [ERROR] mysqld: Out of memory (Needed 128917504 bytes) 171002 10:56:34 [Note] Plugin &#39;FEEDBACK&#39; is disabled. 171002 10:56:34 [ERROR] Unknown/unsupported storage engine: InnoDB 171002 10:56:34 [ERROR] Aborting 其中有一句Out of memory (Needed 128917504 bytes)，看来是内存不足导致的错误，因为我的服务器是阿里云的低配服务器，所以当其他服务占用了很多内存之后，导致mariadb没有足够的内存提供服务。
-因为自己的内存是512M，于是想到采用swap空间。查看swap的大小是free -m返回的信息是：
-total used free shared buff/cache available Mem: 992 315 331 0 344 525 Swap: 0 0 0 看来swap也没有建立，那么就手动建立一个swap文件，由于官方给的swap大小建议的是实际内存的2倍，所以我在这里就建立了一个1GB的swap交换文件。...</p>
-  </div>
-  <footer class="entry-footer"><span title='2017-10-05 08:26:39 +0000 UTC'>October 5, 2017</span></footer>
-  <a class="entry-link" aria-label="post link to MariaDB swap空间没有配置导致的出错问题" href="https://wuyizhou.com/posts/mariadb-swap/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">家庭NAS搭建
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>前言 最近因为装了家庭影院买了盒子，再加上之前自己也想购买一个NAS，选过来选过去挑选了群晖NAS，但是无奈价格太贵，除了统一性、稳定性和群晖自身开发的系统之外没有任何的性价比可言，四硬盘位的NAS卖的更是离谱。
-家里有一台淘汰掉的主机，然后再加上自己有几块闲置的硬盘，便想出了自己搭建NAS服务器，因为每个IT男家中总会有那么一台或几台淘汰下来的机器和硬盘，即使你要组装一台新的机器，性价比也非常高。
-再加上自行组建NAS可玩性、灵活度较高，所以就敲定了这个方案。
-在3年前自己玩弄树莓派写了一篇文章，如今照着做了一遍感觉很多命令变化挺大的，所以也是重写一篇关于nas搭建的文章的动力。
-在配置的时候本来我想搭建一个下载服务器，找到mldonkey搭建，但是无奈配置了半天也没有搞定所以也就放弃了。最后我的解决方案是通过其他电脑下载然后拷贝到nas中。
-环境 系统我采用了Ubuntu 16.04 Server，因为在稳定性和节省系统资源比desktop版更胜一筹。如果你是想通过无线网络搭建NAS，那么第一次你需要使用网线连接安装Wi-Fi相关的包，如果没有网线或者你只需要无线网络，那么你可以使用desktop版本，因为desktop版自带了无线网卡的驱动。
-方案 搭建samba服务器，用于储存一些非私人资料，比如软件安装包、ISO镜像文件等，把samba共享给电视盒子，可以直接观看硬盘里面的电影。 搭建Time Machine，因为本人常用的是MacBook笔记本，所以搭建Time Machine就显得非常必要了 搭建seafile私有云服务，并提供给外网端口，用于外部访问。 为什么要搭建seafile，虽然Time Machine可以备份我的资料，但是无法让我在外面没有带电脑的时候取得资料，并且搭建seafile也算是一个双备份，因为上面的三个服务都是单独的一块硬盘，即使Time Machine或者seafile其中一个硬盘损坏，也不会造成数据丢失。
-准备工作 首先你可以查看你的硬盘情况，你可以通过lsblk命令查看，并通过fdisk命令进行分区。
-在三块硬盘分区好了后，我们开始格式化分区。我的环境中sda1用于samba，sdb1用于seafile，sdc1用于time machine，那么需要分别格式为不同的格式。
-因为time machine需要hfsplus格式，所以在格式化之前我们需要安装关于hfsplus的包。
-&gt; apt install hfsplus hfsutils hfsprogs 然后我们开始格式化三个分区。
-&gt; mkfs.ntfs -v /dev/sda1 &amp;&amp; mkfs.ext4 -v /dev/sdb1 &amp;&amp; mkfs.hfsplus -h /dev/sdc1 挂载三个分区
-&gt; mkdir /var/samba &amp;&amp; mkdir /var/seafile &amp;&amp; mkdir /var/timemachine &gt; mount -t ntfs /dev/sda1 /var/samba &amp;&amp; mount -t ext4 /dev/sdb1 /var/seafile &amp;&amp; mount -t hfsplus /dev/sdc1 /var/timemachine 然后通过lsblk命令检测三个分区是否挂载成功。...</p>
-  </div>
-  <footer class="entry-footer"><span title='2017-09-29 08:46:10 +0000 UTC'>September 29, 2017</span></footer>
-  <a class="entry-link" aria-label="post link to 家庭NAS搭建" href="https://wuyizhou.com/posts/homenas/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">LAMP环境搭建
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>环境 系统版本：Centos 7.3 64位
-服务器：阿里云香港
-当前用户：root
-目标：搭建wordpress执行环境
-准备工作 如果你是在一个新的环境中搭建lamp环境，那么我建议你先更新升级系统，这样能保证系统为最新版本以及系统的安全性。
-&gt; yum -y update &gt; yum -y upgrade 安装Apache 首先安装Apache
-&gt; yum -y install httpd 启动Apache
-&gt; systemctl start httpd 设置Apache为开机启动
-&gt; systemctl enable httpd 此时Apache搭建完成，系统的/var/www/html就是网站的根目录。访问服务器的外网ip或者域名就可以看见Apache已经搭建成功。
-安装PHP 安装PHP
-&gt; yum -y install php 安装一些常用的PHP模块
-&gt; yum -y install php-gd php-ldap php-odbc php-pear php-xml php-xmlrpc php-mbstring php-snmp php-soap curl curl-devel 重启Apache使php生效
-&gt; systemctl restart httpd 我们可以通过在网站根目录建立一个phpinfo函数来查看php是否能解析。
-&gt; echo &#34;&lt;?php phpinfo() ?&gt;&#34; &gt;&gt; /var/www/html/test....</p>
-  </div>
-  <footer class="entry-footer"><span title='2017-09-24 06:43:23 +0000 UTC'>September 24, 2017</span></footer>
-  <a class="entry-link" aria-label="post link to LAMP环境搭建" href="https://wuyizhou.com/posts/lamp/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Mongodb 身份验证
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>介绍 不管数据库是在多安全的环境或者本地环境，给数据库建立一个安全的环境是很有必要的。
-Mongodb提供了一系列的安全功能，这里介绍一种很常用的身份验证方式。
-开启验证 默认情况下，只要在启动数据库的时候没有加上--auth选项，就是没有身份验证功能的，所有客户端都可以进行所有权限的操作。
-如果加上过后，我们就可以通过安全的身份验证连接数据库。如果要在数据库中进行身份验证，可以通过db.auth(username, password)，如果验证成功则返回1，反之。
-建立用户 建立用户我们可以通过db.createUser()方法来建立用户，比如下面这样：
-db.createUser({user: &#39;username&#39;, pwd: &#39;password&#39;, roles: [ {role: &#39;read&#39;, db: &#39;test&#39;} ]}); db.createUser方法的接受一个对象，里面的user代表用户名，pwd代表密码，而roles是一个数组可以接受多个对象，每个对象可以对应作用于的数据库，其中的role字段代表对作用的数据库的权限，官方规定了一些列的内置角色，可以通过文档查询。
-删除用户 删除用户需要具有权限的用户进行操作，通过db.dropUser()方法进行，接受一个字符串，这个字符串就是用户名:
-db.dropUser(&#39;user1&#39;); 获取用户 可以通过db.getUser()方法来获取用户信息，同样它接受一个字符串，字符串为用户名:
-db.getUser(&#39;user1&#39;); 参考 MongoDB权威指南(第2版)
-Mongodb Docs</p>
-  </div>
-  <footer class="entry-footer"><span title='2017-08-26 10:08:26 +0000 UTC'>August 26, 2017</span></footer>
-  <a class="entry-link" aria-label="post link to Mongodb 身份验证" href="https://wuyizhou.com/posts/mongodb-auth/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Mongodb 备份及恢复
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>介绍 无论在什么情况下都应该进行数据备份，才能避免灾难性的数据损坏，下面将介绍两种备份方式，两种备份方式使用的场景也不一样，可以根据自身的使用情况进行选择
-复制文件备份 在复制数据库文件之前，我们可以通过db.fsynclock()方法让数据库禁止一切写入，并把所有在缓存中的信息全部同步到磁盘中，让所有的写操作进入队列，在没有取消锁之前，Mongodb不会对任何写操作进行处理。
-&gt; db.fsyncLock(); 首先给数据库上锁，以免出现我们在备份的过程中同时还有数据写入 $ cp -R /data/blog/* /data/Backup/blog //复制数据库所有的文件到备份目录 &gt; db.fsyncUnlock(); 解锁数据库，解锁后数据库将处理队列中的写操作 mongodump mongodump可以给正在运行的实例进行热备份，只需要通过指定端口，地址，如果在本机上面运行，只需要指定端口就可以进行热备份了。
-$ mongodump --port 27017 运行过后，mongodump会在当前目录建立一个dump文件夹，里面包含了我们备份的数据库数据。
-恢复 上面第一种方式很好恢复，把备份的数据文件复制回来就可以了，而经过mongodump备份的文件需要使用mongodb提供的另一个工具mongorestore。
-mongorestore通过给正在运行的实例进行恢复数据，下面是它的用法：
-mongorestore --port 27017 ./dump/ 参考 MongoDB权威指南(第2版)
-Mongodb Docs</p>
-  </div>
-  <footer class="entry-footer"><span title='2017-08-26 09:42:07 +0000 UTC'>August 26, 2017</span></footer>
-  <a class="entry-link" aria-label="post link to Mongodb 备份及恢复" href="https://wuyizhou.com/posts/mongodb-backup/"></a>
-</article>
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="next" href="https://wuyizhou.com/tags/%E6%9C%8D%E5%8A%A1%E5%92%8C%E8%BF%90%E7%BB%B4/page/2/">Next&nbsp;&nbsp;»
-    </a>
-  </nav>
-</footer>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="https://wuyizhou.com">Yizhou</a></span>
+    <span>&copy; 2024 <a href="https://wuyizhou.com/">Yizhou</a></span>
     <span>
         <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
     </span>
     <span>
-        Build: 2024-02-09 17:06:12
+        Build: 2024-03-04 08:19:59
     </span>
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
