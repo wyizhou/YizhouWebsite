@@ -14,9 +14,8 @@
 sentence = &#39;中文分词算法&#39; # 输入的句子 cutList = [&#39;分词&#39;] # 分词词典 start = 0 #设置切分起始位置 maxWidth = len(max(cutList, key=len)) # 得到字典当中最大的切分宽度 cut_result = [] # 设置一个空的分词结果 while (start &lt;= len(sentence)): #开始循环，如果start大于等于句子长度则停止分词 end = start &#43; maxWidth # 计算每次切分的停止位置 word = sentence[start: end] # 开始切分，文本为变量start和end的区间内字符 while ( word ) : # python对于空字符串会转换为False if ( word in cutList ) : # 查看第一次切分后是否能在词典中匹配，如果匹配则放入最终的分词结果列表cut_result,并跳出循环 cut_result.">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/chinesecutwords-1/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.a8f329a89028c2356cb4f3650b14732202f51894615d7b3cfa1c3da20473eba1.css" integrity="sha256-qPMpqJAowjVstPNlCxRzIgL1GJRhXXs8&#43;hw9ogRz66E=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
-    onload="hljs.initHighlightingOnLoad();"></script>
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.js" onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/images/favicon.ico">
 
 <link rel="apple-touch-icon" href="https://wuyizhou.com/apple-touch-icon.png">
@@ -232,7 +231,7 @@ sentence = &#39;中文分词算法&#39; # 输入的句子 cutList = [&#39;分词
     <h1 class="post-title entry-hint-parent">
       (一)漫话中文分词：最大匹配,双向最大,最小词数
     </h1>
-    <div class="post-meta"><span title='2020-11-08 10:36:34 +0000 UTC'>November 8, 2020</span>
+    <div class="post-meta"><span title='2020-11-08 10:36:34 +0000 UTC'>2020-11-08</span>
 
 </div>
   </header> <div class="toc">
@@ -379,7 +378,7 @@ print(sentence)
         <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
     </span>
     <span>
-        Build: 2024-03-07 01:54:31
+        Build: 2024-03-07 02:11:09
     </span>
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">

@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.a8f329a89028c2356cb4f3650b14732202f51894615d7b3cfa1c3da20473eba1.css" integrity="sha256-qPMpqJAowjVstPNlCxRzIgL1GJRhXXs8&#43;hw9ogRz66E=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://wuyizhou.com/images/favicon.ico">
 
 <link rel="apple-touch-icon" href="https://wuyizhou.com/apple-touch-icon.png">
@@ -189,7 +189,7 @@
 那这个时候如果组件的嵌套过于&#34;多层次&#34;了后，比如从顶层的组件需要传递一个状态到第N层的组件中，那么每一层即使不需要不处理也要将状态进行传递，那这个时候涉及到的组件其中会包含非常多的和组件无关的代码。 所以这个时候需要一个通用的状态管理的解决方案（如Redux），让整个Web应用都共享一个大的状态，需要多层传递的状态则可以放在这个大状态内部，让不关心有些状态的组件不用去关心无关状态，而有些状态的组件去关心自己关心的状态。
 Redux本身设计是非常有趣的，整个应用的状态不能直接修改，这是因为如果大家都直接修改很有可能会造成状态的管理的混乱，所以Redux的修改状态流程是组件发起动作-&gt;Dispatch函数接收动作-&gt;reducer处理动作-&gt;影响状态-&gt;重新渲染组件。</p>
   </div>
-  <footer class="entry-footer"><span title='2022-04-22 01:52:54 +0000 UTC'>April 22, 2022</span></footer>
+  <footer class="entry-footer"><span title='2022-04-22 01:52:54 +0000 UTC'>2022-04-22</span></footer>
   <a class="entry-link" aria-label="post link to 前端的技术栈理解" href="https://wuyizhou.com/posts/frontend-terms/"></a>
 </article>
 
@@ -221,7 +221,7 @@ SP=SP-2，SS:SP指向当前栈顶前面的单元，以当前栈顶起前面的�
 栈顶超界 可以想象一下，当栈空间为2000H:0000H-2000H:000FH的16个内存单元时，那么当栈为空，栈顶在0010H位置，如果这时我们操作出栈，那么SP应该&#43;2，即为0012H，那如果入栈低于了20000H这个内存空间的时候呢？这两种情况都超出了栈的范围，就会覆盖相应的内存单元的数据，比如在下面两个图中，分别对出栈和入栈都演示了一个超界的情况：
 在内存单元中，可能存放数据，代码，也有可能存放其他应用的数据代码等，如果超出了就会出现其他未知的问题，在8086CPU中，并没有什么机制来预防这样的问题，应为8086CPU只需要关注栈顶在哪里，并不会关注栈的空间有多大，所以我们需要特别注意，这是非常危险的一个操作。</p>
   </div>
-  <footer class="entry-footer"><span title='2018-02-23 16:45:57 +0000 UTC'>February 23, 2018</span></footer>
+  <footer class="entry-footer"><span title='2018-02-23 16:45:57 +0000 UTC'>2018-02-23</span></footer>
   <a class="entry-link" aria-label="post link to 汇编语言学习笔记（四）：寄存器[内存访问]" href="https://wuyizhou.com/posts/learning-assembly-4/"></a>
 </article>
 
@@ -261,7 +261,7 @@ mov ax,20 并通过u命令查看内存单元20000H处是否写入成功：
 并且再通过r命令查看当前AX寄存器的内容，然后修改CS和IP寄存器，让CPU代码指针指向20000H处
 然后用t命令执行，再次查看AX寄存器的结果：</p>
   </div>
-  <footer class="entry-footer"><span title='2018-02-09 09:06:14 +0000 UTC'>February 9, 2018</span></footer>
+  <footer class="entry-footer"><span title='2018-02-09 09:06:14 +0000 UTC'>2018-02-09</span></footer>
   <a class="entry-link" aria-label="post link to 汇编语言学习笔记（三）：初识Debug" href="https://wuyizhou.com/posts/learning-assembly-3/"></a>
 </article>
 
@@ -308,7 +308,7 @@ jmp指令就是一条简单的转移指令，它的作用是用指令修改当�
 jmp 段地址:偏移地址 它可以直接修改CS和IP寄存器的值，比如下面这样：
 jmp 2AE3:3，执行后：CS=2AE3H，IP=0003H，CPU将从内存单元2AE33H执行指令。 jmp 3:0B16，执行后：CS=0003H，IP=0B16H，CPU将从内存单元00B46H执行指令。 我们也可以只修改IP偏移地址：...</p>
   </div>
-  <footer class="entry-footer"><span title='2018-02-05 15:38:40 +0000 UTC'>February 5, 2018</span></footer>
+  <footer class="entry-footer"><span title='2018-02-05 15:38:40 +0000 UTC'>2018-02-05</span></footer>
   <a class="entry-link" aria-label="post link to 汇编语言学习笔记（二）：寄存器" href="https://wuyizhou.com/posts/learning-assembly-2/"></a>
 </article>
 
@@ -350,7 +350,7 @@ MOV AX,[3]
 而当读取信息的时候控制总线中有一个专门负责读取信号的控制线有低电平的时候表示读取。
 而写入数据的时候，同样控制总线中也有一根专门负责写入信号的控制线，当向它输出低电平的时候表示写入。</p>
   </div>
-  <footer class="entry-footer"><span title='2018-02-01 13:55:06 +0000 UTC'>February 1, 2018</span></footer>
+  <footer class="entry-footer"><span title='2018-02-01 13:55:06 +0000 UTC'>2018-02-01</span></footer>
   <a class="entry-link" aria-label="post link to 汇编语言学习笔记（一）：基础知识" href="https://wuyizhou.com/posts/learning-assembly-1/"></a>
 </article>
     </main>
@@ -361,7 +361,7 @@ MOV AX,[3]
         <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
     </span>
     <span>
-        Build: 2024-03-07 01:54:32
+        Build: 2024-03-07 02:11:10
     </span>
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">

@@ -14,9 +14,8 @@ Trie树的查找方式则是通过层层查询，而不是直接遍历词典，�
 class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实例定义一个名为_children的对象，用于存放词的Trie结构 self._children = {} def _add_word(self, word): # 定义一个添加词的实例方法 child = self._children # 首先会将_children的对象赋值给child for i,char in enumerate(word): # 然后从头遍历添加词的每一个字符 if char not in child: # 查看当前字符是否存在Trie树上 child[char] = {&#39;__value&#39;: False} # 如果没有则新建一个对象，并设置特殊key__value为False，表明这不是一个结尾字符 if i == (len(word) - 1): # 判断是否为结尾字符 child[char][&#39;__value&#39;] = True # 如果是则将特殊key：__value设为True，表明为结尾字符 child = child[char] # 如果还有字符，则将当前字符对象更新为child，那么下一次查找则是基于上一次对象下 return True # 添加完成返回True def _get_word(self, word): # 查找词 child = self.">
 <meta name="author" content="">
 <link rel="canonical" href="https://wuyizhou.com/posts/chinesecutwords-2/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.a8f329a89028c2356cb4f3650b14732202f51894615d7b3cfa1c3da20473eba1.css" integrity="sha256-qPMpqJAowjVstPNlCxRzIgL1GJRhXXs8&#43;hw9ogRz66E=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
-    onload="hljs.initHighlightingOnLoad();"></script>
+<link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.js" onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://wuyizhou.com/images/favicon.ico">
 
 <link rel="apple-touch-icon" href="https://wuyizhou.com/apple-touch-icon.png">
@@ -232,7 +231,7 @@ class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实
     <h1 class="post-title entry-hint-parent">
       (二)漫话中文分词：Trie、KMP、AC自动机
     </h1>
-    <div class="post-meta"><span title='2020-11-18 08:51:13 +0000 UTC'>November 18, 2020</span>
+    <div class="post-meta"><span title='2020-11-18 08:51:13 +0000 UTC'>2020-11-18</span>
 
 </div>
   </header> <div class="toc">
@@ -457,7 +456,7 @@ class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实
         <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
     </span>
     <span>
-        Build: 2024-03-07 01:54:31
+        Build: 2024-03-07 02:11:09
     </span>
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
