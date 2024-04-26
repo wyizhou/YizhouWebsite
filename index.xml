@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Lucas&#39;s Website</title>
-    <link>https://wuyizhou.com/</link>
+    <link>https://vec6.com/</link>
     <description>Recent content on Lucas&#39;s Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 11 Oct 2022 01:52:49 +0000</lastBuildDate>
-    <atom:link href="https://wuyizhou.com/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://vec6.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Google Hacking Test</title>
-      <link>https://wuyizhou.com/posts/google-hacking-test/</link>
+      <link>https://vec6.com/posts/google-hacking-test/</link>
       <pubDate>Tue, 11 Oct 2022 01:52:49 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/google-hacking-test/</guid>
+      <guid>https://vec6.com/posts/google-hacking-test/</guid>
       <description>前言 学习Google搜索，其目的是用于让自己得到更精准的信息，所以善用Google搜索对于信息收集、安全测试、查找答案等都有着非常大的帮助。而随着时间的变化Google对于语法的更新、规则都在改动，这些改动对于结果都有影响，所以使用前进行测试是非常有必要的。 查阅了诸多资料过后，将Google搜索的操作分为了三个等级，分别为基础搜索、布尔操作符、高级操作符，每个级别的都可以进行配合使用，有些组合起来能够让搜索更加精准，而有些则是不能进行组合。 同时这些搜索方式会与高级搜索设置中的功能重叠，但个人偏向使用语法对比高级搜索设置方便许多，所以后面的内容均使用语法，不会涉及到搜索设置等。 除此之外，还有诸多的网站可以获取到Google语法的途径，比如exploit-db是一个用于记录安全测试的Google语法数据库，这里面记录了非常多因配置失误操作的漏洞，如获取sql备份文件sql.bak等。Google Help提供常用的Google语法等。
 影响搜索的因素 Google在搜索原理的一篇简单的介绍了会影响搜索结果的几个因素，分别为以下7个因素：
 如果为中文，需要进行分词、语法等NLP技术的信息提取。
@@ -43,9 +43,9 @@ inanchor：inanchor高级操作符用于搜索超链接的文本。比如链接�
     </item>
     <item>
       <title>前端的技术栈理解</title>
-      <link>https://wuyizhou.com/posts/frontend-terms/</link>
+      <link>https://vec6.com/posts/frontend-terms/</link>
       <pubDate>Fri, 22 Apr 2022 01:52:54 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/frontend-terms/</guid>
+      <guid>https://vec6.com/posts/frontend-terms/</guid>
       <description>最近几年单页应用程序发展非常迅速，从早期通过Javascript写入大量html模版去做单页程序（SPA），到现在的React、Vue（最为流行），但不得不说，前端的技术进步太快了，稍不关注技术，就会出来很多的新的技术。
 但归根结底，每次新的技术出来，埋头深入发现远比想象的复杂，而到了一定的时间后则能够想明白一些事情，这也就是&amp;quot;深入浅出&amp;quot;的道理。 单页应用是一个复杂的技术，要解决这些问题，出现了很多&amp;quot;框架&amp;quot;、工具，比如React、Vue、React-router、Redux等。对于新手来说更是学了一圈后出来也是懵的。但总体来说，React和Vue这类库本质都没有什么区别，都是为了解决SPA提出的方案。这类库大部分主要的理念是将Web应用划分为一个一个的组件为单元，这些组件可以包含另一个组件，以此来达到复用性。
 而每个组件不可能都显示一样，那这样复用性是没有意义的。 那这个时候提出了“状态”的概念，来让每个复用的组件显示不同的内容，状态分为了props和state，props是由外部传入进来的状态，state则是组件内部自己的状态。而这类UI库对于状态的变化，都会根据一些优秀的算法去重新渲染组件，并且渲染的时候仅仅涉及到改变的那一部分内容。
@@ -57,9 +57,9 @@ Redux本身设计是非常有趣的，整个应用的状态不能直接修改，
     </item>
     <item>
       <title>人工智能基础名词理解</title>
-      <link>https://wuyizhou.com/posts/inteliigence-terms/</link>
+      <link>https://vec6.com/posts/inteliigence-terms/</link>
       <pubDate>Sat, 26 Jun 2021 06:48:33 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/inteliigence-terms/</guid>
+      <guid>https://vec6.com/posts/inteliigence-terms/</guid>
       <description>人工智能 人工智能是一个比较广泛的概念，这个概念实际上指的是让机器像人一样思考，其最早由计算机科学之父阿兰图灵在1950年的一篇《计算机器与智能》论文中写出“如果电脑能在5分钟能回答由人类测试者提出的一系列的问题，且超过30%回答让测试者误认为人类所答，则电脑通过测试”，这段话也直接启蒙式的开启了人工智能领域的研究。 而“人工智能”一词，第一次出现在1956年，达特茅斯大学召开的学术会议室，由人工智能之父约翰·麦卡锡首次提出。 通常人工智能被分为弱人工智能和强人工智能，前者可以让机器有一定程度的学习、理解和推理能力，后者则是由自适应能力，比如解决一些之前没有遇见过的问题，我们常在电影里看见的机器人就是一种强人工智能。
 机器学习 机器学习为人工智能的一个研究分支，也可以理解为弱人工智能的一种实现，而机器学习做的事情是让机器取模拟和实现人类的学习行为，以获得新的技能和知识。 人工智能领域的先驱Arthur Samuel在1959年给出的机器学习定义为“不直接编程，却能赋予计算机提供能力的方法”，而美国工程院院士Tom Mitchell则给出了一个更明确的含义，指出“机器学习是通过某项人物的经验数据提高了在该人物上的能力”。 机器学习最基本的是利用给出的算法来解析数据，从中学习到一定规则(模式)得到经验，并利用学习到的经验对类似的问题作出预测和判断。 而如今机器学习已在多个领域得到了很好的应用，大致上可以将机器学习的分为几个研究方向：
 模式识别 自然语言处理 数据挖掘 计算机视觉 语言识别 统计学习 算法 前面提到机器学习需要给出算法来解析（学习）数据，以获得经验，而这个算法则包括我们常说的“神经网络”也是机器学习算法的一种，常见的算法有如下：

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>开发者手册 on Lucas&#39;s Website</title>
-    <link>https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/</link>
+    <link>https://vec6.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/</link>
     <description>Recent content in 开发者手册 on Lucas&#39;s Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 22 Apr 2022 01:52:54 +0000</lastBuildDate>
-    <atom:link href="https://wuyizhou.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://vec6.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>前端的技术栈理解</title>
-      <link>https://wuyizhou.com/posts/frontend-terms/</link>
+      <link>https://vec6.com/posts/frontend-terms/</link>
       <pubDate>Fri, 22 Apr 2022 01:52:54 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/frontend-terms/</guid>
+      <guid>https://vec6.com/posts/frontend-terms/</guid>
       <description>最近几年单页应用程序发展非常迅速，从早期通过Javascript写入大量html模版去做单页程序（SPA），到现在的React、Vue（最为流行），但不得不说，前端的技术进步太快了，稍不关注技术，就会出来很多的新的技术。
 但归根结底，每次新的技术出来，埋头深入发现远比想象的复杂，而到了一定的时间后则能够想明白一些事情，这也就是&amp;quot;深入浅出&amp;quot;的道理。 单页应用是一个复杂的技术，要解决这些问题，出现了很多&amp;quot;框架&amp;quot;、工具，比如React、Vue、React-router、Redux等。对于新手来说更是学了一圈后出来也是懵的。但总体来说，React和Vue这类库本质都没有什么区别，都是为了解决SPA提出的方案。这类库大部分主要的理念是将Web应用划分为一个一个的组件为单元，这些组件可以包含另一个组件，以此来达到复用性。
 而每个组件不可能都显示一样，那这样复用性是没有意义的。 那这个时候提出了“状态”的概念，来让每个复用的组件显示不同的内容，状态分为了props和state，props是由外部传入进来的状态，state则是组件内部自己的状态。而这类UI库对于状态的变化，都会根据一些优秀的算法去重新渲染组件，并且渲染的时候仅仅涉及到改变的那一部分内容。

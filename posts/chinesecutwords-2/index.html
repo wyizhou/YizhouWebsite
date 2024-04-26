@@ -13,16 +13,16 @@ Trie树的查找方式则是通过层层查询，而不是直接遍历词典，�
 查询词 添加词 除此之外还需要考虑如果标记词的结束节点，首先可以约定，默认情况都返回&quot;False&quot;表示为未查询到或设置失败，而返回&quot;True&quot;则表示查询到或设置成功，每个节点为一个字符，而字典当中的__value表示是否为结束节点（即一个词的尾字符），如果是则为True，不是则为False，整体可以采用函数或者类来定义。 实现代码：
 class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实例定义一个名为_children的对象，用于存放词的Trie结构 self._children = {} def _add_word(self, word): # 定义一个添加词的实例方法 child = self._children # 首先会将_children的对象赋值给child for i,char in enumerate(word): # 然后从头遍历添加词的每一个字符 if char not in child: # 查看当前字符是否存在Trie树上 child[char] = {&#39;__value&#39;: False} # 如果没有则新建一个对象，并设置特殊key__value为False，表明这不是一个结尾字符 if i == (len(word) - 1): # 判断是否为结尾字符 child[char][&#39;__value&#39;] = True # 如果是则将特殊key：__value设为True，表明为结尾字符 child = child[char] # 如果还有字符，则将当前字符对象更新为child，那么下一次查找则是基于上一次对象下 return True # 添加完成返回True def _get_word(self, word): # 查找词 child = self.">
 <meta name="author" content="">
-<link rel="canonical" href="https://wuyizhou.com/posts/chinesecutwords-2/">
+<link rel="canonical" href="https://vec6.com/posts/chinesecutwords-2/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.js" onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="https://wuyizhou.com/images/favicon.ico">
+<link rel="icon" href="https://vec6.com/images/favicon.ico">
 
-<link rel="apple-touch-icon" href="https://wuyizhou.com/apple-touch-icon.png">
-<link rel="mask-icon" href="https://wuyizhou.com/safari-pinned-tab.svg">
+<link rel="apple-touch-icon" href="https://vec6.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://vec6.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://wuyizhou.com/posts/chinesecutwords-2/">
+<link rel="alternate" hreflang="en" href="https://vec6.com/posts/chinesecutwords-2/">
 <noscript>
     <style>
         #theme-toggle,
@@ -92,7 +92,7 @@ Trie树的查找方式则是通过层层查询，而不是直接遍历词典，�
 查询词 添加词 除此之外还需要考虑如果标记词的结束节点，首先可以约定，默认情况都返回&quot;False&quot;表示为未查询到或设置失败，而返回&quot;True&quot;则表示查询到或设置成功，每个节点为一个字符，而字典当中的__value表示是否为结束节点（即一个词的尾字符），如果是则为True，不是则为False，整体可以采用函数或者类来定义。 实现代码：
 class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实例定义一个名为_children的对象，用于存放词的Trie结构 self._children = {} def _add_word(self, word): # 定义一个添加词的实例方法 child = self._children # 首先会将_children的对象赋值给child for i,char in enumerate(word): # 然后从头遍历添加词的每一个字符 if char not in child: # 查看当前字符是否存在Trie树上 child[char] = {&#39;__value&#39;: False} # 如果没有则新建一个对象，并设置特殊key__value为False，表明这不是一个结尾字符 if i == (len(word) - 1): # 判断是否为结尾字符 child[char][&#39;__value&#39;] = True # 如果是则将特殊key：__value设为True，表明为结尾字符 child = child[char] # 如果还有字符，则将当前字符对象更新为child，那么下一次查找则是基于上一次对象下 return True # 添加完成返回True def _get_word(self, word): # 查找词 child = self." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://wuyizhou.com/posts/chinesecutwords-2/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://vec6.com/posts/chinesecutwords-2/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-11-18T08:51:13+00:00" />
 <meta property="article:modified_time" content="2020-11-18T08:51:13+00:00" />
 
@@ -114,7 +114,7 @@ class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实
       "@type": "ListItem",
       "position":  1 ,
       "name": "(二)漫话中文分词：Trie、KMP、AC自动机",
-      "item": "https://wuyizhou.com/posts/chinesecutwords-2/"
+      "item": "https://vec6.com/posts/chinesecutwords-2/"
     }
   ]
 }
@@ -136,14 +136,14 @@ class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实
   "dateModified": "2020-11-18T08:51:13Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://wuyizhou.com/posts/chinesecutwords-2/"
+    "@id": "https://vec6.com/posts/chinesecutwords-2/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Lucas's Website",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://wuyizhou.com/favicon.ico"
+      "url": "https://vec6.com/favicon.ico"
     }
   }
 }
@@ -165,7 +165,7 @@ class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://wuyizhou.com/" accesskey="h" title="Lucas&#39;s Website (Alt + H)">Lucas&#39;s Website</a>
+            <a href="https://vec6.com/" accesskey="h" title="Lucas&#39;s Website (Alt + H)">Lucas&#39;s Website</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -193,27 +193,27 @@ class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实
         </div>
         <ul id="menu">
             <li>
-                <a href="https://wuyizhou.com/archives/" title="Archives">
+                <a href="https://vec6.com/archives/" title="Archives">
                     <span>Archives</span>
                 </a>
             </li>
             <li>
-                <a href="https://wuyizhou.com/tags/" title="Tags">
+                <a href="https://vec6.com/tags/" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
             <li>
-                <a href="https://wuyizhou.com/search/" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="https://vec6.com/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
             <li>
-                <a href="https://wuyizhou.com/index.xml" title="Rss">
+                <a href="https://vec6.com/index.xml" title="Rss">
                     <span>Rss</span>
                 </a>
             </li>
             <li>
-                <a href="https://wuyizhou.com/about/" title="About">
+                <a href="https://vec6.com/about/" title="About">
                     <span>About</span>
                 </a>
             </li>
@@ -426,7 +426,7 @@ class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://wuyizhou.com/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95/">数学与算法</a></li>
+      <li><a href="https://vec6.com/tags/%E6%95%B0%E5%AD%A6%E4%B8%8E%E7%AE%97%E6%B3%95/">数学与算法</a></li>
     </ul>
   </footer><script src="https://giscus.app/client.js"
         data-repo="wyizhou/YizhouWebsite"
@@ -448,12 +448,12 @@ class Trie(): #定义一个Trie类型 def __init__(self): #为这个生成的实
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="https://wuyizhou.com/">Lucas&#39;s Website</a></span>
+    <span>&copy; 2024 <a href="https://vec6.com/">Lucas&#39;s Website</a></span>
     <span>
         <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
     </span>
     <span>
-        Build: 2024-04-26 08:46:31
+        Build: 2024-04-26 08:50:53
     </span>
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
