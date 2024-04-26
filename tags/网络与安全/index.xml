@@ -1,25 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>网络与安全 on Yizhou</title>
+    <title>网络与安全 on Lucas&#39;s Website</title>
     <link>https://wuyizhou.com/tags/%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%AE%89%E5%85%A8/</link>
-    <description>Recent content in 网络与安全 on Yizhou</description>
+    <description>Recent content in 网络与安全 on Lucas&#39;s Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 07 Nov 2013 03:20:11 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 21 Aug 2013 14:04:13 +0000</lastBuildDate>
     <atom:link href="https://wuyizhou.com/tags/%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>成都地铁终端设备沙盒破解进入系统</title>
-      <link>https://wuyizhou.com/posts/subway-entertainment-terminal-security/</link>
-      <pubDate>Thu, 07 Nov 2013 03:20:11 +0000</pubDate>
-      <guid>https://wuyizhou.com/posts/subway-entertainment-terminal-security/</guid>
-      <description>描述 作者：xsscript(原网名：crackkay)
-漏洞已经报国家漏洞平台，并已Fix漏洞，所以公布文章用于记录
-其实这个终端之前还有一个漏洞，没有报上来，过了一个月也就是今天，试了一下，不行了，应该修复了，但是今天又看见了一个漏洞，所以就报上来了，本来说照一个全过程的，但是后来保安问我在干什么，于是我就走了。漏洞可以直接进主机，还有很多文件。如果对于只是玩玩的人就没有什么，如果有心的话危害还是比较大吧。
-正文 首先连续点击那个什么广告的时候，会出现itunes播放器的错误，在这里，我点击了显示问题详细信息。
-我点击了里面给的两个连接，一个是超链接，一个是txt的连接。然后我点击了关闭程序，就会出现如下画面。
-然后下面就是一些列的操作和演示</description>
-    </item>
     <item>
       <title>Short XSS</title>
       <link>https://wuyizhou.com/posts/short-xss/</link>
