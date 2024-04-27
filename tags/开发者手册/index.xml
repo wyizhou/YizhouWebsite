@@ -4,23 +4,16 @@
     <title>开发者手册 on Lucas&#39;s Website</title>
     <link>https://vec6.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/</link>
     <description>Recent content in 开发者手册 on Lucas&#39;s Website</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 22 Apr 2022 01:52:54 +0000</lastBuildDate>
     <atom:link href="https://vec6.com/tags/%E5%BC%80%E5%8F%91%E8%80%85%E6%89%8B%E5%86%8C/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>前端的技术栈理解</title>
-      <link>https://vec6.com/posts/frontend-terms/</link>
+      <link>https://vec6.com/blog/frontend-terms/</link>
       <pubDate>Fri, 22 Apr 2022 01:52:54 +0000</pubDate>
-      <guid>https://vec6.com/posts/frontend-terms/</guid>
-      <description>最近几年单页应用程序发展非常迅速，从早期通过Javascript写入大量html模版去做单页程序（SPA），到现在的React、Vue（最为流行），但不得不说，前端的技术进步太快了，稍不关注技术，就会出来很多的新的技术。
-但归根结底，每次新的技术出来，埋头深入发现远比想象的复杂，而到了一定的时间后则能够想明白一些事情，这也就是&amp;quot;深入浅出&amp;quot;的道理。 单页应用是一个复杂的技术，要解决这些问题，出现了很多&amp;quot;框架&amp;quot;、工具，比如React、Vue、React-router、Redux等。对于新手来说更是学了一圈后出来也是懵的。但总体来说，React和Vue这类库本质都没有什么区别，都是为了解决SPA提出的方案。这类库大部分主要的理念是将Web应用划分为一个一个的组件为单元，这些组件可以包含另一个组件，以此来达到复用性。
-而每个组件不可能都显示一样，那这样复用性是没有意义的。 那这个时候提出了“状态”的概念，来让每个复用的组件显示不同的内容，状态分为了props和state，props是由外部传入进来的状态，state则是组件内部自己的状态。而这类UI库对于状态的变化，都会根据一些优秀的算法去重新渲染组件，并且渲染的时候仅仅涉及到改变的那一部分内容。
-之所以需要状态，其实告诉React这类库需要监听哪些值，方便在改变这些值的时候，React可以及时的进行计算和重新渲染组件。 比如下面的代码就可以通过传递name值进行重复使用包含&amp;lt;h2&amp;gt;标签的组件，这种方式传递的状态在内部就是使用props获取。
-&amp;lt;Header name=&amp;#39;hello&amp;#39;&amp;gt; // 输出：&amp;lt;h2&amp;gt;Hello&amp;lt;/h2&amp;gt; &amp;lt;Header name=&amp;#39;world&amp;#39;&amp;gt; // 输出：&amp;lt;h2&amp;gt;world&amp;lt;/h2&amp;gt; 而state则更多用于组件内部，比如当你鼠标点击需要获取一个报价，这个时候组件内部会发起一个请求，从服务器获取到报价后返回，改变状态，UI库进行重新渲染，这个时候就能获取到报价。 虽然说React提供了这些方便的功能，也提倡组件化和重复使用，但很多的组件是需要自己去一个一个写的。那这个时候，就有很多个人、组织开发出了&amp;quot;组件库&amp;quot;，&amp;ldquo;组件库&amp;quot;中包含了很多已经开发好可复用的组件，可以直接通过调用直接使用，这就是我们为什么看见除了React还有Ant Design、MaterialUI库。
-介绍完UI库和组件库后，单页应用还差一个东西，就是路由功能，路由也可以通过简单的Javascript来判断，比如当点击了一个链接后，Javascript将当前页面内容清除（隐藏），然后再渲染点击的目标内容。但是这个时候有一些问题，比如需要编写大量的代码、丢失浏览器的前进后退、没有办法收藏等问题（后面两个问题可以再通过增加代码去解决）。所以React-router-dom`这类的库就出现了，把所有的底层的逻辑和代码都进行封装提供一些接口，即大部分的人不需要再编写、理解这类的代码直接可以开箱即用，这也就是这类路由库出现的原因。 我们从前面了解到了状态分别为props和state，一个是外部，一个是内部的。
-那这个时候如果组件的嵌套过于&amp;quot;多层次&amp;quot;了后，比如从顶层的组件需要传递一个状态到第N层的组件中，那么每一层即使不需要不处理也要将状态进行传递，那这个时候涉及到的组件其中会包含非常多的和组件无关的代码。 所以这个时候需要一个通用的状态管理的解决方案（如Redux），让整个Web应用都共享一个大的状态，需要多层传递的状态则可以放在这个大状态内部，让不关心有些状态的组件不用去关心无关状态，而有些状态的组件去关心自己关心的状态。
-Redux本身设计是非常有趣的，整个应用的状态不能直接修改，这是因为如果大家都直接修改很有可能会造成状态的管理的混乱，所以Redux的修改状态流程是组件发起动作-&amp;gt;Dispatch函数接收动作-&amp;gt;reducer处理动作-&amp;gt;影响状态-&amp;gt;重新渲染组件。</description>
+      <guid>https://vec6.com/blog/frontend-terms/</guid>
+      <description>最近几年单页应用程序发展非常迅速，从早期通过Javascript写入大量html模版去做单页程序（SPA），到现在的React、Vue（最为流行），但不得不说，前端的技术进步太快了，稍不关注技术，就会出来很多的新的技术。&#xA;但归根结底，每次新的技术出来，埋头深入发现远比想象的复杂，而到了一定的时间后则能够想明白一些事情，这也就是&amp;quot;深入浅出&amp;quot;的道理。 单页应用是一个复杂的技术，要解决这些问题，出现了很多&amp;quot;框架&amp;quot;、工具，比如React、Vue、React-router、Redux等。对于新手来说更是学了一圈后出来也是懵的。但总体来说，React和Vue这类库本质都没有什么区别，都是为了解决SPA提出的方案。这类库大部分主要的理念是将Web应用划分为一个一个的组件为单元，这些组件可以包含另一个组件，以此来达到复用性。&#xA;而每个组件不可能都显示一样，那这样复用性是没有意义的。 那这个时候提出了“状态”的概念，来让每个复用的组件显示不同的内容，状态分为了props和state，props是由外部传入进来的状态，state则是组件内部自己的状态。而这类UI库对于状态的变化，都会根据一些优秀的算法去重新渲染组件，并且渲染的时候仅仅涉及到改变的那一部分内容。&#xA;之所以需要状态，其实告诉React这类库需要监听哪些值，方便在改变这些值的时候，React可以及时的进行计算和重新渲染组件。 比如下面的代码就可以通过传递name值进行重复使用包含&amp;lt;h2&amp;gt;标签的组件，这种方式传递的状态在内部就是使用props获取。&#xA;&amp;lt;Header name=&amp;#39;hello&amp;#39;&amp;gt; // 输出：&amp;lt;h2&amp;gt;Hello&amp;lt;/h2&amp;gt; &amp;lt;Header name=&amp;#39;world&amp;#39;&amp;gt; // 输出：&amp;lt;h2&amp;gt;world&amp;lt;/h2&amp;gt; 而state则更多用于组件内部，比如当你鼠标点击需要获取一个报价，这个时候组件内部会发起一个请求，从服务器获取到报价后返回，改变状态，UI库进行重新渲染，这个时候就能获取到报价。 虽然说React提供了这些方便的功能，也提倡组件化和重复使用，但很多的组件是需要自己去一个一个写的。那这个时候，就有很多个人、组织开发出了&amp;quot;组件库&amp;quot;，&amp;ldquo;组件库&amp;quot;中包含了很多已经开发好可复用的组件，可以直接通过调用直接使用，这就是我们为什么看见除了React还有Ant Design、MaterialUI库。&#xA;介绍完UI库和组件库后，单页应用还差一个东西，就是路由功能，路由也可以通过简单的Javascript来判断，比如当点击了一个链接后，Javascript将当前页面内容清除（隐藏），然后再渲染点击的目标内容。但是这个时候有一些问题，比如需要编写大量的代码、丢失浏览器的前进后退、没有办法收藏等问题（后面两个问题可以再通过增加代码去解决）。所以React-router-dom`这类的库就出现了，把所有的底层的逻辑和代码都进行封装提供一些接口，即大部分的人不需要再编写、理解这类的代码直接可以开箱即用，这也就是这类路由库出现的原因。 我们从前面了解到了状态分别为props和state，一个是外部，一个是内部的。&#xA;那这个时候如果组件的嵌套过于&amp;quot;多层次&amp;quot;了后，比如从顶层的组件需要传递一个状态到第N层的组件中，那么每一层即使不需要不处理也要将状态进行传递，那这个时候涉及到的组件其中会包含非常多的和组件无关的代码。 所以这个时候需要一个通用的状态管理的解决方案（如Redux），让整个Web应用都共享一个大的状态，需要多层传递的状态则可以放在这个大状态内部，让不关心有些状态的组件不用去关心无关状态，而有些状态的组件去关心自己关心的状态。&#xA;Redux本身设计是非常有趣的，整个应用的状态不能直接修改，这是因为如果大家都直接修改很有可能会造成状态的管理的混乱，所以Redux的修改状态流程是组件发起动作-&amp;gt;Dispatch函数接收动作-&amp;gt;reducer处理动作-&amp;gt;影响状态-&amp;gt;重新渲染组件。</description>
     </item>
   </channel>
 </rss>

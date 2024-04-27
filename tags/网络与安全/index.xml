@@ -4,48 +4,16 @@
     <title>网络与安全 on Lucas&#39;s Website</title>
     <link>https://vec6.com/tags/%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%AE%89%E5%85%A8/</link>
     <description>Recent content in 网络与安全 on Lucas&#39;s Website</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 21 Aug 2013 14:04:13 +0000</lastBuildDate>
     <atom:link href="https://vec6.com/tags/%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Short XSS</title>
-      <link>https://vec6.com/posts/short-xss/</link>
+      <link>https://vec6.com/blog/short-xss/</link>
       <pubDate>Wed, 21 Aug 2013 14:04:13 +0000</pubDate>
-      <guid>https://vec6.com/posts/short-xss/</guid>
-      <description>文章作者：xsscript(原网名Crackkay)
-0x00 背景 关键时候长度不够怎么办？
-在实际的情况中如果你不够长怎么办呢？看医生？吃药？做手术？。。。。。。。。。。。。。。算了，既然自身硬件不足，那么就把缺点变优点吧。熟话说：小是小威力好。
-熟话说的好，要能长能短，收放自如。在很多的情况中，我们构造的语句是被限制在一定的字符数内。所以这个就是考验你能短的时候能不能短，能长的时候能不能长的时候到了。
-0x01 现实中的悲剧 这是一个活生生的悲剧，一个平台上面，一个二逼朋友有妹子的平台账号，但是二逼朋友想进妹子的QQ空间，用平台的备注插QQ-XSS代码，但是因为限制的字符太短，最终抱头痛哭。于是就有了下图所发生：
-0x02 怎么变”短” &amp;quot;&amp;gt;alert(1)
-&amp;hellip;&amp;hellip;&amp;hellip;&amp;hellip;&amp;hellip;&amp;hellip;&amp;hellip;&amp;hellip;&amp;hellip;..27 letters?
-Alert(1)? No Run? Impossible? No! 在实际情况中，可以通过短向量或者其他的短向量去测试存在XSS的地方，为什么可以这样？HTML是一门”不太严格”的解释语言，即使没有，很多浏览器也照样可以解释为
-&amp;lt;h1&amp;gt;xss 可以解释为: &amp;lt;h1&amp;gt;xss&amp;lt;/h1&amp;gt; S1:
-S2:
-S3：
-但是如果在攻击的时候，我往往需要用到很多标签、属性来达到我们的目的。下面列出一些比较猥琐的利用
-&amp;lt;svg/onload=domain=id&amp;gt;
-S1:在chrome浏览器存在一个同域读取漏洞，为什么说同域呢？
-S2:在chrome下如果我们访问www.baidu.com，通过控制台来设置一下域为空，document.domain=&amp;quot;&amp;quot;，就会出现以下的错误。
-S3:为什么说chrome浏览器存在一个同域读取漏洞呢?下面我们通过访问www.baidu.com.来访问一下（com后面还有一个.）并设置一下域为空
-document.domain=&amp;quot;&amp;quot;设置结果就会出现以下图片所示。
-S4:这个怎么利用？
-首先说一个问题，就是说，在同域的情况下，DOM是互通的。就相当于我a可以写b的，b也可以同样写a的。那我们该怎么来利用呢？我们可以干很多事情，比如说重写页面钓鱼，或者盗取同域Cookie。下面我就用Chrome的控制台来演示一下这个内容读取漏洞。
-S5:先来看看两段代码：
-本地构造的攻击页面如下：
-&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;这是a.com./12.html&amp;lt;/h1&amp;gt; &amp;lt;svg/onload=domain=id&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 存在缺陷的XSS页面如下：
-&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;这是b.com./11.html&amp;lt;/h1&amp;gt; &amp;lt;svg/onload=domain=id&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; S6:下面我们通过访问我们构造的攻击页面，也就是a.com./12.html，然后读取domain看看，结果如下图：
-S7:然后我们在控制台里面用window.open()方法打开打开存在缺陷的XSS页面.然后同样用domain查看域.
-S8:我们从上面就可以查看出，现在a.com.和b.com.都是处于同一域下面，那么就可以实现DOM相通的概念了。
-S9:通过DOM重写页面测试，测试结果如下图：
-S10:其实这个方法的用处很多，比如说我找到XXX的XSS页面，我通过把域置空，然后在自己站上构造一个页面，怎么构造就要看你的思维了，通过同域的DOM操作，可以钓鱼的方式盗取COOKIE、密码等。
-&amp;lt;svg/onload=eval(name)&amp;gt;
-S1:先把代码文译一下：
-&amp;lt;svg/onload=eval(window.name)&amp;gt;
-S2:这一段代码通过svg载入的时候执行onload事件，执行的时候通过windows.name传递给eval执行，如果我们自己构造一个攻击页面，然后传递的XSS代码呢？下面看一段代码：
-本地构造的攻击页面：
-&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;body&amp;gt; [http://11.html](http://11.html) &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 存在缺陷的XSS页面：</description>
+      <guid>https://vec6.com/blog/short-xss/</guid>
+      <description>文章作者：xsscript(原网名Crackkay)&#xA;0x00 背景 关键时候长度不够怎么办？&#xA;在实际的情况中如果你不够长怎么办呢？看医生？吃药？做手术？。。。。。。。。。。。。。。算了，既然自身硬件不足，那么就把缺点变优点吧。熟话说：小是小威力好。&#xA;熟话说的好，要能长能短，收放自如。在很多的情况中，我们构造的语句是被限制在一定的字符数内。所以这个就是考验你能短的时候能不能短，能长的时候能不能长的时候到了。&#xA;0x01 现实中的悲剧 这是一个活生生的悲剧，一个平台上面，一个二逼朋友有妹子的平台账号，但是二逼朋友想进妹子的QQ空间，用平台的备注插QQ-XSS代码，但是因为限制的字符太短，最终抱头痛哭。于是就有了下图所发生：&#xA;0x02 怎么变”短” &amp;quot;&amp;gt;alert(1)&#xA;&amp;hellip;&amp;hellip;&amp;hellip;&amp;hellip;&amp;hellip;&amp;hellip;&amp;hellip;&amp;hellip;&amp;hellip;..27 letters?&#xA;Alert(1)? No Run? Impossible? No! 在实际情况中，可以通过短向量或者其他的短向量去测试存在XSS的地方，为什么可以这样？HTML是一门”不太严格”的解释语言，即使没有，很多浏览器也照样可以解释为&#xA;&amp;lt;h1&amp;gt;xss 可以解释为: &amp;lt;h1&amp;gt;xss&amp;lt;/h1&amp;gt; S1:&#xA;S2:&#xA;S3：&#xA;但是如果在攻击的时候，我往往需要用到很多标签、属性来达到我们的目的。下面列出一些比较猥琐的利用&#xA;&amp;lt;svg/onload=domain=id&amp;gt;&#xA;S1:在chrome浏览器存在一个同域读取漏洞，为什么说同域呢？&#xA;S2:在chrome下如果我们访问www.baidu.com，通过控制台来设置一下域为空，document.domain=&amp;quot;&amp;quot;，就会出现以下的错误。&#xA;S3:为什么说chrome浏览器存在一个同域读取漏洞呢?下面我们通过访问www.baidu.com.来访问一下（com后面还有一个.）并设置一下域为空&#xA;document.domain=&amp;quot;&amp;quot;设置结果就会出现以下图片所示。&#xA;S4:这个怎么利用？&#xA;首先说一个问题，就是说，在同域的情况下，DOM是互通的。就相当于我a可以写b的，b也可以同样写a的。那我们该怎么来利用呢？我们可以干很多事情，比如说重写页面钓鱼，或者盗取同域Cookie。下面我就用Chrome的控制台来演示一下这个内容读取漏洞。&#xA;S5:先来看看两段代码：&#xA;本地构造的攻击页面如下：&#xA;&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;这是a.com./12.html&amp;lt;/h1&amp;gt; &amp;lt;svg/onload=domain=id&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 存在缺陷的XSS页面如下：&#xA;&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;这是b.com./11.html&amp;lt;/h1&amp;gt; &amp;lt;svg/onload=domain=id&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; S6:下面我们通过访问我们构造的攻击页面，也就是a.com./12.html，然后读取domain看看，结果如下图：&#xA;S7:然后我们在控制台里面用window.open()方法打开打开存在缺陷的XSS页面.然后同样用domain查看域.&#xA;S8:我们从上面就可以查看出，现在a.com.和b.com.都是处于同一域下面，那么就可以实现DOM相通的概念了。&#xA;S9:通过DOM重写页面测试，测试结果如下图：&#xA;S10:其实这个方法的用处很多，比如说我找到XXX的XSS页面，我通过把域置空，然后在自己站上构造一个页面，怎么构造就要看你的思维了，通过同域的DOM操作，可以钓鱼的方式盗取COOKIE、密码等。&#xA;&amp;lt;svg/onload=eval(name)&amp;gt;&#xA;S1:先把代码文译一下：&#xA;&amp;lt;svg/onload=eval(window.name)&amp;gt;&#xA;S2:这一段代码通过svg载入的时候执行onload事件，执行的时候通过windows.name传递给eval执行，如果我们自己构造一个攻击页面，然后传递的XSS代码呢？下面看一段代码：&#xA;本地构造的攻击页面：&#xA;&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;body&amp;gt; [http://11.html](http://11.html) &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 存在缺陷的XSS页面：</description>
     </item>
   </channel>
 </rss>
