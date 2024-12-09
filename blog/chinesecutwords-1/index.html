@@ -5,7 +5,7 @@
   <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>(一)漫话中文分词：最大匹配,双向最大,最小词数 | Lucas&#39;s Website</title>
+<title>(一)漫话中文分词：最大匹配,双向最大,最小词数 | Lucas Wu</title>
 <meta name="title" content="(一)漫话中文分词：最大匹配,双向最大,最小词数" />
 <meta name="description" content="中文分词是指将文本拆分为单词的过程，而结果集合连接起来是等于原始的文本，而中文分词一直作为NLP领域的比较重要的领域，而大多数的文本挖掘都是以分词为基础，但中文不同于英文，英文每个单词是用空格分隔，整体语义上相对于中文难度低很多。 而业务上一直有中文分词的需求，但是之前因为在忙于另外一个项目，所以一直没有研究。 近期稍空闲开始研究了相关的中文分词算法，发现中文分词总体算比较成熟，但是其中对于未登录词或者某个特定专业领域文本大部分算法分词的结果不尽人意，需要结合多种算法或者人工词典才能达到稍微好一点的效果。 中文分词的方式一共有两种，分别为：
 
@@ -46,7 +46,7 @@ print(cut_result)
 
 
 <meta property="og:url" content="https://vec6.com/blog/chinesecutwords-1/">
-  <meta property="og:site_name" content="Lucas&#39;s Website">
+  <meta property="og:site_name" content="Lucas Wu">
   <meta property="og:title" content="(一)漫话中文分词：最大匹配,双向最大,最小词数">
   <meta property="og:description" content="中文分词是指将文本拆分为单词的过程，而结果集合连接起来是等于原始的文本，而中文分词一直作为NLP领域的比较重要的领域，而大多数的文本挖掘都是以分词为基础，但中文不同于英文，英文每个单词是用空格分隔，整体语义上相对于中文难度低很多。 而业务上一直有中文分词的需求，但是之前因为在忙于另外一个项目，所以一直没有研究。 近期稍空闲开始研究了相关的中文分词算法，发现中文分词总体算比较成熟，但是其中对于未登录词或者某个特定专业领域文本大部分算法分词的结果不尽人意，需要结合多种算法或者人工词典才能达到稍微好一点的效果。 中文分词的方式一共有两种，分别为：
 词典分词：如正向最大匹配算法、反向最大匹配算法、双向最大匹配算法、最少词数法等 字标注分词：如HMM（隐马尔可夫）模型等 而这几种方式很难说出谁好谁坏，比如词典分词的方式速度非常快，但对于未登录词的识别又不太好，而HMM和Pkuseg都能识别部分未登录词，但是运行速度又降下来了，这对于在实际应用场景当中是非常致命的问题，所以最大的优解就是集各家所长，比如结巴分词就使用了词典分词算法识别能识别的词，而不能识别的则继续使用了HMM模型来处理。
@@ -315,13 +315,9 @@ code.has-jax {
 
 <body>
   <header><a href="/" class="title">
-  <h2>Lucas&#39;s Website</h2>
+  <h2>Lucas Wu</h2>
 </a>
-<nav><a href="/">Home</a>
-
-
-<a href="/blog">Blog</a>
-
+<nav>
 </nav>
 </header>
   <main>
@@ -330,8 +326,9 @@ code.has-jax {
 <p>
   <i>
     <time datetime='2020-11-08' pubdate>
-      2020-11-08
+      Create time:2020-11-08
     </time>
+    <hr />
   </i>
 </p>
 

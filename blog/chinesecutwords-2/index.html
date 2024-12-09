@@ -5,7 +5,7 @@
   <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>(二)漫话中文分词：Trie、KMP、AC自动机 | Lucas&#39;s Website</title>
+<title>(二)漫话中文分词：Trie、KMP、AC自动机 | Lucas Wu</title>
 <meta name="title" content="(二)漫话中文分词：Trie、KMP、AC自动机" />
 <meta name="description" content="Trie树
 在上一篇文章当中，说到了一些匹配的算法，但是算法有了，还得需要一个高效的数据结构，不能只是通过[&lsquo;中国人&rsquo;, &lsquo;中东人&rsquo;]等结构来进行存放，可以想象一下，如果有几十万的词，那么这个列表的占用的内存非常大。 Trie树，也被称为前缀树，该词源自单词retrieval，发音和try相同，Trie树可为词库提供一种高效的分词数据结构，该结构本质上是一种树状数据结构，比如&quot;中国人&quot;、&ldquo;中东人&quot;三个字符串构造的Trie树为下图，图中能够很清楚的看见，Trie树结构能够很好的节省相同前缀单词所浪费的空间，因为这两个词都是以&quot;中&quot;开头，所以可以使用同一个父辈节点。
@@ -43,7 +43,7 @@ class Trie():  #定义一个Trie类型
 
 
 <meta property="og:url" content="https://vec6.com/blog/chinesecutwords-2/">
-  <meta property="og:site_name" content="Lucas&#39;s Website">
+  <meta property="og:site_name" content="Lucas Wu">
   <meta property="og:title" content="(二)漫话中文分词：Trie、KMP、AC自动机">
   <meta property="og:description" content="Trie树 在上一篇文章当中，说到了一些匹配的算法，但是算法有了，还得需要一个高效的数据结构，不能只是通过[‘中国人’, ‘中东人’]等结构来进行存放，可以想象一下，如果有几十万的词，那么这个列表的占用的内存非常大。 Trie树，也被称为前缀树，该词源自单词retrieval，发音和try相同，Trie树可为词库提供一种高效的分词数据结构，该结构本质上是一种树状数据结构，比如&#34;中国人&#34;、“中东人&#34;三个字符串构造的Trie树为下图，图中能够很清楚的看见，Trie树结构能够很好的节省相同前缀单词所浪费的空间，因为这两个词都是以&#34;中&#34;开头，所以可以使用同一个父辈节点。
 除此之外，Trie树还对查询的速度有一定的优化，如果以列表存放词来说，如果列表存放的词达到了20万个，那么最坏的情况是你需要匹配的词在存放于列表最后，那么就相当于要将这20万个词全部遍历，可想而知浪费了非常多的计算资源。 而Trie查询的次数最大的次数取决于查找的字符串长度，比如中国人，那么查询次数最大仅为3次。 下图为基于同一份10万左右的词典，待分词文本为字符长度150，使用正向最大匹配算法在列表和Trie两种结构上进行分词的运行时间，从下图可以看出来差距非常大。
@@ -312,13 +312,9 @@ code.has-jax {
 
 <body>
   <header><a href="/" class="title">
-  <h2>Lucas&#39;s Website</h2>
+  <h2>Lucas Wu</h2>
 </a>
-<nav><a href="/">Home</a>
-
-
-<a href="/blog">Blog</a>
-
+<nav>
 </nav>
 </header>
   <main>
@@ -327,8 +323,9 @@ code.has-jax {
 <p>
   <i>
     <time datetime='2020-11-18' pubdate>
-      2020-11-18
+      Create time:2020-11-18
     </time>
+    <hr />
   </i>
 </p>
 
