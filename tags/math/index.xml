@@ -6,8 +6,15 @@
     <description>Recent content in Math on Lucas Wu</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 03 Nov 2020 09:03:53 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 04 Jan 2025 11:20:35 +0000</lastBuildDate>
     <atom:link href="https://vec6.com/tags/math/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>标准差</title>
+      <link>https://vec6.com/blog/standarddeviation/</link>
+      <pubDate>Sat, 04 Jan 2025 11:20:35 +0000</pubDate>
+      <guid>https://vec6.com/blog/standarddeviation/</guid>
+      <description>&lt;p&gt;标准差（σ）是用来衡量一组数据“分散程度”的指标，标准差越大，说明数据之间的差距越大，也就是离平均值越大。标准差越小，说明数据相对比较“集中”。&lt;/p&gt;&#xA;&lt;p&gt;标准差也可以看见数据内部是否比较稳定不分散，典型的问题是人均收入，通过标准差可以查看数据内部是否有较大分散导致的不合理（被平均）。&lt;/p&gt;&#xA;&lt;p&gt;比如给定5个人收入数据，如果只是看平均值，那么每个人的人均收入在10400元，对于A、B、C是被平均的。&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;人员&lt;/th&gt;&#xA;          &lt;th&gt;薪酬&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;A&lt;/td&gt;&#xA;          &lt;td&gt;2000&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;B&lt;/td&gt;&#xA;          &lt;td&gt;3000&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;C&lt;/td&gt;&#xA;          &lt;td&gt;7000&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;D&lt;/td&gt;&#xA;          &lt;td&gt;15000&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;E&lt;/td&gt;&#xA;          &lt;td&gt;25000&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;h2 id=&#34;计算步骤&#34;&gt;计算步骤&lt;/h2&gt;&#xA;&lt;p&gt;通过标准差的计算，可以通过均数和标准差两个值来观察数据是否合理，标准差步骤按照如下阶段分段进行。&lt;/p&gt;&#xA;&lt;h3 id=&#34;1-计算数据组的平均值μ&#34;&gt;1. 计算数据组的平均值（μ）&lt;/h3&gt;&#xA;&lt;p&gt;为什么要算平均值，平均值就像“整体水平”的代表，用它来衡量每个人的收入是比平均低还是比平均高，所以这个步骤计算出来，为后续衡量差距做准备。&#xA;$$&#xA;\mu = (2000 + 3000 + 7000 + 15000 + 25000) / 5 = 10,400&#xA;$$&lt;/p&gt;&#xA;&lt;h3 id=&#34;2-计算数值与平均数差值&#34;&gt;2. 计算数值与平均数差值&lt;/h3&gt;&#xA;&lt;p&gt;计算数值与平均数差值这个步骤的目的是计算到底哪些是低于还是高于平均值的，正数是高于，负数是低于。&lt;/p&gt;&#xA;&lt;p&gt;$$&#xA;\displaylines{&#xA;2000 - 10400  = -8,400 \\&#xA;3000 - 10400  = -7,400 \\&#xA;7000 - 10400  = -3,400 \\&#xA;15000 - 10400  = 4,600 \\&#xA;25000 - 10400  = 14,600&#xA;}&#xA;$$&lt;/p&gt;</description>
+    </item>
     <item>
       <title>理解条件概率</title>
       <link>https://vec6.com/blog/learning-conditional-probability/</link>

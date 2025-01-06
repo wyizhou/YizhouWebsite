@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>归一化（Normalization）和标准化（standardization） | Lucas Wu</title>
+<meta name="title" content="归一化（Normalization）和标准化（standardization）" />
+<meta name="description" content="Normalization和Standardization的区别
+两者是指通常将数据按照一定的规则进行缩放或变换，使她们满足一定数值的范围或者分布的过程。
+normalization，中文也被称为归一化，主要指的是把数据压缩到某个固定的区间（常见[0,1])，比如 Simple Feature Scaling、 Min-Max，虽然，Simple Feature Scaling返回的区间并不是一定是[0,1]的区间，但是该算法是用了最大值来固定界限对数据进行缩放，场景会用于常见对于数值严格在某些区间内的算法或者场景，比如神经网络的激活函数。
+standardization，中文也被称为标准化，主要指的是让数据均值为0，标准差为1，进而可以用不同的量纲的变量通过变换后，能够统一的量纲进行比较。比如Z-Score。
+为什么需要Normalization和Standardization
+
+统一特征量纲：如果有些特征数字太大，而有些特征数字太小，会导致模型训练或者度量距离产生更大的影响，导致模型更“偏爱”这些特征。
+加快模型训练收敛速度：神经网络、梯度下降相关算法，如果输入特征分布范围相差太大，会导致训练速度变慢。
+提高算法性能：像KNN等基于距离度量的算法或基于距离矩阵的算法（聚类），如特征不在相似的数值区间，结果就会受到极大特征值的干扰，归一化后，各特征的贡献更均衡。
+
+基础的三种算法
+常见的、最基础的三种算法为Simple Feature Scaling、Min-Max以及Z-Score，但在数据科学中选择“最合适”是最重要的。
+Simple Feature Scaling
+Simple Feature Scaling的公式为如下：
+$$
+x^i = \frac{x}{ max(x)}
+$$
+其中x’为标准化后的值，x为当前数值，max(x)为数据集中最大值。
+作用
+
+让数值统一范围：不缩小范围，特征差距可能有几倍甚至几十百倍，会导致某些算法受到数值较大的影响以及训练速度受到影响。
+计算简单：只需要知道最大值，就能快速完成缩放。
+对等Min-Max：在数据最小值等于0或者近似0的时候，与Min-Max的结果几乎一致。
+
+原理
+比如有一堆数[10,20,30,40]，它们最大值是40，如果用每个值去除以最大值得到的为：
+$$
+\displaylines{
+10 / 40  = 0.25 \\
+20 / 40  = 0.5 \\
+30 /40  = 0.75 \\
+40 / 40  = 1
+}
+$$
+那这个时候就可以把原本10-40的区间的值，缩放到了0.25-1区间的值。
+缺点1-受到的极值影响特别大
+也就是数据里面最“极端”的高点( max(x) ），如果如果这个值特别大就会让其它的值缩放得特别小，导致信息变得不明显。
+比如数据集[10,20,30, 40000]，然后计算缩放的区间范围为：" />
+<meta name="keywords" content="DataScience," />
+
+
+<meta property="og:url" content="https://vec6.com/blog/normalizationandstandardization/">
+  <meta property="og:site_name" content="Lucas Wu">
+  <meta property="og:title" content="归一化（Normalization）和标准化（standardization）">
+  <meta property="og:description" content="Normalization和Standardization的区别 两者是指通常将数据按照一定的规则进行缩放或变换，使她们满足一定数值的范围或者分布的过程。
+normalization，中文也被称为归一化，主要指的是把数据压缩到某个固定的区间（常见[0,1])，比如 Simple Feature Scaling、 Min-Max，虽然，Simple Feature Scaling返回的区间并不是一定是[0,1]的区间，但是该算法是用了最大值来固定界限对数据进行缩放，场景会用于常见对于数值严格在某些区间内的算法或者场景，比如神经网络的激活函数。
+standardization，中文也被称为标准化，主要指的是让数据均值为0，标准差为1，进而可以用不同的量纲的变量通过变换后，能够统一的量纲进行比较。比如Z-Score。
+为什么需要Normalization和Standardization 统一特征量纲：如果有些特征数字太大，而有些特征数字太小，会导致模型训练或者度量距离产生更大的影响，导致模型更“偏爱”这些特征。 加快模型训练收敛速度：神经网络、梯度下降相关算法，如果输入特征分布范围相差太大，会导致训练速度变慢。 提高算法性能：像KNN等基于距离度量的算法或基于距离矩阵的算法（聚类），如特征不在相似的数值区间，结果就会受到极大特征值的干扰，归一化后，各特征的贡献更均衡。 基础的三种算法 常见的、最基础的三种算法为Simple Feature Scaling、Min-Max以及Z-Score，但在数据科学中选择“最合适”是最重要的。
+Simple Feature Scaling Simple Feature Scaling的公式为如下：
+$$ x^i = \frac{x}{ max(x)} $$
+其中x’为标准化后的值，x为当前数值，max(x)为数据集中最大值。
+作用 让数值统一范围：不缩小范围，特征差距可能有几倍甚至几十百倍，会导致某些算法受到数值较大的影响以及训练速度受到影响。 计算简单：只需要知道最大值，就能快速完成缩放。 对等Min-Max：在数据最小值等于0或者近似0的时候，与Min-Max的结果几乎一致。 原理 比如有一堆数[10,20,30,40]，它们最大值是40，如果用每个值去除以最大值得到的为：
+$$ \displaylines{ 10 / 40 = 0.25 \\ 20 / 40 = 0.5 \\ 30 /40 = 0.75 \\ 40 / 40 = 1 } $$
+那这个时候就可以把原本10-40的区间的值，缩放到了0.25-1区间的值。
+缺点1-受到的极值影响特别大 也就是数据里面最“极端”的高点( max(x) ），如果如果这个值特别大就会让其它的值缩放得特别小，导致信息变得不明显。
+比如数据集[10,20,30, 40000]，然后计算缩放的区间范围为：">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2025-01-04T10:53:34+00:00">
+    <meta property="article:modified_time" content="2025-01-04T10:53:34+00:00">
+    <meta property="article:tag" content="DataScience">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="归一化（Normalization）和标准化（standardization）">
+  <meta name="twitter:description" content="Normalization和Standardization的区别 两者是指通常将数据按照一定的规则进行缩放或变换，使她们满足一定数值的范围或者分布的过程。
+normalization，中文也被称为归一化，主要指的是把数据压缩到某个固定的区间（常见[0,1])，比如 Simple Feature Scaling、 Min-Max，虽然，Simple Feature Scaling返回的区间并不是一定是[0,1]的区间，但是该算法是用了最大值来固定界限对数据进行缩放，场景会用于常见对于数值严格在某些区间内的算法或者场景，比如神经网络的激活函数。
+standardization，中文也被称为标准化，主要指的是让数据均值为0，标准差为1，进而可以用不同的量纲的变量通过变换后，能够统一的量纲进行比较。比如Z-Score。
+为什么需要Normalization和Standardization 统一特征量纲：如果有些特征数字太大，而有些特征数字太小，会导致模型训练或者度量距离产生更大的影响，导致模型更“偏爱”这些特征。 加快模型训练收敛速度：神经网络、梯度下降相关算法，如果输入特征分布范围相差太大，会导致训练速度变慢。 提高算法性能：像KNN等基于距离度量的算法或基于距离矩阵的算法（聚类），如特征不在相似的数值区间，结果就会受到极大特征值的干扰，归一化后，各特征的贡献更均衡。 基础的三种算法 常见的、最基础的三种算法为Simple Feature Scaling、Min-Max以及Z-Score，但在数据科学中选择“最合适”是最重要的。
+Simple Feature Scaling Simple Feature Scaling的公式为如下：
+$$ x^i = \frac{x}{ max(x)} $$
+其中x’为标准化后的值，x为当前数值，max(x)为数据集中最大值。
+作用 让数值统一范围：不缩小范围，特征差距可能有几倍甚至几十百倍，会导致某些算法受到数值较大的影响以及训练速度受到影响。 计算简单：只需要知道最大值，就能快速完成缩放。 对等Min-Max：在数据最小值等于0或者近似0的时候，与Min-Max的结果几乎一致。 原理 比如有一堆数[10,20,30,40]，它们最大值是40，如果用每个值去除以最大值得到的为：
+$$ \displaylines{ 10 / 40 = 0.25 \\ 20 / 40 = 0.5 \\ 30 /40 = 0.75 \\ 40 / 40 = 1 } $$
+那这个时候就可以把原本10-40的区间的值，缩放到了0.25-1区间的值。
+缺点1-受到的极值影响特别大 也就是数据里面最“极端”的高点( max(x) ），如果如果这个值特别大就会让其它的值缩放得特别小，导致信息变得不明显。
+比如数据集[10,20,30, 40000]，然后计算缩放的区间范围为：">
+
+
+
+
+  <meta itemprop="name" content="归一化（Normalization）和标准化（standardization）">
+  <meta itemprop="description" content="Normalization和Standardization的区别 两者是指通常将数据按照一定的规则进行缩放或变换，使她们满足一定数值的范围或者分布的过程。
+normalization，中文也被称为归一化，主要指的是把数据压缩到某个固定的区间（常见[0,1])，比如 Simple Feature Scaling、 Min-Max，虽然，Simple Feature Scaling返回的区间并不是一定是[0,1]的区间，但是该算法是用了最大值来固定界限对数据进行缩放，场景会用于常见对于数值严格在某些区间内的算法或者场景，比如神经网络的激活函数。
+standardization，中文也被称为标准化，主要指的是让数据均值为0，标准差为1，进而可以用不同的量纲的变量通过变换后，能够统一的量纲进行比较。比如Z-Score。
+为什么需要Normalization和Standardization 统一特征量纲：如果有些特征数字太大，而有些特征数字太小，会导致模型训练或者度量距离产生更大的影响，导致模型更“偏爱”这些特征。 加快模型训练收敛速度：神经网络、梯度下降相关算法，如果输入特征分布范围相差太大，会导致训练速度变慢。 提高算法性能：像KNN等基于距离度量的算法或基于距离矩阵的算法（聚类），如特征不在相似的数值区间，结果就会受到极大特征值的干扰，归一化后，各特征的贡献更均衡。 基础的三种算法 常见的、最基础的三种算法为Simple Feature Scaling、Min-Max以及Z-Score，但在数据科学中选择“最合适”是最重要的。
+Simple Feature Scaling Simple Feature Scaling的公式为如下：
+$$ x^i = \frac{x}{ max(x)} $$
+其中x’为标准化后的值，x为当前数值，max(x)为数据集中最大值。
+作用 让数值统一范围：不缩小范围，特征差距可能有几倍甚至几十百倍，会导致某些算法受到数值较大的影响以及训练速度受到影响。 计算简单：只需要知道最大值，就能快速完成缩放。 对等Min-Max：在数据最小值等于0或者近似0的时候，与Min-Max的结果几乎一致。 原理 比如有一堆数[10,20,30,40]，它们最大值是40，如果用每个值去除以最大值得到的为：
+$$ \displaylines{ 10 / 40 = 0.25 \\ 20 / 40 = 0.5 \\ 30 /40 = 0.75 \\ 40 / 40 = 1 } $$
+那这个时候就可以把原本10-40的区间的值，缩放到了0.25-1区间的值。
+缺点1-受到的极值影响特别大 也就是数据里面最“极端”的高点( max(x) ），如果如果这个值特别大就会让其它的值缩放得特别小，导致信息变得不明显。
+比如数据集[10,20,30, 40000]，然后计算缩放的区间范围为：">
+  <meta itemprop="datePublished" content="2025-01-04T10:53:34+00:00">
+  <meta itemprop="dateModified" content="2025-01-04T10:53:34+00:00">
+  <meta itemprop="wordCount" content="399">
+  <meta itemprop="keywords" content="DataScience">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    background-color: initial;
+    color: initial;
+  }
+
+  div.highlight code {
+    background-color: unset;
+    color: unset;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V5WKEHZ2PS');
+</script>
+
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+
+
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-web@1.321.0/style.min.css"/>
+  <style>
+    body {
+      font-family: "LXGW WenKai Screen";
+      font-weight: normal;
+    }
+  </style></head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Lucas Wu</h2>
+</a>
+<nav>
+</nav>
+</header>
+  <main>
+
+<h1>归一化（Normalization）和标准化（standardization）</h1>
+<p>
+  <i>
+    <time datetime='2025-01-04' pubdate>
+      Create time:2025-01-04
+    </time>
+    <hr />
+  </i>
+</p>
+
+<content>
+  <h2 id="normalization和standardization的区别">Normalization和Standardization的区别</h2>
+<p>两者是指通常将数据按照一定的规则进行缩放或变换，使她们满足一定数值的范围或者分布的过程。</p>
+<p>normalization，中文也被称为归一化，主要指的是把数据压缩到某个固定的区间（常见[0,1])，比如 Simple Feature Scaling、 Min-Max，虽然，Simple Feature Scaling返回的区间并不是一定是[0,1]的区间，但是该算法是用了最大值来固定界限对数据进行缩放，场景会用于常见对于数值严格在某些区间内的算法或者场景，比如神经网络的激活函数。</p>
+<p>standardization，中文也被称为标准化，主要指的是让数据均值为0，标准差为1，进而可以用不同的量纲的变量通过变换后，能够统一的量纲进行比较。比如Z-Score。</p>
+<h2 id="为什么需要normalization和standardization">为什么需要Normalization和Standardization</h2>
+<ol>
+<li>统一特征量纲：如果有些特征数字太大，而有些特征数字太小，会导致模型训练或者度量距离产生更大的影响，导致模型更“偏爱”这些特征。</li>
+<li>加快模型训练收敛速度：神经网络、梯度下降相关算法，如果输入特征分布范围相差太大，会导致训练速度变慢。</li>
+<li>提高算法性能：像KNN等基于距离度量的算法或基于距离矩阵的算法（聚类），如特征不在相似的数值区间，结果就会受到极大特征值的干扰，归一化后，各特征的贡献更均衡。</li>
+</ol>
+<h2 id="基础的三种算法">基础的三种算法</h2>
+<p>常见的、最基础的三种算法为Simple Feature Scaling、Min-Max以及Z-Score，但在数据科学中选择“最合适”是最重要的。</p>
+<h3 id="simple-feature-scaling">Simple Feature Scaling</h3>
+<p>Simple Feature Scaling的公式为如下：</p>
+<p>$$
+x^i = \frac{x}{ max(x)}
+$$</p>
+<p>其中x’为标准化后的值，x为当前数值，max(x)为数据集中最大值。</p>
+<h4 id="作用">作用</h4>
+<ol>
+<li><strong>让数值统一范围</strong>：不缩小范围，特征差距可能有几倍甚至几十百倍，会导致某些算法受到数值较大的影响以及训练速度受到影响。</li>
+<li><strong>计算简单</strong>：只需要知道最大值，就能快速完成缩放。</li>
+<li><strong>对等Min-Max</strong>：在数据最小值等于0或者近似0的时候，与Min-Max的结果几乎一致。</li>
+</ol>
+<h4 id="原理">原理</h4>
+<p>比如有一堆数[10,20,30,40]，它们最大值是40，如果用每个值去除以最大值得到的为：</p>
+<p>$$
+\displaylines{
+10 / 40  = 0.25 \\
+20 / 40  = 0.5 \\
+30 /40  = 0.75 \\
+40 / 40  = 1
+}
+$$</p>
+<p>那这个时候就可以把原本10-40的区间的值，缩放到了0.25-1区间的值。</p>
+<h4 id="缺点1-受到的极值影响特别大">缺点1-受到的极值影响特别大</h4>
+<p>也就是数据里面最“极端”的高点( max(x) ），如果如果这个值特别大就会让其它的值缩放得特别小，导致信息变得不明显。</p>
+<p>比如数据集[10,20,30, 40000]，然后计算缩放的区间范围为：</p>
+<p>$$
+\displaylines{
+10 / 40000  = 0.00025 \\
+20 / 40000  = 0.0005 \\
+30 / 40000  = 0.00075 \\
+40000 / 40000  = 1
+}
+$$</p>
+<p>这个时候，导致缩放的范围为0.00025 - 1，会显得很多信息不明显，导致缩放相当于没有缩放，因为大的值还是会影响到模型。</p>
+<h4 id="缺点2-受到的负数影响特别大">缺点2-受到的负数影响特别大</h4>
+<p>也就是数据里面最“极端”的高点( max(x) ），如果如果这个值特别大就会让其它的值缩放得特别小，导致信息变得不明显。</p>
+<p>比如数据集[-30,10,20,30]，然后计算缩放的区间范围为：</p>
+<p>$$
+\displaylines{
+-30 / 30  = -1 \\
+10 / 30  = 0.333 \\
+20 / 30  = 0.667 \\
+30 / 30  = 1
+}
+$$</p>
+<p>这个时候，导致负数范围在[-1,0]之间，正数在[0-1]之间，可能导致缩放的范围拉得很大。</p>
+<h4 id="缺点3-只关心最大值不关心最小值">缺点3-只关心最大值不关心最小值</h4>
+<p>Simple Feature Scaling只关心最大值，所以区间不一定是[0,1]，比如[5,10,20,30]</p>
+<p>$$
+\displaylines{
+5 / 30  = 0.167 \\
+10 / 30  = 0.333 \\
+20 / 30 = 0.667 \\
+30 / 30 = 1
+}
+$$</p>
+<p>那么范围就是[0.167,1]</p>
+<h3 id="min-max">Min-Max</h3>
+<p>Min-Max算法的公式为：</p>
+<p>$$
+x^i = \frac{x^i - min(x)}{max(x) - min(x)}
+$$</p>
+<p>其中min(x)代表数据集中最小值，max(x)代表数据集中的最大中。</p>
+<h4 id="作用-1">作用</h4>
+<ol>
+<li><strong>让数值统一范围</strong>：可以将数值缩小到0,1之间，避免大数值特征“主导”模型。</li>
+<li><strong>全面反应数据的分布</strong>：对比 <a href="applenotes:note/9ad97377-929f-41c1-a76a-e88d2ded8a11?ownerIdentifier=_835d3a649cfcf9ba314220cd7a51a30a">Simple Feature Scaling</a>，考虑了最小值和最大值，将最小值和最大值作为缩放的边界。</li>
+</ol>
+<h4 id="原理-1">原理</h4>
+<p>Min-Max的作用是考虑了数据集中的最小值和最大值，将最小值最为尺子的最左端（起始位置），将最大值作为尺子的最右端（结束位置），然后将其它数值进行一个线性缩放，映射到这个尺子，就能表达出其它数值与最小值的相对距离占总范围的几成。</p>
+<p>但这里有两个问题，第一个为什么要用其它数量-最小值，第二个是为什么最大值-最小值。第一个问题即 x - min(x)，作用就是将最小数对齐，比如一个尺子默认为0，那么这个时候将其它数值-最小值，则将起点对齐为了最小数，比如数据集[10,20,30,40]，所有的其它数都会减去10，那么代表所有其它数对于这个尺子的起点都是10。</p>
+<p>$$
+\displaylines{
+10 - 10  = 0 \\
+20 - 10  = 10 \\
+30 - 10  = 20 \\
+40 - 10  = 30
+}
+$$</p>
+<p>第二个问题即计算起点和终点之间的总范围（最大值与最小值相差多少），即尺子最左边（10）到最右边（40）之间的总范围，因为最终计算其它数值与最小值的相对距离，然后占总范围的多少。</p>
+<p>$$
+40 - 10  = 30
+$$</p>
+<p>那有了如上的值后，就可以直接计算出占总范围的值了：</p>
+<p>$$
+\displaylines{
+0 / 30  = 0 \\
+10 / 30  = 0.333 \\
+20 / 30  = 0.667 \\
+30 / 30  = 1
+}
+$$</p>
+<h4 id="缺点1-极值敏感">缺点1-极值敏感</h4>
+<p>如果有极大值或者极小值，可能会让缩放后的数值信息压缩，和 <a href="applenotes:note/9ad97377-929f-41c1-a76a-e88d2ded8a11?ownerIdentifier=_835d3a649cfcf9ba314220cd7a51a30a">Simple Feature Scaling</a> 有同样的问题，其它所有数据会被挤在0或者1附近，比如观察数据为[10,20,30,40000]：</p>
+<p>$$
+\displaylines{
+( 10 - 10 ) / ( 40000 - 10 )  = 0 \\
+( 20 - 10 ) / ( 40000 - 10 )  = 0.00025 \\
+( 30 - 10 ) / ( 40000 - 10 )  = 0.0005 \\
+( 40000 - 10 ) / ( 40000 - 10 )  = 1
+}
+$$</p>
+<h3 id="z-score">Z-Score</h3>
+<p>Z-Score的公式为如下：</p>
+<p>$$
+Z-Score = \frac{x - \mu }{\sigma}
+$$</p>
+<p>其中x为当前值，μ为平均数，σ为标准差 。</p>
+<h4 id="作用-2">作用</h4>
+<ol>
+<li><strong>消除量纲的影响</strong>：消除原始数据中的单位、范围相差很大的问题（比如收入和身高），以及用Z-score转换后，都会以0为中心，以标准差为1，变成没有单位的相对数值。</li>
+<li><strong>突出远高和远低于平均值的点</strong>：比如Z-Score为3，代表可能是一个非常优秀的值，而Z-Score为-3代表可能需要关注的一个值。</li>
+<li><strong>对算法有利</strong>：消除对于算法输入的时候，导致某些特征因为数值特别大造成的影响和收敛速度变慢的问题。</li>
+</ol>
+<h4 id="原理-2">原理</h4>
+<p><strong>Z-Score</strong> 就让不同难度、不同平均水平的考试分数变得可比。</p>
+<p>假如有两个班——<strong>语文班</strong>和<strong>数学班</strong>，我们想比较小明和小红考得怎么样，但他们在<strong>不同班</strong>、<strong>不同难度</strong>的考试里拿分数：</p>
+<ul>
+<li><strong>语文班</strong>：平均分 60，标准差 5</li>
+<li><strong>数学班</strong>：平均分 80，标准差 10</li>
+</ul>
+<p>小明在语文班考了 <strong>70</strong> 分，离平均分 60 多了 10 分，相对于标准差 5，这个 10 分相当于是 <strong>2 个标准差</strong>：</p>
+<p>$$
+(70 - 60) / 5  = 2
+$$</p>
+<p>小红在数学班考了 <strong>85</strong> 分，离平均分 80 多了 5 分，相对于标准差 10，这个 5 分相当于 <strong>0.5 个标准差：</strong></p>
+<p>$$
+(85 - 80) / 10=0.5
+$$</p>
+<p>如果仅看<strong>绝对分数</strong>85 分比 70 分高，可是看<strong>Z-Score</strong>，2 比 0.5 大得多，说明 <strong>小明在自己班里比平均值高的幅度</strong>（2 个标准差）<strong>比小红在自己班里高的幅度</strong>（0.5 个标准差）<strong>要大</strong>，小明“相对表现”更突出。</p>
+<h4 id="缺点1-受到的极值影响大">缺点1-受到的极值影响大</h4>
+<p>虽然还是会受极端异常值影响，但不像 Min-Max 那么严重，因为 Z-Score 关注的是“平均值±标准差”的范围。如果极值特别夸张，也仍可能影响均值和标准差，但通常对中等程度的异常值有一定缓冲。</p>
+
+</content>
+<p>
+  
+  <a href="https://vec6.com/tags/datascience/">#DataScience</a>
+  
+</p>
+
+  </main>
+  <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
+        property="dct:title">Lucas'blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+        href="http://vec6.com">lucas</a> is licensed under <a
+        href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
+        rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a>
+    theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a>
+</p></footer>
+
+    
+
+</body>
+
+</html>

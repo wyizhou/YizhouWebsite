@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>标准差 | Lucas Wu</title>
+<meta name="title" content="标准差" />
+<meta name="description" content="标准差（σ）是用来衡量一组数据“分散程度”的指标，标准差越大，说明数据之间的差距越大，也就是离平均值越大。标准差越小，说明数据相对比较“集中”。
+标准差也可以看见数据内部是否比较稳定不分散，典型的问题是人均收入，通过标准差可以查看数据内部是否有较大分散导致的不合理（被平均）。
+比如给定5个人收入数据，如果只是看平均值，那么每个人的人均收入在10400元，对于A、B、C是被平均的。
+
+  
+      
+          人员
+          薪酬
+      
+  
+  
+      
+          A
+          2000
+      
+      
+          B
+          3000
+      
+      
+          C
+          7000
+      
+      
+          D
+          15000
+      
+      
+          E
+          25000
+      
+  
+
+计算步骤
+通过标准差的计算，可以通过均数和标准差两个值来观察数据是否合理，标准差步骤按照如下阶段分段进行。
+1. 计算数据组的平均值（μ）
+为什么要算平均值，平均值就像“整体水平”的代表，用它来衡量每个人的收入是比平均低还是比平均高，所以这个步骤计算出来，为后续衡量差距做准备。
+$$
+\mu = (2000 &#43; 3000 &#43; 7000 &#43; 15000 &#43; 25000) / 5 = 10,400
+$$
+2. 计算数值与平均数差值
+计算数值与平均数差值这个步骤的目的是计算到底哪些是低于还是高于平均值的，正数是高于，负数是低于。
+$$
+\displaylines{
+2000 - 10400  = -8,400 \\
+3000 - 10400  = -7,400 \\
+7000 - 10400  = -3,400 \\
+15000 - 10400  = 4,600 \\
+25000 - 10400  = 14,600
+}
+$$" />
+<meta name="keywords" content="Math," />
+
+
+<meta property="og:url" content="https://vec6.com/blog/standarddeviation/">
+  <meta property="og:site_name" content="Lucas Wu">
+  <meta property="og:title" content="标准差">
+  <meta property="og:description" content="标准差（σ）是用来衡量一组数据“分散程度”的指标，标准差越大，说明数据之间的差距越大，也就是离平均值越大。标准差越小，说明数据相对比较“集中”。
+标准差也可以看见数据内部是否比较稳定不分散，典型的问题是人均收入，通过标准差可以查看数据内部是否有较大分散导致的不合理（被平均）。
+比如给定5个人收入数据，如果只是看平均值，那么每个人的人均收入在10400元，对于A、B、C是被平均的。
+人员 薪酬 A 2000 B 3000 C 7000 D 15000 E 25000 计算步骤 通过标准差的计算，可以通过均数和标准差两个值来观察数据是否合理，标准差步骤按照如下阶段分段进行。
+1. 计算数据组的平均值（μ） 为什么要算平均值，平均值就像“整体水平”的代表，用它来衡量每个人的收入是比平均低还是比平均高，所以这个步骤计算出来，为后续衡量差距做准备。 $$ \mu = (2000 &#43; 3000 &#43; 7000 &#43; 15000 &#43; 25000) / 5 = 10,400 $$
+2. 计算数值与平均数差值 计算数值与平均数差值这个步骤的目的是计算到底哪些是低于还是高于平均值的，正数是高于，负数是低于。
+$$ \displaylines{ 2000 - 10400 = -8,400 \\ 3000 - 10400 = -7,400 \\ 7000 - 10400 = -3,400 \\ 15000 - 10400 = 4,600 \\ 25000 - 10400 = 14,600 } $$">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2025-01-04T11:20:35+00:00">
+    <meta property="article:modified_time" content="2025-01-04T11:20:35+00:00">
+    <meta property="article:tag" content="Math">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="标准差">
+  <meta name="twitter:description" content="标准差（σ）是用来衡量一组数据“分散程度”的指标，标准差越大，说明数据之间的差距越大，也就是离平均值越大。标准差越小，说明数据相对比较“集中”。
+标准差也可以看见数据内部是否比较稳定不分散，典型的问题是人均收入，通过标准差可以查看数据内部是否有较大分散导致的不合理（被平均）。
+比如给定5个人收入数据，如果只是看平均值，那么每个人的人均收入在10400元，对于A、B、C是被平均的。
+人员 薪酬 A 2000 B 3000 C 7000 D 15000 E 25000 计算步骤 通过标准差的计算，可以通过均数和标准差两个值来观察数据是否合理，标准差步骤按照如下阶段分段进行。
+1. 计算数据组的平均值（μ） 为什么要算平均值，平均值就像“整体水平”的代表，用它来衡量每个人的收入是比平均低还是比平均高，所以这个步骤计算出来，为后续衡量差距做准备。 $$ \mu = (2000 &#43; 3000 &#43; 7000 &#43; 15000 &#43; 25000) / 5 = 10,400 $$
+2. 计算数值与平均数差值 计算数值与平均数差值这个步骤的目的是计算到底哪些是低于还是高于平均值的，正数是高于，负数是低于。
+$$ \displaylines{ 2000 - 10400 = -8,400 \\ 3000 - 10400 = -7,400 \\ 7000 - 10400 = -3,400 \\ 15000 - 10400 = 4,600 \\ 25000 - 10400 = 14,600 } $$">
+
+
+
+
+  <meta itemprop="name" content="标准差">
+  <meta itemprop="description" content="标准差（σ）是用来衡量一组数据“分散程度”的指标，标准差越大，说明数据之间的差距越大，也就是离平均值越大。标准差越小，说明数据相对比较“集中”。
+标准差也可以看见数据内部是否比较稳定不分散，典型的问题是人均收入，通过标准差可以查看数据内部是否有较大分散导致的不合理（被平均）。
+比如给定5个人收入数据，如果只是看平均值，那么每个人的人均收入在10400元，对于A、B、C是被平均的。
+人员 薪酬 A 2000 B 3000 C 7000 D 15000 E 25000 计算步骤 通过标准差的计算，可以通过均数和标准差两个值来观察数据是否合理，标准差步骤按照如下阶段分段进行。
+1. 计算数据组的平均值（μ） 为什么要算平均值，平均值就像“整体水平”的代表，用它来衡量每个人的收入是比平均低还是比平均高，所以这个步骤计算出来，为后续衡量差距做准备。 $$ \mu = (2000 &#43; 3000 &#43; 7000 &#43; 15000 &#43; 25000) / 5 = 10,400 $$
+2. 计算数值与平均数差值 计算数值与平均数差值这个步骤的目的是计算到底哪些是低于还是高于平均值的，正数是高于，负数是低于。
+$$ \displaylines{ 2000 - 10400 = -8,400 \\ 3000 - 10400 = -7,400 \\ 7000 - 10400 = -3,400 \\ 15000 - 10400 = 4,600 \\ 25000 - 10400 = 14,600 } $$">
+  <meta itemprop="datePublished" content="2025-01-04T11:20:35+00:00">
+  <meta itemprop="dateModified" content="2025-01-04T11:20:35+00:00">
+  <meta itemprop="wordCount" content="140">
+  <meta itemprop="keywords" content="Math">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    background-color: initial;
+    color: initial;
+  }
+
+  div.highlight code {
+    background-color: unset;
+    color: unset;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V5WKEHZ2PS');
+</script>
+
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+
+
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-web@1.321.0/style.min.css"/>
+  <style>
+    body {
+      font-family: "LXGW WenKai Screen";
+      font-weight: normal;
+    }
+  </style></head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Lucas Wu</h2>
+</a>
+<nav>
+</nav>
+</header>
+  <main>
+
+<h1>标准差</h1>
+<p>
+  <i>
+    <time datetime='2025-01-04' pubdate>
+      Create time:2025-01-04
+    </time>
+    <hr />
+  </i>
+</p>
+
+<content>
+  <p>标准差（σ）是用来衡量一组数据“分散程度”的指标，标准差越大，说明数据之间的差距越大，也就是离平均值越大。标准差越小，说明数据相对比较“集中”。</p>
+<p>标准差也可以看见数据内部是否比较稳定不分散，典型的问题是人均收入，通过标准差可以查看数据内部是否有较大分散导致的不合理（被平均）。</p>
+<p>比如给定5个人收入数据，如果只是看平均值，那么每个人的人均收入在10400元，对于A、B、C是被平均的。</p>
+<table>
+  <thead>
+      <tr>
+          <th>人员</th>
+          <th>薪酬</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>A</td>
+          <td>2000</td>
+      </tr>
+      <tr>
+          <td>B</td>
+          <td>3000</td>
+      </tr>
+      <tr>
+          <td>C</td>
+          <td>7000</td>
+      </tr>
+      <tr>
+          <td>D</td>
+          <td>15000</td>
+      </tr>
+      <tr>
+          <td>E</td>
+          <td>25000</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="计算步骤">计算步骤</h2>
+<p>通过标准差的计算，可以通过均数和标准差两个值来观察数据是否合理，标准差步骤按照如下阶段分段进行。</p>
+<h3 id="1-计算数据组的平均值μ">1. 计算数据组的平均值（μ）</h3>
+<p>为什么要算平均值，平均值就像“整体水平”的代表，用它来衡量每个人的收入是比平均低还是比平均高，所以这个步骤计算出来，为后续衡量差距做准备。
+$$
+\mu = (2000 + 3000 + 7000 + 15000 + 25000) / 5 = 10,400
+$$</p>
+<h3 id="2-计算数值与平均数差值">2. 计算数值与平均数差值</h3>
+<p>计算数值与平均数差值这个步骤的目的是计算到底哪些是低于还是高于平均值的，正数是高于，负数是低于。</p>
+<p>$$
+\displaylines{
+2000 - 10400  = -8,400 \\
+3000 - 10400  = -7,400 \\
+7000 - 10400  = -3,400 \\
+15000 - 10400  = 4,600 \\
+25000 - 10400  = 14,600
+}
+$$</p>
+<h3 id="3-计算差数的平方">3. 计算差数的平方</h3>
+<p>由于计算差值后，会产生正数和负数，会导致相加的时候导致正负抵消，同时差值越大，平方后也就越大，能更好的凸显离均值很远的“极端”数据。</p>
+<p>$$
+\displaylines{
+(-8400)^2  = 70,560,000 \\
+(-7400)^2  = 54,760,000  \\
+(-3400)^2  = 11,560,000  \\
+(4600)^2  = 21,160,000  \\
+(14600)^2  = 213,160,000
+}
+$$</p>
+<h3 id="4-求平方差的平均值方差">4. 求平方差的平均值（方差）</h3>
+<p>这里做的意义是现在得到了每个数值离平均数差值后，然后通平方解决了正负抵消和凸显偏差大的点后，此时计算这些平方差的平均值，就能够得到一个代表“整体分散”的指标，就需要把这些“差值平方”汇总成一个均值，也就得到了<strong>方差。</strong></p>
+<p>$$
+（70560000 + 54760000 + 11560000 + 21160000 + 213160000） / 5  = 74,240,000
+$$</p>
+<p>当然如果是计算样本方差，则需要使用n-1作为除数，这是因为这样得到的方差会系统性地低估真正的方差，这n-1则可以让这个估计量在数学意义上变得“期望值等于真实方差”，也就是统计里面的“无偏”。</p>
+<p>比如期望值假设你想测量“全校学生身高”这个总体，但你只抽了 5 个同学来测量作为样本，样本中的平均值不一定等于真实的全校平均值(有时差一点)，如果你直接用这 5 个同学的均值来计算方差并除以 5，你往往会得到一个比真正的“全校方差”更小的值。因为在只抽到的这 5 个人内部，他们比较容易“彼此相似”些——或者说，你用“样本均值”来计算差，已经把样本内部的某些变动抹平了，所以，用 (n-1) = 4 来做分母，略微增大了样本方差，使得我们对“全体学生方差”的估计更合理、更准确。</p>
+<h3 id="5-方差开平方得到标准差">5. 方差开平方，得到标准差</h3>
+<p>这个步骤的意义是将第3步的平方还原，主要是因为第三步计算后，相当于是收入与均数差值的平方，和原始数据的收入采用的单位是不一样的，所以这一步骤也是将平方还原，才能拿来理解。
+$$
+\sqrt{74240000}  = 8,616.264
+$$</p>
+<h2 id="解读">解读</h2>
+<p>标准差给出的值并不代表所有的人离平均值10400差8616左右，标准差是一个概括性指标，越大说明整体差距越大，越小说明大多数人比比较接近平均收，比如在大部分情况下，没有太多数据的，而大概可能只知道人均、人数以及标准差，那么这个8616和平均数10400基本上是一个数量级的，说明这个整体空间或者样本空间内部的数据非常分散，也就是人均收入非常离散。</p>
+
+</content>
+<p>
+  
+  <a href="https://vec6.com/tags/math/">#Math</a>
+  
+</p>
+
+  </main>
+  <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
+        property="dct:title">Lucas'blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+        href="http://vec6.com">lucas</a> is licensed under <a
+        href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
+        rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a>
+    theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a>
+</p></footer>
+
+    
+
+</body>
+
+</html>
