@@ -446,7 +446,7 @@ $$</p>
 <h4 id="作用-1">作用</h4>
 <ol>
 <li><strong>让数值统一范围</strong>：可以将数值缩小到0,1之间，避免大数值特征“主导”模型。</li>
-<li><strong>全面反应数据的分布</strong>：对比 <a href="applenotes:note/9ad97377-929f-41c1-a76a-e88d2ded8a11?ownerIdentifier=_835d3a649cfcf9ba314220cd7a51a30a">Simple Feature Scaling</a>，考虑了最小值和最大值，将最小值和最大值作为缩放的边界。</li>
+<li><strong>全面反应数据的分布</strong>：对比 Simple Feature Scaling，考虑了最小值和最大值，将最小值和最大值作为缩放的边界。</li>
 </ol>
 <h4 id="原理-1">原理</h4>
 <p>Min-Max的作用是考虑了数据集中的最小值和最大值，将最小值最为尺子的最左端（起始位置），将最大值作为尺子的最右端（结束位置），然后将其它数值进行一个线性缩放，映射到这个尺子，就能表达出其它数值与最小值的相对距离占总范围的几成。</p>
@@ -473,7 +473,7 @@ $$</p>
 }
 $$</p>
 <h4 id="缺点1-极值敏感">缺点1-极值敏感</h4>
-<p>如果有极大值或者极小值，可能会让缩放后的数值信息压缩，和 <a href="applenotes:note/9ad97377-929f-41c1-a76a-e88d2ded8a11?ownerIdentifier=_835d3a649cfcf9ba314220cd7a51a30a">Simple Feature Scaling</a> 有同样的问题，其它所有数据会被挤在0或者1附近，比如观察数据为[10,20,30,40000]：</p>
+<p>如果有极大值或者极小值，可能会让缩放后的数值信息压缩，和 Simple Feature Scaling 有同样的问题，其它所有数据会被挤在0或者1附近，比如观察数据为[10,20,30,40000]：</p>
 <p>$$
 \displaylines{
 ( 10 - 10 ) / ( 40000 - 10 )  = 0 \\
