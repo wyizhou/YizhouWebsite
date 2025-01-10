@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>长格式和宽格式 | Lucas Wu</title>
+<meta name="title" content="长格式和宽格式" />
+<meta name="description" content="长格式和宽格式根据应用场景（如制图、统计和模型输入）的需求不同，转换为合适的数据格式，比如某些模型只能接受宽格式，长格式适合分组统计等。
+长格式指每一行记录一个实体的一个属性或者测量值，比如下面的数据，每行记录了张三或者李四的一个科目的结果，即每个人占多行，不同的科目分数在不同行。
+  姓名,科目,成绩
+1,张三,数学,95
+2,张三,语文,89
+3,李四,数学,80
+4,李四,数学,85
+宽格式指每一行记录一个实体的所有属性或测量值，比如下面的数据，每行记录了张三或者李四的所有科目的结果，即每个人占一行，所有的科目分数在不同列。
+  姓名,数学,语文
+1,张三,95,89
+2,李四,80,85
+Pandas中的长格式转宽格式
+Pandas中使用pivot和pivot_table将长格式转换为宽格式，他们的区别在于pivot需要索引和列的组合为唯一，比如张三不能出现两次数学，否则就会报错，但是如果数据没有重复组合，pivot的效率要比pivot_table高。
+import pandas as pd
+
+data = {
+    &#34;name&#34;: [&#34;张三&#34;,&#34;张三&#34;, &#34;张三&#34;, &#34;李四&#34;],
+    &#34;catetory&#34;: [&#34;数学&#34;, &#34;语文&#34;, &#34;数学&#34;, &#34;数学&#34;],
+    &#34;value&#34;: [95, 89, 90, 85]
+}
+
+df = pd.DataFrame(data)
+
+df.pivot(index=&#39;name&#39;, columns=&#39;catetory&#39;, values=&#39;value&#39;)
+
+ValueError: Index contains duplicate entries, cannot reshape
+pivot_table和pivot的主要区别为对于重复值的处理，pivot_table在遇见重复的index&#43;column的重复数据的时候，通过指定聚合函数（如mean、sum、max等），计算出一个单一的值来填充重塑后的表格。
+import pandas as pd
+
+data = {
+    &#34;name&#34;: [&#34;张三&#34;,&#34;张三&#34;, &#34;张三&#34;, &#34;李四&#34;],
+    &#34;catetory&#34;: [&#34;数学&#34;, &#34;语文&#34;, &#34;数学&#34;, &#34;数学&#34;],
+    &#34;value&#34;: [95, 89, 90, 85]
+}
+
+df = pd.DataFrame(data)
+
+df.pivot_table(index=&#39;name&#39;, columns=&#39;catetory&#39;, values=&#39;value&#39;, aggfunc = &#39;mean&#39;)
+
+
+# 下面的92.5为 (95 &#43; 90) / 2 
+
+catetory    数学    语文
+name
+张三        92.5  89.0 
+李四        85.0   NaN 
+Pandas中的宽格式转长格式
+宽格式转换长格式，实际上就是将多个列融化为两列（一个变量标识符）和一个值列，在Pandas中常用melt和wide_to_long方法。" />
+<meta name="keywords" content="DataScience," />
+
+
+<meta property="og:url" content="https://vec6.com/blog/longwidedata/">
+  <meta property="og:site_name" content="Lucas Wu">
+  <meta property="og:title" content="长格式和宽格式">
+  <meta property="og:description" content="长格式和宽格式根据应用场景（如制图、统计和模型输入）的需求不同，转换为合适的数据格式，比如某些模型只能接受宽格式，长格式适合分组统计等。
+长格式指每一行记录一个实体的一个属性或者测量值，比如下面的数据，每行记录了张三或者李四的一个科目的结果，即每个人占多行，不同的科目分数在不同行。
+姓名,科目,成绩 1,张三,数学,95 2,张三,语文,89 3,李四,数学,80 4,李四,数学,85 宽格式指每一行记录一个实体的所有属性或测量值，比如下面的数据，每行记录了张三或者李四的所有科目的结果，即每个人占一行，所有的科目分数在不同列。
+姓名,数学,语文 1,张三,95,89 2,李四,80,85 Pandas中的长格式转宽格式 Pandas中使用pivot和pivot_table将长格式转换为宽格式，他们的区别在于pivot需要索引和列的组合为唯一，比如张三不能出现两次数学，否则就会报错，但是如果数据没有重复组合，pivot的效率要比pivot_table高。
+import pandas as pd data = { &#34;name&#34;: [&#34;张三&#34;,&#34;张三&#34;, &#34;张三&#34;, &#34;李四&#34;], &#34;catetory&#34;: [&#34;数学&#34;, &#34;语文&#34;, &#34;数学&#34;, &#34;数学&#34;], &#34;value&#34;: [95, 89, 90, 85] } df = pd.DataFrame(data) df.pivot(index=&#39;name&#39;, columns=&#39;catetory&#39;, values=&#39;value&#39;) ValueError: Index contains duplicate entries, cannot reshape pivot_table和pivot的主要区别为对于重复值的处理，pivot_table在遇见重复的index&#43;column的重复数据的时候，通过指定聚合函数（如mean、sum、max等），计算出一个单一的值来填充重塑后的表格。
+import pandas as pd data = { &#34;name&#34;: [&#34;张三&#34;,&#34;张三&#34;, &#34;张三&#34;, &#34;李四&#34;], &#34;catetory&#34;: [&#34;数学&#34;, &#34;语文&#34;, &#34;数学&#34;, &#34;数学&#34;], &#34;value&#34;: [95, 89, 90, 85] } df = pd.DataFrame(data) df.pivot_table(index=&#39;name&#39;, columns=&#39;catetory&#39;, values=&#39;value&#39;, aggfunc = &#39;mean&#39;) # 下面的92.5为 (95 &#43; 90) / 2 catetory 数学 语文 name 张三 92.5 89.0 李四 85.0 NaN Pandas中的宽格式转长格式 宽格式转换长格式，实际上就是将多个列融化为两列（一个变量标识符）和一个值列，在Pandas中常用melt和wide_to_long方法。">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2025-01-11T23:53:34+00:00">
+    <meta property="article:modified_time" content="2025-01-11T23:53:34+00:00">
+    <meta property="article:tag" content="DataScience">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="长格式和宽格式">
+  <meta name="twitter:description" content="长格式和宽格式根据应用场景（如制图、统计和模型输入）的需求不同，转换为合适的数据格式，比如某些模型只能接受宽格式，长格式适合分组统计等。
+长格式指每一行记录一个实体的一个属性或者测量值，比如下面的数据，每行记录了张三或者李四的一个科目的结果，即每个人占多行，不同的科目分数在不同行。
+姓名,科目,成绩 1,张三,数学,95 2,张三,语文,89 3,李四,数学,80 4,李四,数学,85 宽格式指每一行记录一个实体的所有属性或测量值，比如下面的数据，每行记录了张三或者李四的所有科目的结果，即每个人占一行，所有的科目分数在不同列。
+姓名,数学,语文 1,张三,95,89 2,李四,80,85 Pandas中的长格式转宽格式 Pandas中使用pivot和pivot_table将长格式转换为宽格式，他们的区别在于pivot需要索引和列的组合为唯一，比如张三不能出现两次数学，否则就会报错，但是如果数据没有重复组合，pivot的效率要比pivot_table高。
+import pandas as pd data = { &#34;name&#34;: [&#34;张三&#34;,&#34;张三&#34;, &#34;张三&#34;, &#34;李四&#34;], &#34;catetory&#34;: [&#34;数学&#34;, &#34;语文&#34;, &#34;数学&#34;, &#34;数学&#34;], &#34;value&#34;: [95, 89, 90, 85] } df = pd.DataFrame(data) df.pivot(index=&#39;name&#39;, columns=&#39;catetory&#39;, values=&#39;value&#39;) ValueError: Index contains duplicate entries, cannot reshape pivot_table和pivot的主要区别为对于重复值的处理，pivot_table在遇见重复的index&#43;column的重复数据的时候，通过指定聚合函数（如mean、sum、max等），计算出一个单一的值来填充重塑后的表格。
+import pandas as pd data = { &#34;name&#34;: [&#34;张三&#34;,&#34;张三&#34;, &#34;张三&#34;, &#34;李四&#34;], &#34;catetory&#34;: [&#34;数学&#34;, &#34;语文&#34;, &#34;数学&#34;, &#34;数学&#34;], &#34;value&#34;: [95, 89, 90, 85] } df = pd.DataFrame(data) df.pivot_table(index=&#39;name&#39;, columns=&#39;catetory&#39;, values=&#39;value&#39;, aggfunc = &#39;mean&#39;) # 下面的92.5为 (95 &#43; 90) / 2 catetory 数学 语文 name 张三 92.5 89.0 李四 85.0 NaN Pandas中的宽格式转长格式 宽格式转换长格式，实际上就是将多个列融化为两列（一个变量标识符）和一个值列，在Pandas中常用melt和wide_to_long方法。">
+
+
+
+
+  <meta itemprop="name" content="长格式和宽格式">
+  <meta itemprop="description" content="长格式和宽格式根据应用场景（如制图、统计和模型输入）的需求不同，转换为合适的数据格式，比如某些模型只能接受宽格式，长格式适合分组统计等。
+长格式指每一行记录一个实体的一个属性或者测量值，比如下面的数据，每行记录了张三或者李四的一个科目的结果，即每个人占多行，不同的科目分数在不同行。
+姓名,科目,成绩 1,张三,数学,95 2,张三,语文,89 3,李四,数学,80 4,李四,数学,85 宽格式指每一行记录一个实体的所有属性或测量值，比如下面的数据，每行记录了张三或者李四的所有科目的结果，即每个人占一行，所有的科目分数在不同列。
+姓名,数学,语文 1,张三,95,89 2,李四,80,85 Pandas中的长格式转宽格式 Pandas中使用pivot和pivot_table将长格式转换为宽格式，他们的区别在于pivot需要索引和列的组合为唯一，比如张三不能出现两次数学，否则就会报错，但是如果数据没有重复组合，pivot的效率要比pivot_table高。
+import pandas as pd data = { &#34;name&#34;: [&#34;张三&#34;,&#34;张三&#34;, &#34;张三&#34;, &#34;李四&#34;], &#34;catetory&#34;: [&#34;数学&#34;, &#34;语文&#34;, &#34;数学&#34;, &#34;数学&#34;], &#34;value&#34;: [95, 89, 90, 85] } df = pd.DataFrame(data) df.pivot(index=&#39;name&#39;, columns=&#39;catetory&#39;, values=&#39;value&#39;) ValueError: Index contains duplicate entries, cannot reshape pivot_table和pivot的主要区别为对于重复值的处理，pivot_table在遇见重复的index&#43;column的重复数据的时候，通过指定聚合函数（如mean、sum、max等），计算出一个单一的值来填充重塑后的表格。
+import pandas as pd data = { &#34;name&#34;: [&#34;张三&#34;,&#34;张三&#34;, &#34;张三&#34;, &#34;李四&#34;], &#34;catetory&#34;: [&#34;数学&#34;, &#34;语文&#34;, &#34;数学&#34;, &#34;数学&#34;], &#34;value&#34;: [95, 89, 90, 85] } df = pd.DataFrame(data) df.pivot_table(index=&#39;name&#39;, columns=&#39;catetory&#39;, values=&#39;value&#39;, aggfunc = &#39;mean&#39;) # 下面的92.5为 (95 &#43; 90) / 2 catetory 数学 语文 name 张三 92.5 89.0 李四 85.0 NaN Pandas中的宽格式转长格式 宽格式转换长格式，实际上就是将多个列融化为两列（一个变量标识符）和一个值列，在Pandas中常用melt和wide_to_long方法。">
+  <meta itemprop="datePublished" content="2025-01-11T23:53:34+00:00">
+  <meta itemprop="dateModified" content="2025-01-11T23:53:34+00:00">
+  <meta itemprop="wordCount" content="232">
+  <meta itemprop="keywords" content="DataScience">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    background-color: initial;
+    color: initial;
+  }
+
+  div.highlight code {
+    background-color: unset;
+    color: unset;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V5WKEHZ2PS');
+</script>
+
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+
+
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+
+
+
+<style>
+
+  body {
+       
+      font-family: Georgia,serif;
+       
+  }
+
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+  }
+  
+  table { 
+    border-collapse: collapse; 
+    text-align: center;
+    font-size: 80%;
+  }
+
+  tr {
+    border: solid 1px;
+  }
+</style>
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Lucas Wu</h2>
+</a>
+<nav>
+</nav>
+</header>
+  <main>
+
+<h1>长格式和宽格式</h1>
+<p>
+  <i>
+    <time datetime='2025-01-11' pubdate>
+      Create time:2025-01-11
+    </time>
+    <hr />
+  </i>
+</p>
+
+<content>
+  <p>长格式和宽格式根据应用场景（如制图、统计和模型输入）的需求不同，转换为合适的数据格式，比如某些模型只能接受宽格式，长格式适合分组统计等。</p>
+<p>长格式指<strong>每一行记录一个实体的一个属性或者测量值</strong>，比如下面的数据，每行记录了张三或者李四的一个科目的结果，即每个人占多行，不同的科目分数在不同行。</p>
+<pre tabindex="0"><code>  姓名,科目,成绩
+1,张三,数学,95
+2,张三,语文,89
+3,李四,数学,80
+4,李四,数学,85
+</code></pre><p>宽格式指每一行记录一个实体的所有属性或测量值，比如下面的数据，每行记录了张三或者李四的所有科目的结果，即每个人占一行，所有的科目分数在不同列。</p>
+<pre tabindex="0"><code>  姓名,数学,语文
+1,张三,95,89
+2,李四,80,85
+</code></pre><h2 id="pandas中的长格式转宽格式">Pandas中的长格式转宽格式</h2>
+<p>Pandas中使用pivot和pivot_table将长格式转换为宽格式，他们的区别在于pivot需要索引和列的组合为唯一，比如张三不能出现两次数学，否则就会报错，但是如果数据没有重复组合，pivot的效率要比pivot_table高。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;name&#34;</span>: [<span style="color:#e6db74">&#34;张三&#34;</span>,<span style="color:#e6db74">&#34;张三&#34;</span>, <span style="color:#e6db74">&#34;张三&#34;</span>, <span style="color:#e6db74">&#34;李四&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;catetory&#34;</span>: [<span style="color:#e6db74">&#34;数学&#34;</span>, <span style="color:#e6db74">&#34;语文&#34;</span>, <span style="color:#e6db74">&#34;数学&#34;</span>, <span style="color:#e6db74">&#34;数学&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;value&#34;</span>: [<span style="color:#ae81ff">95</span>, <span style="color:#ae81ff">89</span>, <span style="color:#ae81ff">90</span>, <span style="color:#ae81ff">85</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame(data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>df<span style="color:#f92672">.</span>pivot(index<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;name&#39;</span>, columns<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;catetory&#39;</span>, values<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;value&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ValueError</span>: Index contains duplicate entries, cannot reshape
+</span></span></code></pre></div><p>pivot_table和pivot的主要区别为对于重复值的处理，pivot_table在遇见重复的index+column的重复数据的时候，通过指定聚合函数（如mean、sum、max等），计算出一个单一的值来填充重塑后的表格。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;name&#34;</span>: [<span style="color:#e6db74">&#34;张三&#34;</span>,<span style="color:#e6db74">&#34;张三&#34;</span>, <span style="color:#e6db74">&#34;张三&#34;</span>, <span style="color:#e6db74">&#34;李四&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;catetory&#34;</span>: [<span style="color:#e6db74">&#34;数学&#34;</span>, <span style="color:#e6db74">&#34;语文&#34;</span>, <span style="color:#e6db74">&#34;数学&#34;</span>, <span style="color:#e6db74">&#34;数学&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;value&#34;</span>: [<span style="color:#ae81ff">95</span>, <span style="color:#ae81ff">89</span>, <span style="color:#ae81ff">90</span>, <span style="color:#ae81ff">85</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame(data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>df<span style="color:#f92672">.</span>pivot_table(index<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;name&#39;</span>, columns<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;catetory&#39;</span>, values<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;value&#39;</span>, aggfunc <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;mean&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 下面的92.5为 (95 + 90) / 2 </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>catetory    数学    语文
+</span></span><span style="display:flex;"><span>name
+</span></span><span style="display:flex;"><span>张三        <span style="color:#ae81ff">92.5</span>  <span style="color:#ae81ff">89.0</span> 
+</span></span><span style="display:flex;"><span>李四        <span style="color:#ae81ff">85.0</span>   NaN 
+</span></span></code></pre></div><h2 id="pandas中的宽格式转长格式">Pandas中的宽格式转长格式</h2>
+<p>宽格式转换长格式，实际上就是将多个列融化为两列（一个变量标识符）和一个值列，在Pandas中常用melt和wide_to_long方法。</p>
+<p>演示长格式的数据情况为：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;name&#34;</span>: [<span style="color:#e6db74">&#34;张三&#34;</span>,<span style="color:#e6db74">&#34;张三&#34;</span>, <span style="color:#e6db74">&#34;李四&#34;</span>, <span style="color:#e6db74">&#34;李四&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;catetory&#34;</span>: [<span style="color:#e6db74">&#34;数学&#34;</span>, <span style="color:#e6db74">&#34;语文&#34;</span>, <span style="color:#e6db74">&#34;语文&#34;</span>, <span style="color:#e6db74">&#34;数学&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;value&#34;</span>: [<span style="color:#ae81ff">95</span>, <span style="color:#ae81ff">89</span>, <span style="color:#ae81ff">90</span>, <span style="color:#ae81ff">85</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame(data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>df_long <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>pivot_table(index<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;name&#39;</span>, columns<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;catetory&#39;</span>, values<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;value&#39;</span>, aggfunc <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;mean&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> df_long<span style="color:#f92672">.</span>reset_index(inplace<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>catetory name    数学    语文
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>          张三  <span style="color:#ae81ff">95.0</span>  <span style="color:#ae81ff">89.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>          李四  <span style="color:#ae81ff">85.0</span>  <span style="color:#ae81ff">90.0</span>
+</span></span></code></pre></div><p>使用melt方法，melt方法常用的参数是id_vars（标识变量）、value_vars(溶化的列)、var_name(溶化后，变量名列的名称)、value_name（溶化后，值列的名称）。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> df_long<span style="color:#f92672">.</span>melt(id_vars<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;name&#39;</span>], value_vars<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;数学&#39;</span>, <span style="color:#e6db74">&#39;语文&#39;</span>], var_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;科目&#39;</span>, value_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;分数&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  name  科目    分数
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>   张三  数学  <span style="color:#ae81ff">95.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>   李四  数学  <span style="color:#ae81ff">85.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>   张三  语文  <span style="color:#ae81ff">89.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>   李四  语文  <span style="color:#ae81ff">90.0</span>
+</span></span></code></pre></div><p>wide_to_long的方法适用于有特定标识符的列名、并且又非常多的列的情况，具备模式匹配的wide_to_long的方法就比较适合，wide_to_long转换的方式为：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>data <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;name&#34;</span>: [<span style="color:#e6db74">&#34;张三&#34;</span>, <span style="color:#e6db74">&#39;李四&#39;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Y2023_sell&#34;</span>: [<span style="color:#ae81ff">95</span>, <span style="color:#ae81ff">85</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Y2024_sell&#34;</span>: [<span style="color:#ae81ff">89</span>, <span style="color:#ae81ff">90</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Y2025_sell&#34;</span>: [<span style="color:#ae81ff">89</span>, <span style="color:#ae81ff">89</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>df_wide <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame(data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pd<span style="color:#f92672">.</span>wide_to_long(df_wide, stubnames<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Y&#39;</span>, sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>, suffix<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">d+_sell&#39;</span>, i<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;name&#39;</span>, j<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;销售年份&#39;</span>)<span style="color:#f92672">.</span>reset_index()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  name       销售年份   Y
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>   张三  <span style="color:#ae81ff">2023</span>_sell  <span style="color:#ae81ff">95</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>   李四  <span style="color:#ae81ff">2023</span>_sell  <span style="color:#ae81ff">85</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>   张三  <span style="color:#ae81ff">2024</span>_sell  <span style="color:#ae81ff">89</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>   李四  <span style="color:#ae81ff">2024</span>_sell  <span style="color:#ae81ff">90</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>   张三  <span style="color:#ae81ff">2025</span>_sell  <span style="color:#ae81ff">89</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>   李四  <span style="color:#ae81ff">2025</span>_sell  <span style="color:#ae81ff">89</span>
+</span></span></code></pre></div><p>参数解释：</p>
+<ol>
+<li>stubnames：前缀识别”Y”，表达期望找到以”Y”开头的列名。</li>
+<li>suffix：”\d+_sell”表达是被前缀为stubname+suffix，然后识别到的后缀将会被当做值的列名。</li>
+<li>sep：因为识别的前后之间没有间隔符，所以为空。</li>
+<li>i：为标识变量</li>
+<li>J：为新创建变量名的列名，也就是识别出来的后缀。</li>
+</ol>
+
+</content>
+<p>
+  
+  <a href="https://vec6.com/tags/datascience/">#DataScience</a>
+  
+</p>
+
+  </main>
+  <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
+        property="dct:title">Lucas'blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+        href="http://vec6.com">lucas</a> is licensed under <a
+        href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
+        rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a>
+    theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a>
+</p></footer>
+
+    
+
+</body>
+
+</html>

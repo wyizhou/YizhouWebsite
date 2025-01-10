@@ -159,8 +159,8 @@ Pearson系数 Pearson（皮尔逊系数）相关系数通常用字母“r”标�
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="blog">
-    <meta property="article:published_time" content="2025-01-09T21:53:34+00:00">
-    <meta property="article:modified_time" content="2025-01-09T21:53:34+00:00">
+    <meta property="article:published_time" content="2025-01-12T21:53:34+00:00">
+    <meta property="article:modified_time" content="2025-01-12T21:53:34+00:00">
     <meta property="article:tag" content="Math">
 
 
@@ -189,9 +189,9 @@ Pearson系数 Pearson（皮尔逊系数）相关系数通常用字母“r”标�
 0.7 ≤ |r| ≤ 1：强相关 0.3 ≤ |r| &lt; 0.7：中等相关 0 ≤ |r| &lt; 0.3：弱相关 Chi-Square Test Chi-Square Test（卡方检验）是一种统计方法，用于判断两个分类变量（指能够被分为不同类别或组别的变量）之间是否存在相关性，原理是通过比对实际数据和理论数据（基于变量之间独立建立的）差异，看是否存在相关。
 卡方检验能根据如下男女生喜欢巧克力的观测数据，解决两个问题：
 下面的数据中，男生喜欢巧克力的概率为60%，女生为80%，那么60%与80%的差异是偶然的吗？ 差异大到是不是可以认为“性别”影响了概率？ 编号 性别 是否喜欢巧克力 1 男 喜欢 2 男 喜欢 3 男 喜欢 4 男 喜欢 5 男 喜欢 6 男 喜欢 7 男 不喜欢 8 男 不喜欢 9 男 不喜欢 10 男 不喜欢 11 女 喜欢 12 女 喜欢 13 女 喜欢 14 女 喜欢 15 女 喜欢 16 女 喜欢 17 女 喜欢 18 女 喜欢 19 女 不喜欢 20 女 不喜欢 要了解卡方检验，就需要了解其计算原理，卡方检验计算阶段为如下的5个阶段。">
-  <meta itemprop="datePublished" content="2025-01-09T21:53:34+00:00">
-  <meta itemprop="dateModified" content="2025-01-09T21:53:34+00:00">
-  <meta itemprop="wordCount" content="302">
+  <meta itemprop="datePublished" content="2025-01-12T21:53:34+00:00">
+  <meta itemprop="dateModified" content="2025-01-12T21:53:34+00:00">
+  <meta itemprop="wordCount" content="315">
   <meta itemprop="keywords" content="Math">
 <meta name="referrer" content="no-referrer-when-downgrade" />
 
@@ -466,8 +466,8 @@ code.has-jax {
 <h1>变量的相关性计算</h1>
 <p>
   <i>
-    <time datetime='2025-01-09' pubdate>
-      Create time:2025-01-09
+    <time datetime='2025-01-12' pubdate>
+      Create time:2025-01-12
     </time>
     <hr />
   </i>
@@ -769,7 +769,14 @@ $$</p>
 </li>
 </ol>
 <h2 id="p-value">P-Value</h2>
-<p>P代表统计中的概率值，取值范围为0-1，用于帮助我们判断观察到的结果（比如相关系数）是否具有统计意义，即这种结果是否可能是偶然发生的，P-Value可以帮助我们进一步结合Pearson和Chi Square Test的结果进行解读。</p>
+<p>P代表统计中的概率值，取值范围为0-1，用于帮助我们判断观察到的结果（比如相关系数）是否具有统计意义，即这种结果是否可能是偶然发生的，P-Value可以帮助我们进一步结合Pearson和Chi Square Test的结果进行解读，比如scipy.stats.pearsonr方法就会返回一个pearson_coef和一个p-value。</p>
+<p>常见的解读方式：</p>
+<ol>
+<li>P-value &lt; 0.001：我们说有强有力的证据表明相关性是显著的。</li>
+<li>P-value &lt; 0.05：有中等证据表明相关性显著。</li>
+<li>P-value &lt; 0.1：有微弱证据表明相关性显著。</li>
+<li>P-value &gt; 0.1：没有证据表明相关性显著。</li>
+</ol>
 <h3 id="p-value结合pearson">P-Value结合Pearson</h3>
 <p>比如在Pearson中，P-Value验证的假设为两个系数之间的r=0，即零假设，如果P值&lt;=0.05，比如P=0.01，即代表有足够的证据拒绝零假设，即表达两个变量之间有<strong>显著</strong>的关系存在，不太可能是偶然，因为偶然性只有1%。</p>
 <p>如果P值&gt;0.05，比如P=0.3，表明没有证据拒绝零假设，两个变量之间相关性<strong>不显著</strong>，可能只是偶然，因为偶然性高达到了30%。</p>
