@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>变量的相关性计算 | Lucas Wu</title>
+<meta name="title" content="变量的相关性计算" />
+<meta name="description" content="相关性是衡量变量之间的相互依存的程度，也就是通过观察一个变量（自变量，解释变量）在变化的时候，如何影响到另一个变量（因变量，响应变量）的变化。
+相关性并不代表因果关系，即使两个变量之间有很强的相关性，也不意味着一个变量的变化导致了另一个变量的变化，比如冰淇淋销售量和溺水事件之间可能存在正相关关系，但并不意味着吃冰淇淋会导致溺水，实际原因可能是夏天天气炎热，导致人们都更多地购买冰淇淋并去游泳。
+Pearson系数
+Pearson（皮尔逊系数）相关系数通常用字母“r”标识，用于衡量两个连续性变量之间的线性关系强度和方向，也就是说它告诉我们两个变量是如何在一起变化的。
+皮尔逊相关系数会返回一个取值范围在-1到&#43;1之间的一个值：
+
+正相关：如果越靠近&#43;1，则代表两个变量之间呈现正相关，即随着自变量的提高，因变量也随着提高。
+负相关：如果越靠近-1，则代表两个变量之间呈现负相关，即随着自变量的提高，因变量随着降低。
+无相关：实际上越靠近0，说明两个变量之间没有线性关系。
+
+进一步根据r值进行解读：
+
+0.7 ≤ |r| ≤ 1：强相关
+0.3 ≤ |r| &lt; 0.7：中等相关
+0 ≤ |r| &lt; 0.3：弱相关
+
+Chi-Square Test
+Chi-Square Test（卡方检验）是一种统计方法，用于判断两个分类变量（指能够被分为不同类别或组别的变量）之间是否存在相关性，原理是通过比对实际数据和理论数据（基于变量之间独立建立的）差异，看是否存在相关。
+卡方检验能根据如下男女生喜欢巧克力的观测数据，解决两个问题：
+
+下面的数据中，男生喜欢巧克力的概率为60%，女生为80%，那么60%与80%的差异是偶然的吗？
+差异大到是不是可以认为“性别”影响了概率？
+
+
+  
+      
+          编号
+          性别
+          是否喜欢巧克力
+      
+  
+  
+      
+          1
+          男
+          喜欢
+      
+      
+          2
+          男
+          喜欢
+      
+      
+          3
+          男
+          喜欢
+      
+      
+          4
+          男
+          喜欢
+      
+      
+          5
+          男
+          喜欢
+      
+      
+          6
+          男
+          喜欢
+      
+      
+          7
+          男
+          不喜欢
+      
+      
+          8
+          男
+          不喜欢
+      
+      
+          9
+          男
+          不喜欢
+      
+      
+          10
+          男
+          不喜欢
+      
+      
+          11
+          女
+          喜欢
+      
+      
+          12
+          女
+          喜欢
+      
+      
+          13
+          女
+          喜欢
+      
+      
+          14
+          女
+          喜欢
+      
+      
+          15
+          女
+          喜欢
+      
+      
+          16
+          女
+          喜欢
+      
+      
+          17
+          女
+          喜欢
+      
+      
+          18
+          女
+          喜欢
+      
+      
+          19
+          女
+          不喜欢
+      
+      
+          20
+          女
+          不喜欢
+      
+  
+
+要了解卡方检验，就需要了解其计算原理，卡方检验计算阶段为如下的5个阶段。" />
+<meta name="keywords" content="Math," />
+
+
+<meta property="og:url" content="https://vec6.com/blog/variablecorrelation/">
+  <meta property="og:site_name" content="Lucas Wu">
+  <meta property="og:title" content="变量的相关性计算">
+  <meta property="og:description" content="相关性是衡量变量之间的相互依存的程度，也就是通过观察一个变量（自变量，解释变量）在变化的时候，如何影响到另一个变量（因变量，响应变量）的变化。
+相关性并不代表因果关系，即使两个变量之间有很强的相关性，也不意味着一个变量的变化导致了另一个变量的变化，比如冰淇淋销售量和溺水事件之间可能存在正相关关系，但并不意味着吃冰淇淋会导致溺水，实际原因可能是夏天天气炎热，导致人们都更多地购买冰淇淋并去游泳。
+Pearson系数 Pearson（皮尔逊系数）相关系数通常用字母“r”标识，用于衡量两个连续性变量之间的线性关系强度和方向，也就是说它告诉我们两个变量是如何在一起变化的。
+皮尔逊相关系数会返回一个取值范围在-1到&#43;1之间的一个值：
+正相关：如果越靠近&#43;1，则代表两个变量之间呈现正相关，即随着自变量的提高，因变量也随着提高。 负相关：如果越靠近-1，则代表两个变量之间呈现负相关，即随着自变量的提高，因变量随着降低。 无相关：实际上越靠近0，说明两个变量之间没有线性关系。 进一步根据r值进行解读：
+0.7 ≤ |r| ≤ 1：强相关 0.3 ≤ |r| &lt; 0.7：中等相关 0 ≤ |r| &lt; 0.3：弱相关 Chi-Square Test Chi-Square Test（卡方检验）是一种统计方法，用于判断两个分类变量（指能够被分为不同类别或组别的变量）之间是否存在相关性，原理是通过比对实际数据和理论数据（基于变量之间独立建立的）差异，看是否存在相关。
+卡方检验能根据如下男女生喜欢巧克力的观测数据，解决两个问题：
+下面的数据中，男生喜欢巧克力的概率为60%，女生为80%，那么60%与80%的差异是偶然的吗？ 差异大到是不是可以认为“性别”影响了概率？ 编号 性别 是否喜欢巧克力 1 男 喜欢 2 男 喜欢 3 男 喜欢 4 男 喜欢 5 男 喜欢 6 男 喜欢 7 男 不喜欢 8 男 不喜欢 9 男 不喜欢 10 男 不喜欢 11 女 喜欢 12 女 喜欢 13 女 喜欢 14 女 喜欢 15 女 喜欢 16 女 喜欢 17 女 喜欢 18 女 喜欢 19 女 不喜欢 20 女 不喜欢 要了解卡方检验，就需要了解其计算原理，卡方检验计算阶段为如下的5个阶段。">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2025-01-09T21:53:34+00:00">
+    <meta property="article:modified_time" content="2025-01-09T21:53:34+00:00">
+    <meta property="article:tag" content="Math">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="变量的相关性计算">
+  <meta name="twitter:description" content="相关性是衡量变量之间的相互依存的程度，也就是通过观察一个变量（自变量，解释变量）在变化的时候，如何影响到另一个变量（因变量，响应变量）的变化。
+相关性并不代表因果关系，即使两个变量之间有很强的相关性，也不意味着一个变量的变化导致了另一个变量的变化，比如冰淇淋销售量和溺水事件之间可能存在正相关关系，但并不意味着吃冰淇淋会导致溺水，实际原因可能是夏天天气炎热，导致人们都更多地购买冰淇淋并去游泳。
+Pearson系数 Pearson（皮尔逊系数）相关系数通常用字母“r”标识，用于衡量两个连续性变量之间的线性关系强度和方向，也就是说它告诉我们两个变量是如何在一起变化的。
+皮尔逊相关系数会返回一个取值范围在-1到&#43;1之间的一个值：
+正相关：如果越靠近&#43;1，则代表两个变量之间呈现正相关，即随着自变量的提高，因变量也随着提高。 负相关：如果越靠近-1，则代表两个变量之间呈现负相关，即随着自变量的提高，因变量随着降低。 无相关：实际上越靠近0，说明两个变量之间没有线性关系。 进一步根据r值进行解读：
+0.7 ≤ |r| ≤ 1：强相关 0.3 ≤ |r| &lt; 0.7：中等相关 0 ≤ |r| &lt; 0.3：弱相关 Chi-Square Test Chi-Square Test（卡方检验）是一种统计方法，用于判断两个分类变量（指能够被分为不同类别或组别的变量）之间是否存在相关性，原理是通过比对实际数据和理论数据（基于变量之间独立建立的）差异，看是否存在相关。
+卡方检验能根据如下男女生喜欢巧克力的观测数据，解决两个问题：
+下面的数据中，男生喜欢巧克力的概率为60%，女生为80%，那么60%与80%的差异是偶然的吗？ 差异大到是不是可以认为“性别”影响了概率？ 编号 性别 是否喜欢巧克力 1 男 喜欢 2 男 喜欢 3 男 喜欢 4 男 喜欢 5 男 喜欢 6 男 喜欢 7 男 不喜欢 8 男 不喜欢 9 男 不喜欢 10 男 不喜欢 11 女 喜欢 12 女 喜欢 13 女 喜欢 14 女 喜欢 15 女 喜欢 16 女 喜欢 17 女 喜欢 18 女 喜欢 19 女 不喜欢 20 女 不喜欢 要了解卡方检验，就需要了解其计算原理，卡方检验计算阶段为如下的5个阶段。">
+
+
+
+
+  <meta itemprop="name" content="变量的相关性计算">
+  <meta itemprop="description" content="相关性是衡量变量之间的相互依存的程度，也就是通过观察一个变量（自变量，解释变量）在变化的时候，如何影响到另一个变量（因变量，响应变量）的变化。
+相关性并不代表因果关系，即使两个变量之间有很强的相关性，也不意味着一个变量的变化导致了另一个变量的变化，比如冰淇淋销售量和溺水事件之间可能存在正相关关系，但并不意味着吃冰淇淋会导致溺水，实际原因可能是夏天天气炎热，导致人们都更多地购买冰淇淋并去游泳。
+Pearson系数 Pearson（皮尔逊系数）相关系数通常用字母“r”标识，用于衡量两个连续性变量之间的线性关系强度和方向，也就是说它告诉我们两个变量是如何在一起变化的。
+皮尔逊相关系数会返回一个取值范围在-1到&#43;1之间的一个值：
+正相关：如果越靠近&#43;1，则代表两个变量之间呈现正相关，即随着自变量的提高，因变量也随着提高。 负相关：如果越靠近-1，则代表两个变量之间呈现负相关，即随着自变量的提高，因变量随着降低。 无相关：实际上越靠近0，说明两个变量之间没有线性关系。 进一步根据r值进行解读：
+0.7 ≤ |r| ≤ 1：强相关 0.3 ≤ |r| &lt; 0.7：中等相关 0 ≤ |r| &lt; 0.3：弱相关 Chi-Square Test Chi-Square Test（卡方检验）是一种统计方法，用于判断两个分类变量（指能够被分为不同类别或组别的变量）之间是否存在相关性，原理是通过比对实际数据和理论数据（基于变量之间独立建立的）差异，看是否存在相关。
+卡方检验能根据如下男女生喜欢巧克力的观测数据，解决两个问题：
+下面的数据中，男生喜欢巧克力的概率为60%，女生为80%，那么60%与80%的差异是偶然的吗？ 差异大到是不是可以认为“性别”影响了概率？ 编号 性别 是否喜欢巧克力 1 男 喜欢 2 男 喜欢 3 男 喜欢 4 男 喜欢 5 男 喜欢 6 男 喜欢 7 男 不喜欢 8 男 不喜欢 9 男 不喜欢 10 男 不喜欢 11 女 喜欢 12 女 喜欢 13 女 喜欢 14 女 喜欢 15 女 喜欢 16 女 喜欢 17 女 喜欢 18 女 喜欢 19 女 不喜欢 20 女 不喜欢 要了解卡方检验，就需要了解其计算原理，卡方检验计算阶段为如下的5个阶段。">
+  <meta itemprop="datePublished" content="2025-01-09T21:53:34+00:00">
+  <meta itemprop="dateModified" content="2025-01-09T21:53:34+00:00">
+  <meta itemprop="wordCount" content="302">
+  <meta itemprop="keywords" content="Math">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    background-color: initial;
+    color: initial;
+  }
+
+  div.highlight code {
+    background-color: unset;
+    color: unset;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V5WKEHZ2PS');
+</script>
+
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+
+
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+
+
+
+<style>
+
+  body {
+       
+      font-family: Georgia,serif;
+       
+  }
+
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+  }
+  
+  table { 
+    border-collapse: collapse; 
+    text-align: center;
+    font-size: 80%;
+  }
+
+  tr {
+    border: solid 1px;
+  }
+</style>
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Lucas Wu</h2>
+</a>
+<nav>
+</nav>
+</header>
+  <main>
+
+<h1>变量的相关性计算</h1>
+<p>
+  <i>
+    <time datetime='2025-01-09' pubdate>
+      Create time:2025-01-09
+    </time>
+    <hr />
+  </i>
+</p>
+
+<content>
+  <p>相关性是衡量变量之间的相互依存的程度，也就是通过观察一个变量（自变量，解释变量）在变化的时候，如何影响到另一个变量（因变量，响应变量）的变化。</p>
+<p>相关性并不代表因果关系，即使两个变量之间有很强的相关性，也不意味着一个变量的变化导致了另一个变量的变化，比如冰淇淋销售量和溺水事件之间可能存在正相关关系，但并不意味着吃冰淇淋会导致溺水，实际原因可能是夏天天气炎热，导致人们都更多地购买冰淇淋并去游泳。</p>
+<h2 id="pearson系数">Pearson系数</h2>
+<p>Pearson（皮尔逊系数）相关系数通常用字母“r”标识，用于衡量两个<strong>连续性</strong>变量之间的线性关系强度和方向，也就是说它告诉我们两个变量是如何在一起变化的。</p>
+<p>皮尔逊相关系数会返回一个取值范围在-1到+1之间的一个值：</p>
+<ol>
+<li>正相关：如果越靠近+1，则代表两个变量之间呈现正相关，即随着自变量的提高，因变量也随着提高。</li>
+<li>负相关：如果越靠近-1，则代表两个变量之间呈现负相关，即随着自变量的提高，因变量随着降低。</li>
+<li>无相关：实际上越靠近0，说明两个变量之间没有线性关系。</li>
+</ol>
+<p>进一步根据r值进行解读：</p>
+<ul>
+<li>0.7 ≤ |r| ≤ 1：强相关</li>
+<li>0.3 ≤ |r| &lt; 0.7：中等相关</li>
+<li>0 ≤ |r| &lt; 0.3：弱相关</li>
+</ul>
+<h2 id="chi-square-test">Chi-Square Test</h2>
+<p>Chi-Square Test（卡方检验）是一种统计方法，用于判断两个分类变量（指能够被分为不同类别或组别的变量）之间是否存在相关性，原理是通过比对实际数据和理论数据（基于变量之间独立建立的）差异，看是否存在相关。</p>
+<p>卡方检验能根据如下男女生喜欢巧克力的观测数据，解决两个问题：</p>
+<ol>
+<li>下面的数据中，男生喜欢巧克力的概率为60%，女生为80%，那么60%与80%的差异是偶然的吗？</li>
+<li>差异大到是不是可以认为“性别”影响了概率？</li>
+</ol>
+<table>
+  <thead>
+      <tr>
+          <th>编号</th>
+          <th>性别</th>
+          <th>是否喜欢巧克力</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>男</td>
+          <td>喜欢</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>男</td>
+          <td>喜欢</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>男</td>
+          <td>喜欢</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>男</td>
+          <td>喜欢</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>男</td>
+          <td>喜欢</td>
+      </tr>
+      <tr>
+          <td>6</td>
+          <td>男</td>
+          <td>喜欢</td>
+      </tr>
+      <tr>
+          <td>7</td>
+          <td>男</td>
+          <td>不喜欢</td>
+      </tr>
+      <tr>
+          <td>8</td>
+          <td>男</td>
+          <td>不喜欢</td>
+      </tr>
+      <tr>
+          <td>9</td>
+          <td>男</td>
+          <td>不喜欢</td>
+      </tr>
+      <tr>
+          <td>10</td>
+          <td>男</td>
+          <td>不喜欢</td>
+      </tr>
+      <tr>
+          <td>11</td>
+          <td>女</td>
+          <td>喜欢</td>
+      </tr>
+      <tr>
+          <td>12</td>
+          <td>女</td>
+          <td>喜欢</td>
+      </tr>
+      <tr>
+          <td>13</td>
+          <td>女</td>
+          <td>喜欢</td>
+      </tr>
+      <tr>
+          <td>14</td>
+          <td>女</td>
+          <td>喜欢</td>
+      </tr>
+      <tr>
+          <td>15</td>
+          <td>女</td>
+          <td>喜欢</td>
+      </tr>
+      <tr>
+          <td>16</td>
+          <td>女</td>
+          <td>喜欢</td>
+      </tr>
+      <tr>
+          <td>17</td>
+          <td>女</td>
+          <td>喜欢</td>
+      </tr>
+      <tr>
+          <td>18</td>
+          <td>女</td>
+          <td>喜欢</td>
+      </tr>
+      <tr>
+          <td>19</td>
+          <td>女</td>
+          <td>不喜欢</td>
+      </tr>
+      <tr>
+          <td>20</td>
+          <td>女</td>
+          <td>不喜欢</td>
+      </tr>
+  </tbody>
+</table>
+<p>要了解卡方检验，就需要了解其计算原理，卡方检验计算阶段为如下的5个阶段。</p>
+<h3 id="计算步骤1-整理数据制作列联表交叉表">计算步骤1-整理数据，制作列联表（交叉表）</h3>
+<p>卡方统计需要将观测数据制作一个列联表（<strong>交叉表）</strong>，列联表用于展示分类变量之间的关系，它显示每种类别组合的频数，这个频数可以理解出现的次数，转换为列联表后为：</p>
+<table>
+  <thead>
+      <tr>
+          <th>性别</th>
+          <th>喜欢</th>
+          <th>不喜欢</th>
+          <th>总计</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>男生</td>
+          <td>6</td>
+          <td>4</td>
+          <td>10</td>
+      </tr>
+      <tr>
+          <td>女生</td>
+          <td>8</td>
+          <td>2</td>
+          <td>10</td>
+      </tr>
+      <tr>
+          <td>总计</td>
+          <td>14</td>
+          <td>6</td>
+          <td>20</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="计算步骤2-设定假设计算独立事件的联合概率">计算步骤2-设定假设，计算独立事件的联合概率</h3>
+<p>在第二个阶段也是卡方检验的核心，是建立一个期望频数表，其中期望频数基于两个变量完全独立的零假设基础上，然后通过比较实际频数与理论频数的差异，检查是否显著偏离理论频数。</p>
+<p>这里提到的独立性假设也就是卡方检验假设两个变量是没有关系的、独立的，那么基于两个变量的独立性下，那么他们的联合概率应该为两个概率的积。</p>
+<p>所以如果我要计算<strong>总人数里面男生出现的概率</strong>以及<strong>总人数里面喜欢巧克力的出现概率</strong>，就可以计算为：</p>
+<p>$$
+\displaylines{
+P(男生出现的概率) = 10 / 20 = 0.5 \\
+P(喜欢巧克力的概率) = 14 / 20 = 0.7
+}
+$$</p>
+<p>因为卡方检验是假设的两个事件都是独立事件，所以两者的联合概率为两者值的积：</p>
+<p>$$
+P(男生出现的概率) * P(喜欢巧克力的概率) = 0.35
+$$</p>
+<p>然后再进一步计算得到具体的人数为：</p>
+<p>$$
+0.35 * 20  = 7
+$$</p>
+<p>以此类推，再次计算男生的不喜欢人数和女生的喜欢和不喜欢人数，得到如下数据，即是期望频数的列联表：</p>
+<table>
+  <thead>
+      <tr>
+          <th>性别</th>
+          <th>喜欢</th>
+          <th>不喜欢</th>
+          <th>总计</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>男生</td>
+          <td>7</td>
+          <td>3</td>
+          <td>10</td>
+      </tr>
+      <tr>
+          <td>女生</td>
+          <td>7</td>
+          <td>3</td>
+          <td>10</td>
+      </tr>
+      <tr>
+          <td>总计</td>
+          <td>14</td>
+          <td>6</td>
+          <td>20</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="计算步骤3-计算卡方统计量">计算步骤3-计算卡方统计量</h3>
+<p>卡方统计量目的是比对实际观测频数和理论频数之间的差异，如果最终的值很接近0，说明两个数据可能是独立，如果最终值很大说明两个变量存在显著关系。</p>
+<p>卡方统计量的计算公式为：</p>
+<p>$$
+\chi^2 = \sum \frac{(O_{ij} - E_{ij})^2}{E_{ij}}
+$$</p>
+<p>其中O(ij)为实际观测频数，而E(ij)为期望频，根据上述的列联表的计算：</p>
+<p>$$
+\displaylines{
+男生喜欢巧克力的卡方统计量：(6 - 7)^2 / 7  = 0.143 \\
+男生不喜欢巧克力的卡方统计量：(4 - 3)^2 / 3  = 0.333 \\
+女生喜欢巧克力的卡方统计量：(8 - 7)^2 / 7  = 0.143 \\
+女生不喜欢巧克力的卡方统计量：(2 - 3)^2 / 3  = 0.333
+}
+$$</p>
+<p>最终卡方统计量为：</p>
+<p>$$
+\chi^2 = 0.143 + 0.333 + 0.143 + 0.333  = 0.952
+$$</p>
+<h3 id="计算步骤4-计算自由度">计算步骤4-计算自由度</h3>
+<p>计算自由度的意义是表示有多少的数据点不受限制，比如你现在有3个球要给两个人A和B，你现在拿了2个给A，那么B的分配已经被固定了（只能拿到1个），所以在这样的情况下你只有A一个人的数值自由选择的，所以自由度为1。</p>
+<p>自由度df计算的公式为：</p>
+<p>$$
+df = (行数 - 1) * (列数 - 1)
+$$</p>
+<p>拿下面的列联表来说，自由度也是等于1，因为下面的列联表是2x2，然后已经固定了4个值，即10个男生、10个女生、14个喜欢和6个不喜欢，所以当在4个地方填入任何一个数值的时候，其余的三个值都已经固定了，所以只有只有一个单元格能自由选择，所以自由度为1。</p>
+<table>
+  <thead>
+      <tr>
+          <th>性别</th>
+          <th>喜欢</th>
+          <th>不喜欢</th>
+          <th>总计</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>男生</td>
+          <td>7</td>
+          <td>3</td>
+          <td>10</td>
+      </tr>
+      <tr>
+          <td>女生</td>
+          <td>7</td>
+          <td>3</td>
+          <td>10</td>
+      </tr>
+      <tr>
+          <td>总计</td>
+          <td>14</td>
+          <td>6</td>
+          <td>20</td>
+      </tr>
+  </tbody>
+</table>
+<p>在本次的例子中，计算为：</p>
+<p>$$
+df = (2 - 1) * (2 - 1) = 1
+$$</p>
+<h3 id="计算步骤5-显著性检验">计算步骤5-显著性检验</h3>
+<p>计算显著性检验的时候，需要确定一个显著性水平α（可以理解为能接受多少概率假设时的犯罪），一般情况为5%，即：</p>
+<p>$$
+α = 0.05
+$$</p>
+<p>确定了α后，再结合自由度df，通过查询<a href="https://www.obhrm.net/index.php/%E5%8D%A1%E6%96%B9%E5%88%86%E5%B8%83%E8%A1%A8_Chi-Square_Probabilities">卡方分布表</a>找到对应的临界值3.841，最终对比卡方统计量和临界值：</p>
+<p>$$
+0.952 &lt; 3.841
+$$</p>
+<p>关于卡方统计量与临界值的解读：</p>
+<ol>
+<li>
+<p>如果大于临界值，则说明拒绝零假设（相互独立的假设），说明两个变量之间存在显著的关系，实际频数和理论频数无法用随机误差解读，因此变量可能相关。</p>
+</li>
+<li>
+<p>如果小于临界值则说明实际频数表和理论频数表偏差不大，差异的波动可能是随机造成的，因此无法证明两个变量相关。</p>
+</li>
+</ol>
+<h2 id="p-value">P-Value</h2>
+<p>P代表统计中的概率值，取值范围为0-1，用于帮助我们判断观察到的结果（比如相关系数）是否具有统计意义，即这种结果是否可能是偶然发生的，P-Value可以帮助我们进一步结合Pearson和Chi Square Test的结果进行解读。</p>
+<h3 id="p-value结合pearson">P-Value结合Pearson</h3>
+<p>比如在Pearson中，P-Value验证的假设为两个系数之间的r=0，即零假设，如果P值&lt;=0.05，比如P=0.01，即代表有足够的证据拒绝零假设，即表达两个变量之间有<strong>显著</strong>的关系存在，不太可能是偶然，因为偶然性只有1%。</p>
+<p>如果P值&gt;0.05，比如P=0.3，表明没有证据拒绝零假设，两个变量之间相关性<strong>不显著</strong>，可能只是偶然，因为偶然性高达到了30%。</p>
+<h2 id="p-value结合chi-square-test">P-Value结合Chi Square Test</h2>
+<p>在卡方检验中，P值越小，代表看到卡方检验中<strong>实际频数表和理论频数表的差异发生概率</strong>越低，代表不是偶然，变量之间存在显著关系，而P值越大，说明这种发生概率越高，说明观测到这些数据非常常见。</p>
+
+</content>
+<p>
+  
+  <a href="https://vec6.com/tags/math/">#Math</a>
+  
+</p>
+
+  </main>
+  <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
+        property="dct:title">Lucas'blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+        href="http://vec6.com">lucas</a> is licensed under <a
+        href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
+        rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a>
+    theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a>
+</p></footer>
+
+    
+
+</body>
+
+</html>
