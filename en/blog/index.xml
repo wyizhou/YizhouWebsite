@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogs on Lucas Wu</title>
+    <link>https://vec6.com/en/blog/</link>
+    <description>Recent content in Blogs on Lucas Wu</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 22 Apr 2022 01:52:54 +0000</lastBuildDate>
+    <atom:link href="https://vec6.com/en/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Understanding Front-End Technology Stacks</title>
+      <link>https://vec6.com/en/blog/frontend-terms/</link>
+      <pubDate>Fri, 22 Apr 2022 01:52:54 +0000</pubDate>
+      <guid>https://vec6.com/en/blog/frontend-terms/</guid>
+      <description>&lt;p&gt;In recent years, single-page applications (SPA) have developed rapidly. From the early days of using JavaScript to write large amounts of &lt;code&gt;HTML templates&lt;/code&gt; for SPAs, to the current dominance of frameworks like React and Vue, the front-end ecosystem has advanced at an astonishing pace. It feels like new technologies emerge constantly, and without keeping up, it’s easy to fall behind.&lt;/p&gt;&#xA;&lt;p&gt;At its core, every new technology, when explored deeply, turns out to be more complex than it seems at first glance. Over time, however, some concepts start to make sense—this is the essence of &amp;ldquo;deeply understanding something to make it simple.&amp;rdquo; SPAs are inherently complex technologies, and many frameworks and tools have been developed to address these complexities, such as React, Vue, React-router, and Redux. For beginners, learning all these tools at once can be overwhelming. However, at a fundamental level, libraries like React and Vue are not drastically different; they are both solutions designed for SPAs. The main philosophy of these libraries is to divide web applications into reusable components. Each component can include other components to enhance reusability.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>(1) Talking About Chinese Word Segmentation: Maximum Matching, Bidirectional Matching, Minimal Word Count</title>
+      <link>https://vec6.com/en/blog/chinesecutwords-1/</link>
+      <pubDate>Sun, 08 Nov 2020 10:36:34 +0000</pubDate>
+      <guid>https://vec6.com/en/blog/chinesecutwords-1/</guid>
+      <description>&lt;p&gt;Chinese word segmentation refers to the process of dividing text into words, where the concatenated result equals the original text. Chinese word segmentation has always been a significant area in the NLP field. Most text mining tasks are based on it. However, Chinese differs from English, where words are separated by spaces, making English semantically less complex compared to Chinese.&lt;/p&gt;&#xA;&lt;p&gt;There has always been a business demand for Chinese word segmentation. However, due to being busy with other projects, I had not studied it thoroughly before. Recently, I started exploring Chinese word segmentation algorithms. While the field is relatively mature, its performance for out-of-vocabulary words or specific domain texts is often unsatisfactory. To achieve better results, a combination of algorithms or the use of manual dictionaries is often necessary.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

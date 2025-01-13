@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="zh-CN">
 
 <head>
   <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
@@ -53,7 +53,7 @@ print(cut_result)
 词典分词 基于词典的分词算法实际上就是对于类似字典的数据结构进行查询，对于未在词典内的词识别较弱和交集型歧义理解能力也较弱，比如“结婚的和尚未结婚的”，理想的情况是&#34;结婚/的/和/尚未/结婚/的&#34;，而实际中则会被分词为&#34;结婚/的/和尚/未/结婚/的&#34;。 但好在词典分词的速度则非常快，词典分词目前已有非常成熟高效的解决方案，并且有非常多的工具来帮你实现相关的高效数据结构和查询方式，比如Trie树和AC自动机，但在这里为了方便理解和记录，只采用了尽可能简单的方式来记录其几种算法的实现和原理。
 正向最大匹配算法（Forward Maximum Matching） 正向最大匹配算法类似于人的阅读习惯，即从左到右进行识别，而其中的&#34;最大&#34;是基于词典中最长字符的长度作为最大的匹配宽度，然后每次根据这个宽度对文本进行切分并取出来查询词典。如果当前取出来的词能在词典当中查询当则返回，并下一次切分的开始位置为该词的位置&#43;1。而如果当前取出的部分没有在词典中查找到，则将该部分去掉最后一个字符后再进行查找，一直重复直到匹配到了词典中的词。如果整个部分只剩余一个字符，并没有匹配到词典中的词，则将最后剩余的这个字符输出，然后根据这个字符的位置&#43;1开始再次进行切分和查询。 比如，有一段文本&#34;中文分词算法&#34;，字典中只包含了一个词&#34;分词&#34;，这个时候最大的匹配宽度也为2，所以整段文本按照2个字符进行切分。第一次得到&#34;中文&#34;文本，查找词典并无该词，则在该部分上去掉最后的字符，得到&#34;中&#34;，再次查询词典并无该词，此时查找结束，所以不需要再进行匹配，则这个切分记为[“中”]。 继续进行第二次切分，得到的文本为&#34;文分&#34;，进行查询词典，第一次查询&#34;文分&#34;在字典中不存在，去掉最后一个字符，继续以剩余部分’文’查询第二次，未查询到，那么返回最后这个字符&#34;文&#34;，加上次的结果记作[“中”,“文”] 继续第三次切分，得到文本&#34;分词&#34;，进行查询词典，查询到该词在字典当中，所以直接记录在之前的结果当中，记作[“中”, “文”, “分词”]。 继续第四次切分，得到文本&#34;算法&#34;，进行查询字典，第一次查询&#34;算法&#34;在字典中不存在，去掉最后一个字符，继续以剩余部分’算’查询第二次，未查询到，那么返回最后这个字符&#34;算&#34;，加上次的结果记作[“中”, “文”, “分词”, “算”] 继续第五次切分，因为最后只剩余一个字符，所以这个时候可以不进行匹配即返回，所以最终的结果为[“中”, “文”, “分词”, “算”, “法”] 整体分词的过程本质对每个分块进行查找，并依次去掉最后字符查询，而网上还有一部分是没有使用最大宽度切分，即会对每个字符到文本结束的位置都会依次遍历，这样的方式实际上会浪费较多的资源，因为即使从头到尾依次遍历匹配，但最长词的长度是固定的，所以真正开始匹配还是从最长词的长度开始，而其余的遍历都是浪费了资源。 正向最大匹配算法具体的实现代码：
 sentence = &#39;中文分词算法&#39; # 输入的句子 cutList = [&#39;分词&#39;] # 分词词典 start = 0 #设置切分起始位置 maxWidth = len(max(cutList, key=len)) # 得到字典当中最大的切分宽度 cut_result = [] # 设置一个空的分词结果 while (start &lt;= len(sentence)): #开始循环，如果start大于等于句子长度则停止分词 end = start &#43; maxWidth # 计算每次切分的停止位置 word = sentence[start: end] # 开始切分，文本为变量start和end的区间内字符 while ( word ) : # python对于空字符串会转换为False if ( word in cutList ) : # 查看第一次切分后是否能在词典中匹配，如果匹配则放入最终的分词结果列表cut_result,并跳出循环 cut_result.append(word) start = start &#43; len(word) - 1 # 然后将开始位置设置为当前开始位置加上被匹配词的长度 break if (len(word[:-1]) == 0): cut_result.append(word) # 如果最后一个字符也没有被匹配到，那么返回最后一个字符 break word = word[:-1] # 将word去掉最后一个字符串并重新计算 start = start &#43; 1 # 将位置加1 print(cut_result) #[&#39;中&#39;, &#39;文&#39;, &#39;分词&#39;, &#39;算&#39;, &#39;法&#39;] 反向最大匹配算法（Backward Maximum Matching） 反向最大匹配算法与正向最大匹配算法是相反的，比如&#34;中文分词算法&#34;文本的正向最大匹配算法在切分宽度为2的时候，是从&#34;中文&#34;开始切分的，而反向则是从&#34;算法&#34;开始切分的。 除了反向的切分，其中对于切分块内的文本依次去掉最后一个字符也变为了依次去掉第一个字符，比如正向第一个切分块&#34;中文&#34;后，如果没有匹配到，则去掉&#34;文&#34;，再对&#34;中&#34;字符进行匹配，而反向则是拿到&#34;算法&#34;后，如果没有匹配到，则是去掉&#34;算&#34;，再对&#34;法&#34;进行匹配。 反向最大匹配算法对比于正向最大匹配算法来说，可以解决一定的交集型歧义，比如本文&#34;他说的确实在理&#34;，理想情况下希望的分词结果中包含&#34;确实&#34;这一词，而正向最大匹配算法结果为&#34;他/说/的确/实/在理&#34;，而反向最大匹配算法的结果为&#34;他/说/的/确实/在理&#34;。 这两种方式很难区分到底谁好谁坏，比如上面的问题中，如果你希望的分词为&#34;的确&#34;，但是如果使用反向的话就很难被分出来。 反向最大匹配算法具体的实现代码：">
-  <meta property="og:locale" content="en_us">
+  <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="blog">
     <meta property="article:published_time" content="2020-11-08T10:36:34+00:00">
@@ -260,65 +260,56 @@ sentence = &#39;中文分词算法&#39; # 输入的句子 cutList = [&#39;分词
 
 </style>
 
-
-  
-
-
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.css" integrity="sha384-sMefv1J1YJCHsg0mTa9YG+n/9KnJb9lGrJUUY5arg6bAL1qps/oZjmUwaHlX5Ugg" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.js" integrity="sha384-i9p+YmlwbK0lT9RcfgdAo/Cikui1KeFMeV/0Fwsu+rzgsCvas6oUptNOmo29C33p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-V5WKEHZ2PS');
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false,
+          newLineInDisplayMode: true,
+          strict: false
+        });
+    });
 </script>
-
-<script type="text/javascript"
-        async
-        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-
-
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[\[','\]\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-
-MathJax.Hub.Queue(function() {
-    
-    
-    
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i = 0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
-</script>
-
 <style>
-code.has-jax {
-    font: inherit;
-    font-size: 100%;
-    background: inherit;
-    border: inherit;
-    color: #515151;
-}
+    .katex * {
+        font-size: 90%;
+    }
 </style>
 
 
 
 
 
-<style>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '\/home\/runner\/work\/YizhouWebsiteSource\/YizhouWebsiteSource\/content\/blog\/chinesecutwords-1.md');
+        }
+      </script>
 
+
+
+
+<style>
   body {
        
       font-family: Georgia,serif;
@@ -342,7 +333,31 @@ code.has-jax {
   tr {
     border: solid 1px;
   }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
 </style>
+
+
+
+<script>
+    window.onload = function(){
+        title = document.getElementsByClassName('title')[0];
+        if (document.URL.split('/')[3] == 'en') {
+            title.href = '/en';
+        } else {
+            title.href = '/';
+        }
+    }
+</script>
+
+
+
+
+
+
 </head>
 
 <body>
@@ -364,6 +379,9 @@ code.has-jax {
   </i>
 </p>
 
+
+
+
 <content>
   <p>中文分词是指将文本拆分为单词的过程，而结果集合连接起来是等于原始的文本，而中文分词一直作为NLP领域的比较重要的领域，而大多数的文本挖掘都是以分词为基础，但中文不同于英文，英文每个单词是用空格分隔，整体语义上相对于中文难度低很多。 而业务上一直有中文分词的需求，但是之前因为在忙于另外一个项目，所以一直没有研究。 近期稍空闲开始研究了相关的中文分词算法，发现中文分词总体算比较成熟，但是其中对于未登录词或者某个特定专业领域文本大部分算法分词的结果不尽人意，需要结合多种算法或者人工词典才能达到稍微好一点的效果。 中文分词的方式一共有两种，分别为：</p>
 <ol>
@@ -375,55 +393,55 @@ code.has-jax {
 <p>基于词典的分词算法实际上就是对于类似字典的数据结构进行查询，对于未在词典内的词识别较弱和交集型歧义理解能力也较弱，比如“结婚的和尚未结婚的”，理想的情况是&quot;结婚/的/和/尚未/结婚/的&quot;，而实际中则会被分词为&quot;结婚/的/和尚/未/结婚/的&quot;。 但好在词典分词的速度则非常快，词典分词目前已有非常成熟高效的解决方案，并且有非常多的工具来帮你实现相关的高效数据结构和查询方式，比如<a href="https://zh.wikipedia.org/wiki/Trie">Trie树</a>和<a href="https://zh.wikipedia.org/wiki/AC%E8%87%AA%E5%8A%A8%E6%9C%BA%E7%AE%97%E6%B3%95">AC自动机</a>，但在这里为了方便理解和记录，只采用了尽可能简单的方式来记录其几种算法的实现和原理。</p>
 <h3 id="正向最大匹配算法forward-maximum-matching">正向最大匹配算法（Forward Maximum Matching）</h3>
 <p>正向最大匹配算法类似于人的阅读习惯，即从左到右进行识别，而其中的&quot;最大&quot;是基于词典中最长字符的长度作为最大的匹配宽度，然后每次根据这个宽度对文本进行切分并取出来查询词典。如果当前取出来的词能在词典当中查询当则返回，并下一次切分的开始位置为该词的位置+1。而如果当前取出的部分没有在词典中查找到，则将该部分去掉最后一个字符后再进行查找，一直重复直到匹配到了词典中的词。如果整个部分只剩余一个字符，并没有匹配到词典中的词，则将最后剩余的这个字符输出，然后根据这个字符的位置+1开始再次进行切分和查询。 比如，有一段文本&quot;中文分词算法&quot;，字典中只包含了一个词&quot;分词&quot;，这个时候最大的匹配宽度也为2，所以整段文本按照2个字符进行切分。第一次得到&quot;中文&quot;文本，查找词典并无该词，则在该部分上去掉最后的字符，得到&quot;中&quot;，再次查询词典并无该词，此时查找结束，所以不需要再进行匹配，则这个切分记为[&ldquo;中&rdquo;]。 继续进行第二次切分，得到的文本为&quot;文分&quot;，进行查询词典，第一次查询&quot;文分&quot;在字典中不存在，去掉最后一个字符，继续以剩余部分&rsquo;文&rsquo;查询第二次，未查询到，那么返回最后这个字符&quot;文&quot;，加上次的结果记作[&ldquo;中&rdquo;,&ldquo;文&rdquo;] 继续第三次切分，得到文本&quot;分词&quot;，进行查询词典，查询到该词在字典当中，所以直接记录在之前的结果当中，记作[&ldquo;中&rdquo;, &ldquo;文&rdquo;, &ldquo;分词&rdquo;]。 继续第四次切分，得到文本&quot;算法&quot;，进行查询字典，第一次查询&quot;算法&quot;在字典中不存在，去掉最后一个字符，继续以剩余部分&rsquo;算&rsquo;查询第二次，未查询到，那么返回最后这个字符&quot;算&quot;，加上次的结果记作[&ldquo;中&rdquo;, &ldquo;文&rdquo;, &ldquo;分词&rdquo;, &ldquo;算&rdquo;] 继续第五次切分，因为最后只剩余一个字符，所以这个时候可以不进行匹配即返回，所以最终的结果为[&ldquo;中&rdquo;, &ldquo;文&rdquo;, &ldquo;分词&rdquo;, &ldquo;算&rdquo;, &ldquo;法&rdquo;] 整体分词的过程本质对每个分块进行查找，并依次去掉最后字符查询，而网上还有一部分是没有使用最大宽度切分，即会对每个字符到文本结束的位置都会依次遍历，这样的方式实际上会浪费较多的资源，因为即使从头到尾依次遍历匹配，但最长词的长度是固定的，所以真正开始匹配还是从最长词的长度开始，而其余的遍历都是浪费了资源。 正向最大匹配算法具体的实现代码：</p>
-<pre tabindex="0"><code>sentence = &#39;中文分词算法&#39; # 输入的句子
-cutList = [&#39;分词&#39;]  # 分词词典
-
-start = 0 #设置切分起始位置
-maxWidth = len(max(cutList, key=len)) # 得到字典当中最大的切分宽度
-cut_result = [] # 设置一个空的分词结果
-
-while (start &lt;= len(sentence)):  #开始循环，如果start大于等于句子长度则停止分词
-    end = start + maxWidth     # 计算每次切分的停止位置
-    word = sentence[start: end] # 开始切分，文本为变量start和end的区间内字符
-    while ( word ) :  # python对于空字符串会转换为False
-        if ( word in cutList ) :  # 查看第一次切分后是否能在词典中匹配，如果匹配则放入最终的分词结果列表cut_result,并跳出循环
-            cut_result.append(word)
-            start = start + len(word) - 1  # 然后将开始位置设置为当前开始位置加上被匹配词的长度
-            break 
-        if (len(word[:-1]) == 0):
-            cut_result.append(word) # 如果最后一个字符也没有被匹配到，那么返回最后一个字符
-            break
-        word = word[:-1]  # 将word去掉最后一个字符串并重新计算
-    start = start + 1  # 将位置加1
-
-print(cut_result)
-#[&#39;中&#39;, &#39;文&#39;, &#39;分词&#39;, &#39;算&#39;, &#39;法&#39;] 
-</code></pre><h3 id="反向最大匹配算法backward-maximum-matching">反向最大匹配算法（Backward Maximum Matching）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>sentence <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;中文分词算法&#39;</span> <span style="color:#75715e"># 输入的句子</span>
+</span></span><span style="display:flex;"><span>cutList <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;分词&#39;</span>]  <span style="color:#75715e"># 分词词典</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>start <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#75715e">#设置切分起始位置</span>
+</span></span><span style="display:flex;"><span>maxWidth <span style="color:#f92672">=</span> len(max(cutList, key<span style="color:#f92672">=</span>len)) <span style="color:#75715e"># 得到字典当中最大的切分宽度</span>
+</span></span><span style="display:flex;"><span>cut_result <span style="color:#f92672">=</span> [] <span style="color:#75715e"># 设置一个空的分词结果</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> (start <span style="color:#f92672">&lt;=</span> len(sentence)):  <span style="color:#75715e">#开始循环，如果start大于等于句子长度则停止分词</span>
+</span></span><span style="display:flex;"><span>    end <span style="color:#f92672">=</span> start <span style="color:#f92672">+</span> maxWidth     <span style="color:#75715e"># 计算每次切分的停止位置</span>
+</span></span><span style="display:flex;"><span>    word <span style="color:#f92672">=</span> sentence[start: end] <span style="color:#75715e"># 开始切分，文本为变量start和end的区间内字符</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> ( word ) :  <span style="color:#75715e"># python对于空字符串会转换为False</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ( word <span style="color:#f92672">in</span> cutList ) :  <span style="color:#75715e"># 查看第一次切分后是否能在词典中匹配，如果匹配则放入最终的分词结果列表cut_result,并跳出循环</span>
+</span></span><span style="display:flex;"><span>            cut_result<span style="color:#f92672">.</span>append(word)
+</span></span><span style="display:flex;"><span>            start <span style="color:#f92672">=</span> start <span style="color:#f92672">+</span> len(word) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>  <span style="color:#75715e"># 然后将开始位置设置为当前开始位置加上被匹配词的长度</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (len(word[:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>):
+</span></span><span style="display:flex;"><span>            cut_result<span style="color:#f92672">.</span>append(word) <span style="color:#75715e"># 如果最后一个字符也没有被匹配到，那么返回最后一个字符</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        word <span style="color:#f92672">=</span> word[:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]  <span style="color:#75715e"># 将word去掉最后一个字符串并重新计算</span>
+</span></span><span style="display:flex;"><span>    start <span style="color:#f92672">=</span> start <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>  <span style="color:#75715e"># 将位置加1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(cut_result)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[&#39;中&#39;, &#39;文&#39;, &#39;分词&#39;, &#39;算&#39;, &#39;法&#39;] </span>
+</span></span></code></pre></div><h3 id="反向最大匹配算法backward-maximum-matching">反向最大匹配算法（Backward Maximum Matching）</h3>
 <p>反向最大匹配算法与正向最大匹配算法是相反的，比如&quot;中文分词算法&quot;文本的正向最大匹配算法在切分宽度为2的时候，是从&quot;中文&quot;开始切分的，而反向则是从&quot;算法&quot;开始切分的。 除了反向的切分，其中对于切分块内的文本依次去掉最后一个字符也变为了依次去掉第一个字符，比如正向第一个切分块&quot;中文&quot;后，如果没有匹配到，则去掉&quot;文&quot;，再对&quot;中&quot;字符进行匹配，而反向则是拿到&quot;算法&quot;后，如果没有匹配到，则是去掉&quot;算&quot;，再对&quot;法&quot;进行匹配。 反向最大匹配算法对比于正向最大匹配算法来说，可以解决一定的交集型歧义，比如本文&quot;他说的确实在理&quot;，理想情况下希望的分词结果中包含&quot;确实&quot;这一词，而正向最大匹配算法结果为&quot;他/说/的确/实/在理&quot;，而反向最大匹配算法的结果为&quot;他/说/的/确实/在理&quot;。 这两种方式很难区分到底谁好谁坏，比如上面的问题中，如果你希望的分词为&quot;的确&quot;，但是如果使用反向的话就很难被分出来。 反向最大匹配算法具体的实现代码：</p>
-<pre tabindex="0"><code>sentence = &#39;他说的确实在理&#39; # 输入的句子
-cutList = [&#39;的确&#39;, &#39;确实&#39;]  # 分词词典
-start = len(sentence) #设置切分起始位置为该文本的最后一个字符
-maxWidth = len(max(cutList, key=len)) # 得到字典当中最大的切分宽度
-cut_result = [] # 设置一个空的分词结果
-
-while (start &gt; 0):  #开始循环，如果start大于等于句子长度则停止分词
-    end = start - maxWidth   # 计算结束位置，结束位置为开始位置减去宽度
-    word = sentence[end: start] # 开始切分，文本为变量end和start的区间内字符
-    while ( word ) :  # python对于空字符串会转换为False
-        if ( word in cutList ) :  # 查看第一次切分后是否能在词典中匹配，如果匹配则放入最终的分词结果列表cut_result,并跳出循环
-            cut_result.insert(0,word)
-            start = start - len(word) + 1  # 然后将开始位置设置为当前开始位置加上被匹配词的长度
-            break
-        if (len(word) == 1):
-            cut_result.insert(0, word) # 返回最后一个字符
-            break
-        word = word[1:]  # 将word去掉第一个字符串并重新计算
-    start = start - 1  # 将位置减1
-cut_result.insert(0, sentence[0]) # 将剩余的第一个字符添加进结果
-
-print(cut_result)
-#[&#39;他&#39;, &#39;说&#39;, &#39;的&#39;, &#39;确实&#39;, &#39;在&#39;, &#39;理&#39;] 
-</code></pre><h3 id="双向最大匹配算法bidirectional-maximum-match">双向最大匹配算法（Bidirectional Maximum Match）</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>sentence <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;他说的确实在理&#39;</span> <span style="color:#75715e"># 输入的句子</span>
+</span></span><span style="display:flex;"><span>cutList <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;的确&#39;</span>, <span style="color:#e6db74">&#39;确实&#39;</span>]  <span style="color:#75715e"># 分词词典</span>
+</span></span><span style="display:flex;"><span>start <span style="color:#f92672">=</span> len(sentence) <span style="color:#75715e">#设置切分起始位置为该文本的最后一个字符</span>
+</span></span><span style="display:flex;"><span>maxWidth <span style="color:#f92672">=</span> len(max(cutList, key<span style="color:#f92672">=</span>len)) <span style="color:#75715e"># 得到字典当中最大的切分宽度</span>
+</span></span><span style="display:flex;"><span>cut_result <span style="color:#f92672">=</span> [] <span style="color:#75715e"># 设置一个空的分词结果</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> (start <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>):  <span style="color:#75715e">#开始循环，如果start大于等于句子长度则停止分词</span>
+</span></span><span style="display:flex;"><span>    end <span style="color:#f92672">=</span> start <span style="color:#f92672">-</span> maxWidth   <span style="color:#75715e"># 计算结束位置，结束位置为开始位置减去宽度</span>
+</span></span><span style="display:flex;"><span>    word <span style="color:#f92672">=</span> sentence[end: start] <span style="color:#75715e"># 开始切分，文本为变量end和start的区间内字符</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> ( word ) :  <span style="color:#75715e"># python对于空字符串会转换为False</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ( word <span style="color:#f92672">in</span> cutList ) :  <span style="color:#75715e"># 查看第一次切分后是否能在词典中匹配，如果匹配则放入最终的分词结果列表cut_result,并跳出循环</span>
+</span></span><span style="display:flex;"><span>            cut_result<span style="color:#f92672">.</span>insert(<span style="color:#ae81ff">0</span>,word)
+</span></span><span style="display:flex;"><span>            start <span style="color:#f92672">=</span> start <span style="color:#f92672">-</span> len(word) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>  <span style="color:#75715e"># 然后将开始位置设置为当前开始位置加上被匹配词的长度</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (len(word) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            cut_result<span style="color:#f92672">.</span>insert(<span style="color:#ae81ff">0</span>, word) <span style="color:#75715e"># 返回最后一个字符</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        word <span style="color:#f92672">=</span> word[<span style="color:#ae81ff">1</span>:]  <span style="color:#75715e"># 将word去掉第一个字符串并重新计算</span>
+</span></span><span style="display:flex;"><span>    start <span style="color:#f92672">=</span> start <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>  <span style="color:#75715e"># 将位置减1</span>
+</span></span><span style="display:flex;"><span>cut_result<span style="color:#f92672">.</span>insert(<span style="color:#ae81ff">0</span>, sentence[<span style="color:#ae81ff">0</span>]) <span style="color:#75715e"># 将剩余的第一个字符添加进结果</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(cut_result)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[&#39;他&#39;, &#39;说&#39;, &#39;的&#39;, &#39;确实&#39;, &#39;在&#39;, &#39;理&#39;] </span>
+</span></span></code></pre></div><h3 id="双向最大匹配算法bidirectional-maximum-match">双向最大匹配算法（Bidirectional Maximum Match）</h3>
 <p>双向最大匹配算法是将正向和反向结果的颗粒度进行比较的一种算法，本质上是一种规则系统，该规则为如下：</p>
 <ol>
 <li>返回词数最少的结果</li>
@@ -433,16 +451,16 @@ print(cut_result)
 <p>因为双向最大匹配算法实际上是一种规则系统，只需要对结果进行判断优先返回哪种结果，所以这里就不过多的说明。但需要注意的是采用双向最大匹配算法实际上运行了两种算法，所以对于运算量来说是双倍。</p>
 <h3 id="最少词数算法minimal-word-count">最少词数算法（Minimal Word Count）</h3>
 <p>最少词数算法也被称为最少切分算法，最少词数算法的本质是将一段文本分词的结果最少，最少次数算法整个过程是将字典按照长度进行排序，首先对最长的字典中的词进行匹配字符串，如果有则切分，并继续匹配下一个字典中的词，如果没有则继续匹配按照顺序匹配。 比如&quot;独立自主和平等互利的原则&quot;，正向匹配的结果为&quot;独立自主/和平/等/互利/的/原则&quot;，而最少词数的结果&quot;独立自主/和/平等互利/的/原则&quot;。 下面为一个非常简单的实现：</p>
-<pre tabindex="0"><code>sentence = &#39;独立自主和平等互利的原则&#39; # 输入的句子
-cutList = [&#39;独立自主&#39;, &#39;平等互利&#39;, &#39;独立&#39;, &#39;自主&#39;, &#39;和平&#39;, &#39;平等&#39;, &#39;互利&#39;, &#39;原则&#39;]  # 分词词典
-cutList = sorted(cutList, key=len, reverse=True) # 字典排序
-for cut in cutList:
-    if(&#39;/%s&#39;%cut not in sentence and &#39;%s/&#39;%cut not in sentence and cut in sentence) :
-        sentence = sentence.replace(cut, &#39;/%s/&#39;%cut)
-
-print(sentence)
-#/独立自主/和/平等互利/的/原则 
-</code></pre><h2 id="参考文档">参考文档</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>sentence <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;独立自主和平等互利的原则&#39;</span> <span style="color:#75715e"># 输入的句子</span>
+</span></span><span style="display:flex;"><span>cutList <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;独立自主&#39;</span>, <span style="color:#e6db74">&#39;平等互利&#39;</span>, <span style="color:#e6db74">&#39;独立&#39;</span>, <span style="color:#e6db74">&#39;自主&#39;</span>, <span style="color:#e6db74">&#39;和平&#39;</span>, <span style="color:#e6db74">&#39;平等&#39;</span>, <span style="color:#e6db74">&#39;互利&#39;</span>, <span style="color:#e6db74">&#39;原则&#39;</span>]  <span style="color:#75715e"># 分词词典</span>
+</span></span><span style="display:flex;"><span>cutList <span style="color:#f92672">=</span> sorted(cutList, key<span style="color:#f92672">=</span>len, reverse<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>) <span style="color:#75715e"># 字典排序</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> cut <span style="color:#f92672">in</span> cutList:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#e6db74">&#39;/</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">%</span>cut <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> sentence <span style="color:#f92672">and</span> <span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">/&#39;</span><span style="color:#f92672">%</span>cut <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> sentence <span style="color:#f92672">and</span> cut <span style="color:#f92672">in</span> sentence) :
+</span></span><span style="display:flex;"><span>        sentence <span style="color:#f92672">=</span> sentence<span style="color:#f92672">.</span>replace(cut, <span style="color:#e6db74">&#39;/</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">/&#39;</span><span style="color:#f92672">%</span>cut)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(sentence)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#/独立自主/和/平等互利/的/原则 </span>
+</span></span></code></pre></div><h2 id="参考文档">参考文档</h2>
 <ol>
 <li><a href="https://www.cnblogs.com/cyandn/p/10891608.html">https://www.cnblogs.com/cyandn/p/10891608.html</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/103392455">https://zhuanlan.zhihu.com/p/103392455</a></li>
@@ -459,7 +477,7 @@ print(sentence)
 
   </main>
   <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
-        property="dct:title">Lucas'blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+        property="dct:title">Lucas's blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
         href="http://vec6.com">lucas</a> is licensed under <a
         href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
         rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img
@@ -467,8 +485,23 @@ print(sentence)
             src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
             style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
             src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a>
-    theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a>
-</p></footer>
+    | theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a> 
+    <br />
+    Language Switcher: 
+
+    
+    
+    
+    <a title="English" href="/en">English</a>
+    
+    
+    
+
+    
+</p>
+
+
+</footer>
 
     
 

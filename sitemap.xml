@@ -1,80 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url>
-    <loc>https://vec6.com/</loc>
-    <lastmod>2025-01-12T21:53:34+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/</loc>
-    <lastmod>2025-01-12T21:53:34+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/tags/datascience/</loc>
-    <lastmod>2025-01-12T21:53:34+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/tags/math/</loc>
-    <lastmod>2025-01-12T21:53:34+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/groupbyofpandas/</loc>
-    <lastmod>2025-01-12T21:53:34+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/tags/</loc>
-    <lastmod>2025-01-12T21:53:34+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/variablecorrelation/</loc>
-    <lastmod>2025-01-12T21:53:34+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/longwidedata/</loc>
-    <lastmod>2025-01-11T23:53:34+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/handlingmissinginvalidvalues/</loc>
-    <lastmod>2025-01-04T11:20:35+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/standarddeviation/</loc>
-    <lastmod>2025-01-04T11:20:35+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/normalizationandstandardization/</loc>
-    <lastmod>2025-01-04T10:53:34+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/sqlforanalysis/</loc>
-    <lastmod>2024-12-29T21:36:34+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/data-science-methodology/</loc>
-    <lastmod>2024-11-20T23:36:34+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/google-hacking-test/</loc>
-    <lastmod>2022-10-11T01:52:49+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/tags/random/</loc>
-    <lastmod>2022-10-11T01:52:49+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/tags/developer/</loc>
-    <lastmod>2022-04-22T01:52:54+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/frontend-terms/</loc>
-    <lastmod>2022-04-22T01:52:54+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/inteliigence-terms/</loc>
-    <lastmod>2021-06-26T06:48:33+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/chinesecutwords-2/</loc>
-    <lastmod>2020-11-18T08:51:13+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/chinesecutwords-1/</loc>
-    <lastmod>2020-11-08T10:36:34+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/learning-conditional-probability/</loc>
-    <lastmod>2020-11-03T09:03:53+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/continuous-data-and-discrete-data/</loc>
-    <lastmod>2020-10-27T07:35:35+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/short-xss/</loc>
-    <lastmod>2013-08-21T14:04:13+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/about/</loc>
-  </url><url>
-    <loc>https://vec6.com/categories/</loc>
-  </url><url>
-    <loc>https://vec6.com/posts/</loc>
-  </url>
-</urlset>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <sitemap>
+    <loc>https://vec6.com/zh-cn/sitemap.xml</loc>
+    
+      <lastmod>2025-01-12T21:53:34+00:00</lastmod>
+    
+  </sitemap>
+  
+  <sitemap>
+    <loc>https://vec6.com/en/sitemap.xml</loc>
+    
+      <lastmod>2022-04-22T01:52:54+00:00</lastmod>
+    
+  </sitemap>
+  
+</sitemapindex>

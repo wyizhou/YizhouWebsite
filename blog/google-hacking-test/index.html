@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="zh-CN">
 
 <head>
   <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
@@ -127,7 +127,7 @@ intext：用于搜索单个词是否包含在正文中，比如搜索/intext:北
 inurl和allinurl：inurl和allinurl的使用方法和标题类、正文类一致。
 site：site高级操作符用于搜索某个特定的域名或者域，比如只搜索微博关于故宫的信息，那么搜索语法为/site:weibo.com 故宫/。而搜索特定的域，则指的是com、cn、edu.cn等域名的后缀，如搜索所有的国内学校研究生招生的情况，则搜索语法为/site:edu.cn 研究生招生/。
 inanchor：inanchor高级操作符用于搜索超链接的文本。比如链接地址为weibo.com/xxx，而这个链接的文本则显示为“我的微博”，在html表示为&lt;a href=&#34;https://weibo.com/xxx&#34;&gt;我的微博&lt;/a&gt;，inanchor就是用于搜索这个链接文本“我的微博”。 该操作符搜索返回的结果并非是网页中是否包含，而是直接返回该链接，比如“我的微博”这个链接存放在我的主页，Google并不会返回我的主页作为结果，而是将&#34;我的微博&#34;这条链接直接作为结果。">
-  <meta property="og:locale" content="en_us">
+  <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="blog">
     <meta property="article:published_time" content="2022-10-11T01:52:49+00:00">
@@ -378,65 +378,56 @@ inanchor：inanchor高级操作符用于搜索超链接的文本。比如链接�
 
 </style>
 
-
-  
-
-
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.css" integrity="sha384-sMefv1J1YJCHsg0mTa9YG+n/9KnJb9lGrJUUY5arg6bAL1qps/oZjmUwaHlX5Ugg" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.js" integrity="sha384-i9p+YmlwbK0lT9RcfgdAo/Cikui1KeFMeV/0Fwsu+rzgsCvas6oUptNOmo29C33p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-V5WKEHZ2PS');
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false,
+          newLineInDisplayMode: true,
+          strict: false
+        });
+    });
 </script>
-
-<script type="text/javascript"
-        async
-        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-
-
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[\[','\]\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-
-MathJax.Hub.Queue(function() {
-    
-    
-    
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i = 0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
-</script>
-
 <style>
-code.has-jax {
-    font: inherit;
-    font-size: 100%;
-    background: inherit;
-    border: inherit;
-    color: #515151;
-}
+    .katex * {
+        font-size: 90%;
+    }
 </style>
 
 
 
 
 
-<style>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '\/home\/runner\/work\/YizhouWebsiteSource\/YizhouWebsiteSource\/content\/blog\/google-hacking-test.md');
+        }
+      </script>
 
+
+
+
+<style>
   body {
        
       font-family: Georgia,serif;
@@ -460,7 +451,31 @@ code.has-jax {
   tr {
     border: solid 1px;
   }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
 </style>
+
+
+
+<script>
+    window.onload = function(){
+        title = document.getElementsByClassName('title')[0];
+        if (document.URL.split('/')[3] == 'en') {
+            title.href = '/en';
+        } else {
+            title.href = '/';
+        }
+    }
+</script>
+
+
+
+
+
+
 </head>
 
 <body>
@@ -481,6 +496,9 @@ code.has-jax {
     <hr />
   </i>
 </p>
+
+
+
 
 <content>
   <h2 id="前言">前言</h2>
@@ -585,10 +603,10 @@ code.has-jax {
 <li>《Google Hacking 技术手册》</li>
 <li><a href="https://www.indeed.com/career-advice/finding-a-job/google-search-operators">https://www.indeed.com/career-advice/finding-a-job/google-search-operators</a></li>
 <li><a href="https://kinsta.com/blog/google-search-operators/">https://kinsta.com/blog/google-search-operators/</a></li>
-<li><a href="https://support.google.com/websearch/answer/2466433?hl=en&amp;visit">https://support.google.com/websearch/answer/2466433?hl=en&amp;visit</a>_id=638009788259931665-4261219002&amp;rd=1</li>
+<li><a href="https://support.google.com/websearch/answer/2466433?hl=en&amp;visit">https://support.google.com/websearch/answer/2466433?hl=en&visit</a>_id=638009788259931665-4261219002&amp;rd=1</li>
 <li><a href="https://securitytrails.com/blog/google-hacking-techniques">https://securitytrails.com/blog/google-hacking-techniques</a></li>
 <li><a href="https://www.google.com/search/howsearchworks/how-search-works/ranking-results/">https://www.google.com/search/howsearchworks/how-search-works/ranking-results/</a></li>
-<li><a href="https://www.google.com/alerts#">https://www.google.com/alerts#</a></li>
+<li><a href="https://www.google.com/alerts">https://www.google.com/alerts#</a></li>
 <li><a href="https://developers.google.com/search/docs/advanced/guidelines/webmaster-guidelines?hl=zh-cn">https://developers.google.com/search/docs/advanced/guidelines/webmaster-guidelines?hl=zh-cn</a></li>
 </ol>
 
@@ -601,7 +619,7 @@ code.has-jax {
 
   </main>
   <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
-        property="dct:title">Lucas'blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+        property="dct:title">Lucas's blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
         href="http://vec6.com">lucas</a> is licensed under <a
         href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
         rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img
@@ -609,8 +627,21 @@ code.has-jax {
             src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
             style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
             src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a>
-    theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a>
-</p></footer>
+    | theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a> 
+    <br />
+    Language Switcher: 
+
+    
+    
+    <a title="English" href="/en">English</a>
+    
+    
+
+    
+</p>
+
+
+</footer>
 
     
 

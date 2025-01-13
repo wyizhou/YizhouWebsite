@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="zh-CN">
 
 <head>
   <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
@@ -67,7 +67,7 @@ Name: Sell, dtype: int64
 汇总统计：快速计算每组的总和、平均值等。 数据对比：比较不同组之间的表现差异。 异常值检测：发现某些组内的异常数据点。 特征工程：在机器学习中，利用组间统计量创建新特征（如组内平均、组内计数等）。 数据清洗：根据组的统计信息进行数据修正或填补缺失值。 基础统计 比如数据电商的水果销售数据，然后进行多种不同分组的统计，第一种按照水果类别进行统计总销售额：
 import pandas as pd data = { &#39;Date&#39;: [&#39;2023-01-01&#39;, &#39;2023-01-01&#39;, &#39;2023-01-02&#39;, &#39;2023-01-02&#39;, &#39;2023-01-03&#39;, &#39;2023-01-03&#39;, &#39;2023-01-04&#39;, &#39;2023-01-04&#39;], &#39;Category&#39;: [&#39;水果&#39;, &#39;蔬菜&#39;, &#39;水果&#39;, &#39;饮料&#39;, &#39;蔬菜&#39;, &#39;饮料&#39;, &#39;水果&#39;, &#39;蔬菜&#39;], &#39;Sell&#39;: [200, 150, 220, 180, 160, 190, 210, 170] } df = pd.DataFrame(data) grouped = df.groupby(&#39;Category&#39;)[&#39;Sell&#39;].sum() &gt;&gt;&gt; print(grouped) Category 水果 630 蔬菜 480 饮料 370 Name: Sell, dtype: int64 第二种为按照两个数据进行分组，这里按照日期和水果类别统计：
 grouped = df.groupby([&#39;Date&#39;, &#39;Category&#39;])[&#39;Sell&#39;].sum() &gt;&gt;&gt; print(grouped) Date Category 2023-01-01 水果 200 蔬菜 150 2023-01-02 水果 220 饮料 180 2023-01-03 蔬菜 160 饮料 190 2023-01-04 水果 210 蔬菜 170 Name: Sell, dtype: int64 复杂统计 常见的复杂统计主要几种在聚合(aggregation)、转换(transformation)和过滤(Filtering)。">
-  <meta property="og:locale" content="en_us">
+  <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="blog">
     <meta property="article:published_time" content="2025-01-12T21:53:34+00:00">
@@ -274,65 +274,56 @@ grouped = df.groupby([&#39;Date&#39;, &#39;Category&#39;])[&#39;Sell&#39;].sum()
 
 </style>
 
-
-  
-
-
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.css" integrity="sha384-sMefv1J1YJCHsg0mTa9YG+n/9KnJb9lGrJUUY5arg6bAL1qps/oZjmUwaHlX5Ugg" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.js" integrity="sha384-i9p+YmlwbK0lT9RcfgdAo/Cikui1KeFMeV/0Fwsu+rzgsCvas6oUptNOmo29C33p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-V5WKEHZ2PS');
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false,
+          newLineInDisplayMode: true,
+          strict: false
+        });
+    });
 </script>
-
-<script type="text/javascript"
-        async
-        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-
-
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[\[','\]\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-
-MathJax.Hub.Queue(function() {
-    
-    
-    
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i = 0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
-</script>
-
 <style>
-code.has-jax {
-    font: inherit;
-    font-size: 100%;
-    background: inherit;
-    border: inherit;
-    color: #515151;
-}
+    .katex * {
+        font-size: 90%;
+    }
 </style>
 
 
 
 
 
-<style>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '\/home\/runner\/work\/YizhouWebsiteSource\/YizhouWebsiteSource\/content\/blog\/groupbyofpandas.md');
+        }
+      </script>
 
+
+
+
+<style>
   body {
        
       font-family: Georgia,serif;
@@ -356,7 +347,31 @@ code.has-jax {
   tr {
     border: solid 1px;
   }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
 </style>
+
+
+
+<script>
+    window.onload = function(){
+        title = document.getElementsByClassName('title')[0];
+        if (document.URL.split('/')[3] == 'en') {
+            title.href = '/en';
+        } else {
+            title.href = '/';
+        }
+    }
+</script>
+
+
+
+
+
+
 </head>
 
 <body>
@@ -377,6 +392,9 @@ code.has-jax {
     <hr />
   </i>
 </p>
+
+
+
 
 <content>
   <p>Pandas中的groupby用于将某些类别进行数据分组，然后对每个组分别执行基础的统计以及复杂的聚合、转换和过滤等操作。</p>
@@ -488,7 +506,7 @@ code.has-jax {
 
   </main>
   <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
-        property="dct:title">Lucas'blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+        property="dct:title">Lucas's blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
         href="http://vec6.com">lucas</a> is licensed under <a
         href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
         rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img
@@ -496,8 +514,21 @@ code.has-jax {
             src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
             style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
             src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a>
-    theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a>
-</p></footer>
+    | theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a> 
+    <br />
+    Language Switcher: 
+
+    
+    
+    <a title="English" href="/en">English</a>
+    
+    
+
+    
+</p>
+
+
+</footer>
 
     
 

@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Lucas Wu</title>
-    <link>https://vec6.com/categories/</link>
+    <link>https://vec6.com/en/categories/</link>
     <description>Recent content in Categories on Lucas Wu</description>
     <generator>Hugo</generator>
-    <language>zh-CN</language>
-    <atom:link href="https://vec6.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <atom:link href="https://vec6.com/en/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

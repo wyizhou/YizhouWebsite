@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Understanding Front-End Technology Stacks | Lucas Wu</title>
+<meta name="title" content="Understanding Front-End Technology Stacks" />
+<meta name="description" content="In recent years, single-page applications (SPA) have developed rapidly. From the early days of using JavaScript to write large amounts of HTML templates for SPAs, to the current dominance of frameworks like React and Vue, the front-end ecosystem has advanced at an astonishing pace. It feels like new technologies emerge constantly, and without keeping up, it’s easy to fall behind.
+At its core, every new technology, when explored deeply, turns out to be more complex than it seems at first glance. Over time, however, some concepts start to make sense—this is the essence of &ldquo;deeply understanding something to make it simple.&rdquo; SPAs are inherently complex technologies, and many frameworks and tools have been developed to address these complexities, such as React, Vue, React-router, and Redux. For beginners, learning all these tools at once can be overwhelming. However, at a fundamental level, libraries like React and Vue are not drastically different; they are both solutions designed for SPAs. The main philosophy of these libraries is to divide web applications into reusable components. Each component can include other components to enhance reusability." />
+<meta name="keywords" content="Developer," />
+
+
+<meta property="og:url" content="https://vec6.com/en/blog/frontend-terms/">
+  <meta property="og:site_name" content="Lucas Wu">
+  <meta property="og:title" content="Understanding Front-End Technology Stacks">
+  <meta property="og:description" content="In recent years, single-page applications (SPA) have developed rapidly. From the early days of using JavaScript to write large amounts of HTML templates for SPAs, to the current dominance of frameworks like React and Vue, the front-end ecosystem has advanced at an astonishing pace. It feels like new technologies emerge constantly, and without keeping up, it’s easy to fall behind.
+At its core, every new technology, when explored deeply, turns out to be more complex than it seems at first glance. Over time, however, some concepts start to make sense—this is the essence of “deeply understanding something to make it simple.” SPAs are inherently complex technologies, and many frameworks and tools have been developed to address these complexities, such as React, Vue, React-router, and Redux. For beginners, learning all these tools at once can be overwhelming. However, at a fundamental level, libraries like React and Vue are not drastically different; they are both solutions designed for SPAs. The main philosophy of these libraries is to divide web applications into reusable components. Each component can include other components to enhance reusability.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2022-04-22T01:52:54+00:00">
+    <meta property="article:modified_time" content="2022-04-22T01:52:54+00:00">
+    <meta property="article:tag" content="Developer">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Understanding Front-End Technology Stacks">
+  <meta name="twitter:description" content="In recent years, single-page applications (SPA) have developed rapidly. From the early days of using JavaScript to write large amounts of HTML templates for SPAs, to the current dominance of frameworks like React and Vue, the front-end ecosystem has advanced at an astonishing pace. It feels like new technologies emerge constantly, and without keeping up, it’s easy to fall behind.
+At its core, every new technology, when explored deeply, turns out to be more complex than it seems at first glance. Over time, however, some concepts start to make sense—this is the essence of “deeply understanding something to make it simple.” SPAs are inherently complex technologies, and many frameworks and tools have been developed to address these complexities, such as React, Vue, React-router, and Redux. For beginners, learning all these tools at once can be overwhelming. However, at a fundamental level, libraries like React and Vue are not drastically different; they are both solutions designed for SPAs. The main philosophy of these libraries is to divide web applications into reusable components. Each component can include other components to enhance reusability.">
+
+
+
+
+  <meta itemprop="name" content="Understanding Front-End Technology Stacks">
+  <meta itemprop="description" content="In recent years, single-page applications (SPA) have developed rapidly. From the early days of using JavaScript to write large amounts of HTML templates for SPAs, to the current dominance of frameworks like React and Vue, the front-end ecosystem has advanced at an astonishing pace. It feels like new technologies emerge constantly, and without keeping up, it’s easy to fall behind.
+At its core, every new technology, when explored deeply, turns out to be more complex than it seems at first glance. Over time, however, some concepts start to make sense—this is the essence of “deeply understanding something to make it simple.” SPAs are inherently complex technologies, and many frameworks and tools have been developed to address these complexities, such as React, Vue, React-router, and Redux. For beginners, learning all these tools at once can be overwhelming. However, at a fundamental level, libraries like React and Vue are not drastically different; they are both solutions designed for SPAs. The main philosophy of these libraries is to divide web applications into reusable components. Each component can include other components to enhance reusability.">
+  <meta itemprop="datePublished" content="2022-04-22T01:52:54+00:00">
+  <meta itemprop="dateModified" content="2022-04-22T01:52:54+00:00">
+  <meta itemprop="wordCount" content="728">
+  <meta itemprop="keywords" content="Developer">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    background-color: initial;
+    color: initial;
+  }
+
+  div.highlight code {
+    background-color: unset;
+    color: unset;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.css" integrity="sha384-sMefv1J1YJCHsg0mTa9YG+n/9KnJb9lGrJUUY5arg6bAL1qps/oZjmUwaHlX5Ugg" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.js" integrity="sha384-i9p+YmlwbK0lT9RcfgdAo/Cikui1KeFMeV/0Fwsu+rzgsCvas6oUptNOmo29C33p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false,
+          newLineInDisplayMode: true,
+          strict: false
+        });
+    });
+</script>
+<style>
+    .katex * {
+        font-size: 90%;
+    }
+</style>
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '\/home\/runner\/work\/YizhouWebsiteSource\/YizhouWebsiteSource\/content\/blog\/frontend-terms.en.md');
+        }
+      </script>
+
+
+
+
+<style>
+  body {
+       
+      font-family: Georgia,serif;
+       
+  }
+
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+  }
+  
+  table { 
+    border-collapse: collapse; 
+    text-align: center;
+    font-size: 80%;
+  }
+
+  tr {
+    border: solid 1px;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+</style>
+
+
+
+<script>
+    window.onload = function(){
+        title = document.getElementsByClassName('title')[0];
+        if (document.URL.split('/')[3] == 'en') {
+            title.href = '/en';
+        } else {
+            title.href = '/';
+        }
+    }
+</script>
+
+
+
+
+
+
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Lucas Wu</h2>
+</a>
+<nav>
+</nav>
+</header>
+  <main>
+
+<h1>Understanding Front-End Technology Stacks</h1>
+<p>
+  <i>
+    <time datetime='2022-04-22' pubdate>
+      Create time:2022-04-22
+    </time>
+    <hr />
+  </i>
+</p>
+
+
+
+
+<content>
+  <p>In recent years, single-page applications (SPA) have developed rapidly. From the early days of using JavaScript to write large amounts of <code>HTML templates</code> for SPAs, to the current dominance of frameworks like React and Vue, the front-end ecosystem has advanced at an astonishing pace. It feels like new technologies emerge constantly, and without keeping up, it’s easy to fall behind.</p>
+<p>At its core, every new technology, when explored deeply, turns out to be more complex than it seems at first glance. Over time, however, some concepts start to make sense—this is the essence of &ldquo;deeply understanding something to make it simple.&rdquo; SPAs are inherently complex technologies, and many frameworks and tools have been developed to address these complexities, such as React, Vue, React-router, and Redux. For beginners, learning all these tools at once can be overwhelming. However, at a fundamental level, libraries like React and Vue are not drastically different; they are both solutions designed for SPAs. The main philosophy of these libraries is to divide web applications into reusable components. Each component can include other components to enhance reusability.</p>
+<p>To ensure reusability, components must display different content rather than being identical. This is where the concept of <strong>state</strong> comes in. States are divided into <code>props</code> and <code>state</code>:</p>
+<ul>
+<li><strong><code>props</code></strong>: States passed into the component from external sources.</li>
+<li><strong><code>state</code></strong>: States managed internally by the component.</li>
+</ul>
+<p>These UI libraries use advanced algorithms to re-render only the parts of the component that are affected by state changes, ensuring efficient updates.</p>
+<p>The need for state management is essentially to let libraries like React track specific values. When these values change, React can calculate and re-render components accordingly. For example, the following code demonstrates passing a <code>name</code> value to reuse a component containing an <code>&lt;h2&gt;</code> tag. The internal state for this is accessed via <code>props</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">Header</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;hello&#39;</span>&gt; // Output: &lt;<span style="color:#f92672">h2</span>&gt;Hello&lt;/<span style="color:#f92672">h2</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">Header</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;world&#39;</span>&gt; // Output: &lt;<span style="color:#f92672">h2</span>&gt;World&lt;/<span style="color:#f92672">h2</span>&gt;
+</span></span></code></pre></div><p>On the other hand, <code>state</code> is more commonly used internally within a component. For example, when a user clicks a button to fetch a quote, the component makes a request to the server, retrieves the quote, updates its state, and triggers a re-render to display the quote. While React facilitates these functionalities and encourages componentization and reusability, many components still need to be built manually. This is where &ldquo;component libraries&rdquo; come in.</p>
+<p>Component libraries, such as Ant Design and MaterialUI, provide a collection of pre-built, reusable components that can be directly used in projects, saving time and effort.</p>
+<h3 id="routing-in-single-page-applications">Routing in Single-Page Applications</h3>
+<p>After discussing UI and component libraries, another key feature of SPAs is routing. Routing can be implemented using plain JavaScript, for example:</p>
+<ul>
+<li>When a link is clicked, JavaScript clears (or hides) the current page content and renders the target content.</li>
+</ul>
+<p>However, this approach introduces some problems:</p>
+<ol>
+<li>Writing a large amount of code is required.</li>
+<li>Browser navigation features, such as forward and back, are lost.</li>
+<li>It becomes difficult to bookmark specific pages.</li>
+</ol>
+<p>Although these issues can be solved with additional code, libraries like <code>React-router-dom</code> emerged to simplify routing. These libraries encapsulate all the underlying logic, providing an easy-to-use API. Most developers no longer need to write or even understand the underlying code, as these libraries are ready to use out of the box.</p>
+<h3 id="state-management-props-and-state">State Management: <code>props</code> and <code>state</code></h3>
+<p>As previously mentioned, state management in React is divided into <code>props</code> (external state) and <code>state</code> (internal state). However, when component hierarchies become deeply nested, passing a state from the top-level component to the Nth-level component becomes cumbersome. Even components that don’t need the state must act as intermediaries to pass it along.</p>
+<p>This problem is solved by <strong>global state management solutions</strong> like Redux. Redux allows the entire web application to share a global state. States that need to be passed through multiple layers can be placed in this global state, freeing unrelated components from having to manage irrelevant states and letting relevant components focus only on the states they care about.</p>
+<p>Redux has an elegant design: application states cannot be modified directly. This is to avoid potential chaos in state management when multiple components try to modify states simultaneously. The Redux workflow for modifying states is as follows:</p>
+<ol>
+<li>A component initiates an action.</li>
+<li>The action is received by the <code>dispatch</code> function.</li>
+<li>The <code>reducer</code> processes the action.</li>
+<li>The state is updated.</li>
+<li>Components are re-rendered accordingly.</li>
+</ol>
+<p>By following this structured process, Redux ensures clear and manageable state updates in complex applications.</p>
+
+</content>
+<p>
+  
+  <a href="https://vec6.com/en/tags/developer/">#Developer</a>
+  
+</p>
+
+  </main>
+  <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
+        property="dct:title">Lucas's blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+        href="http://vec6.com">lucas</a> is licensed under <a
+        href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
+        rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a>
+    | theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a> 
+    <br />
+    Language Switcher: 
+
+    
+    
+    
+    <a title="zh_CN" href="/">Chinese</a>
+    
+    
+    
+
+    
+</p>
+
+
+</footer>
+
+    
+
+</body>
+
+</html>
