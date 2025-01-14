@@ -6,8 +6,22 @@
     <description>Recent content on Lucas Wu</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 22 Apr 2022 01:52:54 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 12 Jan 2025 21:53:34 +0000</lastBuildDate>
     <atom:link href="https://vec6.com/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Understanding Pandas Groupby</title>
+      <link>https://vec6.com/en/blog/groupbyofpandas/</link>
+      <pubDate>Sun, 12 Jan 2025 21:53:34 +0000</pubDate>
+      <guid>https://vec6.com/en/blog/groupbyofpandas/</guid>
+      <description>&lt;p&gt;The &lt;code&gt;groupby&lt;/code&gt; function in Pandas is used to group data by certain categories and perform basic statistical operations, complex aggregations, transformations, and filtering on each group.&lt;/p&gt;&#xA;&lt;p&gt;Common use cases include:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Summary Statistics&lt;/strong&gt;: Quickly calculate sums, averages, etc., for each group.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Data Comparison&lt;/strong&gt;: Compare performance differences between groups.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Outlier Detection&lt;/strong&gt;: Identify abnormal data points within groups.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Feature Engineering&lt;/strong&gt;: Create new features for machine learning, such as group-level means or counts.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Data Cleaning&lt;/strong&gt;: Correct or fill missing values using group-level statistics.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;basic-statistics&#34;&gt;Basic Statistics&lt;/h2&gt;&#xA;&lt;p&gt;Consider an e-commerce dataset of fruit sales. We can perform group-wise statistics in various ways.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>SQL for Data Science</title>
+      <link>https://vec6.com/en/blog/sqlforanalysis/</link>
+      <pubDate>Sun, 29 Dec 2024 21:36:34 +0000</pubDate>
+      <guid>https://vec6.com/en/blog/sqlforanalysis/</guid>
+      <description>&lt;p&gt;Using SQL to query data is a common practice in data science today. Many table-based data formats, such as DataFrame and Excel, support SQL queries. Moreover, tools like Jupyter Notebook&amp;rsquo;s Magic Statements and IPython_SQL provide seamless integration between SQL and Python.&lt;/p&gt;&#xA;&lt;h2 id=&#34;sql-overview&#34;&gt;SQL Overview&lt;/h2&gt;&#xA;&lt;p&gt;SQL, or Structured Query Language, is based on the relational model theory introduced by Edgar F. Codd in 1970. The model employs tables (data structures in tabular form) to represent data and relationships between them. Initially, SQL was designed for operating and querying relational databases.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Understanding Front-End Technology Stacks</title>
       <link>https://vec6.com/en/blog/frontend-terms/</link>
@@ -16,11 +30,25 @@
       <description>&lt;p&gt;In recent years, single-page applications (SPA) have developed rapidly. From the early days of using JavaScript to write large amounts of &lt;code&gt;HTML templates&lt;/code&gt; for SPAs, to the current dominance of frameworks like React and Vue, the front-end ecosystem has advanced at an astonishing pace. It feels like new technologies emerge constantly, and without keeping up, it’s easy to fall behind.&lt;/p&gt;&#xA;&lt;p&gt;At its core, every new technology, when explored deeply, turns out to be more complex than it seems at first glance. Over time, however, some concepts start to make sense—this is the essence of &amp;ldquo;deeply understanding something to make it simple.&amp;rdquo; SPAs are inherently complex technologies, and many frameworks and tools have been developed to address these complexities, such as React, Vue, React-router, and Redux. For beginners, learning all these tools at once can be overwhelming. However, at a fundamental level, libraries like React and Vue are not drastically different; they are both solutions designed for SPAs. The main philosophy of these libraries is to divide web applications into reusable components. Each component can include other components to enhance reusability.&lt;/p&gt;</description>
     </item>
     <item>
+      <title>(2) Talking About Chinese Word Segmentation: Trie, KMP, AC Automaton</title>
+      <link>https://vec6.com/en/blog/chinesecutwords-2/</link>
+      <pubDate>Wed, 18 Nov 2020 08:51:13 +0000</pubDate>
+      <guid>https://vec6.com/en/blog/chinesecutwords-2/</guid>
+      <description>&lt;h2 id=&#34;trie-tree&#34;&gt;Trie Tree&lt;/h2&gt;&#xA;&lt;p&gt;In the previous article, we discussed some matching algorithms. However, in addition to algorithms, an efficient data structure is necessary. Storing words in a simple list like [&amp;lsquo;中国人&amp;rsquo;, &amp;lsquo;中东人&amp;rsquo;] is not practical. Imagine having hundreds of thousands of words—the memory usage of such a list would be enormous.&lt;/p&gt;&#xA;&lt;p&gt;A Trie tree, also known as a prefix tree, originates from the word &lt;code&gt;retrieval&lt;/code&gt; and is pronounced like &amp;ldquo;try.&amp;rdquo; Trie trees provide an efficient data structure for word segmentation. Essentially, it is a tree-like structure. For example, a Trie tree constructed from the strings &amp;ldquo;中国人&amp;rdquo; and &amp;ldquo;中东人&amp;rdquo; would look like the diagram below. It’s clear from the structure that Trie trees effectively save memory space by reusing common prefixes like &amp;ldquo;中.&amp;rdquo;&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>(1) Talking About Chinese Word Segmentation: Maximum Matching, Bidirectional Matching, Minimal Word Count</title>
       <link>https://vec6.com/en/blog/chinesecutwords-1/</link>
       <pubDate>Sun, 08 Nov 2020 10:36:34 +0000</pubDate>
       <guid>https://vec6.com/en/blog/chinesecutwords-1/</guid>
       <description>&lt;p&gt;Chinese word segmentation refers to the process of dividing text into words, where the concatenated result equals the original text. Chinese word segmentation has always been a significant area in the NLP field. Most text mining tasks are based on it. However, Chinese differs from English, where words are separated by spaces, making English semantically less complex compared to Chinese.&lt;/p&gt;&#xA;&lt;p&gt;There has always been a business demand for Chinese word segmentation. However, due to being busy with other projects, I had not studied it thoroughly before. Recently, I started exploring Chinese word segmentation algorithms. While the field is relatively mature, its performance for out-of-vocabulary words or specific domain texts is often unsatisfactory. To achieve better results, a combination of algorithms or the use of manual dictionaries is often necessary.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Understanding Continuous and Discrete Data</title>
+      <link>https://vec6.com/en/blog/continuous-data-and-discrete-data/</link>
+      <pubDate>Tue, 27 Oct 2020 07:35:35 +0000</pubDate>
+      <guid>https://vec6.com/en/blog/continuous-data-and-discrete-data/</guid>
+      <description>&lt;p&gt;In statistics, a type of data is collectively referred to as a variable. The data of a variable is called an observation, and the specific value of a variable is known as an observed value. For example, in the data below, &lt;code&gt;age&lt;/code&gt; and &lt;code&gt;name&lt;/code&gt; are variables, while &lt;code&gt;18&lt;/code&gt; and &lt;code&gt;&#39;Dahong&#39;&lt;/code&gt; are specific observed values.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;age, name&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;18&lt;/span&gt;, &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;‘&lt;/span&gt;Dahong&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;’&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;21&lt;/span&gt;, &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;‘&lt;/span&gt;Xiaohua&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;’&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Similarly, in statistics, discrete data is also referred to as discrete variables, and continuous data is called continuous variables. But how do we distinguish between the two?&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>(2) Talking About Chinese Word Segmentation: Trie, KMP, AC Automaton | Lucas Wu</title>
+<meta name="title" content="(2) Talking About Chinese Word Segmentation: Trie, KMP, AC Automaton" />
+<meta name="description" content="Trie Tree
+In the previous article, we discussed some matching algorithms. However, in addition to algorithms, an efficient data structure is necessary. Storing words in a simple list like [&lsquo;中国人&rsquo;, &lsquo;中东人&rsquo;] is not practical. Imagine having hundreds of thousands of words—the memory usage of such a list would be enormous.
+A Trie tree, also known as a prefix tree, originates from the word retrieval and is pronounced like &ldquo;try.&rdquo; Trie trees provide an efficient data structure for word segmentation. Essentially, it is a tree-like structure. For example, a Trie tree constructed from the strings &ldquo;中国人&rdquo; and &ldquo;中东人&rdquo; would look like the diagram below. It’s clear from the structure that Trie trees effectively save memory space by reusing common prefixes like &ldquo;中.&rdquo;" />
+<meta name="keywords" content="DataScience," />
+
+
+<meta property="og:url" content="https://vec6.com/en/blog/chinesecutwords-2/">
+  <meta property="og:site_name" content="Lucas Wu">
+  <meta property="og:title" content="(2) Talking About Chinese Word Segmentation: Trie, KMP, AC Automaton">
+  <meta property="og:description" content="Trie Tree In the previous article, we discussed some matching algorithms. However, in addition to algorithms, an efficient data structure is necessary. Storing words in a simple list like [‘中国人’, ‘中东人’] is not practical. Imagine having hundreds of thousands of words—the memory usage of such a list would be enormous.
+A Trie tree, also known as a prefix tree, originates from the word retrieval and is pronounced like “try.” Trie trees provide an efficient data structure for word segmentation. Essentially, it is a tree-like structure. For example, a Trie tree constructed from the strings “中国人” and “中东人” would look like the diagram below. It’s clear from the structure that Trie trees effectively save memory space by reusing common prefixes like “中.”">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2020-11-18T08:51:13+00:00">
+    <meta property="article:modified_time" content="2020-11-18T08:51:13+00:00">
+    <meta property="article:tag" content="DataScience">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="(2) Talking About Chinese Word Segmentation: Trie, KMP, AC Automaton">
+  <meta name="twitter:description" content="Trie Tree In the previous article, we discussed some matching algorithms. However, in addition to algorithms, an efficient data structure is necessary. Storing words in a simple list like [‘中国人’, ‘中东人’] is not practical. Imagine having hundreds of thousands of words—the memory usage of such a list would be enormous.
+A Trie tree, also known as a prefix tree, originates from the word retrieval and is pronounced like “try.” Trie trees provide an efficient data structure for word segmentation. Essentially, it is a tree-like structure. For example, a Trie tree constructed from the strings “中国人” and “中东人” would look like the diagram below. It’s clear from the structure that Trie trees effectively save memory space by reusing common prefixes like “中.”">
+
+
+
+
+  <meta itemprop="name" content="(2) Talking About Chinese Word Segmentation: Trie, KMP, AC Automaton">
+  <meta itemprop="description" content="Trie Tree In the previous article, we discussed some matching algorithms. However, in addition to algorithms, an efficient data structure is necessary. Storing words in a simple list like [‘中国人’, ‘中东人’] is not practical. Imagine having hundreds of thousands of words—the memory usage of such a list would be enormous.
+A Trie tree, also known as a prefix tree, originates from the word retrieval and is pronounced like “try.” Trie trees provide an efficient data structure for word segmentation. Essentially, it is a tree-like structure. For example, a Trie tree constructed from the strings “中国人” and “中东人” would look like the diagram below. It’s clear from the structure that Trie trees effectively save memory space by reusing common prefixes like “中.”">
+  <meta itemprop="datePublished" content="2020-11-18T08:51:13+00:00">
+  <meta itemprop="dateModified" content="2020-11-18T08:51:13+00:00">
+  <meta itemprop="wordCount" content="1804">
+  <meta itemprop="keywords" content="DataScience">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    background-color: initial;
+    color: initial;
+  }
+
+  div.highlight code {
+    background-color: unset;
+    color: unset;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.css" integrity="sha384-sMefv1J1YJCHsg0mTa9YG+n/9KnJb9lGrJUUY5arg6bAL1qps/oZjmUwaHlX5Ugg" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.js" integrity="sha384-i9p+YmlwbK0lT9RcfgdAo/Cikui1KeFMeV/0Fwsu+rzgsCvas6oUptNOmo29C33p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false,
+          newLineInDisplayMode: true,
+          strict: false
+        });
+    });
+</script>
+<style>
+    .katex * {
+        font-size: 90%;
+    }
+</style>
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '\/home\/runner\/work\/YizhouWebsiteSource\/YizhouWebsiteSource\/content\/blog\/chinesecutwords-2.en.md');
+        }
+      </script>
+
+
+
+
+<style>
+  body {
+       
+      font-family: Georgia,serif;
+       
+  }
+
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+  }
+  
+  table { 
+    border-collapse: collapse; 
+    text-align: center;
+    font-size: 80%;
+  }
+
+  tr {
+    border: solid 1px;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+</style>
+
+
+
+<script>
+    window.onload = function(){
+        title = document.getElementsByClassName('title')[0];
+        if (document.URL.split('/')[3] == 'en') {
+            title.href = '/en';
+        } else {
+            title.href = '/';
+        }
+    }
+</script>
+
+
+
+
+
+
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Lucas Wu</h2>
+</a>
+<nav>
+</nav>
+</header>
+  <main>
+
+<h1>(2) Talking About Chinese Word Segmentation: Trie, KMP, AC Automaton</h1>
+<p>
+  <i>
+    <time datetime='2020-11-18' pubdate>
+      Create time:2020-11-18
+    </time>
+    <hr />
+  </i>
+</p>
+
+
+
+
+<content>
+  <h2 id="trie-tree">Trie Tree</h2>
+<p>In the previous article, we discussed some matching algorithms. However, in addition to algorithms, an efficient data structure is necessary. Storing words in a simple list like [&lsquo;中国人&rsquo;, &lsquo;中东人&rsquo;] is not practical. Imagine having hundreds of thousands of words—the memory usage of such a list would be enormous.</p>
+<p>A Trie tree, also known as a prefix tree, originates from the word <code>retrieval</code> and is pronounced like &ldquo;try.&rdquo; Trie trees provide an efficient data structure for word segmentation. Essentially, it is a tree-like structure. For example, a Trie tree constructed from the strings &ldquo;中国人&rdquo; and &ldquo;中东人&rdquo; would look like the diagram below. It’s clear from the structure that Trie trees effectively save memory space by reusing common prefixes like &ldquo;中.&rdquo;</p>
+<p><img src="/post/images/2020/11/1605767937-1-0012449.jpg" alt="1605767937-1"></p>
+<p>Moreover, Trie trees optimize query speed. If words are stored in a list with 200,000 entries, the worst-case scenario involves traversing the entire list to find a match, consuming significant computational resources. In contrast, Trie tree queries depend on the length of the search string. For example, querying <code>中国人</code> requires at most three lookups.</p>
+<p>The diagram below shows the runtime of Forward Maximum Matching using a dictionary stored as a list versus a Trie tree. The dictionary contains around 100,000 words, and the text length is 150 characters. The efficiency improvement with the Trie tree is evident.</p>
+<p><img src="/post/images/2020/11/1605767940-2-0012449.jpg" alt="1605767940-2"></p>
+<p>Trie trees search for words layer by layer rather than traversing the dictionary directly. For example, to query &ldquo;中国人&rdquo;:</p>
+<ol>
+<li>Check if the first character, &ldquo;中,&rdquo; exists in the first layer.</li>
+<li>If &ldquo;中&rdquo; exists, move to the next layer and check for &ldquo;国.&rdquo;</li>
+<li>Repeat the process for &ldquo;人.&rdquo; If &ldquo;人&rdquo; is found and marked as the end of a word, the query is successful.</li>
+</ol>
+<p>To implement such a data structure, the following functions are required:</p>
+<ol>
+<li><strong>Word Query</strong>: To check if a word exists.</li>
+<li><strong>Word Addition</strong>: To add new words to the Trie.</li>
+</ol>
+<p>Each node represents a character, and a special key, <code>__value</code>, indicates whether a node is the end of a word. The following implementation achieves this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Trie</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_children <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_add_word</span>(self, word):
+</span></span><span style="display:flex;"><span>        child <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_children
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i, char <span style="color:#f92672">in</span> enumerate(word):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> char <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> child:
+</span></span><span style="display:flex;"><span>                child[char] <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;__value&#39;</span>: <span style="color:#66d9ef">False</span>}
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> (len(word) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>                child[char][<span style="color:#e6db74">&#39;__value&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>            child <span style="color:#f92672">=</span> child[char]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_get_word</span>(self, word):
+</span></span><span style="display:flex;"><span>        child <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_children
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> char <span style="color:#f92672">in</span> word:
+</span></span><span style="display:flex;"><span>            child <span style="color:#f92672">=</span> child<span style="color:#f92672">.</span>get(char)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> child <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> child[<span style="color:#e6db74">&#39;__value&#39;</span>]
+</span></span></code></pre></div><p>After implementing the Trie tree, it can be used to enhance the efficiency of Forward or Backward Matching algorithms. Here is an updated version of the Forward Maximum Matching algorithm using a Trie tree:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>trie <span style="color:#f92672">=</span> Trie()
+</span></span><span style="display:flex;"><span>trie<span style="color:#f92672">.</span>_add_word(<span style="color:#e6db74">&#39;分词&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sentence <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;中文分词算法&#39;</span> 
+</span></span><span style="display:flex;"><span>start <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> 
+</span></span><span style="display:flex;"><span>maxWidth <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>  <span style="color:#75715e"># Manually set maximum word length</span>
+</span></span><span style="display:flex;"><span>cut_result <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> (start <span style="color:#f92672">&lt;=</span> len(sentence)):
+</span></span><span style="display:flex;"><span>    end <span style="color:#f92672">=</span> start <span style="color:#f92672">+</span> maxWidth     
+</span></span><span style="display:flex;"><span>    word <span style="color:#f92672">=</span> sentence[start: end] 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> word:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> trie<span style="color:#f92672">.</span>_get_word(word):
+</span></span><span style="display:flex;"><span>            cut_result<span style="color:#f92672">.</span>append(word)
+</span></span><span style="display:flex;"><span>            start <span style="color:#f92672">=</span> start <span style="color:#f92672">+</span> len(word) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>  
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> len(word[:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            cut_result<span style="color:#f92672">.</span>append(word) 
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        word <span style="color:#f92672">=</span> word[:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]  
+</span></span><span style="display:flex;"><span>    start <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(cut_result)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [&#39;中&#39;, &#39;文&#39;, &#39;分词&#39;, &#39;算&#39;, &#39;法&#39;]</span>
+</span></span></code></pre></div><h2 id="kmp-algorithm">KMP Algorithm</h2>
+<p>With efficient data structures in place, we can take a step further by adopting more advanced search algorithms, such as the AC Automaton. Before diving into the AC Automaton, understanding the KMP algorithm can help in grasping its concepts more easily. Although the AC Automaton can be understood independently, familiarity with the KMP algorithm provides additional clarity.</p>
+<p>The KMP algorithm, introduced in 1977 by James H. Morris, <a href="https://en.wikipedia.org/wiki/Donald_Knuth">Donald Knuth</a>, and <a href="https://en.wikipedia.org/wiki/Vaughan_Pratt">Vaughan Pratt</a>, is named after the initials of its inventors. Its core idea is to leverage information from previously matched strings to reduce the number of unnecessary comparisons, thereby improving search efficiency.</p>
+<h3 id="regular-search-example">Regular Search Example</h3>
+<p>Let’s first consider a basic search approach to find the position of a substring in a larger text. For instance, take the search word <code>ABABC</code> and the text <code>ABABABC</code>. In a conventional method:</p>
+<ol>
+<li>Compare the first character of the search word with the first character of the text.</li>
+</ol>
+<p><img src="/post/images//2020/11/1607672037-1-20220415155505386-0012449.jpg" alt=""></p>
+<ol start="2">
+<li>If the characters match, move to the next character and continue comparing.</li>
+</ol>
+<p><img src="/post/images//2020/11/1607672040-2-20220415155505393-0012449.jpg" alt=""></p>
+<ol start="3">
+<li>Continue this process until a mismatch occurs (e.g., the fifth character).</li>
+</ol>
+<p><img src="/post/images//2020/11/1607672043-3-20220415155505388-0012449.jpg" alt=""></p>
+<ol start="4">
+<li>Shift the search word by one position and start over.</li>
+</ol>
+<p><img src="/post/images//2020/11/1607672046-4-20220415155505839-0012449.jpg" alt=""></p>
+<ol start="5">
+<li>Repeat the comparison process until a full match is found. The first occurrence of the search word is at position 3.</li>
+</ol>
+<p><img src="/post/images//2020/11/1607672051-6-20220415155505388-0012449.jpg" alt=""></p>
+<h3 id="inefficiency-in-regular-search">Inefficiency in Regular Search</h3>
+<p>In the above example, the second search attempt results in redundant comparisons. For large-scale text searches, such inefficiencies accumulate and lead to unnecessary computational costs. The KMP algorithm addresses this by minimizing invalid matches, thereby improving efficiency.</p>
+<h3 id="partial-match-table">Partial Match Table</h3>
+<p>A key component of the KMP algorithm is the <strong>Partial Match Table</strong> (or <strong>Failure Function</strong>), which is a table of non-negative integers corresponding to each character of the search word. It helps determine the next position to start matching after a mismatch.</p>
+<p>For example, the partial match table for <code>ABABC</code> is:</p>
+<p><img src="/post/images//2020/11/1607672053-7-20220415155506493-0012449.png" alt=""></p>
+<p>To use this table, let’s revisit the example:</p>
+<ol>
+<li>Begin the first comparison.</li>
+</ol>
+<p><img src="/post/images//2020/11/1607672037-1-20220415155505386-0012449.jpg" alt=""></p>
+<ol start="2">
+<li>Successfully match the first four characters.</li>
+</ol>
+<p><img src="/post/images/2020/11/1607672040-2-20220415155505393-0012449.jpg" alt=""></p>
+<ol start="3">
+<li>On the fifth character, a mismatch occurs (<code>C</code> vs. <code>A</code>). The partial match table now determines the next starting position, skipping redundant comparisons. The formula used is:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Shift Value <span style="color:#f92672">=</span> Number of Matched Characters - Value in Partial Match Table <span style="color:#66d9ef">for</span> the Previous Character
+</span></span></code></pre></div><p>For instance, at the fifth character, the table value for the previous character is 2. With 4 matched characters, the next starting position is shifted by <code>4 - 2 = 2</code>.</p>
+<p><img src="/post/images/2020/11/1607672056-8-20220415155505925-0012449.png" alt=""></p>
+<p>This skips the second comparison, significantly improving efficiency for large-scale searches.</p>
+<h3 id="calculating-the-partial-match-table">Calculating the Partial Match Table</h3>
+<p>The values in the partial match table represent the length of the longest matching prefix and suffix for each position in the search word. To calculate these values:</p>
+<ol>
+<li><strong>Prefixes</strong>: All initial segments of a string, excluding the entire string.</li>
+<li><strong>Suffixes</strong>: All terminal segments of a string, excluding the entire string.</li>
+</ol>
+<p>For example, for the word <code>home</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Prefixes: <span style="color:#f92672">{</span>h, ho, hom<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>Suffixes: <span style="color:#f92672">{</span>ome, me, e<span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>For <code>ABABC</code>, the partial match table is calculated as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>A: Prefix and suffix are empty → Value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>AB: Prefix <span style="color:#f92672">{</span>A<span style="color:#f92672">}</span>, Suffix <span style="color:#f92672">{</span>B<span style="color:#f92672">}</span> → No match → Value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>ABA: Prefix <span style="color:#f92672">{</span>A, AB<span style="color:#f92672">}</span>, Suffix <span style="color:#f92672">{</span>BA, A<span style="color:#f92672">}</span> → Match <span style="color:#e6db74">&#34;A&#34;</span> → Value <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>ABAB: Prefix <span style="color:#f92672">{</span>A, AB, ABA<span style="color:#f92672">}</span>, Suffix <span style="color:#f92672">{</span>BAB, AB, B<span style="color:#f92672">}</span> → Match <span style="color:#e6db74">&#34;AB&#34;</span> → Value <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>ABABC: Prefix <span style="color:#f92672">{</span>A, AB, ABA, ABAB<span style="color:#f92672">}</span>, Suffix <span style="color:#f92672">{</span>BABC, ABC, BC, C<span style="color:#f92672">}</span> → No match → Value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><p>This table allows the KMP algorithm to efficiently jump over redundant comparisons, making it highly effective for large-scale text searches.</p>
+<h2 id="ac自动机">AC自动机</h2>
+<p>AC自动机(Aho-Corasick automaton)是一种基于Trie树进行匹配的一种字符串搜索算法，在1975年由Alfred V. Aho和Margaret J.Corasick发明，该算法其实和KMP算法并无太大的关联，KMP算法是1对1（一个搜索词匹配一个文本）进行搜索，而AC自动机则是1对多（多个搜索词匹配一个文本）进行搜索。 AC自动机对比Trie树的优点在于Trie树每次匹配后进行下一个字符查找的时候都需要回到顶点继续再搜索，而AC自动机则是将该文本中的字符串搜索一次性完成。 AC自动机核心是利用一个叫fail指针(失败指针)的东西，fail指针主要的用途是如果当前字符在当前节点的子元素中没有找到，那么就利用fail指针指向另外一个节点继续搜索，直到搜索完成，下图中的红线就是一个fail指针。</p>
+<p><img src="/post/images//2020/11/1607672059-9-20220415155506496-0012449.jpg" alt=""></p>
+<p>比如单词列表为<code>['he', 'hers', 'his', 'she']</code>，待分词文本为<code>hershe</code>，正常Trie匹配为先找到<code>he</code>，然后字符<code>r</code>再从0开始匹配，此时<code>r</code>没有在顶层节点的子节点当中，所以跳过，继续查找，直到找到了<code>she</code>完成。 而AC自动机的算法则为当找到了<code>he</code>单词后，继续在当前节点的子节点当中搜索字符<code>r</code>，如果有继续搜索下一个字符<code>s</code>，然后得到单词信息<code>hers</code>，然后继续搜索字符<code>h</code>，此时搜索位置为下图红色节点位置，但该节点下没有<code>h</code>：</p>
+<p><img src="/post/images/2020/11/1607672063-10-20220415155506488-0012449.jpg" alt=""></p>
+<p>这个时候就查看当前节点（即红色节点）的fail指针(红线)指向的节点下是否有字符<code>h</code>，此时发现有，则通过fail指针继续查找，直到找到了单词<code>she</code>。 AC自动机的理念是比较好理解，而难点在于如何计算fail指针指向谁，计算fail指针可以通过BFS（层次遍历），BFS将Trie每一层进行遍历，遍历的时候将计算所有子节点的fail指针，并将子节点放入到一个先进先出容器当中（队列）便于访问子节点的子节点。 而计算fail指针的时候一定是当前字符不存在于当前节点的子节点当中，所以查找当前节点的子节点的fail指针的时候，可以通过将当前节点的子节点中的所有fail指针都可以获取到所有父节点的fail指针，然后一层一层的找，如果找到后就指向谁，如果没有找到则指向最顶层。 下面是实现的代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TrieNode</span>(object):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_children <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_fail <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_exist <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_add_child</span>(self, char, value, overwrite <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        child <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_children<span style="color:#f92672">.</span>get(char)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> child <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            child <span style="color:#f92672">=</span> TrieNode()
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>_children[char] <span style="color:#f92672">=</span> child
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> overwrite:
+</span></span><span style="display:flex;"><span>            child<span style="color:#f92672">.</span>_exist<span style="color:#f92672">.</span>append(value)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> child
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Trie</span>(TrieNode):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_find_text</span>(self, text):
+</span></span><span style="display:flex;"><span>        state <span style="color:#f92672">=</span> self
+</span></span><span style="display:flex;"><span>        cut_word <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i,t <span style="color:#f92672">in</span> enumerate(text):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span> state<span style="color:#f92672">.</span>_children<span style="color:#f92672">.</span>get(t) <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span> <span style="color:#f92672">and</span> state<span style="color:#f92672">.</span>_fail:
+</span></span><span style="display:flex;"><span>                state <span style="color:#f92672">=</span> state<span style="color:#f92672">.</span>_fail
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> state<span style="color:#f92672">.</span>_children<span style="color:#f92672">.</span>get(t) <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>            state <span style="color:#f92672">=</span> state<span style="color:#f92672">.</span>_children<span style="color:#f92672">.</span>get(t)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> len(state<span style="color:#f92672">.</span>_exist) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> state<span style="color:#f92672">.</span>_exist:
+</span></span><span style="display:flex;"><span>                    max_cut <span style="color:#f92672">=</span> text[i <span style="color:#f92672">-</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>:i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>                    cut_word<span style="color:#f92672">.</span>append(max_cut)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> cut_word
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __setitem__(self, key, value):
+</span></span><span style="display:flex;"><span>        state <span style="color:#f92672">=</span> self
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> char <span style="color:#f92672">in</span> key:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> char <span style="color:#f92672">==</span> key[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] :
+</span></span><span style="display:flex;"><span>                state <span style="color:#f92672">=</span> state<span style="color:#f92672">.</span>_add_child(char, len(value), <span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            state <span style="color:#f92672">=</span> state<span style="color:#f92672">.</span>_add_child(char, <span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_init_fail</span>(self):
+</span></span><span style="display:flex;"><span>        q <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span>Queue()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_children:
+</span></span><span style="display:flex;"><span>            state <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_children<span style="color:#f92672">.</span>get(i)
+</span></span><span style="display:flex;"><span>            state<span style="color:#f92672">.</span>_fail <span style="color:#f92672">=</span> self
+</span></span><span style="display:flex;"><span>            q<span style="color:#f92672">.</span>put(state)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> q<span style="color:#f92672">.</span>empty() <span style="color:#f92672">==</span> <span style="color:#66d9ef">False</span>:
+</span></span><span style="display:flex;"><span>            state <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>get()
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> state<span style="color:#f92672">.</span>_children:
+</span></span><span style="display:flex;"><span>                v <span style="color:#f92672">=</span> state<span style="color:#f92672">.</span>_children<span style="color:#f92672">.</span>get(i)
+</span></span><span style="display:flex;"><span>                fafail <span style="color:#f92672">=</span> state<span style="color:#f92672">.</span>_fail
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">while</span> fafail <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span> <span style="color:#f92672">and</span> fafail<span style="color:#f92672">.</span>_children<span style="color:#f92672">.</span>get(i) <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>                    fafail <span style="color:#f92672">=</span> fafail<span style="color:#f92672">.</span>_children<span style="color:#f92672">.</span>get(i)
+</span></span><span style="display:flex;"><span>                v<span style="color:#f92672">.</span>_fail <span style="color:#f92672">=</span> fafail
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> v<span style="color:#f92672">.</span>_fail:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> len(fafail<span style="color:#f92672">.</span>_exist) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                        v<span style="color:#f92672">.</span>_exist<span style="color:#f92672">.</span>extend(v<span style="color:#f92672">.</span>_fail<span style="color:#f92672">.</span>_exist)
+</span></span><span style="display:flex;"><span>                q<span style="color:#f92672">.</span>put(v) 
+</span></span></code></pre></div><h2 id="ac-automaton">AC Automaton</h2>
+<p>The AC Automaton (Aho-Corasick automaton) is a string matching algorithm based on the Trie tree. It was invented in 1975 by Alfred V. Aho and Margaret J. Corasick. Unlike the KMP algorithm, which performs one-to-one (single pattern to single text) matching, the AC Automaton handles one-to-many (multiple patterns to single text) matching.</p>
+<p>Compared to Trie trees, the AC Automaton has a significant advantage. In a Trie tree, after each match, the search must return to the root node to continue. The AC Automaton, however, can complete the entire string search in one pass. The core of the AC Automaton is the <strong>fail pointer</strong>, which ensures that if a character cannot be found in the current node’s children, the fail pointer directs the search to another node. The fail pointer is represented by red lines in the diagram below.</p>
+<p><img src="/post/images//2020/11/1607672059-9-20220415155506496-0012449.jpg" alt=""></p>
+<h3 id="example">Example</h3>
+<p>Consider the word list <code>['he', 'hers', 'his', 'she']</code> and the text <code>hershe</code>. Using a standard Trie tree, the process would:</p>
+<ol>
+<li>Match <code>he</code>, then return to the root to search for <code>r</code>.</li>
+<li>Continue until <code>she</code> is matched.</li>
+</ol>
+<p>In contrast, the AC Automaton:</p>
+<ol>
+<li>Matches <code>he</code>, continues to search <code>r</code> in the current node’s children, then finds <code>hers</code>.</li>
+<li>Continues with <code>h</code>. At this point, the node lacks <code>h</code> as a child:</li>
+</ol>
+<p><img src="/post/images/2020/11/1607672063-10-20220415155506488-0012449.jpg" alt=""></p>
+<p>The fail pointer redirects the search to a node where <code>h</code> exists, enabling the algorithm to locate <code>she</code>.</p>
+<h3 id="fail-pointer-calculation">Fail Pointer Calculation</h3>
+<p>The concept of the AC Automaton is relatively straightforward; the challenge lies in calculating the fail pointers. This is done using <strong>Breadth-First Search (BFS)</strong>, where each level of the Trie is traversed. During traversal, fail pointers are calculated for all child nodes, and these child nodes are added to a queue (FIFO) for further processing.</p>
+<p>When calculating a fail pointer:</p>
+<ol>
+<li>If the current character is not found in the current node’s children, check the parent node&rsquo;s fail pointer for the same character.</li>
+<li>Repeat this process until a match is found or the root node is reached.</li>
+</ol>
+<h3 id="implementation">Implementation</h3>
+<p>Below is a Python implementation of the AC Automaton:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TrieNode</span>(object):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_children <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_fail <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_exist <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_add_child</span>(self, char, value, overwrite<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        child <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_children<span style="color:#f92672">.</span>get(char)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> child <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            child <span style="color:#f92672">=</span> TrieNode()
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>_children[char] <span style="color:#f92672">=</span> child
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> overwrite:
+</span></span><span style="display:flex;"><span>            child<span style="color:#f92672">.</span>_exist<span style="color:#f92672">.</span>append(value)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> child
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Trie</span>(TrieNode):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_find_text</span>(self, text):
+</span></span><span style="display:flex;"><span>        state <span style="color:#f92672">=</span> self
+</span></span><span style="display:flex;"><span>        cut_word <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i, t <span style="color:#f92672">in</span> enumerate(text):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span> state<span style="color:#f92672">.</span>_children<span style="color:#f92672">.</span>get(t) <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span> <span style="color:#f92672">and</span> state<span style="color:#f92672">.</span>_fail:
+</span></span><span style="display:flex;"><span>                state <span style="color:#f92672">=</span> state<span style="color:#f92672">.</span>_fail
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> state<span style="color:#f92672">.</span>_children<span style="color:#f92672">.</span>get(t) <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>            state <span style="color:#f92672">=</span> state<span style="color:#f92672">.</span>_children<span style="color:#f92672">.</span>get(t)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> len(state<span style="color:#f92672">.</span>_exist) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> state<span style="color:#f92672">.</span>_exist:
+</span></span><span style="display:flex;"><span>                    max_cut <span style="color:#f92672">=</span> text[i <span style="color:#f92672">-</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>:i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>                    cut_word<span style="color:#f92672">.</span>append(max_cut)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> cut_word
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __setitem__(self, key, value):
+</span></span><span style="display:flex;"><span>        state <span style="color:#f92672">=</span> self
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> char <span style="color:#f92672">in</span> key:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> char <span style="color:#f92672">==</span> key[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]:
+</span></span><span style="display:flex;"><span>                state <span style="color:#f92672">=</span> state<span style="color:#f92672">.</span>_add_child(char, len(value), <span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            state <span style="color:#f92672">=</span> state<span style="color:#f92672">.</span>_add_child(char, <span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_init_fail</span>(self):
+</span></span><span style="display:flex;"><span>        q <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span>Queue()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_children:
+</span></span><span style="display:flex;"><span>            state <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_children<span style="color:#f92672">.</span>get(i)
+</span></span><span style="display:flex;"><span>            state<span style="color:#f92672">.</span>_fail <span style="color:#f92672">=</span> self
+</span></span><span style="display:flex;"><span>            q<span style="color:#f92672">.</span>put(state)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> q<span style="color:#f92672">.</span>empty():
+</span></span><span style="display:flex;"><span>            state <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>get()
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> state<span style="color:#f92672">.</span>_children:
+</span></span><span style="display:flex;"><span>                v <span style="color:#f92672">=</span> state<span style="color:#f92672">.</span>_children<span style="color:#f92672">.</span>get(i)
+</span></span><span style="display:flex;"><span>                fafail <span style="color:#f92672">=</span> state<span style="color:#f92672">.</span>_fail
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">while</span> fafail <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span> <span style="color:#f92672">and</span> fafail<span style="color:#f92672">.</span>_children<span style="color:#f92672">.</span>get(i) <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>                    fafail <span style="color:#f92672">=</span> fafail<span style="color:#f92672">.</span>_fail
+</span></span><span style="display:flex;"><span>                v<span style="color:#f92672">.</span>_fail <span style="color:#f92672">=</span> fafail
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> v<span style="color:#f92672">.</span>_fail:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> len(fafail<span style="color:#f92672">.</span>_exist) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                        v<span style="color:#f92672">.</span>_exist<span style="color:#f92672">.</span>extend(v<span style="color:#f92672">.</span>_fail<span style="color:#f92672">.</span>_exist)
+</span></span><span style="display:flex;"><span>                q<span style="color:#f92672">.</span>put(v)
+</span></span></code></pre></div><h2 id="references">References</h2>
+<ol>
+<li><a href="https://www.zhihu.com/question/21923021/answer/1032665486">How to Better Understand and Master KMP Algorithm? (Zhihu)</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/KMP%E7%AE%97%E6%B3%95">KMP Algorithm (Wikipedia)</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html">String Matching with the KMP Algorithm</a></li>
+</ol>
+
+</content>
+<p>
+  
+  <a href="https://vec6.com/en/tags/datascience/">#DataScience</a>
+  
+</p>
+
+  </main>
+  <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
+        property="dct:title">Lucas's blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+        href="http://vec6.com">lucas</a> is licensed under <a
+        href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
+        rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a>
+    | theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a> 
+    <br />
+    Language Switcher: 
+
+    
+    
+    
+    <a title="zh_CN" href="/">Chinese</a>
+    
+    
+    
+
+    
+</p>
+
+
+</footer>
+
+    
+
+</body>
+
+</html>

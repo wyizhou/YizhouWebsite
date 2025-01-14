@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Understanding Continuous and Discrete Data | Lucas Wu</title>
+<meta name="title" content="Understanding Continuous and Discrete Data" />
+<meta name="description" content="In statistics, a type of data is collectively referred to as a variable. The data of a variable is called an observation, and the specific value of a variable is known as an observed value. For example, in the data below, age and name are variables, while 18 and &#39;Dahong&#39; are specific observed values.
+age, name
+18, ‘Dahong’
+21, ‘Xiaohua’
+Similarly, in statistics, discrete data is also referred to as discrete variables, and continuous data is called continuous variables. But how do we distinguish between the two?" />
+<meta name="keywords" content="Math," />
+
+
+<meta property="og:url" content="https://vec6.com/en/blog/continuous-data-and-discrete-data/">
+  <meta property="og:site_name" content="Lucas Wu">
+  <meta property="og:title" content="Understanding Continuous and Discrete Data">
+  <meta property="og:description" content="In statistics, a type of data is collectively referred to as a variable. The data of a variable is called an observation, and the specific value of a variable is known as an observed value. For example, in the data below, age and name are variables, while 18 and &#39;Dahong&#39; are specific observed values.
+age, name 18, ‘Dahong’ 21, ‘Xiaohua’ Similarly, in statistics, discrete data is also referred to as discrete variables, and continuous data is called continuous variables. But how do we distinguish between the two?">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2020-10-27T07:35:35+00:00">
+    <meta property="article:modified_time" content="2020-10-27T07:35:35+00:00">
+    <meta property="article:tag" content="Math">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Understanding Continuous and Discrete Data">
+  <meta name="twitter:description" content="In statistics, a type of data is collectively referred to as a variable. The data of a variable is called an observation, and the specific value of a variable is known as an observed value. For example, in the data below, age and name are variables, while 18 and &#39;Dahong&#39; are specific observed values.
+age, name 18, ‘Dahong’ 21, ‘Xiaohua’ Similarly, in statistics, discrete data is also referred to as discrete variables, and continuous data is called continuous variables. But how do we distinguish between the two?">
+
+
+
+
+  <meta itemprop="name" content="Understanding Continuous and Discrete Data">
+  <meta itemprop="description" content="In statistics, a type of data is collectively referred to as a variable. The data of a variable is called an observation, and the specific value of a variable is known as an observed value. For example, in the data below, age and name are variables, while 18 and &#39;Dahong&#39; are specific observed values.
+age, name 18, ‘Dahong’ 21, ‘Xiaohua’ Similarly, in statistics, discrete data is also referred to as discrete variables, and continuous data is called continuous variables. But how do we distinguish between the two?">
+  <meta itemprop="datePublished" content="2020-10-27T07:35:35+00:00">
+  <meta itemprop="dateModified" content="2020-10-27T07:35:35+00:00">
+  <meta itemprop="wordCount" content="238">
+  <meta itemprop="keywords" content="Math">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    background-color: initial;
+    color: initial;
+  }
+
+  div.highlight code {
+    background-color: unset;
+    color: unset;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.css" integrity="sha384-sMefv1J1YJCHsg0mTa9YG+n/9KnJb9lGrJUUY5arg6bAL1qps/oZjmUwaHlX5Ugg" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.js" integrity="sha384-i9p+YmlwbK0lT9RcfgdAo/Cikui1KeFMeV/0Fwsu+rzgsCvas6oUptNOmo29C33p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false,
+          newLineInDisplayMode: true,
+          strict: false
+        });
+    });
+</script>
+<style>
+    .katex * {
+        font-size: 90%;
+    }
+</style>
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '\/home\/runner\/work\/YizhouWebsiteSource\/YizhouWebsiteSource\/content\/blog\/Continuous-data-and-discrete-data.en.md');
+        }
+      </script>
+
+
+
+
+<style>
+  body {
+       
+      font-family: Georgia,serif;
+       
+  }
+
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+  }
+  
+  table { 
+    border-collapse: collapse; 
+    text-align: center;
+    font-size: 80%;
+  }
+
+  tr {
+    border: solid 1px;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+</style>
+
+
+
+<script>
+    window.onload = function(){
+        title = document.getElementsByClassName('title')[0];
+        if (document.URL.split('/')[3] == 'en') {
+            title.href = '/en';
+        } else {
+            title.href = '/';
+        }
+    }
+</script>
+
+
+
+
+
+
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Lucas Wu</h2>
+</a>
+<nav>
+</nav>
+</header>
+  <main>
+
+<h1>Understanding Continuous and Discrete Data</h1>
+<p>
+  <i>
+    <time datetime='2020-10-27' pubdate>
+      Create time:2020-10-27
+    </time>
+    <hr />
+  </i>
+</p>
+
+
+
+
+<content>
+  <p>In statistics, a type of data is collectively referred to as a variable. The data of a variable is called an observation, and the specific value of a variable is known as an observed value. For example, in the data below, <code>age</code> and <code>name</code> are variables, while <code>18</code> and <code>'Dahong'</code> are specific observed values.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>age, name
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">18</span>, <span style="color:#960050;background-color:#1e0010">‘</span>Dahong<span style="color:#960050;background-color:#1e0010">’</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span>, <span style="color:#960050;background-color:#1e0010">‘</span>Xiaohua<span style="color:#960050;background-color:#1e0010">’</span>
+</span></span></code></pre></div><p>Similarly, in statistics, discrete data is also referred to as discrete variables, and continuous data is called continuous variables. But how do we distinguish between the two?</p>
+<p>Continuous variables can theoretically take values continuously without interruption, while discrete variables take values in discontinuous intervals. The distinction is not about the number of possible values—both can have infinitely many.</p>
+<p>For example:</p>
+<ul>
+<li>The number of people in a household is a discrete variable because it can only take whole numbers like 1, 2, 3, or 4. It cannot be 1.2, 1.8, or 2.4 people.</li>
+<li>Age, on the other hand, is a continuous variable. While we often simplify age to whole numbers like 18, 17, or 30 years for convenience, age can take precise values like 18.32, 17.55, or 30.67 years. For example, 17.55 years represents 17 years, 6 months, and 18 days, and age can even be measured to the exact hour, minute, or second.</li>
+</ul>
+<h3 id="references">References</h3>
+<ol>
+<li><a href="https://zhuanlan.zhihu.com/p/101155810">Understanding Continuous and Discrete Data</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/152635216">Quantitative and Qualitative Variables, Continuous and Discrete Variables: How to Differentiate?</a></li>
+<li><a href="https://www.bilibili.com/video/BV1eW411E7eu?p=23">Graphical Probability Notes: Leaf Bingcheng&rsquo;s Probability Open Class</a></li>
+</ol>
+
+</content>
+<p>
+  
+  <a href="https://vec6.com/en/tags/math/">#Math</a>
+  
+</p>
+
+  </main>
+  <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
+        property="dct:title">Lucas's blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+        href="http://vec6.com">lucas</a> is licensed under <a
+        href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
+        rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a>
+    | theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a> 
+    <br />
+    Language Switcher: 
+
+    
+    
+    
+    <a title="zh_CN" href="/">Chinese</a>
+    
+    
+    
+
+    
+</p>
+
+
+</footer>
+
+    
+
+</body>
+
+</html>

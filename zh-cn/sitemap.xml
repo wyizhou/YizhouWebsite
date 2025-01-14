@@ -43,9 +43,29 @@
   </url><url>
     <loc>https://vec6.com/tags/math/</loc>
     <lastmod>2025-01-12T21:53:34+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vec6.com/en/tags/math/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://vec6.com/tags/math/"
+                />
   </url><url>
     <loc>https://vec6.com/blog/groupbyofpandas/</loc>
     <lastmod>2025-01-12T21:53:34+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vec6.com/en/blog/groupbyofpandas/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://vec6.com/blog/groupbyofpandas/"
+                />
   </url><url>
     <loc>https://vec6.com/tags/</loc>
     <lastmod>2025-01-12T21:53:34+00:00</lastmod>
@@ -77,6 +97,16 @@
   </url><url>
     <loc>https://vec6.com/blog/sqlforanalysis/</loc>
     <lastmod>2024-12-29T21:36:34+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vec6.com/en/blog/sqlforanalysis/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://vec6.com/blog/sqlforanalysis/"
+                />
   </url><url>
     <loc>https://vec6.com/blog/data-science-methodology/</loc>
     <lastmod>2024-11-20T23:36:34+00:00</lastmod>
@@ -118,6 +148,16 @@
   </url><url>
     <loc>https://vec6.com/blog/chinesecutwords-2/</loc>
     <lastmod>2020-11-18T08:51:13+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vec6.com/en/blog/chinesecutwords-2/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://vec6.com/blog/chinesecutwords-2/"
+                />
   </url><url>
     <loc>https://vec6.com/blog/chinesecutwords-1/</loc>
     <lastmod>2020-11-08T10:36:34+00:00</lastmod>
@@ -137,6 +177,16 @@
   </url><url>
     <loc>https://vec6.com/blog/continuous-data-and-discrete-data/</loc>
     <lastmod>2020-10-27T07:35:35+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vec6.com/en/blog/continuous-data-and-discrete-data/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://vec6.com/blog/continuous-data-and-discrete-data/"
+                />
   </url><url>
     <loc>https://vec6.com/blog/short-xss/</loc>
     <lastmod>2013-08-21T14:04:13+00:00</lastmod>

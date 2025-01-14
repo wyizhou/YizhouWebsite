@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Understanding Pandas Groupby | Lucas Wu</title>
+<meta name="title" content="Understanding Pandas Groupby" />
+<meta name="description" content="The groupby function in Pandas is used to group data by certain categories and perform basic statistical operations, complex aggregations, transformations, and filtering on each group.
+Common use cases include:
+
+Summary Statistics: Quickly calculate sums, averages, etc., for each group.
+Data Comparison: Compare performance differences between groups.
+Outlier Detection: Identify abnormal data points within groups.
+Feature Engineering: Create new features for machine learning, such as group-level means or counts.
+Data Cleaning: Correct or fill missing values using group-level statistics.
+
+Basic Statistics
+Consider an e-commerce dataset of fruit sales. We can perform group-wise statistics in various ways." />
+<meta name="keywords" content="DataScience," />
+
+
+<meta property="og:url" content="https://vec6.com/en/blog/groupbyofpandas/">
+  <meta property="og:site_name" content="Lucas Wu">
+  <meta property="og:title" content="Understanding Pandas Groupby">
+  <meta property="og:description" content="The groupby function in Pandas is used to group data by certain categories and perform basic statistical operations, complex aggregations, transformations, and filtering on each group.
+Common use cases include:
+Summary Statistics: Quickly calculate sums, averages, etc., for each group. Data Comparison: Compare performance differences between groups. Outlier Detection: Identify abnormal data points within groups. Feature Engineering: Create new features for machine learning, such as group-level means or counts. Data Cleaning: Correct or fill missing values using group-level statistics. Basic Statistics Consider an e-commerce dataset of fruit sales. We can perform group-wise statistics in various ways.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2025-01-12T21:53:34+00:00">
+    <meta property="article:modified_time" content="2025-01-12T21:53:34+00:00">
+    <meta property="article:tag" content="DataScience">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Understanding Pandas Groupby">
+  <meta name="twitter:description" content="The groupby function in Pandas is used to group data by certain categories and perform basic statistical operations, complex aggregations, transformations, and filtering on each group.
+Common use cases include:
+Summary Statistics: Quickly calculate sums, averages, etc., for each group. Data Comparison: Compare performance differences between groups. Outlier Detection: Identify abnormal data points within groups. Feature Engineering: Create new features for machine learning, such as group-level means or counts. Data Cleaning: Correct or fill missing values using group-level statistics. Basic Statistics Consider an e-commerce dataset of fruit sales. We can perform group-wise statistics in various ways.">
+
+
+
+
+  <meta itemprop="name" content="Understanding Pandas Groupby">
+  <meta itemprop="description" content="The groupby function in Pandas is used to group data by certain categories and perform basic statistical operations, complex aggregations, transformations, and filtering on each group.
+Common use cases include:
+Summary Statistics: Quickly calculate sums, averages, etc., for each group. Data Comparison: Compare performance differences between groups. Outlier Detection: Identify abnormal data points within groups. Feature Engineering: Create new features for machine learning, such as group-level means or counts. Data Cleaning: Correct or fill missing values using group-level statistics. Basic Statistics Consider an e-commerce dataset of fruit sales. We can perform group-wise statistics in various ways.">
+  <meta itemprop="datePublished" content="2025-01-12T21:53:34+00:00">
+  <meta itemprop="dateModified" content="2025-01-12T21:53:34+00:00">
+  <meta itemprop="wordCount" content="473">
+  <meta itemprop="keywords" content="DataScience">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    background-color: initial;
+    color: initial;
+  }
+
+  div.highlight code {
+    background-color: unset;
+    color: unset;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.css" integrity="sha384-sMefv1J1YJCHsg0mTa9YG+n/9KnJb9lGrJUUY5arg6bAL1qps/oZjmUwaHlX5Ugg" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.js" integrity="sha384-i9p+YmlwbK0lT9RcfgdAo/Cikui1KeFMeV/0Fwsu+rzgsCvas6oUptNOmo29C33p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false,
+          newLineInDisplayMode: true,
+          strict: false
+        });
+    });
+</script>
+<style>
+    .katex * {
+        font-size: 90%;
+    }
+</style>
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '\/home\/runner\/work\/YizhouWebsiteSource\/YizhouWebsiteSource\/content\/blog\/groupbyofpandas.en.md');
+        }
+      </script>
+
+
+
+
+<style>
+  body {
+       
+      font-family: Georgia,serif;
+       
+  }
+
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+  }
+  
+  table { 
+    border-collapse: collapse; 
+    text-align: center;
+    font-size: 80%;
+  }
+
+  tr {
+    border: solid 1px;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+</style>
+
+
+
+<script>
+    window.onload = function(){
+        title = document.getElementsByClassName('title')[0];
+        if (document.URL.split('/')[3] == 'en') {
+            title.href = '/en';
+        } else {
+            title.href = '/';
+        }
+    }
+</script>
+
+
+
+
+
+
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Lucas Wu</h2>
+</a>
+<nav>
+</nav>
+</header>
+  <main>
+
+<h1>Understanding Pandas Groupby</h1>
+<p>
+  <i>
+    <time datetime='2025-01-12' pubdate>
+      Create time:2025-01-12
+    </time>
+    <hr />
+  </i>
+</p>
+
+
+
+
+<content>
+  <p>The <code>groupby</code> function in Pandas is used to group data by certain categories and perform basic statistical operations, complex aggregations, transformations, and filtering on each group.</p>
+<p>Common use cases include:</p>
+<ul>
+<li><strong>Summary Statistics</strong>: Quickly calculate sums, averages, etc., for each group.</li>
+<li><strong>Data Comparison</strong>: Compare performance differences between groups.</li>
+<li><strong>Outlier Detection</strong>: Identify abnormal data points within groups.</li>
+<li><strong>Feature Engineering</strong>: Create new features for machine learning, such as group-level means or counts.</li>
+<li><strong>Data Cleaning</strong>: Correct or fill missing values using group-level statistics.</li>
+</ul>
+<h2 id="basic-statistics">Basic Statistics</h2>
+<p>Consider an e-commerce dataset of fruit sales. We can perform group-wise statistics in various ways.</p>
+<h3 id="example-1-summing-sales-by-category">Example 1: Summing Sales by Category</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;Date&#39;</span>: [<span style="color:#e6db74">&#39;2023-01-01&#39;</span>, <span style="color:#e6db74">&#39;2023-01-01&#39;</span>, <span style="color:#e6db74">&#39;2023-01-02&#39;</span>, <span style="color:#e6db74">&#39;2023-01-02&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="color:#e6db74">&#39;2023-01-03&#39;</span>, <span style="color:#e6db74">&#39;2023-01-03&#39;</span>, <span style="color:#e6db74">&#39;2023-01-04&#39;</span>, <span style="color:#e6db74">&#39;2023-01-04&#39;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;Category&#39;</span>: [<span style="color:#e6db74">&#39;Fruit&#39;</span>, <span style="color:#e6db74">&#39;Vegetable&#39;</span>, <span style="color:#e6db74">&#39;Fruit&#39;</span>, <span style="color:#e6db74">&#39;Beverage&#39;</span>, <span style="color:#e6db74">&#39;Vegetable&#39;</span>, <span style="color:#e6db74">&#39;Beverage&#39;</span>, <span style="color:#e6db74">&#39;Fruit&#39;</span>, <span style="color:#e6db74">&#39;Vegetable&#39;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;Sell&#39;</span>: [<span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">150</span>, <span style="color:#ae81ff">220</span>, <span style="color:#ae81ff">180</span>, <span style="color:#ae81ff">160</span>, <span style="color:#ae81ff">190</span>, <span style="color:#ae81ff">210</span>, <span style="color:#ae81ff">170</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame(data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>grouped <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>groupby(<span style="color:#e6db74">&#39;Category&#39;</span>)[<span style="color:#e6db74">&#39;Sell&#39;</span>]<span style="color:#f92672">.</span>sum()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(grouped)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Output:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Category</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Fruit        630</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Vegetable    480</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Beverage     370</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Name: Sell, dtype: int64</span>
+</span></span></code></pre></div><h3 id="example-2-grouping-by-two-columns">Example 2: Grouping by Two Columns</h3>
+<p>Here, sales are grouped by both date and category:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>grouped <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>groupby([<span style="color:#e6db74">&#39;Date&#39;</span>, <span style="color:#e6db74">&#39;Category&#39;</span>])[<span style="color:#e6db74">&#39;Sell&#39;</span>]<span style="color:#f92672">.</span>sum()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(grouped)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Output:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Date        Category</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2023-01-01  Fruit          200</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#             Vegetable      150</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2023-01-02  Fruit          220</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#             Beverage       180</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2023-01-03  Vegetable      160</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#             Beverage       190</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2023-01-04  Fruit          210</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#             Vegetable      170</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Name: Sell, dtype: int64</span>
+</span></span></code></pre></div><h2 id="advanced-operations">Advanced Operations</h2>
+<p>Advanced operations commonly involve <strong>aggregation</strong>, <strong>transformation</strong>, and <strong>filtering</strong>.</p>
+<h3 id="aggregation">Aggregation</h3>
+<p>Aggregation applies one or more statistical functions (e.g., <code>sum</code>, <code>mean</code>, <code>max</code>, <code>min</code>, <code>count</code>) to each group. Use the <code>agg</code> method for this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>grouped <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>groupby([<span style="color:#e6db74">&#39;Category&#39;</span>])[<span style="color:#e6db74">&#39;Sell&#39;</span>]<span style="color:#f92672">.</span>agg([<span style="color:#e6db74">&#39;sum&#39;</span>, <span style="color:#e6db74">&#39;max&#39;</span>, <span style="color:#e6db74">&#39;min&#39;</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(grouped)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Output:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#           sum  max  min</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Category</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Fruit      630  220  200</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Vegetable  480  170  150</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Beverage   370  190  180</span>
+</span></span></code></pre></div><h3 id="transformation">Transformation</h3>
+<p>Transformations apply a function to group data and return a result with the same size as the original data. Use the <code>transform</code> method for this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>grouped <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>groupby([<span style="color:#e6db74">&#39;Category&#39;</span>])[<span style="color:#e6db74">&#39;Sell&#39;</span>]<span style="color:#f92672">.</span>transform(<span style="color:#66d9ef">lambda</span> x: x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(grouped)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Output:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 0    201</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1    151</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2    221</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3    181</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4    161</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5    191</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6    211</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 7    171</span>
+</span></span></code></pre></div><h3 id="filtering">Filtering</h3>
+<p>Filtering removes groups that do not meet certain conditions, returning only data from the remaining groups. Use the <code>filter</code> method for this.</p>
+<p>For example, exclude categories with total sales less than or equal to 400:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>grouped <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>groupby([<span style="color:#e6db74">&#39;Category&#39;</span>])<span style="color:#f92672">.</span>filter(<span style="color:#66d9ef">lambda</span> x: x[<span style="color:#e6db74">&#39;Sell&#39;</span>]<span style="color:#f92672">.</span>sum() <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">400</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(grouped)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Output:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#          Date    Category  Sell</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 0  2023-01-01       Fruit   200</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1  2023-01-01   Vegetable   150</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2  2023-01-02       Fruit   220</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4  2023-01-03   Vegetable   160</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6  2023-01-04       Fruit   210</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 7  2023-01-04   Vegetable   170</span>
+</span></span></code></pre></div><p>Original dataset for comparison:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(df)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Output:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#          Date    Category  Sell</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 0  2023-01-01       Fruit   200</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1  2023-01-01   Vegetable   150</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2  2023-01-02       Fruit   220</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3  2023-01-02    Beverage   180</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4  2023-01-03   Vegetable   160</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5  2023-01-03    Beverage   190</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6  2023-01-04       Fruit   210</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 7  2023-01-04   Vegetable   170</span>
+</span></span></code></pre></div>
+</content>
+<p>
+  
+  <a href="https://vec6.com/en/tags/datascience/">#DataScience</a>
+  
+</p>
+
+  </main>
+  <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
+        property="dct:title">Lucas's blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+        href="http://vec6.com">lucas</a> is licensed under <a
+        href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
+        rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a>
+    | theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a> 
+    <br />
+    Language Switcher: 
+
+    
+    
+    
+    <a title="zh_CN" href="/">Chinese</a>
+    
+    
+    
+
+    
+</p>
+
+
+</footer>
+
+    
+
+</body>
+
+</html>
