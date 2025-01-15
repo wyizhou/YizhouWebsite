@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>线性回归 | Lucas Wu</title>
+<meta name="title" content="线性回归" />
+<meta name="description" content="简单线性回归
+线性回归是用来找到两个变量之间关系的方法，它试图找到一个“最佳线路”（即拟合），表示当自变量变化的时候，因变量如何变化，线性回归的公式为如下：
+$$
+y = a \cdot x &#43; b
+$$
+其变量的解释为：
+
+y：因变量，也是输出或者预测值。
+x：自变量，也是输入。
+a：为斜率，表示x自变量每增加1，y会增加或者减少多少。
+b：为截距，表示当x=0的时候，y的值。
+
+线性回归可以简单理解为找到一条最能反应数据点总体趋势的数学表达式（比如直线），比如在散点图中，画一条尽可能靠近所有点的直线，而在这条线中，截距b表示直线在y轴上的起点，在当x增加时，直线沿着斜率a的方向延长，延长后的值即为y值。
+举一个生活中的例子，通过距离长短（自变量，即x）预测时间（因变量, 即y）的时长：
+
+  
+      
+          送货距离(km)
+          送货时间(min)
+      
+  
+  
+      
+          1
+          10
+      
+      
+          2
+          15
+      
+      
+          3
+          20
+      
+      
+          4
+          25
+      
+      
+          5
+          35
+      
+  
+
+通过上述的数据，可以知道当送货距离每增加1公里的时候，送货时间增加5分钟，所以在送货距离为2的时候，公式为：
+$$
+15 = a \cdot 2 &#43; b
+$$
+计算斜率a有很多方法，具体取决于解决的问题背景、数据特性等，这里采用简单的“平均变化法”来计算斜率a，“平均变化法”的思路就是选择数据中任意的两个点来估算斜率a，公式为：
+$$
+a = \frac{\Delta y}{\Delta x_1}
+$$
+举例的数据中，取抽取第一个点和最后一个点来计算斜率a为（不一定要用最后一个点和第一个点，取具备代表的两个点即可）：
+$$
+(35 - 10) / (5 - 1)  = 6.25
+$$
+这个时候将斜率带入线性回归的公式中：
+$$
+15 = 6.25 \cdot 2 &#43; b
+$$
+然后通过公式计算出截率b为2.5，因此公式为：
+$$
+b = y - a \cdot x \newline
+b = 15 - 6.25 \cdot 2  = 2.5
+$$
+最后我们就得到了一个预测模型，当我们输入x的时候，就会预测出y的值：
+$$
+y = 6.25 \cdot x &#43; 2.5
+$$
+通过这个模型可以进行计算当距离达到了3KM的时候，预测出来的送货时间为21.25分钟：
+$$
+6.25 \cdot 3 &#43; 2.5  = 21.25
+$$
+需要注意的是模型并不会精准的预测出在上述数据表中对应的值，因为拟合的直线是代表的整体的趋势，在实际的数据中拟合的直线也不会穿过每个数据点，所以更多的时候是考虑了所有数据点的情况去拟合一条合适的直线，所以预测的是有偏差的。" />
+<meta name="keywords" content="Math," />
+
+
+<meta property="og:url" content="https://vec6.com/blog/linearreg/">
+  <meta property="og:site_name" content="Lucas Wu">
+  <meta property="og:title" content="线性回归">
+  <meta property="og:description" content="简单线性回归 线性回归是用来找到两个变量之间关系的方法，它试图找到一个“最佳线路”（即拟合），表示当自变量变化的时候，因变量如何变化，线性回归的公式为如下： $$ y = a \cdot x &#43; b $$ 其变量的解释为：
+y：因变量，也是输出或者预测值。 x：自变量，也是输入。 a：为斜率，表示x自变量每增加1，y会增加或者减少多少。 b：为截距，表示当x=0的时候，y的值。 线性回归可以简单理解为找到一条最能反应数据点总体趋势的数学表达式（比如直线），比如在散点图中，画一条尽可能靠近所有点的直线，而在这条线中，截距b表示直线在y轴上的起点，在当x增加时，直线沿着斜率a的方向延长，延长后的值即为y值。
+举一个生活中的例子，通过距离长短（自变量，即x）预测时间（因变量, 即y）的时长：
+送货距离(km) 送货时间(min) 1 10 2 15 3 20 4 25 5 35 通过上述的数据，可以知道当送货距离每增加1公里的时候，送货时间增加5分钟，所以在送货距离为2的时候，公式为： $$ 15 = a \cdot 2 &#43; b $$ 计算斜率a有很多方法，具体取决于解决的问题背景、数据特性等，这里采用简单的“平均变化法”来计算斜率a，“平均变化法”的思路就是选择数据中任意的两个点来估算斜率a，公式为： $$ a = \frac{\Delta y}{\Delta x_1} $$ 举例的数据中，取抽取第一个点和最后一个点来计算斜率a为（不一定要用最后一个点和第一个点，取具备代表的两个点即可）： $$ (35 - 10) / (5 - 1) = 6.25 $$ 这个时候将斜率带入线性回归的公式中： $$ 15 = 6.25 \cdot 2 &#43; b $$ 然后通过公式计算出截率b为2.5，因此公式为： $$ b = y - a \cdot x \newline b = 15 - 6.25 \cdot 2 = 2.5 $$ 最后我们就得到了一个预测模型，当我们输入x的时候，就会预测出y的值： $$ y = 6.25 \cdot x &#43; 2.5 $$ 通过这个模型可以进行计算当距离达到了3KM的时候，预测出来的送货时间为21.25分钟： $$ 6.25 \cdot 3 &#43; 2.5 = 21.25 $$ 需要注意的是模型并不会精准的预测出在上述数据表中对应的值，因为拟合的直线是代表的整体的趋势，在实际的数据中拟合的直线也不会穿过每个数据点，所以更多的时候是考虑了所有数据点的情况去拟合一条合适的直线，所以预测的是有偏差的。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2025-01-11T23:53:34+00:00">
+    <meta property="article:modified_time" content="2025-01-11T23:53:34+00:00">
+    <meta property="article:tag" content="Math">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="线性回归">
+  <meta name="twitter:description" content="简单线性回归 线性回归是用来找到两个变量之间关系的方法，它试图找到一个“最佳线路”（即拟合），表示当自变量变化的时候，因变量如何变化，线性回归的公式为如下： $$ y = a \cdot x &#43; b $$ 其变量的解释为：
+y：因变量，也是输出或者预测值。 x：自变量，也是输入。 a：为斜率，表示x自变量每增加1，y会增加或者减少多少。 b：为截距，表示当x=0的时候，y的值。 线性回归可以简单理解为找到一条最能反应数据点总体趋势的数学表达式（比如直线），比如在散点图中，画一条尽可能靠近所有点的直线，而在这条线中，截距b表示直线在y轴上的起点，在当x增加时，直线沿着斜率a的方向延长，延长后的值即为y值。
+举一个生活中的例子，通过距离长短（自变量，即x）预测时间（因变量, 即y）的时长：
+送货距离(km) 送货时间(min) 1 10 2 15 3 20 4 25 5 35 通过上述的数据，可以知道当送货距离每增加1公里的时候，送货时间增加5分钟，所以在送货距离为2的时候，公式为： $$ 15 = a \cdot 2 &#43; b $$ 计算斜率a有很多方法，具体取决于解决的问题背景、数据特性等，这里采用简单的“平均变化法”来计算斜率a，“平均变化法”的思路就是选择数据中任意的两个点来估算斜率a，公式为： $$ a = \frac{\Delta y}{\Delta x_1} $$ 举例的数据中，取抽取第一个点和最后一个点来计算斜率a为（不一定要用最后一个点和第一个点，取具备代表的两个点即可）： $$ (35 - 10) / (5 - 1) = 6.25 $$ 这个时候将斜率带入线性回归的公式中： $$ 15 = 6.25 \cdot 2 &#43; b $$ 然后通过公式计算出截率b为2.5，因此公式为： $$ b = y - a \cdot x \newline b = 15 - 6.25 \cdot 2 = 2.5 $$ 最后我们就得到了一个预测模型，当我们输入x的时候，就会预测出y的值： $$ y = 6.25 \cdot x &#43; 2.5 $$ 通过这个模型可以进行计算当距离达到了3KM的时候，预测出来的送货时间为21.25分钟： $$ 6.25 \cdot 3 &#43; 2.5 = 21.25 $$ 需要注意的是模型并不会精准的预测出在上述数据表中对应的值，因为拟合的直线是代表的整体的趋势，在实际的数据中拟合的直线也不会穿过每个数据点，所以更多的时候是考虑了所有数据点的情况去拟合一条合适的直线，所以预测的是有偏差的。">
+
+
+
+
+  <meta itemprop="name" content="线性回归">
+  <meta itemprop="description" content="简单线性回归 线性回归是用来找到两个变量之间关系的方法，它试图找到一个“最佳线路”（即拟合），表示当自变量变化的时候，因变量如何变化，线性回归的公式为如下： $$ y = a \cdot x &#43; b $$ 其变量的解释为：
+y：因变量，也是输出或者预测值。 x：自变量，也是输入。 a：为斜率，表示x自变量每增加1，y会增加或者减少多少。 b：为截距，表示当x=0的时候，y的值。 线性回归可以简单理解为找到一条最能反应数据点总体趋势的数学表达式（比如直线），比如在散点图中，画一条尽可能靠近所有点的直线，而在这条线中，截距b表示直线在y轴上的起点，在当x增加时，直线沿着斜率a的方向延长，延长后的值即为y值。
+举一个生活中的例子，通过距离长短（自变量，即x）预测时间（因变量, 即y）的时长：
+送货距离(km) 送货时间(min) 1 10 2 15 3 20 4 25 5 35 通过上述的数据，可以知道当送货距离每增加1公里的时候，送货时间增加5分钟，所以在送货距离为2的时候，公式为： $$ 15 = a \cdot 2 &#43; b $$ 计算斜率a有很多方法，具体取决于解决的问题背景、数据特性等，这里采用简单的“平均变化法”来计算斜率a，“平均变化法”的思路就是选择数据中任意的两个点来估算斜率a，公式为： $$ a = \frac{\Delta y}{\Delta x_1} $$ 举例的数据中，取抽取第一个点和最后一个点来计算斜率a为（不一定要用最后一个点和第一个点，取具备代表的两个点即可）： $$ (35 - 10) / (5 - 1) = 6.25 $$ 这个时候将斜率带入线性回归的公式中： $$ 15 = 6.25 \cdot 2 &#43; b $$ 然后通过公式计算出截率b为2.5，因此公式为： $$ b = y - a \cdot x \newline b = 15 - 6.25 \cdot 2 = 2.5 $$ 最后我们就得到了一个预测模型，当我们输入x的时候，就会预测出y的值： $$ y = 6.25 \cdot x &#43; 2.5 $$ 通过这个模型可以进行计算当距离达到了3KM的时候，预测出来的送货时间为21.25分钟： $$ 6.25 \cdot 3 &#43; 2.5 = 21.25 $$ 需要注意的是模型并不会精准的预测出在上述数据表中对应的值，因为拟合的直线是代表的整体的趋势，在实际的数据中拟合的直线也不会穿过每个数据点，所以更多的时候是考虑了所有数据点的情况去拟合一条合适的直线，所以预测的是有偏差的。">
+  <meta itemprop="datePublished" content="2025-01-11T23:53:34+00:00">
+  <meta itemprop="dateModified" content="2025-01-11T23:53:34+00:00">
+  <meta itemprop="wordCount" content="311">
+  <meta itemprop="keywords" content="Math">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    background-color: initial;
+    color: initial;
+  }
+
+  div.highlight code {
+    background-color: unset;
+    color: unset;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.css" integrity="sha384-sMefv1J1YJCHsg0mTa9YG+n/9KnJb9lGrJUUY5arg6bAL1qps/oZjmUwaHlX5Ugg" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.js" integrity="sha384-i9p+YmlwbK0lT9RcfgdAo/Cikui1KeFMeV/0Fwsu+rzgsCvas6oUptNOmo29C33p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false,
+          newLineInDisplayMode: true,
+          strict: false
+        });
+    });
+</script>
+<style>
+    .katex * {
+        font-size: 90%;
+    }
+</style>
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '\/home\/runner\/work\/YizhouWebsiteSource\/YizhouWebsiteSource\/content\/blog\/linearreg.md');
+        }
+      </script>
+
+
+
+
+<style>
+  body {
+       
+      font-family: Georgia,serif;
+       
+  }
+
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+  }
+  
+  table { 
+    border-collapse: collapse; 
+    text-align: center;
+    font-size: 80%;
+  }
+
+  tr {
+    border: solid 1px;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+</style>
+
+
+
+<script>
+    window.onload = function(){
+        title = document.getElementsByClassName('title')[0];
+        if (document.URL.split('/')[3] == 'en') {
+            title.href = '/en';
+        } else {
+            title.href = '/';
+        }
+    }
+</script>
+
+
+
+
+
+
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Lucas Wu</h2>
+</a>
+<nav>
+</nav>
+</header>
+  <main>
+
+<h1>线性回归</h1>
+<p>
+  <i>
+    <time datetime='2025-01-11' pubdate>
+      Create time:2025-01-11
+    </time>
+    <hr />
+  </i>
+</p>
+
+
+
+
+<content>
+  <h2 id="简单线性回归">简单线性回归</h2>
+<p>线性回归是用来找到两个变量之间关系的方法，它试图找到一个“最佳线路”（即拟合），表示当自变量变化的时候，因变量如何变化，线性回归的公式为如下：
+$$
+y = a \cdot x + b
+$$
+其变量的解释为：</p>
+<ol>
+<li>y：因变量，也是输出或者预测值。</li>
+<li>x：自变量，也是输入。</li>
+<li>a：为斜率，表示x自变量每增加1，y会增加或者减少多少。</li>
+<li>b：为截距，表示当x=0的时候，y的值。</li>
+</ol>
+<p>线性回归可以简单理解为找到一条最能反应数据点总体趋势的数学表达式（比如直线），比如在散点图中，画一条尽可能靠近所有点的直线，而在这条线中，截距b表示直线在y轴上的起点，在当x增加时，直线沿着斜率a的方向延长，延长后的值即为y值。</p>
+<p>举一个生活中的例子，通过距离长短（自变量，即x）预测时间（因变量, 即y）的时长：</p>
+<table>
+  <thead>
+      <tr>
+          <th>送货距离(km)</th>
+          <th>送货时间(min)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>10</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>15</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>20</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>25</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>35</td>
+      </tr>
+  </tbody>
+</table>
+<p>通过上述的数据，可以知道当送货距离每增加1公里的时候，送货时间增加5分钟，所以在送货距离为2的时候，公式为：
+$$
+15 = a \cdot 2 + b
+$$
+计算斜率a有很多方法，具体取决于解决的问题背景、数据特性等，这里采用简单的“<strong>平均变化法</strong>”来计算斜率a，“<strong>平均变化法</strong>”的思路就是选择数据中任意的两个点来估算斜率a，公式为：
+$$
+a = \frac{\Delta y}{\Delta x_1}
+$$
+举例的数据中，取抽取第一个点和最后一个点来计算斜率a为（不一定要用最后一个点和第一个点，取具备代表的两个点即可）：
+$$
+(35 - 10) / (5 - 1)  = 6.25
+$$
+这个时候将斜率带入线性回归的公式中：
+$$
+15 = 6.25 \cdot 2 + b
+$$
+然后通过公式计算出截率b为2.5，因此公式为：
+$$
+b = y - a \cdot x \newline
+b = 15 - 6.25 \cdot 2  = 2.5
+$$
+最后我们就得到了一个预测模型，当我们输入x的时候，就会预测出y的值：
+$$
+y = 6.25 \cdot x + 2.5
+$$
+通过这个模型可以进行计算当距离达到了3KM的时候，预测出来的送货时间为21.25分钟：
+$$
+6.25 \cdot 3 + 2.5  = 21.25
+$$
+需要注意的是模型并不会精准的预测出在上述数据表中对应的值，因为拟合的直线是代表的整体的趋势，在实际的数据中拟合的直线也不会穿过每个数据点，所以更多的时候是考虑了所有数据点的情况去拟合一条合适的直线，所以预测的是有偏差的。</p>
+<h3 id="多元线性回归">多元线性回归</h3>
+<p>线性回归是用一条直线来描述两个变量之间的关系，而多元线性回归则是用一个公式来描述多个自变量对一个因变量的共同影响，其公式为：
+$$
+y = a_1 \cdot x_1 + a_2 \cdot x_2 + a_3 \cdot x_3 + &hellip; + b
+$$</p>
+<ul>
+<li>y：为因变量，即预测变量或目标变量。</li>
+<li>x_1至x_n：为自变量，即影响目标变量的因素。</li>
+<li>a_1至a_n：为每个自变量对应的斜率（影响系数）。</li>
+<li>b：为截距，即当所有的x为0的时候，y的值。</li>
+</ul>
+<p>多元线性回归和线性回归公式理解上是差不多的难度，因为变动部分只增加了不同的x和a，比如还是拿外卖的例子来距离，并且在原有基础上增加订单数量对送货时间的影响：</p>
+<table>
+  <thead>
+      <tr>
+          <th>送货距离(km)</th>
+          <th>订单数量</th>
+          <th>送货时间(min)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>1</td>
+          <td>15</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>2</td>
+          <td>25</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>1</td>
+          <td>30</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>3</td>
+          <td>40</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>1</td>
+          <td>45</td>
+      </tr>
+  </tbody>
+</table>
+<p>还是通过平均变化法来计算每个自变量的斜率（或者称为影响系数）：
+$$
+a1 = (45 - 15) / （5 - 1）  = 7.5 \newline
+a2 = (40 - 25) / (3 - 2)  = 15
+$$
+然后再通过平均的方式计算截距b，因为截距b是代表是当所有x为0的时候y的值，所以截距b是一个全局参数，它应该反应的是所有数据点的整体趋势，避免需要某一个点计算截距导致的放大随机误差或异常点的影响。
+$$
+x1平均值 = (1 + 2 + 3 + 4 + 5) / 5  = 3 \newline
+x1平均值 = (1 + 2 + 1 + 3 + 1) / 5  = 1.6 \newline
+y平均值 = (15 + 25 + 30 + 40 + 45) / 5  = 31
+$$
+然后带入公式计算截距：
+$$
+b = \overline{y} - a_1 \cdot \overline{x}_1 - a_2 \cdot \overline{x}_2 \newline
+b = 31 - 3 * 7.5 - 1.6 * 15  = -15.5
+$$
+最后得到预测公式：
+$$
+y = x1 \cdot 7.5 + x2 \cdot 15 + -15.5
+$$
+然后利用上面的公式进行预测当送货距离为4，订单数量为3的时候，预测的y值为31.44：
+$$
+4 \cdot 7.5 + 3 * 15 + -15.5  = 59.5
+$$</p>
+<h3 id="线性回归评估">线性回归评估</h3>
+<p>线性模型常用两种方式进行可视化的评估，第一种是Residual Plot（残差图），第二种是Distribution Plot（分布图）。</p>
+<h4 id="residual-plot">Residual Plot</h4>
+<p>残差图的原理是<strong>实际值和预测值的差值（残差）与预测值的关系</strong>，通过残差图可以得知如下的三点：</p>
+<ol>
+<li>是否满足线性关系：残差应该是随机分布零线的上下，没有明显的趋势，如果出现曲线趋势，说明不具备线性关系，线性回归模型不适合。</li>
+<li>是否均匀分布，预测是不是偏向某些范围：残差应该随机分布在0的上下，且没有锥形等不均匀模式（即误差随预测值增大而增大或者减小），如果存在锥形说明模型对于某些范围的预测误差较大。</li>
+<li>是否有异常极端值（离群点）：如果出现了极端的离群点，说明存在异常值，可能会对模型产生不良的影响。</li>
+</ol>
+<p>而残差值能够告诉我们：</p>
+<ol>
+<li>正残差：说明预测值比实际值小，存在低估可能</li>
+<li>负残差：说明预测值比实际值大，存在高估可能</li>
+<li>残差为零：说明预测值和实际值完全一样</li>
+</ol>
+<p>比如下图中四种不同的情况，第一种良好模型，第二种为非线性模型，第三种为分布不均匀模型，第四种为部分偏差图形（即右侧部分会存在对数据的低估可能）。</p>
+<p><img src="/post/images/2025/01/Residual-Plot-Range-specific-Bias.png" alt="img"></p>
+<h4 id="distribution-plot">Distribution Plot</h4>
+<p>分布图是用来展示一组数据概率密度分布，即数据在不同取值范围的分布情况，横轴是数据的取值（例如实际值或预测值），纵轴是每个取值范围内的频率或者密度，根据绘制预测值和实际值的分布图，能清楚的看见预测值和实际值的重叠情况。</p>
+<p>比如下面的分布图，蓝色为实际值，橙色为预测值，深橙色为重叠部分，除此之外可以通过曲线进行观察，蓝色的曲线更宽，说明范围更大，可能包含了其它的随机因素（比如外卖的天气、交通等），橙色更短，说明模型的预测值较为集中，忽略了一部分数据的随机性。</p>
+<p><img src="/post/images/2025/01/Distribution-of-Actual-vs-Predicted-Delivery-Time.png" alt="img"></p>
+<h4 id="绘图">绘图</h4>
+<p>在Python中，Residual Plot图可以采用Seaborn中的rediplot绘制，而Distribution Plot则可以采用Seaborn中的displot绘制。</p>
+
+</content>
+<p>
+  
+  <a href="https://vec6.com/tags/math/">#Math</a>
+  
+</p>
+
+  </main>
+  <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
+        property="dct:title">Lucas's blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+        href="http://vec6.com">lucas</a> is licensed under <a
+        href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
+        rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a>
+    | theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a> 
+    <br />
+    Language Switcher: 
+
+    
+    
+    <a title="English" href="/en">English</a>
+    
+    
+
+    
+</p>
+
+
+</footer>
+
+    
+
+</body>
+
+</html>

@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>矩阵计算 | Lucas Wu</title>
+<meta name="title" content="矩阵计算" />
+<meta name="description" content="矩阵计算本质是来源于线性代数的定义，其计算方式是通过行与列的逐项匹配、相乘并求和来生成一个新的矩阵，同时矩阵A的每一行代表一个观测点或者样本，每一列代表每个观测点或样本的不同特征。
+矩阵的计算是基于矩阵的形状（维度）进行的，比如矩阵A为m行n列，矩阵B为p行q列，那么只要n = p，则满足矩阵计算的规则，所以矩阵的计算必须要满足被乘矩阵A的列数 = 乘数矩阵B的行数才能进行矩阵计算，同时输出的矩阵的形状也是为m行*q列，即行数来自于左侧矩阵A的行，列数来自于右侧矩阵B的列数。
+举例，如下两个矩阵，矩阵A为顾客购买水果的数据，对应一个2*2的矩阵：
+
+  
+      
+          
+          购买苹果数量
+          购买香蕉数量
+      
+  
+  
+      
+          顾客1
+          1
+          3
+      
+      
+          顾客2
+          2
+          1
+      
+  
+
+矩阵B为水果的单价，对应为一个2*1的列向量：
+
+  
+      
+          
+          单价
+      
+  
+  
+      
+          苹果
+          2
+      
+      
+          香蕉
+          3
+      
+  
+
+上述的两个矩阵满组矩阵计算的需求，即A的列数 = B的行数，然后结果为[2,1]的矩阵。
+矩阵计算，矩阵乘法的规则是行乘列并逐项求和：
+$$
+\begin{bmatrix}
+1 &amp; 3 \newline
+2 &amp; 1
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+2 \newline
+3
+\end{bmatrix}
+$$
+$$
+\begin{bmatrix}
+1 \cdot 2 &#43; 3 \cdot 3 \newline
+2 \cdot 2 &#43; 1 \cdot 3
+\end{bmatrix}
+$$
+$$
+\begin{bmatrix}
+11 \newline
+7
+\end{bmatrix}
+$$" />
+<meta name="keywords" content="Math," />
+
+
+<meta property="og:url" content="https://vec6.com/blog/matrixcalc/">
+  <meta property="og:site_name" content="Lucas Wu">
+  <meta property="og:title" content="矩阵计算">
+  <meta property="og:description" content="矩阵计算本质是来源于线性代数的定义，其计算方式是通过行与列的逐项匹配、相乘并求和来生成一个新的矩阵，同时矩阵A的每一行代表一个观测点或者样本，每一列代表每个观测点或样本的不同特征。
+矩阵的计算是基于矩阵的形状（维度）进行的，比如矩阵A为m行n列，矩阵B为p行q列，那么只要n = p，则满足矩阵计算的规则，所以矩阵的计算必须要满足被乘矩阵A的列数 = 乘数矩阵B的行数才能进行矩阵计算，同时输出的矩阵的形状也是为m行*q列，即行数来自于左侧矩阵A的行，列数来自于右侧矩阵B的列数。
+举例，如下两个矩阵，矩阵A为顾客购买水果的数据，对应一个2*2的矩阵：
+购买苹果数量 购买香蕉数量 顾客1 1 3 顾客2 2 1 矩阵B为水果的单价，对应为一个2*1的列向量：
+单价 苹果 2 香蕉 3 上述的两个矩阵满组矩阵计算的需求，即A的列数 = B的行数，然后结果为[2,1]的矩阵。
+矩阵计算，矩阵乘法的规则是行乘列并逐项求和： $$ \begin{bmatrix} 1 &amp; 3 \newline 2 &amp; 1 \end{bmatrix} \cdot \begin{bmatrix} 2 \newline 3 \end{bmatrix} $$
+$$ \begin{bmatrix} 1 \cdot 2 &#43; 3 \cdot 3 \newline 2 \cdot 2 &#43; 1 \cdot 3 \end{bmatrix} $$
+$$ \begin{bmatrix} 11 \newline 7 \end{bmatrix} $$">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2025-01-11T23:53:34+00:00">
+    <meta property="article:modified_time" content="2025-01-11T23:53:34+00:00">
+    <meta property="article:tag" content="Math">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="矩阵计算">
+  <meta name="twitter:description" content="矩阵计算本质是来源于线性代数的定义，其计算方式是通过行与列的逐项匹配、相乘并求和来生成一个新的矩阵，同时矩阵A的每一行代表一个观测点或者样本，每一列代表每个观测点或样本的不同特征。
+矩阵的计算是基于矩阵的形状（维度）进行的，比如矩阵A为m行n列，矩阵B为p行q列，那么只要n = p，则满足矩阵计算的规则，所以矩阵的计算必须要满足被乘矩阵A的列数 = 乘数矩阵B的行数才能进行矩阵计算，同时输出的矩阵的形状也是为m行*q列，即行数来自于左侧矩阵A的行，列数来自于右侧矩阵B的列数。
+举例，如下两个矩阵，矩阵A为顾客购买水果的数据，对应一个2*2的矩阵：
+购买苹果数量 购买香蕉数量 顾客1 1 3 顾客2 2 1 矩阵B为水果的单价，对应为一个2*1的列向量：
+单价 苹果 2 香蕉 3 上述的两个矩阵满组矩阵计算的需求，即A的列数 = B的行数，然后结果为[2,1]的矩阵。
+矩阵计算，矩阵乘法的规则是行乘列并逐项求和： $$ \begin{bmatrix} 1 &amp; 3 \newline 2 &amp; 1 \end{bmatrix} \cdot \begin{bmatrix} 2 \newline 3 \end{bmatrix} $$
+$$ \begin{bmatrix} 1 \cdot 2 &#43; 3 \cdot 3 \newline 2 \cdot 2 &#43; 1 \cdot 3 \end{bmatrix} $$
+$$ \begin{bmatrix} 11 \newline 7 \end{bmatrix} $$">
+
+
+
+
+  <meta itemprop="name" content="矩阵计算">
+  <meta itemprop="description" content="矩阵计算本质是来源于线性代数的定义，其计算方式是通过行与列的逐项匹配、相乘并求和来生成一个新的矩阵，同时矩阵A的每一行代表一个观测点或者样本，每一列代表每个观测点或样本的不同特征。
+矩阵的计算是基于矩阵的形状（维度）进行的，比如矩阵A为m行n列，矩阵B为p行q列，那么只要n = p，则满足矩阵计算的规则，所以矩阵的计算必须要满足被乘矩阵A的列数 = 乘数矩阵B的行数才能进行矩阵计算，同时输出的矩阵的形状也是为m行*q列，即行数来自于左侧矩阵A的行，列数来自于右侧矩阵B的列数。
+举例，如下两个矩阵，矩阵A为顾客购买水果的数据，对应一个2*2的矩阵：
+购买苹果数量 购买香蕉数量 顾客1 1 3 顾客2 2 1 矩阵B为水果的单价，对应为一个2*1的列向量：
+单价 苹果 2 香蕉 3 上述的两个矩阵满组矩阵计算的需求，即A的列数 = B的行数，然后结果为[2,1]的矩阵。
+矩阵计算，矩阵乘法的规则是行乘列并逐项求和： $$ \begin{bmatrix} 1 &amp; 3 \newline 2 &amp; 1 \end{bmatrix} \cdot \begin{bmatrix} 2 \newline 3 \end{bmatrix} $$
+$$ \begin{bmatrix} 1 \cdot 2 &#43; 3 \cdot 3 \newline 2 \cdot 2 &#43; 1 \cdot 3 \end{bmatrix} $$
+$$ \begin{bmatrix} 11 \newline 7 \end{bmatrix} $$">
+  <meta itemprop="datePublished" content="2025-01-11T23:53:34+00:00">
+  <meta itemprop="dateModified" content="2025-01-11T23:53:34+00:00">
+  <meta itemprop="wordCount" content="388">
+  <meta itemprop="keywords" content="Math">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    background-color: initial;
+    color: initial;
+  }
+
+  div.highlight code {
+    background-color: unset;
+    color: unset;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.css" integrity="sha384-sMefv1J1YJCHsg0mTa9YG+n/9KnJb9lGrJUUY5arg6bAL1qps/oZjmUwaHlX5Ugg" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.js" integrity="sha384-i9p+YmlwbK0lT9RcfgdAo/Cikui1KeFMeV/0Fwsu+rzgsCvas6oUptNOmo29C33p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false,
+          newLineInDisplayMode: true,
+          strict: false
+        });
+    });
+</script>
+<style>
+    .katex * {
+        font-size: 90%;
+    }
+</style>
+
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '\/home\/runner\/work\/YizhouWebsiteSource\/YizhouWebsiteSource\/content\/blog\/matrixcalc.md');
+        }
+      </script>
+
+
+
+
+<style>
+  body {
+       
+      font-family: Georgia,serif;
+       
+  }
+
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+  }
+  
+  table { 
+    border-collapse: collapse; 
+    text-align: center;
+    font-size: 80%;
+  }
+
+  tr {
+    border: solid 1px;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+</style>
+
+
+
+<script>
+    window.onload = function(){
+        title = document.getElementsByClassName('title')[0];
+        if (document.URL.split('/')[3] == 'en') {
+            title.href = '/en';
+        } else {
+            title.href = '/';
+        }
+    }
+</script>
+
+
+
+
+
+
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Lucas Wu</h2>
+</a>
+<nav>
+</nav>
+</header>
+  <main>
+
+<h1>矩阵计算</h1>
+<p>
+  <i>
+    <time datetime='2025-01-11' pubdate>
+      Create time:2025-01-11
+    </time>
+    <hr />
+  </i>
+</p>
+
+
+
+
+<content>
+  <p>矩阵计算本质是来源于线性代数的定义，其计算方式是通过行与列的逐项匹配、相乘并求和来生成一个新的矩阵，同时矩阵A的每一行代表一个观测点或者样本，每一列代表每个观测点或样本的不同特征。</p>
+<p>矩阵的计算是基于矩阵的形状（维度）进行的，比如矩阵A为m行n列，矩阵B为p行q列，那么只要n = p，则满足矩阵计算的规则，所以<strong>矩阵的计算必须要满足被乘矩阵A的列数 = 乘数矩阵B的行数才能进行矩阵计算，同时输出的矩阵的形状也是为m行*q列，即行数来自于左侧矩阵A的行，列数来自于右侧矩阵B的列数。</strong></p>
+<p>举例，如下两个矩阵，矩阵A为顾客购买水果的数据，对应一个2*2的矩阵：</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>购买苹果数量</th>
+          <th>购买香蕉数量</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>顾客1</td>
+          <td>1</td>
+          <td>3</td>
+      </tr>
+      <tr>
+          <td>顾客2</td>
+          <td>2</td>
+          <td>1</td>
+      </tr>
+  </tbody>
+</table>
+<p>矩阵B为水果的单价，对应为一个2*1的列向量：</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>单价</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>苹果</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>香蕉</td>
+          <td>3</td>
+      </tr>
+  </tbody>
+</table>
+<p>上述的两个矩阵满组矩阵计算的需求，即A的列数 = B的行数，然后结果为[2,1]的矩阵。</p>
+<p>矩阵计算，矩阵乘法的规则是<strong>行乘列并逐项求和</strong>：
+$$
+\begin{bmatrix}
+1 &amp; 3 \newline
+2 &amp; 1
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+2 \newline
+3
+\end{bmatrix}
+$$</p>
+<p>$$
+\begin{bmatrix}
+1 \cdot 2 + 3 \cdot 3 \newline
+2 \cdot 2 + 1 \cdot 3
+\end{bmatrix}
+$$</p>
+<p>$$
+\begin{bmatrix}
+11 \newline
+7
+\end{bmatrix}
+$$</p>
+<p>上面采用矩阵乘法的方式同样可以使用普通的手动计算：</p>
+<p>$$
+顾客1购买金额 = 1 * 2 + 3 * 3 = 11 \newline
+顾客2购买金额 = 2 * 2 + 1 * 3 = 7
+$$</p>
+<h2 id="优势">优势</h2>
+<p>矩阵计算还是手动计算，本质上都是执行相同的数学运算，如果只是手动计算，那么矩阵计算有两个优点：</p>
+<ol>
+<li>描述性强：即用矩阵很简单的可以描述需要做的运算，手动计算每行都需要带入公式，计算量太大了后就非常麻烦。</li>
+<li>扩展性强：如果要添加数据，只需要再添加一行即可，如果要添加特征只需要添加一列即可。</li>
+</ol>
+<p>如果是计算机计算，则矩阵计算除了上述的两个优点，还有一个非常大的优势是<strong>利用CPU或GPU并行计算</strong>，矩阵计算是一个高度依赖于底层库的计算，很多科学工具的底层库通过对矩阵计算进行优化，从而能达到将矩阵计算利用CPU或GPU进行快速的并行计算。</p>
+<p>这是因为行与列的匹配是天然的并行任何，这是因为每一行的计算是可以完全独立计算的，比如上面的例子来说，可以拆分为两个不同的并行计算任务：
+$$
+Task1: 1 \cdot 2 + 3 \cdot 3 \newline
+Task2: 2 \cdot 2 + 1 \cdot 3
+$$</p>
+<h2 id="矩阵逆">矩阵逆</h2>
+<p>在矩阵计算中，并没有除法的概念，所以就用矩阵逆的方式来代替除法，矩阵逆的核心公式记为如下，其中第一个数学符号为A矩阵，第二个数学符号A矩阵逆，第三个数学符号为单位矩阵：
+$$
+A \cdot A^{-1} = I
+$$</p>
+<p><strong>单位矩阵</strong>是一个特殊矩阵，内部是一个对角线是1，其余位置为0的一个特殊矩阵，比如下面2X2的单位矩阵：
+$$
+\begin{bmatrix}
+1 &amp; 0 \newline
+0 &amp; 1
+\end{bmatrix}
+$$
+再比如下面3X3的单位矩阵表示为：
+$$
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 \newline
+0 &amp; 1 &amp; 0 \newline
+0 &amp; 0 &amp; 1
+\end{bmatrix}
+$$
+单位矩阵类似于数字中的1，在矩阵运算中是一个“中性元素”，所以矩阵乘以单位矩阵是不会改变矩阵本身的：
+$$
+1 \cdot x  = x \newline
+类似于矩阵中的 \newline
+A \cdot I = A
+$$
+而矩阵逆则类似于数字中的倒数，类似如下：
+$$
+2 \cdot \frac{1}{2}  = 1 \newline
+类似于矩阵中的 \newline
+A * A^{-1} = I
+$$
+那么矩阵逆有什么作用？矩阵逆可以用来解方程，比如矩阵计算，如果矩阵A和B已知
+$$
+X * A = B
+$$
+那么解矩阵X则等式为：
+$$
+X = B * A逆
+$$
+这里的是用B * A逆，是因为矩阵没有除法，所以A逆相当于数字倒数，利用乘法达到除法的效果，将上面的换成普通的数据方程：
+$$
+x * a = b \newline
+x = b / a
+$$
+计算矩阵逆，需要多个步骤，其计算的公式为：
+$$
+A^{-1} = \frac{1}{det(A)}
+\begin{bmatrix}
+d &amp; -b \newline
+-c &amp; a
+\end{bmatrix}
+$$
+其中 $A^{-1}$ 为矩阵逆，$det(A)$为行列式($det(A)\neq0$），后面的矩阵则代表的是矩阵A交换和取负后的矩阵。</p>
+<p>比如矩阵A为如下，然后来举例如何计算：</p>
+<p>$$
+A =
+\begin{bmatrix}
+2 &amp; 1 \newline
+3 &amp; 4
+\end{bmatrix}
+$$
+其内部顺序为：</p>
+<p>$$
+A =
+\begin{bmatrix}
+a &amp; b \newline
+c &amp; d
+\end{bmatrix}
+$$</p>
+<h3 id="计算行列式">计算行列式</h3>
+<p>计算行列式det需要注意其结果不能为0，计算公式表达为：</p>
+<p>$$
+det(A) = ad - bc
+$$
+按照上面的例子计算：</p>
+<p>$$
+det(A) = 2<em>4 - 1</em>3  = 5
+$$</p>
+<h3 id="交换和取负">交换和取负</h3>
+<p>把原矩阵的a,d互换位置，然后将b,c取负，即得到：</p>
+<p>$$
+\begin{bmatrix}
+4 &amp; -1 \newline
+-3 &amp; 2
+\end{bmatrix}
+$$</p>
+<h2 id="除以行列式">除以行列式</h2>
+<p>集合上面的计算结果，然后计算矩阵逆，因为矩阵中没有除法，所以每个矩阵元素都乘以：</p>
+<p>$$
+A^{-1} = \frac{1}{5}
+\begin{bmatrix}
+4 &amp; -1 \newline
+-3 &amp; 2
+\end{bmatrix}
+$$
+上面进一步计算等于：</p>
+<p>$$
+\begin{bmatrix}
+\frac{4}{5} &amp; -\frac{1}{5} \newline
+-\frac{3}{5} &amp; \frac{2}{5}
+\end{bmatrix}
+$$</p>
+<p>结果为：</p>
+<p>$$
+A^{-1} =
+\begin{bmatrix}
+0.8 &amp; -0.2 \newline
+-0.6 &amp; 0.4
+\end{bmatrix}
+$$</p>
+<h3 id="结果检验">结果检验</h3>
+<p>因为在最早提到了矩阵的逆计算是符合如下公式的：</p>
+<p>$$
+A \cdot A^{-1} = I
+$$
+而其中的I为单位矩阵的一种特殊矩阵，其形式表现为对角线全为1，其余全部为0，所以可以通过计算矩阵乘以矩阵逆来检验结果：</p>
+<p>$$
+\begin{bmatrix}
+2 &amp; 1 \newline
+3 &amp; 4
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+0.8 &amp; -0.2 \newline
+-0.6 &amp; 0.4
+\end{bmatrix}
+$$</p>
+<p>$$
+\begin{bmatrix}
+1 &amp; 0 \newline
+0 &amp; 1
+\end{bmatrix}
+$$</p>
+
+</content>
+<p>
+  
+  <a href="https://vec6.com/tags/math/">#Math</a>
+  
+</p>
+
+  </main>
+  <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
+        property="dct:title">Lucas's blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+        href="http://vec6.com">lucas</a> is licensed under <a
+        href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
+        rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a>
+    | theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a> 
+    <br />
+    Language Switcher: 
+
+    
+    
+    <a title="English" href="/en">English</a>
+    
+    
+
+    
+</p>
+
+
+</footer>
+
+    
+
+</body>
+
+</html>
