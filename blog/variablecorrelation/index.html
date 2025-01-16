@@ -392,10 +392,9 @@ Pearson系数 Pearson（皮尔逊系数）相关系数通常用字母“r”标�
 </script>
 <style>
     .katex * {
-        font-size: 90%;
+        font-size: 97%;
     }
 </style>
-
 
 
 
@@ -411,12 +410,9 @@ Pearson系数 Pearson（皮尔逊系数）相关系数通常用字母“r”标�
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '\/home\/runner\/work\/YizhouWebsiteSource\/YizhouWebsiteSource\/content\/blog\/variablecorrelation.md');
+          gtag('config', 'G-V5WKEHZ2PS');
         }
       </script>
-
-
-
 
 <style>
   body {
@@ -467,6 +463,52 @@ Pearson系数 Pearson（皮尔逊系数）相关系数通常用字母“r”标�
 
 
 
+
+
+<div class="toc">
+  <hr />
+    <details close>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#pearson%e7%b3%bb%e6%95%b0" aria-label="Pearson系数">Pearson系数</a></li>
+                <li>
+                    <a href="#chi-square-test" aria-label="Chi-Square Test">Chi-Square Test</a><ul>
+                        
+                <li>
+                    <a href="#%e8%ae%a1%e7%ae%97%e6%ad%a5%e9%aa%a41-%e6%95%b4%e7%90%86%e6%95%b0%e6%8d%ae%e5%88%b6%e4%bd%9c%e5%88%97%e8%81%94%e8%a1%a8%e4%ba%a4%e5%8f%89%e8%a1%a8" aria-label="计算步骤1-整理数据，制作列联表（交叉表）">计算步骤1-整理数据，制作列联表（交叉表）</a></li>
+                <li>
+                    <a href="#%e8%ae%a1%e7%ae%97%e6%ad%a5%e9%aa%a42-%e8%ae%be%e5%ae%9a%e5%81%87%e8%ae%be%e8%ae%a1%e7%ae%97%e7%8b%ac%e7%ab%8b%e4%ba%8b%e4%bb%b6%e7%9a%84%e8%81%94%e5%90%88%e6%a6%82%e7%8e%87" aria-label="计算步骤2-设定假设，计算独立事件的联合概率">计算步骤2-设定假设，计算独立事件的联合概率</a></li>
+                <li>
+                    <a href="#%e8%ae%a1%e7%ae%97%e6%ad%a5%e9%aa%a43-%e8%ae%a1%e7%ae%97%e5%8d%a1%e6%96%b9%e7%bb%9f%e8%ae%a1%e9%87%8f" aria-label="计算步骤3-计算卡方统计量">计算步骤3-计算卡方统计量</a></li>
+                <li>
+                    <a href="#%e8%ae%a1%e7%ae%97%e6%ad%a5%e9%aa%a44-%e8%ae%a1%e7%ae%97%e8%87%aa%e7%94%b1%e5%ba%a6" aria-label="计算步骤4-计算自由度">计算步骤4-计算自由度</a></li>
+                <li>
+                    <a href="#%e8%ae%a1%e7%ae%97%e6%ad%a5%e9%aa%a45-%e6%98%be%e8%91%97%e6%80%a7%e6%a3%80%e9%aa%8c" aria-label="计算步骤5-显著性检验">计算步骤5-显著性检验</a></li></ul>
+                </li>
+                <li>
+                    <a href="#p-value" aria-label="P-Value">P-Value</a><ul>
+                        
+                <li>
+                    <a href="#p-value%e7%bb%93%e5%90%88pearson" aria-label="P-Value结合Pearson">P-Value结合Pearson</a></li></ul>
+                </li>
+                <li>
+                    <a href="#p-value%e7%bb%93%e5%90%88chi-square-test" aria-label="P-Value结合Chi Square Test">P-Value结合Chi Square Test</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<script>
+  window.onload = function(){
+    toc = document.querySelector('.toc')
+    document.querySelector('h1').nextElementSibling.after(toc)
+  }
+</script>
 </head>
 
 <body>
@@ -832,6 +874,49 @@ $$</p>
 
     
 
-</body>
+  <div class="toc">
+  <hr />
+    <details close>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#pearson%e7%b3%bb%e6%95%b0" aria-label="Pearson系数">Pearson系数</a></li>
+                <li>
+                    <a href="#chi-square-test" aria-label="Chi-Square Test">Chi-Square Test</a><ul>
+                        
+                <li>
+                    <a href="#%e8%ae%a1%e7%ae%97%e6%ad%a5%e9%aa%a41-%e6%95%b4%e7%90%86%e6%95%b0%e6%8d%ae%e5%88%b6%e4%bd%9c%e5%88%97%e8%81%94%e8%a1%a8%e4%ba%a4%e5%8f%89%e8%a1%a8" aria-label="计算步骤1-整理数据，制作列联表（交叉表）">计算步骤1-整理数据，制作列联表（交叉表）</a></li>
+                <li>
+                    <a href="#%e8%ae%a1%e7%ae%97%e6%ad%a5%e9%aa%a42-%e8%ae%be%e5%ae%9a%e5%81%87%e8%ae%be%e8%ae%a1%e7%ae%97%e7%8b%ac%e7%ab%8b%e4%ba%8b%e4%bb%b6%e7%9a%84%e8%81%94%e5%90%88%e6%a6%82%e7%8e%87" aria-label="计算步骤2-设定假设，计算独立事件的联合概率">计算步骤2-设定假设，计算独立事件的联合概率</a></li>
+                <li>
+                    <a href="#%e8%ae%a1%e7%ae%97%e6%ad%a5%e9%aa%a43-%e8%ae%a1%e7%ae%97%e5%8d%a1%e6%96%b9%e7%bb%9f%e8%ae%a1%e9%87%8f" aria-label="计算步骤3-计算卡方统计量">计算步骤3-计算卡方统计量</a></li>
+                <li>
+                    <a href="#%e8%ae%a1%e7%ae%97%e6%ad%a5%e9%aa%a44-%e8%ae%a1%e7%ae%97%e8%87%aa%e7%94%b1%e5%ba%a6" aria-label="计算步骤4-计算自由度">计算步骤4-计算自由度</a></li>
+                <li>
+                    <a href="#%e8%ae%a1%e7%ae%97%e6%ad%a5%e9%aa%a45-%e6%98%be%e8%91%97%e6%80%a7%e6%a3%80%e9%aa%8c" aria-label="计算步骤5-显著性检验">计算步骤5-显著性检验</a></li></ul>
+                </li>
+                <li>
+                    <a href="#p-value" aria-label="P-Value">P-Value</a><ul>
+                        
+                <li>
+                    <a href="#p-value%e7%bb%93%e5%90%88pearson" aria-label="P-Value结合Pearson">P-Value结合Pearson</a></li></ul>
+                </li>
+                <li>
+                    <a href="#p-value%e7%bb%93%e5%90%88chi-square-test" aria-label="P-Value结合Chi Square Test">P-Value结合Chi Square Test</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<script>
+  window.onload = function(){
+    toc = document.querySelector('.toc')
+    document.querySelector('h1').nextElementSibling.after(toc)
+  }
+</script></body>
 
 </html>

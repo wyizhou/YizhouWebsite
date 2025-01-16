@@ -242,10 +242,9 @@ SQL Overview SQL, or Structured Query Language, is based on the relational model
 </script>
 <style>
     .katex * {
-        font-size: 90%;
+        font-size: 97%;
     }
 </style>
-
 
 
 
@@ -261,12 +260,9 @@ SQL Overview SQL, or Structured Query Language, is based on the relational model
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '\/home\/runner\/work\/YizhouWebsiteSource\/YizhouWebsiteSource\/content\/blog\/sqlforanalysis.en.md');
+          gtag('config', 'G-V5WKEHZ2PS');
         }
       </script>
-
-
-
 
 <style>
   body {
@@ -317,6 +313,86 @@ SQL Overview SQL, or Structured Query Language, is based on the relational model
 
 
 
+
+
+<div class="toc">
+  <hr />
+    <details close>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#sql-overview" aria-label="SQL Overview">SQL Overview</a></li>
+                <li>
+                    <a href="#query-statements" aria-label="Query Statements">Query Statements</a><ul>
+                        
+                <li>
+                    <a href="#ddl-data-definition-language" aria-label="DDL (Data Definition Language)">DDL (Data Definition Language)</a></li>
+                <li>
+                    <a href="#dml-data-manipulation-language" aria-label="DML (Data Manipulation Language)">DML (Data Manipulation Language)</a></li>
+                <li>
+                    <a href="#dcl-data-control-language" aria-label="DCL (Data Control Language)">DCL (Data Control Language)</a></li>
+                <li>
+                    <a href="#tcl-transaction-control-language" aria-label="TCL (Transaction Control Language)">TCL (Transaction Control Language)</a></li></ul>
+                </li>
+                <li>
+                    <a href="#data-types" aria-label="Data Types">Data Types</a></li>
+                <li>
+                    <a href="#notes-and-observations" aria-label="Notes and Observations">Notes and Observations</a><ul>
+                        
+                <li>
+                    <a href="#primary-key" aria-label="Primary Key">Primary Key</a></li>
+                <li>
+                    <a href="#er-model-and-erd-diagram" aria-label="ER Model and ERD Diagram">ER Model and ERD Diagram</a><ul>
+                        
+                <li>
+                    <a href="#entity-relationship-model-er-model" aria-label="Entity-Relationship Model (ER Model)">Entity-Relationship Model (ER Model)</a></li>
+                <li>
+                    <a href="#entity-relationship-diagram-erd-diagram" aria-label="Entity Relationship Diagram (ERD Diagram)">Entity Relationship Diagram (ERD Diagram)</a></li>
+                <li>
+                    <a href="#advantages" aria-label="Advantages">Advantages</a></li></ul>
+                </li>
+                <li>
+                    <a href="#string-and-range-queries" aria-label="String and Range Queries">String and Range Queries</a></li>
+                <li>
+                    <a href="#sorting" aria-label="Sorting">Sorting</a></li>
+                <li>
+                    <a href="#grouping" aria-label="Grouping">Grouping</a><ul>
+                        
+                <li>
+                    <a href="#example-grouping-and-filtering" aria-label="Example: Grouping and Filtering">Example: Grouping and Filtering</a></li></ul>
+                </li>
+                <li>
+                    <a href="#subqueries" aria-label="Subqueries">Subqueries</a><ul>
+                        
+                <li>
+                    <a href="#example-subquery-in-where" aria-label="Example: Subquery in WHERE">Example: Subquery in WHERE</a></li></ul>
+                </li>
+                <li>
+                    <a href="#aggregate-functions" aria-label="Aggregate Functions">Aggregate Functions</a></li>
+                <li>
+                    <a href="#multi-table-queries" aria-label="Multi-Table Queries">Multi-Table Queries</a><ul>
+                        
+                <li>
+                    <a href="#example-implicit-join" aria-label="Example: Implicit Join">Example: Implicit Join</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<script>
+  window.onload = function(){
+    toc = document.querySelector('.toc')
+    document.querySelector('h1').nextElementSibling.after(toc)
+  }
+</script>
 </head>
 
 <body>
@@ -473,6 +549,83 @@ SQL Overview SQL, or Structured Query Language, is based on the relational model
 
     
 
-</body>
+  <div class="toc">
+  <hr />
+    <details close>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#sql-overview" aria-label="SQL Overview">SQL Overview</a></li>
+                <li>
+                    <a href="#query-statements" aria-label="Query Statements">Query Statements</a><ul>
+                        
+                <li>
+                    <a href="#ddl-data-definition-language" aria-label="DDL (Data Definition Language)">DDL (Data Definition Language)</a></li>
+                <li>
+                    <a href="#dml-data-manipulation-language" aria-label="DML (Data Manipulation Language)">DML (Data Manipulation Language)</a></li>
+                <li>
+                    <a href="#dcl-data-control-language" aria-label="DCL (Data Control Language)">DCL (Data Control Language)</a></li>
+                <li>
+                    <a href="#tcl-transaction-control-language" aria-label="TCL (Transaction Control Language)">TCL (Transaction Control Language)</a></li></ul>
+                </li>
+                <li>
+                    <a href="#data-types" aria-label="Data Types">Data Types</a></li>
+                <li>
+                    <a href="#notes-and-observations" aria-label="Notes and Observations">Notes and Observations</a><ul>
+                        
+                <li>
+                    <a href="#primary-key" aria-label="Primary Key">Primary Key</a></li>
+                <li>
+                    <a href="#er-model-and-erd-diagram" aria-label="ER Model and ERD Diagram">ER Model and ERD Diagram</a><ul>
+                        
+                <li>
+                    <a href="#entity-relationship-model-er-model" aria-label="Entity-Relationship Model (ER Model)">Entity-Relationship Model (ER Model)</a></li>
+                <li>
+                    <a href="#entity-relationship-diagram-erd-diagram" aria-label="Entity Relationship Diagram (ERD Diagram)">Entity Relationship Diagram (ERD Diagram)</a></li>
+                <li>
+                    <a href="#advantages" aria-label="Advantages">Advantages</a></li></ul>
+                </li>
+                <li>
+                    <a href="#string-and-range-queries" aria-label="String and Range Queries">String and Range Queries</a></li>
+                <li>
+                    <a href="#sorting" aria-label="Sorting">Sorting</a></li>
+                <li>
+                    <a href="#grouping" aria-label="Grouping">Grouping</a><ul>
+                        
+                <li>
+                    <a href="#example-grouping-and-filtering" aria-label="Example: Grouping and Filtering">Example: Grouping and Filtering</a></li></ul>
+                </li>
+                <li>
+                    <a href="#subqueries" aria-label="Subqueries">Subqueries</a><ul>
+                        
+                <li>
+                    <a href="#example-subquery-in-where" aria-label="Example: Subquery in WHERE">Example: Subquery in WHERE</a></li></ul>
+                </li>
+                <li>
+                    <a href="#aggregate-functions" aria-label="Aggregate Functions">Aggregate Functions</a></li>
+                <li>
+                    <a href="#multi-table-queries" aria-label="Multi-Table Queries">Multi-Table Queries</a><ul>
+                        
+                <li>
+                    <a href="#example-implicit-join" aria-label="Example: Implicit Join">Example: Implicit Join</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<script>
+  window.onload = function(){
+    toc = document.querySelector('.toc')
+    document.querySelector('h1').nextElementSibling.after(toc)
+  }
+</script></body>
 
 </html>

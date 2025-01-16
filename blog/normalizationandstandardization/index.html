@@ -314,10 +314,9 @@ $$ 10 / 40000 = 0.00025 \newline 20 / 40000 = 0.0005 \newline 30 / 40000 =�
 </script>
 <style>
     .katex * {
-        font-size: 90%;
+        font-size: 97%;
     }
 </style>
-
 
 
 
@@ -333,12 +332,9 @@ $$ 10 / 40000 = 0.00025 \newline 20 / 40000 = 0.0005 \newline 30 / 40000 =�
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '\/home\/runner\/work\/YizhouWebsiteSource\/YizhouWebsiteSource\/content\/blog\/normalizationandstandardization.md');
+          gtag('config', 'G-V5WKEHZ2PS');
         }
       </script>
-
-
-
 
 <style>
   body {
@@ -389,6 +385,72 @@ $$ 10 / 40000 = 0.00025 \newline 20 / 40000 = 0.0005 \newline 30 / 40000 =�
 
 
 
+
+
+<div class="toc">
+  <hr />
+    <details close>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#normalization%e5%92%8cstandardization%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="Normalization和Standardization的区别">Normalization和Standardization的区别</a></li>
+                <li>
+                    <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81normalization%e5%92%8cstandardization" aria-label="为什么需要Normalization和Standardization">为什么需要Normalization和Standardization</a></li>
+                <li>
+                    <a href="#%e5%9f%ba%e7%a1%80%e7%9a%84%e4%b8%89%e7%a7%8d%e7%ae%97%e6%b3%95" aria-label="基础的三种算法">基础的三种算法</a><ul>
+                        
+                <li>
+                    <a href="#simple-feature-scaling" aria-label="Simple Feature Scaling">Simple Feature Scaling</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bd%9c%e7%94%a8" aria-label="作用">作用</a></li>
+                <li>
+                    <a href="#%e5%8e%9f%e7%90%86" aria-label="原理">原理</a></li>
+                <li>
+                    <a href="#%e7%bc%ba%e7%82%b91-%e5%8f%97%e5%88%b0%e7%9a%84%e6%9e%81%e5%80%bc%e5%bd%b1%e5%93%8d%e7%89%b9%e5%88%ab%e5%a4%a7" aria-label="缺点1-受到的极值影响特别大">缺点1-受到的极值影响特别大</a></li>
+                <li>
+                    <a href="#%e7%bc%ba%e7%82%b92-%e5%8f%97%e5%88%b0%e7%9a%84%e8%b4%9f%e6%95%b0%e5%bd%b1%e5%93%8d%e7%89%b9%e5%88%ab%e5%a4%a7" aria-label="缺点2-受到的负数影响特别大">缺点2-受到的负数影响特别大</a></li>
+                <li>
+                    <a href="#%e7%bc%ba%e7%82%b93-%e5%8f%aa%e5%85%b3%e5%bf%83%e6%9c%80%e5%a4%a7%e5%80%bc%e4%b8%8d%e5%85%b3%e5%bf%83%e6%9c%80%e5%b0%8f%e5%80%bc" aria-label="缺点3-只关心最大值不关心最小值">缺点3-只关心最大值不关心最小值</a></li></ul>
+                </li>
+                <li>
+                    <a href="#min-max" aria-label="Min-Max">Min-Max</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bd%9c%e7%94%a8-1" aria-label="作用">作用</a></li>
+                <li>
+                    <a href="#%e5%8e%9f%e7%90%86-1" aria-label="原理">原理</a></li>
+                <li>
+                    <a href="#%e7%bc%ba%e7%82%b91-%e6%9e%81%e5%80%bc%e6%95%8f%e6%84%9f" aria-label="缺点1-极值敏感">缺点1-极值敏感</a></li></ul>
+                </li>
+                <li>
+                    <a href="#z-score" aria-label="Z-Score">Z-Score</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bd%9c%e7%94%a8-2" aria-label="作用">作用</a></li>
+                <li>
+                    <a href="#%e5%8e%9f%e7%90%86-2" aria-label="原理">原理</a></li>
+                <li>
+                    <a href="#%e7%bc%ba%e7%82%b91-%e5%8f%97%e5%88%b0%e7%9a%84%e6%9e%81%e5%80%bc%e5%bd%b1%e5%93%8d%e5%a4%a7" aria-label="缺点1-受到的极值影响大">缺点1-受到的极值影响大</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<script>
+  window.onload = function(){
+    toc = document.querySelector('.toc')
+    document.querySelector('h1').nextElementSibling.after(toc)
+  }
+</script>
 </head>
 
 <body>
@@ -581,6 +643,69 @@ $$</p>
 
     
 
-</body>
+  <div class="toc">
+  <hr />
+    <details close>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#normalization%e5%92%8cstandardization%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="Normalization和Standardization的区别">Normalization和Standardization的区别</a></li>
+                <li>
+                    <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81normalization%e5%92%8cstandardization" aria-label="为什么需要Normalization和Standardization">为什么需要Normalization和Standardization</a></li>
+                <li>
+                    <a href="#%e5%9f%ba%e7%a1%80%e7%9a%84%e4%b8%89%e7%a7%8d%e7%ae%97%e6%b3%95" aria-label="基础的三种算法">基础的三种算法</a><ul>
+                        
+                <li>
+                    <a href="#simple-feature-scaling" aria-label="Simple Feature Scaling">Simple Feature Scaling</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bd%9c%e7%94%a8" aria-label="作用">作用</a></li>
+                <li>
+                    <a href="#%e5%8e%9f%e7%90%86" aria-label="原理">原理</a></li>
+                <li>
+                    <a href="#%e7%bc%ba%e7%82%b91-%e5%8f%97%e5%88%b0%e7%9a%84%e6%9e%81%e5%80%bc%e5%bd%b1%e5%93%8d%e7%89%b9%e5%88%ab%e5%a4%a7" aria-label="缺点1-受到的极值影响特别大">缺点1-受到的极值影响特别大</a></li>
+                <li>
+                    <a href="#%e7%bc%ba%e7%82%b92-%e5%8f%97%e5%88%b0%e7%9a%84%e8%b4%9f%e6%95%b0%e5%bd%b1%e5%93%8d%e7%89%b9%e5%88%ab%e5%a4%a7" aria-label="缺点2-受到的负数影响特别大">缺点2-受到的负数影响特别大</a></li>
+                <li>
+                    <a href="#%e7%bc%ba%e7%82%b93-%e5%8f%aa%e5%85%b3%e5%bf%83%e6%9c%80%e5%a4%a7%e5%80%bc%e4%b8%8d%e5%85%b3%e5%bf%83%e6%9c%80%e5%b0%8f%e5%80%bc" aria-label="缺点3-只关心最大值不关心最小值">缺点3-只关心最大值不关心最小值</a></li></ul>
+                </li>
+                <li>
+                    <a href="#min-max" aria-label="Min-Max">Min-Max</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bd%9c%e7%94%a8-1" aria-label="作用">作用</a></li>
+                <li>
+                    <a href="#%e5%8e%9f%e7%90%86-1" aria-label="原理">原理</a></li>
+                <li>
+                    <a href="#%e7%bc%ba%e7%82%b91-%e6%9e%81%e5%80%bc%e6%95%8f%e6%84%9f" aria-label="缺点1-极值敏感">缺点1-极值敏感</a></li></ul>
+                </li>
+                <li>
+                    <a href="#z-score" aria-label="Z-Score">Z-Score</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bd%9c%e7%94%a8-2" aria-label="作用">作用</a></li>
+                <li>
+                    <a href="#%e5%8e%9f%e7%90%86-2" aria-label="原理">原理</a></li>
+                <li>
+                    <a href="#%e7%bc%ba%e7%82%b91-%e5%8f%97%e5%88%b0%e7%9a%84%e6%9e%81%e5%80%bc%e5%bd%b1%e5%93%8d%e5%a4%a7" aria-label="缺点1-受到的极值影响大">缺点1-受到的极值影响大</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<script>
+  window.onload = function(){
+    toc = document.querySelector('.toc')
+    document.querySelector('h1').nextElementSibling.after(toc)
+  }
+</script></body>
 
 </html>

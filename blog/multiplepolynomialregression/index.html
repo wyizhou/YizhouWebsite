@@ -343,10 +343,9 @@ y：目标变量（预测值）。 x：自变量（输入值）。 $a_0,$ $a_1$,
 </script>
 <style>
     .katex * {
-        font-size: 90%;
+        font-size: 97%;
     }
 </style>
-
 
 
 
@@ -362,12 +361,9 @@ y：目标变量（预测值）。 x：自变量（输入值）。 $a_0,$ $a_1$,
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '\/home\/runner\/work\/YizhouWebsiteSource\/YizhouWebsiteSource\/content\/blog\/multiplepolynomialregression.md');
+          gtag('config', 'G-V5WKEHZ2PS');
         }
       </script>
-
-
-
 
 <style>
   body {
@@ -418,6 +414,34 @@ y：目标变量（预测值）。 x：自变量（输入值）。 $a_0,$ $a_1$,
 
 
 
+
+
+<div class="toc">
+  <hr />
+    <details close>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e4%b8%80%e6%ac%a1%e5%a4%9a%e9%a1%b9%e5%bc%8f%e5%9b%9e%e5%bd%92" aria-label="一次多项式回归">一次多项式回归</a></li>
+                <li>
+                    <a href="#%e4%ba%8c%e6%ac%a1%e5%a4%9a%e9%a1%b9%e5%bc%8f%e5%9b%9e%e5%bd%92" aria-label="二次多项式回归">二次多项式回归</a></li>
+                <li>
+                    <a href="#%e4%b8%89%e6%ac%a1%e5%a4%9a%e9%a1%b9%e5%bc%8f%e5%9b%9e%e5%bd%92" aria-label="三次多项式回归">三次多项式回归</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<script>
+  window.onload = function(){
+    toc = document.querySelector('.toc')
+    document.querySelector('h1').nextElementSibling.after(toc)
+  }
+</script>
 </head>
 
 <body>
@@ -576,7 +600,7 @@ $$
 $$
 \beta = (X^TX)^{-1} \cdot X^{T}Y
 $$</p>
-<p>其中X^T为X矩阵的转置，即行转列，而矩阵^-1则代表的是矩阵逆(<a href="#ZgotmplZ">矩阵计算</a>)，X^T*Y代表用矩阵的转置乘以矩阵Y，先计算前面的一部分：</p>
+<p>其中X^T为X矩阵的转置，即行转列，而矩阵^-1则代表的是矩阵逆，X^T*Y代表用矩阵的转置乘以矩阵Y，先计算前面的一部分：</p>
 <p>$$
 X^T \cdot X =
 \begin{bmatrix}
@@ -717,6 +741,31 @@ $$
 
     
 
-</body>
+  <div class="toc">
+  <hr />
+    <details close>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e4%b8%80%e6%ac%a1%e5%a4%9a%e9%a1%b9%e5%bc%8f%e5%9b%9e%e5%bd%92" aria-label="一次多项式回归">一次多项式回归</a></li>
+                <li>
+                    <a href="#%e4%ba%8c%e6%ac%a1%e5%a4%9a%e9%a1%b9%e5%bc%8f%e5%9b%9e%e5%bd%92" aria-label="二次多项式回归">二次多项式回归</a></li>
+                <li>
+                    <a href="#%e4%b8%89%e6%ac%a1%e5%a4%9a%e9%a1%b9%e5%bc%8f%e5%9b%9e%e5%bd%92" aria-label="三次多项式回归">三次多项式回归</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<script>
+  window.onload = function(){
+    toc = document.querySelector('.toc')
+    document.querySelector('h1').nextElementSibling.after(toc)
+  }
+</script></body>
 
 </html>
