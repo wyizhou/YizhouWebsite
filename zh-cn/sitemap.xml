@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://vec6.com/</loc>
-    <lastmod>2025-01-12T21:53:34+00:00</lastmod>
+    <lastmod>2025-01-12T23:53:34+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -16,7 +16,7 @@
                 />
   </url><url>
     <loc>https://vec6.com/blog/</loc>
-    <lastmod>2025-01-12T21:53:34+00:00</lastmod>
+    <lastmod>2025-01-12T23:53:34+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -27,6 +27,35 @@
                 hreflang="zh-CN"
                 href="https://vec6.com/blog/"
                 />
+  </url><url>
+    <loc>https://vec6.com/tags/math/</loc>
+    <lastmod>2025-01-12T23:53:34+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vec6.com/en/tags/math/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://vec6.com/tags/math/"
+                />
+  </url><url>
+    <loc>https://vec6.com/tags/</loc>
+    <lastmod>2025-01-12T23:53:34+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vec6.com/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://vec6.com/tags/"
+                />
+  </url><url>
+    <loc>https://vec6.com/blog/matrixcalc/</loc>
+    <lastmod>2025-01-12T23:53:34+00:00</lastmod>
   </url><url>
     <loc>https://vec6.com/tags/datascience/</loc>
     <lastmod>2025-01-12T21:53:34+00:00</lastmod>
@@ -39,19 +68,6 @@
                 rel="alternate"
                 hreflang="zh-CN"
                 href="https://vec6.com/tags/datascience/"
-                />
-  </url><url>
-    <loc>https://vec6.com/tags/math/</loc>
-    <lastmod>2025-01-12T21:53:34+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://vec6.com/en/tags/math/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://vec6.com/tags/math/"
                 />
   </url><url>
     <loc>https://vec6.com/blog/groupbyofpandas/</loc>
@@ -67,23 +83,7 @@
                 href="https://vec6.com/blog/groupbyofpandas/"
                 />
   </url><url>
-    <loc>https://vec6.com/tags/</loc>
-    <lastmod>2025-01-12T21:53:34+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://vec6.com/en/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://vec6.com/tags/"
-                />
-  </url><url>
-    <loc>https://vec6.com/blog/variablecorrelation/</loc>
-    <lastmod>2025-01-12T21:53:34+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/blog/matrixcalc/</loc>
+    <loc>https://vec6.com/blog/multiplepolynomialregression/</loc>
     <lastmod>2025-01-11T23:53:34+00:00</lastmod>
   </url><url>
     <loc>https://vec6.com/blog/linearreg/</loc>
@@ -91,6 +91,9 @@
   </url><url>
     <loc>https://vec6.com/blog/longwidedata/</loc>
     <lastmod>2025-01-11T23:53:34+00:00</lastmod>
+  </url><url>
+    <loc>https://vec6.com/blog/variablecorrelation/</loc>
+    <lastmod>2025-01-11T21:53:34+00:00</lastmod>
   </url><url>
     <loc>https://vec6.com/blog/handlingmissinginvalidvalues/</loc>
     <lastmod>2025-01-04T11:20:35+00:00</lastmod>
