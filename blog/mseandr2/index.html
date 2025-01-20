@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>模型评估：MSE和R2值 | Lucas Wu</title>
+<meta name="title" content="模型评估：MSE和R2值" />
+<meta name="description" content="MSE和R Square是在回归分析中常用的评估指标，其中MSE评估模型的误差大小，主要用于关注预测精准度的场景，而R Square评估模型的拟合能力，用于评估模型是否能很好的解释数据，也可以将两个指标进行结合使用来评估模型。
+下面用一个外卖的数据来演示MSE和R Square两个指标：
+
+  
+      
+          配送距离(x)
+          真实配送时间(y)
+          预测时间(y-)
+      
+  
+  
+      
+          1km
+          10min
+          12min
+      
+      
+          2km
+          15min
+          14min
+      
+      
+          3km
+          20min
+          22min
+      
+      
+          4km
+          35min
+          30min
+      
+      
+          5km
+          70min
+          65min
+      
+  
+
+Mean Square Error
+Mean Square Error通过计算预测值和真实值的误差来衡量模型的预测精准度问题，其计算公式为：
+$$
+MSE = \frac{1}{n}(y_i - \hat y_i)^2
+$$
+
+$y_i$：真实预测值
+$\hat y_i$：模型预测值
+$n$：数据点的数量
+
+计算过程为：
+$$
+MSE = \frac{1}{5} \cdot ( (10-12)^2 &#43; (15-14)^2 &#43; (20-22)^2 &#43; (35-30)^2 &#43; (70-65)^2 ) \newline
+MSE = \frac{1}{5} \cdot ( 4 &#43; 1 &#43; 4 &#43; 25 &#43; 25 ) \newline
+MSE = \frac{1}{5} \cdot 59 \newline
+MSE = 11.8
+$$
+MSE的值越小（即越接近0）说明模型预测误差很小，预测很准，如果MSE越大说明模型预测误差很大，预测不准确。" />
+<meta name="keywords" content="Math," />
+
+
+<meta property="og:url" content="https://vec6.com/blog/mseandr2/">
+  <meta property="og:site_name" content="Lucas Wu">
+  <meta property="og:title" content="模型评估：MSE和R2值">
+  <meta property="og:description" content="MSE和R Square是在回归分析中常用的评估指标，其中MSE评估模型的误差大小，主要用于关注预测精准度的场景，而R Square评估模型的拟合能力，用于评估模型是否能很好的解释数据，也可以将两个指标进行结合使用来评估模型。
+下面用一个外卖的数据来演示MSE和R Square两个指标：
+配送距离(x) 真实配送时间(y) 预测时间(y-) 1km 10min 12min 2km 15min 14min 3km 20min 22min 4km 35min 30min 5km 70min 65min Mean Square Error Mean Square Error通过计算预测值和真实值的误差来衡量模型的预测精准度问题，其计算公式为： $$ MSE = \frac{1}{n}(y_i - \hat y_i)^2 $$
+$y_i$：真实预测值 $\hat y_i$：模型预测值 $n$：数据点的数量 计算过程为： $$ MSE = \frac{1}{5} \cdot ( (10-12)^2 &#43; (15-14)^2 &#43; (20-22)^2 &#43; (35-30)^2 &#43; (70-65)^2 ) \newline MSE = \frac{1}{5} \cdot ( 4 &#43; 1 &#43; 4 &#43; 25 &#43; 25 ) \newline MSE = \frac{1}{5} \cdot 59 \newline MSE = 11.8 $$ MSE的值越小（即越接近0）说明模型预测误差很小，预测很准，如果MSE越大说明模型预测误差很大，预测不准确。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2025-01-19T23:53:34+00:00">
+    <meta property="article:modified_time" content="2025-01-19T23:53:34+00:00">
+    <meta property="article:tag" content="Math">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="模型评估：MSE和R2值">
+  <meta name="twitter:description" content="MSE和R Square是在回归分析中常用的评估指标，其中MSE评估模型的误差大小，主要用于关注预测精准度的场景，而R Square评估模型的拟合能力，用于评估模型是否能很好的解释数据，也可以将两个指标进行结合使用来评估模型。
+下面用一个外卖的数据来演示MSE和R Square两个指标：
+配送距离(x) 真实配送时间(y) 预测时间(y-) 1km 10min 12min 2km 15min 14min 3km 20min 22min 4km 35min 30min 5km 70min 65min Mean Square Error Mean Square Error通过计算预测值和真实值的误差来衡量模型的预测精准度问题，其计算公式为： $$ MSE = \frac{1}{n}(y_i - \hat y_i)^2 $$
+$y_i$：真实预测值 $\hat y_i$：模型预测值 $n$：数据点的数量 计算过程为： $$ MSE = \frac{1}{5} \cdot ( (10-12)^2 &#43; (15-14)^2 &#43; (20-22)^2 &#43; (35-30)^2 &#43; (70-65)^2 ) \newline MSE = \frac{1}{5} \cdot ( 4 &#43; 1 &#43; 4 &#43; 25 &#43; 25 ) \newline MSE = \frac{1}{5} \cdot 59 \newline MSE = 11.8 $$ MSE的值越小（即越接近0）说明模型预测误差很小，预测很准，如果MSE越大说明模型预测误差很大，预测不准确。">
+
+
+
+
+  <meta itemprop="name" content="模型评估：MSE和R2值">
+  <meta itemprop="description" content="MSE和R Square是在回归分析中常用的评估指标，其中MSE评估模型的误差大小，主要用于关注预测精准度的场景，而R Square评估模型的拟合能力，用于评估模型是否能很好的解释数据，也可以将两个指标进行结合使用来评估模型。
+下面用一个外卖的数据来演示MSE和R Square两个指标：
+配送距离(x) 真实配送时间(y) 预测时间(y-) 1km 10min 12min 2km 15min 14min 3km 20min 22min 4km 35min 30min 5km 70min 65min Mean Square Error Mean Square Error通过计算预测值和真实值的误差来衡量模型的预测精准度问题，其计算公式为： $$ MSE = \frac{1}{n}(y_i - \hat y_i)^2 $$
+$y_i$：真实预测值 $\hat y_i$：模型预测值 $n$：数据点的数量 计算过程为： $$ MSE = \frac{1}{5} \cdot ( (10-12)^2 &#43; (15-14)^2 &#43; (20-22)^2 &#43; (35-30)^2 &#43; (70-65)^2 ) \newline MSE = \frac{1}{5} \cdot ( 4 &#43; 1 &#43; 4 &#43; 25 &#43; 25 ) \newline MSE = \frac{1}{5} \cdot 59 \newline MSE = 11.8 $$ MSE的值越小（即越接近0）说明模型预测误差很小，预测很准，如果MSE越大说明模型预测误差很大，预测不准确。">
+  <meta itemprop="datePublished" content="2025-01-19T23:53:34+00:00">
+  <meta itemprop="dateModified" content="2025-01-19T23:53:34+00:00">
+  <meta itemprop="wordCount" content="171">
+  <meta itemprop="keywords" content="Math">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    background-color: initial;
+    color: initial;
+  }
+
+  div.highlight code {
+    background-color: unset;
+    color: unset;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.css" integrity="sha384-sMefv1J1YJCHsg0mTa9YG+n/9KnJb9lGrJUUY5arg6bAL1qps/oZjmUwaHlX5Ugg" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.js" integrity="sha384-i9p+YmlwbK0lT9RcfgdAo/Cikui1KeFMeV/0Fwsu+rzgsCvas6oUptNOmo29C33p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false,
+          newLineInDisplayMode: true,
+          strict: false
+        });
+    });
+</script>
+<style>
+    .katex * {
+        font-size: 97%;
+    }
+</style>
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-V5WKEHZ2PS');
+        }
+      </script>
+
+<style>
+  body {
+       
+      font-family: Georgia,serif;
+       
+  }
+
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+  }
+  
+  table { 
+    border-collapse: collapse; 
+    text-align: center;
+    font-size: 80%;
+  }
+
+  tr {
+    border: solid 1px;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+</style>
+
+
+
+<script>
+    window.onload = function(){
+        title = document.getElementsByClassName('title')[0];
+        if (document.URL.split('/')[3] == 'en') {
+            title.href = '/en';
+        } else {
+            title.href = '/';
+        }
+    }
+</script>
+
+
+
+
+
+
+
+
+<div class="toc">
+  <hr />
+    <details close>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#mean-square-error" aria-label="Mean Square Error">Mean Square Error</a></li>
+                <li>
+                    <a href="#r-square" aria-label="R Square">R Square</a></li>
+                <li>
+                    <a href="#%e4%b8%a4%e8%80%85%e7%bb%93%e5%90%88%e8%a7%a3%e8%af%bb%e6%a8%a1%e5%9e%8b" aria-label="两者结合解读模型">两者结合解读模型</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+<script>
+  window.onload = function(){
+    toc = document.querySelector('.toc')
+    document.querySelector('h1').nextElementSibling.after(toc)
+  }
+</script>
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Lucas Wu</h2>
+</a>
+<nav>
+</nav>
+</header>
+  <main>
+
+<h1>模型评估：MSE和R2值</h1>
+<p>
+  <i>
+    <time datetime='2025-01-19' pubdate>
+      Create time:2025-01-19
+    </time>
+    <hr />
+  </i>
+</p>
+
+
+
+
+<content>
+  <p>MSE和R Square是在回归分析中常用的评估指标，其中MSE评估模型的误差大小，主要用于关注预测精准度的场景，而R Square评估模型的拟合能力，用于评估模型是否能很好的解释数据，也可以将两个指标进行结合使用来评估模型。</p>
+<p>下面用一个外卖的数据来演示MSE和R Square两个指标：</p>
+<table>
+  <thead>
+      <tr>
+          <th>配送距离(x)</th>
+          <th>真实配送时间(y)</th>
+          <th>预测时间(y-)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1km</td>
+          <td>10min</td>
+          <td>12min</td>
+      </tr>
+      <tr>
+          <td>2km</td>
+          <td>15min</td>
+          <td>14min</td>
+      </tr>
+      <tr>
+          <td>3km</td>
+          <td>20min</td>
+          <td>22min</td>
+      </tr>
+      <tr>
+          <td>4km</td>
+          <td>35min</td>
+          <td>30min</td>
+      </tr>
+      <tr>
+          <td>5km</td>
+          <td>70min</td>
+          <td>65min</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="mean-square-error">Mean Square Error</h2>
+<p>Mean Square Error通过计算预测值和真实值的误差来衡量模型的预测精准度问题，其计算公式为：
+$$
+MSE = \frac{1}{n}(y_i - \hat y_i)^2
+$$</p>
+<ol>
+<li>$y_i$：真实预测值</li>
+<li>$\hat y_i$：模型预测值</li>
+<li>$n$：数据点的数量</li>
+</ol>
+<p>计算过程为：
+$$
+MSE = \frac{1}{5} \cdot ( (10-12)^2 + (15-14)^2 + (20-22)^2 + (35-30)^2 + (70-65)^2 ) \newline
+MSE = \frac{1}{5} \cdot ( 4 + 1 + 4 + 25 + 25 ) \newline
+MSE = \frac{1}{5} \cdot 59 \newline
+MSE = 11.8
+$$
+MSE的值越小（即越接近0）说明模型预测误差很小，预测很准，如果MSE越大说明模型预测误差很大，预测不准确。</p>
+<h2 id="r-square">R Square</h2>
+<p>R Square的公式为如下，作用是评估模型的拟合能力，也就是对于数据的解释能力：
+$$
+R^2 = 1 - \frac{SSE}{SST}
+$$
+其中SST为平方总和，也就是计算每个真实值与真实均值差的平方之和：
+$$
+\bar y = (10 + 15 + 20 + 35 + 70) / 5 = 30 \newline
+SST = (10-30)^2 + (15 - 30)^2 + (20 - 30)^2 + (35 - 30)^2 + (70 - 30)^2 = 2350
+$$
+SSE为残差平方和，其中SSE就是Mean Square Error中的误差平方和，拿上面的例子，就是数字59，计算过程为：
+$$
+SSE = (10-12)^2 + (15-14)^2 + (20-22)^2 + (35-30)^2 + (70-65)^2 = 59
+$$
+然后等到$R^2$为：
+$$
+R^2 = 1 - \frac{59}{2350} = 0.97489362
+$$
+$R^2$的值越大（即越接近1）说明模型对于数据的解释能力很好，拟合能力很强。</p>
+<h2 id="两者结合解读模型">两者结合解读模型</h2>
+<p>两者可以结合起来评估模型：</p>
+<ol>
+<li>MSE值高，R^2的值高：说明模型对于数据的解释能力很强，但是精准度不高，可能会造成预测数据的波动。</li>
+<li>MSE值低，R^2的值低：说明模型预测的误差很小，但是对于数据的解释能力很弱，不排除需要更多的数据或者数据本身趋势未体现太明显。</li>
+</ol>
+
+</content>
+<p>
+  
+  <a href="https://vec6.com/tags/math/">#Math</a>
+  
+</p>
+
+  </main>
+  <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
+        property="dct:title">Lucas's blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+        href="http://vec6.com">lucas</a> is licensed under <a
+        href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
+        rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a>
+    | theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a> 
+    <br />
+    Language Switcher: 
+
+    
+    
+    <a title="English" href="/en">English</a>
+    
+    
+
+    
+</p>
+
+
+</footer>
+
+    </body>
+
+</html>
