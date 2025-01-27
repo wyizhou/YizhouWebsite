@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://vec6.com/</loc>
-    <lastmod>2025-01-19T23:53:34+00:00</lastmod>
+    <lastmod>2025-01-27T10:53:34+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -16,7 +16,7 @@
                 />
   </url><url>
     <loc>https://vec6.com/blog/</loc>
-    <lastmod>2025-01-19T23:53:34+00:00</lastmod>
+    <lastmod>2025-01-27T10:53:34+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -26,6 +26,38 @@
                 rel="alternate"
                 hreflang="zh-CN"
                 href="https://vec6.com/blog/"
+                />
+  </url><url>
+    <loc>https://vec6.com/tags/datascience/</loc>
+    <lastmod>2025-01-27T10:53:34+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vec6.com/en/tags/datascience/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://vec6.com/tags/datascience/"
+                />
+  </url><url>
+    <loc>https://vec6.com/blog/gridsearch/</loc>
+    <lastmod>2025-01-27T10:53:34+00:00</lastmod>
+  </url><url>
+    <loc>https://vec6.com/blog/ridgereg/</loc>
+    <lastmod>2025-01-27T10:53:34+00:00</lastmod>
+  </url><url>
+    <loc>https://vec6.com/tags/</loc>
+    <lastmod>2025-01-27T10:53:34+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vec6.com/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://vec6.com/tags/"
                 />
   </url><url>
     <loc>https://vec6.com/tags/math/</loc>
@@ -41,37 +73,11 @@
                 href="https://vec6.com/tags/math/"
                 />
   </url><url>
-    <loc>https://vec6.com/tags/</loc>
-    <lastmod>2025-01-19T23:53:34+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://vec6.com/en/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://vec6.com/tags/"
-                />
-  </url><url>
     <loc>https://vec6.com/blog/mseandr2/</loc>
     <lastmod>2025-01-19T23:53:34+00:00</lastmod>
   </url><url>
     <loc>https://vec6.com/blog/matrixcalc/</loc>
     <lastmod>2025-01-12T23:53:34+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/tags/datascience/</loc>
-    <lastmod>2025-01-12T21:53:34+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://vec6.com/en/tags/datascience/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://vec6.com/tags/datascience/"
-                />
   </url><url>
     <loc>https://vec6.com/blog/groupbyofpandas/</loc>
     <lastmod>2025-01-12T21:53:34+00:00</lastmod>
