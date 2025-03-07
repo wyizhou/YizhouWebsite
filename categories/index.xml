@@ -6,6 +6,42 @@
     <description>Recent content in Categories on Lucas Wu</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
+    <lastBuildDate>Mon, 27 Jan 2025 10:53:34 +0000</lastBuildDate>
     <atom:link href="https://vec6.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DataScience</title>
+      <link>https://vec6.com/categories/datascience/</link>
+      <pubDate>Mon, 27 Jan 2025 10:53:34 +0000</pubDate>
+      <guid>https://vec6.com/categories/datascience/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Math</title>
+      <link>https://vec6.com/categories/math/</link>
+      <pubDate>Mon, 27 Jan 2025 10:53:34 +0000</pubDate>
+      <guid>https://vec6.com/categories/math/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Investment</title>
+      <link>https://vec6.com/categories/investment/</link>
+      <pubDate>Fri, 08 Mar 2024 08:00:00 +0000</pubDate>
+      <guid>https://vec6.com/categories/investment/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Developer</title>
+      <link>https://vec6.com/categories/developer/</link>
+      <pubDate>Thu, 19 Oct 2023 05:24:00 +0000</pubDate>
+      <guid>https://vec6.com/categories/developer/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Misc</title>
+      <link>https://vec6.com/categories/misc/</link>
+      <pubDate>Tue, 11 Oct 2022 01:52:49 +0000</pubDate>
+      <guid>https://vec6.com/categories/misc/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

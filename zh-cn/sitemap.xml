@@ -28,50 +28,50 @@
                 href="https://vec6.com/blog/"
                 />
   </url><url>
-    <loc>https://vec6.com/tags/datascience/</loc>
+    <loc>https://vec6.com/categories/</loc>
     <lastmod>2025-01-27T10:53:34+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://vec6.com/en/tags/datascience/"
+                href="https://vec6.com/en/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
-                href="https://vec6.com/tags/datascience/"
+                href="https://vec6.com/categories/"
+                />
+  </url><url>
+    <loc>https://vec6.com/categories/datascience/</loc>
+    <lastmod>2025-01-27T10:53:34+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vec6.com/en/categories/datascience/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://vec6.com/categories/datascience/"
                 />
   </url><url>
     <loc>https://vec6.com/blog/gridsearch/</loc>
     <lastmod>2025-01-27T10:53:34+00:00</lastmod>
   </url><url>
+    <loc>https://vec6.com/categories/math/</loc>
+    <lastmod>2025-01-27T10:53:34+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://vec6.com/en/categories/math/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://vec6.com/categories/math/"
+                />
+  </url><url>
     <loc>https://vec6.com/blog/ridgereg/</loc>
     <lastmod>2025-01-27T10:53:34+00:00</lastmod>
-  </url><url>
-    <loc>https://vec6.com/tags/</loc>
-    <lastmod>2025-01-27T10:53:34+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://vec6.com/en/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://vec6.com/tags/"
-                />
-  </url><url>
-    <loc>https://vec6.com/tags/math/</loc>
-    <lastmod>2025-01-19T23:53:34+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://vec6.com/en/tags/math/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://vec6.com/tags/math/"
-                />
   </url><url>
     <loc>https://vec6.com/blog/mseandr2/</loc>
     <lastmod>2025-01-19T23:53:34+00:00</lastmod>
@@ -129,24 +129,54 @@
     <loc>https://vec6.com/blog/data-science-methodology/</loc>
     <lastmod>2024-11-20T23:36:34+00:00</lastmod>
   </url><url>
-    <loc>https://vec6.com/blog/google-hacking-test/</loc>
-    <lastmod>2022-10-11T01:52:49+00:00</lastmod>
+    <loc>https://vec6.com/blog/2024-03-08-aurora-plan-6/</loc>
+    <lastmod>2024-03-08T08:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://vec6.com/tags/random/</loc>
-    <lastmod>2022-10-11T01:52:49+00:00</lastmod>
+    <loc>https://vec6.com/categories/investment/</loc>
+    <lastmod>2024-03-08T08:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://vec6.com/tags/developer/</loc>
-    <lastmod>2022-04-22T01:52:54+00:00</lastmod>
+    <loc>https://vec6.com/blog/2024-01-08-aurora-plan-5/</loc>
+    <lastmod>2024-01-08T08:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vec6.com/blog/2023-12-08-aurora-plan-4/</loc>
+    <lastmod>2023-12-08T08:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vec6.com/blog/2023-11-08-aurora-plan-3/</loc>
+    <lastmod>2023-11-08T08:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vec6.com/categories/developer/</loc>
+    <lastmod>2023-10-19T05:24:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://vec6.com/en/tags/developer/"
+                href="https://vec6.com/en/categories/developer/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
-                href="https://vec6.com/tags/developer/"
+                href="https://vec6.com/categories/developer/"
                 />
+  </url><url>
+    <loc>https://vec6.com/blog/home-nas/</loc>
+    <lastmod>2023-10-19T05:24:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vec6.com/blog/2023-10-08-aurora-plan-2/</loc>
+    <lastmod>2023-10-08T08:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vec6.com/blog/2023-09-08-aurora-plan-1/</loc>
+    <lastmod>2023-09-20T20:52:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vec6.com/blog/gpu-server/</loc>
+    <lastmod>2022-10-20T20:52:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vec6.com/blog/google-hacking-test/</loc>
+    <lastmod>2022-10-11T01:52:49+00:00</lastmod>
+  </url><url>
+    <loc>https://vec6.com/categories/misc/</loc>
+    <lastmod>2022-10-11T01:52:49+00:00</lastmod>
+  </url><url>
+    <loc>https://vec6.com/blog/lxcopenwrt/</loc>
+    <lastmod>2022-09-05T21:02:00+00:00</lastmod>
   </url><url>
     <loc>https://vec6.com/blog/frontend-terms/</loc>
     <lastmod>2022-04-22T01:52:54+00:00</lastmod>
@@ -211,18 +241,18 @@
   </url><url>
     <loc>https://vec6.com/about/</loc>
   </url><url>
-    <loc>https://vec6.com/categories/</loc>
+    <loc>https://vec6.com/posts/</loc>
+  </url><url>
+    <loc>https://vec6.com/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://vec6.com/en/categories/"
+                href="https://vec6.com/en/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
-                href="https://vec6.com/categories/"
+                href="https://vec6.com/tags/"
                 />
-  </url><url>
-    <loc>https://vec6.com/posts/</loc>
   </url>
 </urlset>

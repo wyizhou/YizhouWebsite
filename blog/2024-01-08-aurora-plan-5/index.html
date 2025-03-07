@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>5-极光计划实证：策略调整 | Lucas Wu</title>
+<meta name="title" content="5-极光计划实证：策略调整" />
+<meta name="description" content="前言
+最近A股持续低迷，如今A股从2900防守点变为了2800防守点，去年一年收益率是-1.08%，如果美股基金帮扶，已不知道惨成什么样子了，关于2024年市场是否能好，目前我也看了很多文章，有持有看涨的，有持有看跌的，也有位居中间的，但无论怎么说，至少这些文章里面都提到了现在市场属于低估的市场。
+虽然属于低估，但进场也要控制自己的欲望和贪婪，就像王家卫拍的电视剧《繁花》里面爷叔给宝总说的一句话：
+
+想发财，要贪婪！ 但是发大财，要懂得克制贪婪，驾驭贪婪
+
+最近自己持有的美股基金涨幅达到了最高9.22%，目前个人感觉算比较高的位置了，原本的策略主打一个稳。
+
+原本的策略比较稳妥，但整体来说资金还不够分散，并且行业、大小盘、海内外都有轮动的可能性，比如2023年沪深300的基金盈亏达到了-9.63%，而海外纳斯达克的基金盈亏达到了&#43;9.22%，所以就调整了一下策略，新的策略当中加入更多的行业的基金，比如医药、消费等基金，并且大部分都是跟踪指数。
+
+对于数据，我自己写了一份回测的代码，2018年01月开始至2023年12月，初始资金1万元，每期投入5000元，现有的方案总投入资金：368250.0， 账户资金：412668.77， 盈亏资金：&#43;44418.77， 盈亏率：&#43;12.06%，买入手续费合计：377.03，卖出手续费合计：0.0，整体上属于美股一路高歌，A股一路低沉：
+
+而调证后的方案我加入了再平衡的测试，再平衡的阈值为5%，总投入资金：367595.59， 账户资金：411902.68， 盈亏资金：44307.08， 盈亏率：&#43;12.05%，买入手续费合计：400.57，卖出手续费合计：54.40：
+
+看到上面的替换反而感觉还降低了0.01%的收益，但在这个过程当中，我发现了一个非常有趣的事情，当加入再平衡，并且设定在每当有基金超过了阈值5%、3%、1%，则触发再平衡的时候，这个时候收益居然随着阈值的变小，收益逐渐在提高，三个阈值设定后，收益分别为5%收益为&#43;12.05%，3%收益为&#43;12.87%，1%收益为&#43;13.03%。
+而我对现有的方案进行测试的时候，在再平衡阈值为3%的时候，新组合策略已经开始超过现有组合策略0.15%左右了，说明因为资金分散在不同的行业指数，不同基金之间存在大小盘、指数、风格、行业等因素的轮动，让再平衡实现了高抛低买的额外收益。
+在没有做这个测试之前，我还一直对于频繁的再平衡持有怀疑态度，但如今测试过后发现《机构投资的创新之路》一书和也谈钱也大提到的关于耶鲁大学基金偏离0.1的情况下都会进行再平衡的道理。
+实证
+从2023年7月份开始，我开始实施退休计划，我将该计划称为“极光计划”，争取在45岁存够300万，然后每年5%的作为生活费过上退休的生活。
+实证记录我在每个月1-10号进行更新，主要记录上个月的情况。
+本月的时间晚了一些，主要在对自己的组合策略进行调整之前，需要对数据进行回测，但回测不等于未来，回测只能参考，所以不作为投资建议。
+计划进度
+当前极光计划完成度 0.2264%（当前资产 ÷ 目标资产），浮亏 195.96 元。
+
+预算及储蓄
+2024年整体预算情况为：
+
+12月的储蓄率为53.64%：
+
+投资组合
+投资组合12月份暂时未变，但在1月份将购入更多的行业基金分散投资。
+
+愿望清单
+本月在京东活动的时候入手了全效净化器，使用后明显感觉自己的老鼻炎病好多了，并且甲醛测量比较有效，在冬天开制热空调后，检查到甲醛上升，比较符合常理，后续随着使用，逐渐降低。
+" />
+<meta name="keywords" content="" />
+
+
+<meta property="og:url" content="https://vec6.com/blog/2024-01-08-aurora-plan-5/">
+  <meta property="og:site_name" content="Lucas Wu">
+  <meta property="og:title" content="5-极光计划实证：策略调整">
+  <meta property="og:description" content="前言 最近A股持续低迷，如今A股从2900防守点变为了2800防守点，去年一年收益率是-1.08%，如果美股基金帮扶，已不知道惨成什么样子了，关于2024年市场是否能好，目前我也看了很多文章，有持有看涨的，有持有看跌的，也有位居中间的，但无论怎么说，至少这些文章里面都提到了现在市场属于低估的市场。
+虽然属于低估，但进场也要控制自己的欲望和贪婪，就像王家卫拍的电视剧《繁花》里面爷叔给宝总说的一句话：
+想发财，要贪婪！ 但是发大财，要懂得克制贪婪，驾驭贪婪
+最近自己持有的美股基金涨幅达到了最高9.22%，目前个人感觉算比较高的位置了，原本的策略主打一个稳。
+原本的策略比较稳妥，但整体来说资金还不够分散，并且行业、大小盘、海内外都有轮动的可能性，比如2023年沪深300的基金盈亏达到了-9.63%，而海外纳斯达克的基金盈亏达到了&#43;9.22%，所以就调整了一下策略，新的策略当中加入更多的行业的基金，比如医药、消费等基金，并且大部分都是跟踪指数。
+对于数据，我自己写了一份回测的代码，2018年01月开始至2023年12月，初始资金1万元，每期投入5000元，现有的方案总投入资金：368250.0， 账户资金：412668.77， 盈亏资金：&#43;44418.77， 盈亏率：&#43;12.06%，买入手续费合计：377.03，卖出手续费合计：0.0，整体上属于美股一路高歌，A股一路低沉：
+而调证后的方案我加入了再平衡的测试，再平衡的阈值为5%，总投入资金：367595.59， 账户资金：411902.68， 盈亏资金：44307.08， 盈亏率：&#43;12.05%，买入手续费合计：400.57，卖出手续费合计：54.40：
+看到上面的替换反而感觉还降低了0.01%的收益，但在这个过程当中，我发现了一个非常有趣的事情，当加入再平衡，并且设定在每当有基金超过了阈值5%、3%、1%，则触发再平衡的时候，这个时候收益居然随着阈值的变小，收益逐渐在提高，三个阈值设定后，收益分别为5%收益为&#43;12.05%，3%收益为&#43;12.87%，1%收益为&#43;13.03%。
+而我对现有的方案进行测试的时候，在再平衡阈值为3%的时候，新组合策略已经开始超过现有组合策略0.15%左右了，说明因为资金分散在不同的行业指数，不同基金之间存在大小盘、指数、风格、行业等因素的轮动，让再平衡实现了高抛低买的额外收益。
+在没有做这个测试之前，我还一直对于频繁的再平衡持有怀疑态度，但如今测试过后发现《机构投资的创新之路》一书和也谈钱也大提到的关于耶鲁大学基金偏离0.1的情况下都会进行再平衡的道理。
+实证 从2023年7月份开始，我开始实施退休计划，我将该计划称为“极光计划”，争取在45岁存够300万，然后每年5%的作为生活费过上退休的生活。
+实证记录我在每个月1-10号进行更新，主要记录上个月的情况。
+本月的时间晚了一些，主要在对自己的组合策略进行调整之前，需要对数据进行回测，但回测不等于未来，回测只能参考，所以不作为投资建议。
+计划进度 当前极光计划完成度 0.2264%（当前资产 ÷ 目标资产），浮亏 195.96 元。
+预算及储蓄 2024年整体预算情况为：
+12月的储蓄率为53.64%：
+投资组合 投资组合12月份暂时未变，但在1月份将购入更多的行业基金分散投资。
+愿望清单 本月在京东活动的时候入手了全效净化器，使用后明显感觉自己的老鼻炎病好多了，并且甲醛测量比较有效，在冬天开制热空调后，检查到甲醛上升，比较符合常理，后续随着使用，逐渐降低。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2024-01-08T08:00:00+00:00">
+    <meta property="article:modified_time" content="2024-01-08T08:00:00+00:00">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="5-极光计划实证：策略调整">
+  <meta name="twitter:description" content="前言 最近A股持续低迷，如今A股从2900防守点变为了2800防守点，去年一年收益率是-1.08%，如果美股基金帮扶，已不知道惨成什么样子了，关于2024年市场是否能好，目前我也看了很多文章，有持有看涨的，有持有看跌的，也有位居中间的，但无论怎么说，至少这些文章里面都提到了现在市场属于低估的市场。
+虽然属于低估，但进场也要控制自己的欲望和贪婪，就像王家卫拍的电视剧《繁花》里面爷叔给宝总说的一句话：
+想发财，要贪婪！ 但是发大财，要懂得克制贪婪，驾驭贪婪
+最近自己持有的美股基金涨幅达到了最高9.22%，目前个人感觉算比较高的位置了，原本的策略主打一个稳。
+原本的策略比较稳妥，但整体来说资金还不够分散，并且行业、大小盘、海内外都有轮动的可能性，比如2023年沪深300的基金盈亏达到了-9.63%，而海外纳斯达克的基金盈亏达到了&#43;9.22%，所以就调整了一下策略，新的策略当中加入更多的行业的基金，比如医药、消费等基金，并且大部分都是跟踪指数。
+对于数据，我自己写了一份回测的代码，2018年01月开始至2023年12月，初始资金1万元，每期投入5000元，现有的方案总投入资金：368250.0， 账户资金：412668.77， 盈亏资金：&#43;44418.77， 盈亏率：&#43;12.06%，买入手续费合计：377.03，卖出手续费合计：0.0，整体上属于美股一路高歌，A股一路低沉：
+而调证后的方案我加入了再平衡的测试，再平衡的阈值为5%，总投入资金：367595.59， 账户资金：411902.68， 盈亏资金：44307.08， 盈亏率：&#43;12.05%，买入手续费合计：400.57，卖出手续费合计：54.40：
+看到上面的替换反而感觉还降低了0.01%的收益，但在这个过程当中，我发现了一个非常有趣的事情，当加入再平衡，并且设定在每当有基金超过了阈值5%、3%、1%，则触发再平衡的时候，这个时候收益居然随着阈值的变小，收益逐渐在提高，三个阈值设定后，收益分别为5%收益为&#43;12.05%，3%收益为&#43;12.87%，1%收益为&#43;13.03%。
+而我对现有的方案进行测试的时候，在再平衡阈值为3%的时候，新组合策略已经开始超过现有组合策略0.15%左右了，说明因为资金分散在不同的行业指数，不同基金之间存在大小盘、指数、风格、行业等因素的轮动，让再平衡实现了高抛低买的额外收益。
+在没有做这个测试之前，我还一直对于频繁的再平衡持有怀疑态度，但如今测试过后发现《机构投资的创新之路》一书和也谈钱也大提到的关于耶鲁大学基金偏离0.1的情况下都会进行再平衡的道理。
+实证 从2023年7月份开始，我开始实施退休计划，我将该计划称为“极光计划”，争取在45岁存够300万，然后每年5%的作为生活费过上退休的生活。
+实证记录我在每个月1-10号进行更新，主要记录上个月的情况。
+本月的时间晚了一些，主要在对自己的组合策略进行调整之前，需要对数据进行回测，但回测不等于未来，回测只能参考，所以不作为投资建议。
+计划进度 当前极光计划完成度 0.2264%（当前资产 ÷ 目标资产），浮亏 195.96 元。
+预算及储蓄 2024年整体预算情况为：
+12月的储蓄率为53.64%：
+投资组合 投资组合12月份暂时未变，但在1月份将购入更多的行业基金分散投资。
+愿望清单 本月在京东活动的时候入手了全效净化器，使用后明显感觉自己的老鼻炎病好多了，并且甲醛测量比较有效，在冬天开制热空调后，检查到甲醛上升，比较符合常理，后续随着使用，逐渐降低。">
+
+
+
+
+  <meta itemprop="name" content="5-极光计划实证：策略调整">
+  <meta itemprop="description" content="前言 最近A股持续低迷，如今A股从2900防守点变为了2800防守点，去年一年收益率是-1.08%，如果美股基金帮扶，已不知道惨成什么样子了，关于2024年市场是否能好，目前我也看了很多文章，有持有看涨的，有持有看跌的，也有位居中间的，但无论怎么说，至少这些文章里面都提到了现在市场属于低估的市场。
+虽然属于低估，但进场也要控制自己的欲望和贪婪，就像王家卫拍的电视剧《繁花》里面爷叔给宝总说的一句话：
+想发财，要贪婪！ 但是发大财，要懂得克制贪婪，驾驭贪婪
+最近自己持有的美股基金涨幅达到了最高9.22%，目前个人感觉算比较高的位置了，原本的策略主打一个稳。
+原本的策略比较稳妥，但整体来说资金还不够分散，并且行业、大小盘、海内外都有轮动的可能性，比如2023年沪深300的基金盈亏达到了-9.63%，而海外纳斯达克的基金盈亏达到了&#43;9.22%，所以就调整了一下策略，新的策略当中加入更多的行业的基金，比如医药、消费等基金，并且大部分都是跟踪指数。
+对于数据，我自己写了一份回测的代码，2018年01月开始至2023年12月，初始资金1万元，每期投入5000元，现有的方案总投入资金：368250.0， 账户资金：412668.77， 盈亏资金：&#43;44418.77， 盈亏率：&#43;12.06%，买入手续费合计：377.03，卖出手续费合计：0.0，整体上属于美股一路高歌，A股一路低沉：
+而调证后的方案我加入了再平衡的测试，再平衡的阈值为5%，总投入资金：367595.59， 账户资金：411902.68， 盈亏资金：44307.08， 盈亏率：&#43;12.05%，买入手续费合计：400.57，卖出手续费合计：54.40：
+看到上面的替换反而感觉还降低了0.01%的收益，但在这个过程当中，我发现了一个非常有趣的事情，当加入再平衡，并且设定在每当有基金超过了阈值5%、3%、1%，则触发再平衡的时候，这个时候收益居然随着阈值的变小，收益逐渐在提高，三个阈值设定后，收益分别为5%收益为&#43;12.05%，3%收益为&#43;12.87%，1%收益为&#43;13.03%。
+而我对现有的方案进行测试的时候，在再平衡阈值为3%的时候，新组合策略已经开始超过现有组合策略0.15%左右了，说明因为资金分散在不同的行业指数，不同基金之间存在大小盘、指数、风格、行业等因素的轮动，让再平衡实现了高抛低买的额外收益。
+在没有做这个测试之前，我还一直对于频繁的再平衡持有怀疑态度，但如今测试过后发现《机构投资的创新之路》一书和也谈钱也大提到的关于耶鲁大学基金偏离0.1的情况下都会进行再平衡的道理。
+实证 从2023年7月份开始，我开始实施退休计划，我将该计划称为“极光计划”，争取在45岁存够300万，然后每年5%的作为生活费过上退休的生活。
+实证记录我在每个月1-10号进行更新，主要记录上个月的情况。
+本月的时间晚了一些，主要在对自己的组合策略进行调整之前，需要对数据进行回测，但回测不等于未来，回测只能参考，所以不作为投资建议。
+计划进度 当前极光计划完成度 0.2264%（当前资产 ÷ 目标资产），浮亏 195.96 元。
+预算及储蓄 2024年整体预算情况为：
+12月的储蓄率为53.64%：
+投资组合 投资组合12月份暂时未变，但在1月份将购入更多的行业基金分散投资。
+愿望清单 本月在京东活动的时候入手了全效净化器，使用后明显感觉自己的老鼻炎病好多了，并且甲醛测量比较有效，在冬天开制热空调后，检查到甲醛上升，比较符合常理，后续随着使用，逐渐降低。">
+  <meta itemprop="datePublished" content="2024-01-08T08:00:00+00:00">
+  <meta itemprop="dateModified" content="2024-01-08T08:00:00+00:00">
+  <meta itemprop="wordCount" content="36">
+  <meta itemprop="keywords" content="Investment">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    background-color: initial;
+    color: initial;
+  }
+
+  div.highlight code {
+    background-color: unset;
+    color: unset;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.css" integrity="sha384-sMefv1J1YJCHsg0mTa9YG+n/9KnJb9lGrJUUY5arg6bAL1qps/oZjmUwaHlX5Ugg" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.js" integrity="sha384-i9p+YmlwbK0lT9RcfgdAo/Cikui1KeFMeV/0Fwsu+rzgsCvas6oUptNOmo29C33p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false,
+          newLineInDisplayMode: true,
+          strict: false
+        });
+    });
+</script>
+<style>
+    .katex * {
+        font-size: 97%;
+        overflow: scroll;
+    }
+</style>
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-V5WKEHZ2PS');
+        }
+      </script>
+
+<style>
+  body {
+       
+      font-family: Georgia,serif;
+       
+  }
+
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+  }
+  
+  table { 
+    border-collapse: collapse; 
+    text-align: center;
+    font-size: 80%;
+  }
+
+  tr {
+    border: solid 1px;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+</style>
+
+
+
+<script>
+    window.onload = function(){
+        title = document.getElementsByClassName('title')[0];
+        if (document.URL.split('/')[3] == 'en') {
+            title.href = '/en';
+        } else {
+            title.href = '/';
+        }
+    }
+</script>
+
+
+
+
+
+
+
+
+<div class="toc">
+  <hr />
+    <details close>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%89%8d%e8%a8%80" aria-label="前言">前言</a></li>
+                <li>
+                    <a href="#%e5%ae%9e%e8%af%81" aria-label="实证">实证</a><ul>
+                        
+                <li>
+                    <a href="#%e8%ae%a1%e5%88%92%e8%bf%9b%e5%ba%a6" aria-label="计划进度">计划进度</a></li>
+                <li>
+                    <a href="#%e9%a2%84%e7%ae%97%e5%8f%8a%e5%82%a8%e8%93%84" aria-label="预算及储蓄">预算及储蓄</a></li>
+                <li>
+                    <a href="#%e6%8a%95%e8%b5%84%e7%bb%84%e5%90%88" aria-label="投资组合">投资组合</a></li>
+                <li>
+                    <a href="#%e6%84%bf%e6%9c%9b%e6%b8%85%e5%8d%95" aria-label="愿望清单">愿望清单</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+
+    <hr />
+</div>
+
+<script>
+  window.onload = function(){
+    toc = document.querySelector('.toc')
+    document.querySelector('h1').nextElementSibling.after(toc)
+  }
+</script>
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Lucas Wu</h2>
+</a>
+<nav>
+</nav>
+</header>
+  <main>
+
+<h1>5-极光计划实证：策略调整</h1>
+
+
+<div class="asset-footer">
+  
+  <h3>文档信息</h3>
+  <ul>
+  <li>版权声明：自由转载-商用-保持署名（<a href="https://creativecommons.org/licenses/by/4.0/deed.zh-hans">创意共享4.0许可证</a>）</li>
+  <li>发表日期： <abbr class="published" title="2024-01-08">2024-01-08</abbr></li>
+  <li>分类信息：  
+    <a href="https://vec6.com/categories/investment/">#Investment</a>
+    
+  </li>
+  <li>标签信息：  
+  </li>
+  
+  </ul>
+</div>
+
+
+
+
+<content>
+  <h2 id="前言">前言</h2>
+<p>最近A股持续低迷，如今A股从2900防守点变为了2800防守点，去年一年收益率是-1.08%，如果美股基金帮扶，已不知道惨成什么样子了，关于2024年市场是否能好，目前我也看了很多文章，有持有看涨的，有持有看跌的，也有位居中间的，但无论怎么说，至少这些文章里面都提到了现在市场属于低估的市场。</p>
+<p>虽然属于低估，但进场也要控制自己的欲望和贪婪，就像王家卫拍的电视剧《繁花》里面爷叔给宝总说的一句话：</p>
+<blockquote>
+<p>想发财，要贪婪！ 但是发大财，要懂得克制贪婪，驾驭贪婪</p></blockquote>
+<p><img src="/post/images/2024/03/DraggedImage-21.png" alt=""></p>
+<p>最近自己持有的美股基金涨幅达到了最高9.22%，目前个人感觉算比较高的位置了，原本的策略主打一个稳。</p>
+<p><img src="/post/images/2024/03/DraggedImage-1-8.png" alt=""></p>
+<p>原本的策略比较稳妥，但整体来说资金还不够分散，并且行业、大小盘、海内外都有轮动的可能性，比如2023年沪深300的基金盈亏达到了-9.63%，而海外纳斯达克的基金盈亏达到了+9.22%，所以就调整了一下策略，新的策略当中加入更多的行业的基金，比如医药、消费等基金，并且大部分都是跟踪指数。</p>
+<p><img src="/post/images/2024/03/DraggedImage-2-8.png" alt=""></p>
+<p>对于数据，我自己写了一份回测的代码，2018年01月开始至2023年12月，初始资金1万元，每期投入5000元，现有的方案总投入资金：368250.0， 账户资金：412668.77， 盈亏资金：+44418.77， 盈亏率：+12.06%，买入手续费合计：377.03，卖出手续费合计：0.0，整体上属于美股一路高歌，A股一路低沉：</p>
+<p><img src="/post/images/2024/03/DraggedImage-3-8.png" alt=""></p>
+<p>而调证后的方案我加入了再平衡的测试，再平衡的阈值为5%，总投入资金：367595.59， 账户资金：411902.68， 盈亏资金：44307.08， 盈亏率：+12.05%，买入手续费合计：400.57，卖出手续费合计：54.40：</p>
+<p><img src="/post/images/2024/03/DraggedImage-4-8.png" alt=""></p>
+<p>看到上面的替换反而感觉还降低了0.01%的收益，但在这个过程当中，我发现了一个非常有趣的事情，当加入再平衡，并且设定在每当有基金超过了阈值5%、3%、1%，则触发再平衡的时候，这个时候收益居然随着阈值的变小，收益逐渐在提高，三个阈值设定后，收益分别为5%收益为+12.05%，3%收益为+12.87%，1%收益为+13.03%。</p>
+<p>而我对现有的方案进行测试的时候，在再平衡阈值为3%的时候，新组合策略已经开始超过现有组合策略0.15%左右了，说明因为资金分散在不同的行业指数，不同基金之间存在大小盘、指数、风格、行业等因素的轮动，让再平衡实现了高抛低买的额外收益。</p>
+<p>在没有做这个测试之前，我还一直对于频繁的再平衡持有怀疑态度，但如今测试过后发现《机构投资的创新之路》一书和也谈钱也大提到的关于耶鲁大学基金偏离0.1的情况下都会进行再平衡的道理。</p>
+<h2 id="实证">实证</h2>
+<p>从2023年7月份开始，我开始实施退休计划，我将该计划称为“极光计划”，争取在45岁存够300万，然后每年5%的作为生活费过上退休的生活。</p>
+<p>实证记录我在每个月1-10号进行更新，主要记录上个月的情况。</p>
+<p>本月的时间晚了一些，主要在对自己的组合策略进行调整之前，需要对数据进行回测，但回测不等于未来，回测只能参考，所以不作为投资建议。</p>
+<h3 id="计划进度">计划进度</h3>
+<p>当前极光计划完成度 0.2264%（当前资产 ÷ 目标资产），浮亏 195.96 元。</p>
+<p><img src="/post/images/2024/03/DraggedImage-5-8.png" alt=""></p>
+<h3 id="预算及储蓄">预算及储蓄</h3>
+<p>2024年整体预算情况为：</p>
+<p><img src="/post/images/2024/03/DraggedImage-6-4.png" alt=""></p>
+<p>12月的储蓄率为53.64%：</p>
+<p><img src="/post/images/2024/03/DraggedImage-7-4.png" alt=""></p>
+<h3 id="投资组合">投资组合</h3>
+<p>投资组合12月份暂时未变，但在1月份将购入更多的行业基金分散投资。</p>
+<p><img src="/post/images/2024/03/DraggedImage-8-3.png" alt=""></p>
+<h3 id="愿望清单">愿望清单</h3>
+<p>本月在京东活动的时候入手了全效净化器，使用后明显感觉自己的老鼻炎病好多了，并且甲醛测量比较有效，在冬天开制热空调后，检查到甲醛上升，比较符合常理，后续随着使用，逐渐降低。</p>
+<p><img src="/post/images/2024/03/DraggedImage-9-3.png" alt=""></p>
+
+  (完)
+</content>
+
+
+
+<hr />
+
+
+  </main>
+  <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
+        property="dct:title">Lucas's blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+        href="http://vec6.com">lucas</a> is licensed under <a
+        href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
+        rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a>
+    | theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a> 
+    <br />
+    Language Switcher: 
+
+    
+    
+    <a title="English" href="/en">English</a>
+    
+    
+
+    
+</p>
+
+
+</footer>
+
+    </body>
+
+</html>

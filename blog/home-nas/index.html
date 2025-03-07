@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>最近搭建了一台家用Nas | Lucas Wu</title>
+<meta name="title" content="最近搭建了一台家用Nas" />
+<meta name="description" content="从两个月前，我着手搭建了一套家用Nas，起因之前自己的资料一直存放在ICloud，因为自己的资料比较多，在600多G，所以自己一直购买的国区2T，每个月68元，一年816元，也不算便宜了。再加上自己的资料和储存的数据越来越大，所以就有就有了这个需求。
+对于资料不多、储存量不大的用户，不建议使用Nas，使用自带的云储存足够了，自己组建Nas只有在一定储存量级，才会有价值，所以对于数据量少的朋友，看看就行了，别折腾了。
+同时自己电脑有两台，一台苹果笔记本，一台Windows笔记本，ICloud对于Windows系统同步是真的难用，甚至打开文件夹都会卡顿，所以也是其自己搭建Nas的一个小因素了。
+选购之前对比了多种方式，购买其他国内云储存服务、自己购买云主机自己搭建、购买成品NAS、自己搭组NAS。
+先说说前两者，国内云服务研究了一番后，排除了，具体原因暂时不好说。然后就是云主机搭建，后面研究一番发现不论国内还是国内的云主机，硬盘都贵得要死。
+再说说后两者，也是我纠结最久的，成品Nas的优点就是不用折腾、省心以及有技术服务支撑，缺点就是配置低、价格贵。自己组Nas的优点在于便宜、配置高，缺点就是折腾，也不省心。
+那作为以技术出身的人来说，自己组Nas的缺点到成了一个有趣的过程，而配置高也满足了技术人员常常的幻想”配置不够“这一假说。
+所以最终思考了一下，准备折腾一下自己，组建Nas就成了最优选择。
+选购
+既然是自己组建，就得自己挑选硬件、考虑配置、选择系统，系统我选择的是群晖，也就是所谓的黑群晖，主要考虑到配套的软件足够好用，关于硬件选配，可以参考隔壁网这篇文章《2022年组建群晖实体机的一些建议 – 黑白群晖 – 隔壁网 (gebi1.com)》。
+我的配置目前是：
+
+CPU：考虑到需要看电影做解码，所以选择了i3-8100T，然后带T属于低功耗，对于Nas来说也完全够用了。
+内存：32G。
+硬盘：8TB硬盘两块，用于存放资料、文件。16TB硬盘一块，用于存放电影。
+主板：选择了大厂微星的Z370M Mortar。
+机箱：Treasure宝藏盒，快700多的一个机箱了，已经算比较贵了，但是买回来看了一下外观，真香。
+风扇：利民AXP90
+电源：Flex台达250W电源
+
+这里需要说一个事情，我没有配备缓存，群晖的系统可以配备2块M2 Nvme硬盘作为缓存组，可以用于读写缓存，单盘只能作为读缓存。我研究了一番后，决定还是不用缓存，第一个对于我这样的家用环境上缓存提升不大，也有很多家用小伙伴测试后发了相关的结论。第二个就是缓存可能导致故障，第三个性价比不高。
+
+系统
+系统采用的是群晖，既然是自己搭建的，所以也就是所谓的黑群晖了，采用的引导是最简单的引导arpl-i18n，该引导是基于巴西大佬arpl的版本上改进的，对于两者我还真不知道差距在哪里，但只要好用，然后用的人多就行了。
+然后黑群晖的引导是需要一个U盘的，正常情况下U盘可以插在机箱前面或者后面，但是对于花了700多买了这么漂亮的机箱，U盘插在前后，犹如”一坨牛屎抹在鲜花上“。
+所以我就购买了一个主板的usb插座，然后将引导U盘插在上面，这样就可以把usb隐藏在机箱内了。
+
+备份
+我的备份组合主要集中为四种，分别RAID1&#43;Cloud Sync&#43;Hyper Backup网盘&#43;Hyper Backup硬盘，其中RAID1虽然说起来不算是”备份“方案，但本质提供冗余还是一种数据的保障，所以也就算了进来。
+Hyper Backup则是提供了一个完整的套件、文件增量备份，每天执行一次。
+Cloud Sync则是作为一个补充，提供一个实时的文件同步，将文件同步到我的Onedrive，至于为什么是Onedrive，第一个原因是支持，第二个原因是因为我每年要买Office365，所以有1TB的免费网盘容量。
+Hyper Backup是目前我觉得最好的备份方案，Hyper Backup支持备份到云服务商、本地USB储存设备等方式。Hyper Backup我采用了两种方式，分别为阿里云盘通过Alist以WebDAV的方式挂载到本地，然后Hyper Backup选择WebDAV方式进行备份，好处在于阿里云盘服务器在国内比较稳定，关于如何通过查看Alist关于阿里云盘的文档。
+第二种方式，我采用的是本地USB插入硬盘的方式，这个方式有个好处在于能无限扩大备份目的地的容量，比如你可以通过一个硬盘盒做多个盘用USB接入，同时配置好了也比较省电省电。
+为什么说省电呢？在设置为USB为备份目的地的时候，配置可以选择，当备份完成后自动断开卸载USB，然后再加上硬盘盒的自动休眠，就可以在备份完成后的耗电降到最低，比如下图（因为我目前已经设置完成，所以找不到这个选项了，就借用了一张图片）。
+
+但这种方式有一个问题，就是你在下次备份的时候没有办法自动挂载，你需要通过定时任务，将在定时的自动备份任务开始之前将USB重新挂载好。
+重新挂载USB需要两个步骤，第一个步骤确定USB编号，需要打开群晖的SSH，然后进入到终端后使用lsusb命令，我找到我备份目的地的硬盘为2-3：
+
+第二个步骤是将如下代码放入群晖的任务计划，选择运行的用户为root（一定注意，卸载挂载外置设备需要root权限）：
+
+然后将如下代码放入脚本中，其中的2-3需要替换为备份的外置目的地设备编号。
+echo 0 &amp;gt; /sys/bus/usb/devices/2-3/authorized
+echo 1 &amp;gt; /sys/bus/usb/devices/2-3/authorized
+
+
+最后，设定好计划时间，我目前是在Hyper Backup之前的5分钟挂载。
+结尾
+说完了后，说说成品Nas和自己搭建Nas推荐哪个，整体就是完全不建议没有技术或者不想折腾的人来自己搭建Nas，更建议直接买群晖或者其他厂商的成品Nas，对于有技术的用户，这种方式就挺推荐的。
+搭建到如今，也算是对稳定性比较信任了，将自己照片、文件都转移到了群晖，同时也说服了自己的爱人将手机照片转到了群晖，不得不说群晖的配套软件是真的好用，买软件送硬件也不是无道理，看来以后买一个白裙也不是不可以。" />
+<meta name="keywords" content="" />
+
+
+<meta property="og:url" content="https://vec6.com/blog/home-nas/">
+  <meta property="og:site_name" content="Lucas Wu">
+  <meta property="og:title" content="最近搭建了一台家用Nas">
+  <meta property="og:description" content="从两个月前，我着手搭建了一套家用Nas，起因之前自己的资料一直存放在ICloud，因为自己的资料比较多，在600多G，所以自己一直购买的国区2T，每个月68元，一年816元，也不算便宜了。再加上自己的资料和储存的数据越来越大，所以就有就有了这个需求。
+对于资料不多、储存量不大的用户，不建议使用Nas，使用自带的云储存足够了，自己组建Nas只有在一定储存量级，才会有价值，所以对于数据量少的朋友，看看就行了，别折腾了。
+同时自己电脑有两台，一台苹果笔记本，一台Windows笔记本，ICloud对于Windows系统同步是真的难用，甚至打开文件夹都会卡顿，所以也是其自己搭建Nas的一个小因素了。
+选购之前对比了多种方式，购买其他国内云储存服务、自己购买云主机自己搭建、购买成品NAS、自己搭组NAS。
+先说说前两者，国内云服务研究了一番后，排除了，具体原因暂时不好说。然后就是云主机搭建，后面研究一番发现不论国内还是国内的云主机，硬盘都贵得要死。
+再说说后两者，也是我纠结最久的，成品Nas的优点就是不用折腾、省心以及有技术服务支撑，缺点就是配置低、价格贵。自己组Nas的优点在于便宜、配置高，缺点就是折腾，也不省心。
+那作为以技术出身的人来说，自己组Nas的缺点到成了一个有趣的过程，而配置高也满足了技术人员常常的幻想”配置不够“这一假说。
+所以最终思考了一下，准备折腾一下自己，组建Nas就成了最优选择。
+选购 既然是自己组建，就得自己挑选硬件、考虑配置、选择系统，系统我选择的是群晖，也就是所谓的黑群晖，主要考虑到配套的软件足够好用，关于硬件选配，可以参考隔壁网这篇文章《2022年组建群晖实体机的一些建议 – 黑白群晖 – 隔壁网 (gebi1.com)》。
+我的配置目前是：
+CPU：考虑到需要看电影做解码，所以选择了i3-8100T，然后带T属于低功耗，对于Nas来说也完全够用了。 内存：32G。 硬盘：8TB硬盘两块，用于存放资料、文件。16TB硬盘一块，用于存放电影。 主板：选择了大厂微星的Z370M Mortar。 机箱：Treasure宝藏盒，快700多的一个机箱了，已经算比较贵了，但是买回来看了一下外观，真香。 风扇：利民AXP90 电源：Flex台达250W电源 这里需要说一个事情，我没有配备缓存，群晖的系统可以配备2块M2 Nvme硬盘作为缓存组，可以用于读写缓存，单盘只能作为读缓存。我研究了一番后，决定还是不用缓存，第一个对于我这样的家用环境上缓存提升不大，也有很多家用小伙伴测试后发了相关的结论。第二个就是缓存可能导致故障，第三个性价比不高。
+系统 系统采用的是群晖，既然是自己搭建的，所以也就是所谓的黑群晖了，采用的引导是最简单的引导arpl-i18n，该引导是基于巴西大佬arpl的版本上改进的，对于两者我还真不知道差距在哪里，但只要好用，然后用的人多就行了。
+然后黑群晖的引导是需要一个U盘的，正常情况下U盘可以插在机箱前面或者后面，但是对于花了700多买了这么漂亮的机箱，U盘插在前后，犹如”一坨牛屎抹在鲜花上“。
+所以我就购买了一个主板的usb插座，然后将引导U盘插在上面，这样就可以把usb隐藏在机箱内了。
+备份 我的备份组合主要集中为四种，分别RAID1&#43;Cloud Sync&#43;Hyper Backup网盘&#43;Hyper Backup硬盘，其中RAID1虽然说起来不算是”备份“方案，但本质提供冗余还是一种数据的保障，所以也就算了进来。
+Hyper Backup则是提供了一个完整的套件、文件增量备份，每天执行一次。
+Cloud Sync则是作为一个补充，提供一个实时的文件同步，将文件同步到我的Onedrive，至于为什么是Onedrive，第一个原因是支持，第二个原因是因为我每年要买Office365，所以有1TB的免费网盘容量。
+Hyper Backup是目前我觉得最好的备份方案，Hyper Backup支持备份到云服务商、本地USB储存设备等方式。Hyper Backup我采用了两种方式，分别为阿里云盘通过Alist以WebDAV的方式挂载到本地，然后Hyper Backup选择WebDAV方式进行备份，好处在于阿里云盘服务器在国内比较稳定，关于如何通过查看Alist关于阿里云盘的文档。
+第二种方式，我采用的是本地USB插入硬盘的方式，这个方式有个好处在于能无限扩大备份目的地的容量，比如你可以通过一个硬盘盒做多个盘用USB接入，同时配置好了也比较省电省电。
+为什么说省电呢？在设置为USB为备份目的地的时候，配置可以选择，当备份完成后自动断开卸载USB，然后再加上硬盘盒的自动休眠，就可以在备份完成后的耗电降到最低，比如下图（因为我目前已经设置完成，所以找不到这个选项了，就借用了一张图片）。
+但这种方式有一个问题，就是你在下次备份的时候没有办法自动挂载，你需要通过定时任务，将在定时的自动备份任务开始之前将USB重新挂载好。
+重新挂载USB需要两个步骤，第一个步骤确定USB编号，需要打开群晖的SSH，然后进入到终端后使用lsusb命令，我找到我备份目的地的硬盘为2-3：
+第二个步骤是将如下代码放入群晖的任务计划，选择运行的用户为root（一定注意，卸载挂载外置设备需要root权限）：
+然后将如下代码放入脚本中，其中的2-3需要替换为备份的外置目的地设备编号。
+echo 0 &amp;gt; /sys/bus/usb/devices/2-3/authorized echo 1 &amp;gt; /sys/bus/usb/devices/2-3/authorized 最后，设定好计划时间，我目前是在Hyper Backup之前的5分钟挂载。
+结尾 说完了后，说说成品Nas和自己搭建Nas推荐哪个，整体就是完全不建议没有技术或者不想折腾的人来自己搭建Nas，更建议直接买群晖或者其他厂商的成品Nas，对于有技术的用户，这种方式就挺推荐的。
+搭建到如今，也算是对稳定性比较信任了，将自己照片、文件都转移到了群晖，同时也说服了自己的爱人将手机照片转到了群晖，不得不说群晖的配套软件是真的好用，买软件送硬件也不是无道理，看来以后买一个白裙也不是不可以。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2023-10-19T05:24:00+00:00">
+    <meta property="article:modified_time" content="2023-10-19T05:24:00+00:00">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="最近搭建了一台家用Nas">
+  <meta name="twitter:description" content="从两个月前，我着手搭建了一套家用Nas，起因之前自己的资料一直存放在ICloud，因为自己的资料比较多，在600多G，所以自己一直购买的国区2T，每个月68元，一年816元，也不算便宜了。再加上自己的资料和储存的数据越来越大，所以就有就有了这个需求。
+对于资料不多、储存量不大的用户，不建议使用Nas，使用自带的云储存足够了，自己组建Nas只有在一定储存量级，才会有价值，所以对于数据量少的朋友，看看就行了，别折腾了。
+同时自己电脑有两台，一台苹果笔记本，一台Windows笔记本，ICloud对于Windows系统同步是真的难用，甚至打开文件夹都会卡顿，所以也是其自己搭建Nas的一个小因素了。
+选购之前对比了多种方式，购买其他国内云储存服务、自己购买云主机自己搭建、购买成品NAS、自己搭组NAS。
+先说说前两者，国内云服务研究了一番后，排除了，具体原因暂时不好说。然后就是云主机搭建，后面研究一番发现不论国内还是国内的云主机，硬盘都贵得要死。
+再说说后两者，也是我纠结最久的，成品Nas的优点就是不用折腾、省心以及有技术服务支撑，缺点就是配置低、价格贵。自己组Nas的优点在于便宜、配置高，缺点就是折腾，也不省心。
+那作为以技术出身的人来说，自己组Nas的缺点到成了一个有趣的过程，而配置高也满足了技术人员常常的幻想”配置不够“这一假说。
+所以最终思考了一下，准备折腾一下自己，组建Nas就成了最优选择。
+选购 既然是自己组建，就得自己挑选硬件、考虑配置、选择系统，系统我选择的是群晖，也就是所谓的黑群晖，主要考虑到配套的软件足够好用，关于硬件选配，可以参考隔壁网这篇文章《2022年组建群晖实体机的一些建议 – 黑白群晖 – 隔壁网 (gebi1.com)》。
+我的配置目前是：
+CPU：考虑到需要看电影做解码，所以选择了i3-8100T，然后带T属于低功耗，对于Nas来说也完全够用了。 内存：32G。 硬盘：8TB硬盘两块，用于存放资料、文件。16TB硬盘一块，用于存放电影。 主板：选择了大厂微星的Z370M Mortar。 机箱：Treasure宝藏盒，快700多的一个机箱了，已经算比较贵了，但是买回来看了一下外观，真香。 风扇：利民AXP90 电源：Flex台达250W电源 这里需要说一个事情，我没有配备缓存，群晖的系统可以配备2块M2 Nvme硬盘作为缓存组，可以用于读写缓存，单盘只能作为读缓存。我研究了一番后，决定还是不用缓存，第一个对于我这样的家用环境上缓存提升不大，也有很多家用小伙伴测试后发了相关的结论。第二个就是缓存可能导致故障，第三个性价比不高。
+系统 系统采用的是群晖，既然是自己搭建的，所以也就是所谓的黑群晖了，采用的引导是最简单的引导arpl-i18n，该引导是基于巴西大佬arpl的版本上改进的，对于两者我还真不知道差距在哪里，但只要好用，然后用的人多就行了。
+然后黑群晖的引导是需要一个U盘的，正常情况下U盘可以插在机箱前面或者后面，但是对于花了700多买了这么漂亮的机箱，U盘插在前后，犹如”一坨牛屎抹在鲜花上“。
+所以我就购买了一个主板的usb插座，然后将引导U盘插在上面，这样就可以把usb隐藏在机箱内了。
+备份 我的备份组合主要集中为四种，分别RAID1&#43;Cloud Sync&#43;Hyper Backup网盘&#43;Hyper Backup硬盘，其中RAID1虽然说起来不算是”备份“方案，但本质提供冗余还是一种数据的保障，所以也就算了进来。
+Hyper Backup则是提供了一个完整的套件、文件增量备份，每天执行一次。
+Cloud Sync则是作为一个补充，提供一个实时的文件同步，将文件同步到我的Onedrive，至于为什么是Onedrive，第一个原因是支持，第二个原因是因为我每年要买Office365，所以有1TB的免费网盘容量。
+Hyper Backup是目前我觉得最好的备份方案，Hyper Backup支持备份到云服务商、本地USB储存设备等方式。Hyper Backup我采用了两种方式，分别为阿里云盘通过Alist以WebDAV的方式挂载到本地，然后Hyper Backup选择WebDAV方式进行备份，好处在于阿里云盘服务器在国内比较稳定，关于如何通过查看Alist关于阿里云盘的文档。
+第二种方式，我采用的是本地USB插入硬盘的方式，这个方式有个好处在于能无限扩大备份目的地的容量，比如你可以通过一个硬盘盒做多个盘用USB接入，同时配置好了也比较省电省电。
+为什么说省电呢？在设置为USB为备份目的地的时候，配置可以选择，当备份完成后自动断开卸载USB，然后再加上硬盘盒的自动休眠，就可以在备份完成后的耗电降到最低，比如下图（因为我目前已经设置完成，所以找不到这个选项了，就借用了一张图片）。
+但这种方式有一个问题，就是你在下次备份的时候没有办法自动挂载，你需要通过定时任务，将在定时的自动备份任务开始之前将USB重新挂载好。
+重新挂载USB需要两个步骤，第一个步骤确定USB编号，需要打开群晖的SSH，然后进入到终端后使用lsusb命令，我找到我备份目的地的硬盘为2-3：
+第二个步骤是将如下代码放入群晖的任务计划，选择运行的用户为root（一定注意，卸载挂载外置设备需要root权限）：
+然后将如下代码放入脚本中，其中的2-3需要替换为备份的外置目的地设备编号。
+echo 0 &amp;gt; /sys/bus/usb/devices/2-3/authorized echo 1 &amp;gt; /sys/bus/usb/devices/2-3/authorized 最后，设定好计划时间，我目前是在Hyper Backup之前的5分钟挂载。
+结尾 说完了后，说说成品Nas和自己搭建Nas推荐哪个，整体就是完全不建议没有技术或者不想折腾的人来自己搭建Nas，更建议直接买群晖或者其他厂商的成品Nas，对于有技术的用户，这种方式就挺推荐的。
+搭建到如今，也算是对稳定性比较信任了，将自己照片、文件都转移到了群晖，同时也说服了自己的爱人将手机照片转到了群晖，不得不说群晖的配套软件是真的好用，买软件送硬件也不是无道理，看来以后买一个白裙也不是不可以。">
+
+
+
+
+  <meta itemprop="name" content="最近搭建了一台家用Nas">
+  <meta itemprop="description" content="从两个月前，我着手搭建了一套家用Nas，起因之前自己的资料一直存放在ICloud，因为自己的资料比较多，在600多G，所以自己一直购买的国区2T，每个月68元，一年816元，也不算便宜了。再加上自己的资料和储存的数据越来越大，所以就有就有了这个需求。
+对于资料不多、储存量不大的用户，不建议使用Nas，使用自带的云储存足够了，自己组建Nas只有在一定储存量级，才会有价值，所以对于数据量少的朋友，看看就行了，别折腾了。
+同时自己电脑有两台，一台苹果笔记本，一台Windows笔记本，ICloud对于Windows系统同步是真的难用，甚至打开文件夹都会卡顿，所以也是其自己搭建Nas的一个小因素了。
+选购之前对比了多种方式，购买其他国内云储存服务、自己购买云主机自己搭建、购买成品NAS、自己搭组NAS。
+先说说前两者，国内云服务研究了一番后，排除了，具体原因暂时不好说。然后就是云主机搭建，后面研究一番发现不论国内还是国内的云主机，硬盘都贵得要死。
+再说说后两者，也是我纠结最久的，成品Nas的优点就是不用折腾、省心以及有技术服务支撑，缺点就是配置低、价格贵。自己组Nas的优点在于便宜、配置高，缺点就是折腾，也不省心。
+那作为以技术出身的人来说，自己组Nas的缺点到成了一个有趣的过程，而配置高也满足了技术人员常常的幻想”配置不够“这一假说。
+所以最终思考了一下，准备折腾一下自己，组建Nas就成了最优选择。
+选购 既然是自己组建，就得自己挑选硬件、考虑配置、选择系统，系统我选择的是群晖，也就是所谓的黑群晖，主要考虑到配套的软件足够好用，关于硬件选配，可以参考隔壁网这篇文章《2022年组建群晖实体机的一些建议 – 黑白群晖 – 隔壁网 (gebi1.com)》。
+我的配置目前是：
+CPU：考虑到需要看电影做解码，所以选择了i3-8100T，然后带T属于低功耗，对于Nas来说也完全够用了。 内存：32G。 硬盘：8TB硬盘两块，用于存放资料、文件。16TB硬盘一块，用于存放电影。 主板：选择了大厂微星的Z370M Mortar。 机箱：Treasure宝藏盒，快700多的一个机箱了，已经算比较贵了，但是买回来看了一下外观，真香。 风扇：利民AXP90 电源：Flex台达250W电源 这里需要说一个事情，我没有配备缓存，群晖的系统可以配备2块M2 Nvme硬盘作为缓存组，可以用于读写缓存，单盘只能作为读缓存。我研究了一番后，决定还是不用缓存，第一个对于我这样的家用环境上缓存提升不大，也有很多家用小伙伴测试后发了相关的结论。第二个就是缓存可能导致故障，第三个性价比不高。
+系统 系统采用的是群晖，既然是自己搭建的，所以也就是所谓的黑群晖了，采用的引导是最简单的引导arpl-i18n，该引导是基于巴西大佬arpl的版本上改进的，对于两者我还真不知道差距在哪里，但只要好用，然后用的人多就行了。
+然后黑群晖的引导是需要一个U盘的，正常情况下U盘可以插在机箱前面或者后面，但是对于花了700多买了这么漂亮的机箱，U盘插在前后，犹如”一坨牛屎抹在鲜花上“。
+所以我就购买了一个主板的usb插座，然后将引导U盘插在上面，这样就可以把usb隐藏在机箱内了。
+备份 我的备份组合主要集中为四种，分别RAID1&#43;Cloud Sync&#43;Hyper Backup网盘&#43;Hyper Backup硬盘，其中RAID1虽然说起来不算是”备份“方案，但本质提供冗余还是一种数据的保障，所以也就算了进来。
+Hyper Backup则是提供了一个完整的套件、文件增量备份，每天执行一次。
+Cloud Sync则是作为一个补充，提供一个实时的文件同步，将文件同步到我的Onedrive，至于为什么是Onedrive，第一个原因是支持，第二个原因是因为我每年要买Office365，所以有1TB的免费网盘容量。
+Hyper Backup是目前我觉得最好的备份方案，Hyper Backup支持备份到云服务商、本地USB储存设备等方式。Hyper Backup我采用了两种方式，分别为阿里云盘通过Alist以WebDAV的方式挂载到本地，然后Hyper Backup选择WebDAV方式进行备份，好处在于阿里云盘服务器在国内比较稳定，关于如何通过查看Alist关于阿里云盘的文档。
+第二种方式，我采用的是本地USB插入硬盘的方式，这个方式有个好处在于能无限扩大备份目的地的容量，比如你可以通过一个硬盘盒做多个盘用USB接入，同时配置好了也比较省电省电。
+为什么说省电呢？在设置为USB为备份目的地的时候，配置可以选择，当备份完成后自动断开卸载USB，然后再加上硬盘盒的自动休眠，就可以在备份完成后的耗电降到最低，比如下图（因为我目前已经设置完成，所以找不到这个选项了，就借用了一张图片）。
+但这种方式有一个问题，就是你在下次备份的时候没有办法自动挂载，你需要通过定时任务，将在定时的自动备份任务开始之前将USB重新挂载好。
+重新挂载USB需要两个步骤，第一个步骤确定USB编号，需要打开群晖的SSH，然后进入到终端后使用lsusb命令，我找到我备份目的地的硬盘为2-3：
+第二个步骤是将如下代码放入群晖的任务计划，选择运行的用户为root（一定注意，卸载挂载外置设备需要root权限）：
+然后将如下代码放入脚本中，其中的2-3需要替换为备份的外置目的地设备编号。
+echo 0 &amp;gt; /sys/bus/usb/devices/2-3/authorized echo 1 &amp;gt; /sys/bus/usb/devices/2-3/authorized 最后，设定好计划时间，我目前是在Hyper Backup之前的5分钟挂载。
+结尾 说完了后，说说成品Nas和自己搭建Nas推荐哪个，整体就是完全不建议没有技术或者不想折腾的人来自己搭建Nas，更建议直接买群晖或者其他厂商的成品Nas，对于有技术的用户，这种方式就挺推荐的。
+搭建到如今，也算是对稳定性比较信任了，将自己照片、文件都转移到了群晖，同时也说服了自己的爱人将手机照片转到了群晖，不得不说群晖的配套软件是真的好用，买软件送硬件也不是无道理，看来以后买一个白裙也不是不可以。">
+  <meta itemprop="datePublished" content="2023-10-19T05:24:00+00:00">
+  <meta itemprop="dateModified" content="2023-10-19T05:24:00+00:00">
+  <meta itemprop="wordCount" content="78">
+  <meta itemprop="keywords" content="Developer">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    background-color: initial;
+    color: initial;
+  }
+
+  div.highlight code {
+    background-color: unset;
+    color: unset;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.css" integrity="sha384-sMefv1J1YJCHsg0mTa9YG+n/9KnJb9lGrJUUY5arg6bAL1qps/oZjmUwaHlX5Ugg" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/katex.min.js" integrity="sha384-i9p+YmlwbK0lT9RcfgdAo/Cikui1KeFMeV/0Fwsu+rzgsCvas6oUptNOmo29C33p" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.20/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false,
+          newLineInDisplayMode: true,
+          strict: false
+        });
+    });
+</script>
+<style>
+    .katex * {
+        font-size: 97%;
+        overflow: scroll;
+    }
+</style>
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-V5WKEHZ2PS"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-V5WKEHZ2PS');
+        }
+      </script>
+
+<style>
+  body {
+       
+      font-family: Georgia,serif;
+       
+  }
+
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+  }
+  
+  table { 
+    border-collapse: collapse; 
+    text-align: center;
+    font-size: 80%;
+  }
+
+  tr {
+    border: solid 1px;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+</style>
+
+
+
+<script>
+    window.onload = function(){
+        title = document.getElementsByClassName('title')[0];
+        if (document.URL.split('/')[3] == 'en') {
+            title.href = '/en';
+        } else {
+            title.href = '/';
+        }
+    }
+</script>
+
+
+
+
+
+
+
+
+<div class="toc">
+  <hr />
+    <details close>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e9%80%89%e8%b4%ad" aria-label="选购">选购</a></li>
+                <li>
+                    <a href="#%e7%b3%bb%e7%bb%9f" aria-label="系统">系统</a></li>
+                <li>
+                    <a href="#%e5%a4%87%e4%bb%bd" aria-label="备份">备份</a></li>
+                <li>
+                    <a href="#%e7%bb%93%e5%b0%be" aria-label="结尾">结尾</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+
+    <hr />
+</div>
+
+<script>
+  window.onload = function(){
+    toc = document.querySelector('.toc')
+    document.querySelector('h1').nextElementSibling.after(toc)
+  }
+</script>
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Lucas Wu</h2>
+</a>
+<nav>
+</nav>
+</header>
+  <main>
+
+<h1>最近搭建了一台家用Nas</h1>
+
+
+<div class="asset-footer">
+  
+  <h3>文档信息</h3>
+  <ul>
+  <li>版权声明：自由转载-商用-保持署名（<a href="https://creativecommons.org/licenses/by/4.0/deed.zh-hans">创意共享4.0许可证</a>）</li>
+  <li>发表日期： <abbr class="published" title="2023-10-19">2023-10-19</abbr></li>
+  <li>分类信息：  
+    <a href="https://vec6.com/categories/developer/">#Developer</a>
+    
+  </li>
+  <li>标签信息：  
+  </li>
+  
+  </ul>
+</div>
+
+
+
+
+<content>
+  <p>从两个月前，我着手搭建了一套家用Nas，起因之前自己的资料一直存放在ICloud，因为自己的资料比较多，在600多G，所以自己一直购买的国区2T，每个月68元，一年816元，也不算便宜了。再加上自己的资料和储存的数据越来越大，所以就有就有了这个需求。</p>
+<p>对于资料不多、储存量不大的用户，不建议使用Nas，使用自带的云储存足够了，自己组建Nas只有在一定储存量级，才会有价值，所以对于数据量少的朋友，看看就行了，别折腾了。</p>
+<p>同时自己电脑有两台，一台苹果笔记本，一台Windows笔记本，ICloud对于Windows系统同步是真的难用，甚至打开文件夹都会卡顿，所以也是其自己搭建Nas的一个小因素了。</p>
+<p>选购之前对比了多种方式，购买其他国内云储存服务、自己购买云主机自己搭建、购买成品NAS、自己搭组NAS。</p>
+<p>先说说前两者，国内云服务研究了一番后，排除了，具体原因暂时不好说。然后就是云主机搭建，后面研究一番发现不论国内还是国内的云主机，硬盘都贵得要死。</p>
+<p>再说说后两者，也是我纠结最久的，成品Nas的优点就是不用折腾、省心以及有技术服务支撑，缺点就是配置低、价格贵。自己组Nas的优点在于便宜、配置高，缺点就是折腾，也不省心。</p>
+<p>那作为以技术出身的人来说，自己组Nas的缺点到成了一个有趣的过程，而配置高也满足了技术人员常常的幻想”配置不够“这一假说。</p>
+<p>所以最终思考了一下，准备折腾一下自己，组建Nas就成了最优选择。</p>
+<h2 id="选购">选购</h2>
+<p>既然是自己组建，就得自己挑选硬件、考虑配置、选择系统，系统我选择的是群晖，也就是所谓的黑群晖，主要考虑到配套的软件足够好用，关于硬件选配，可以参考隔壁网这篇文章<a href="https://www.gebi1.com/thread-301584-1-1.html">《2022年组建群晖实体机的一些建议 – 黑白群晖 – 隔壁网 (gebi1.com)》</a>。</p>
+<p>我的配置目前是：</p>
+<ul>
+<li>CPU：考虑到需要看电影做解码，所以选择了i3-8100T，然后带T属于低功耗，对于Nas来说也完全够用了。</li>
+<li>内存：32G。</li>
+<li>硬盘：8TB硬盘两块，用于存放资料、文件。16TB硬盘一块，用于存放电影。</li>
+<li>主板：选择了大厂微星的Z370M Mortar。</li>
+<li>机箱：Treasure宝藏盒，快700多的一个机箱了，已经算比较贵了，但是买回来看了一下外观，真香。</li>
+<li>风扇：利民AXP90</li>
+<li>电源：Flex台达250W电源</li>
+</ul>
+<p>这里需要说一个事情，我没有配备缓存，群晖的系统可以配备2块M2 Nvme硬盘作为缓存组，可以用于读写缓存，单盘只能作为读缓存。我研究了一番后，决定还是不用缓存，第一个对于我这样的家用环境上缓存提升不大，也有很多家用小伙伴测试后发了相关的结论。第二个就是缓存可能导致故障，第三个性价比不高。</p>
+<p><img src="/post/images/2024/03/DraggedImage-16.png" alt=""></p>
+<h2 id="系统">系统</h2>
+<p>系统采用的是群晖，既然是自己搭建的，所以也就是所谓的黑群晖了，采用的引导是最简单的引导arpl-i18n，该引导是基于巴西大佬arpl的版本上改进的，对于两者我还真不知道差距在哪里，但只要好用，然后用的人多就行了。</p>
+<p>然后黑群晖的引导是需要一个U盘的，正常情况下U盘可以插在机箱前面或者后面，但是对于花了700多买了这么漂亮的机箱，U盘插在前后，犹如”一坨牛屎抹在鲜花上“。</p>
+<p>所以我就购买了一个主板的usb插座，然后将引导U盘插在上面，这样就可以把usb隐藏在机箱内了。</p>
+<p><img src="/post/images/2024/03/DraggedImage-1-3.png" alt=""></p>
+<h2 id="备份">备份</h2>
+<p>我的备份组合主要集中为四种，分别RAID1+Cloud Sync+Hyper Backup网盘+Hyper Backup硬盘，其中RAID1虽然说起来不算是”备份“方案，但本质提供冗余还是一种数据的保障，所以也就算了进来。</p>
+<p>Hyper Backup则是提供了一个完整的套件、文件增量备份，每天执行一次。</p>
+<p>Cloud Sync则是作为一个补充，提供一个实时的文件同步，将文件同步到我的Onedrive，至于为什么是Onedrive，第一个原因是支持，第二个原因是因为我每年要买Office365，所以有1TB的免费网盘容量。</p>
+<p>Hyper Backup是目前我觉得最好的备份方案，Hyper Backup支持备份到云服务商、本地USB储存设备等方式。Hyper Backup我采用了两种方式，分别为阿里云盘通过Alist以WebDAV的方式挂载到本地，然后Hyper Backup选择WebDAV方式进行备份，好处在于阿里云盘服务器在国内比较稳定，关于如何通过查看Alist关于阿里云盘的文档。</p>
+<p>第二种方式，我采用的是本地USB插入硬盘的方式，这个方式有个好处在于能无限扩大备份目的地的容量，比如你可以通过一个硬盘盒做多个盘用USB接入，同时配置好了也比较省电省电。</p>
+<p>为什么说省电呢？在设置为USB为备份目的地的时候，配置可以选择，当备份完成后自动断开卸载USB，然后再加上硬盘盒的自动休眠，就可以在备份完成后的耗电降到最低，比如下图（因为我目前已经设置完成，所以找不到这个选项了，就借用了一张图片）。</p>
+<p><img src="/post/images/2024/03/DraggedImage-2-3.png" alt=""></p>
+<p>但这种方式有一个问题，就是你在下次备份的时候没有办法自动挂载，你需要通过定时任务，将在定时的自动备份任务开始之前将USB重新挂载好。</p>
+<p>重新挂载USB需要两个步骤，第一个步骤确定USB编号，需要打开群晖的SSH，然后进入到终端后使用lsusb命令，我找到我备份目的地的硬盘为2-3：</p>
+<p><img src="/post/images/2024/03/DraggedImage-3-3.png" alt=""></p>
+<p>第二个步骤是将如下代码放入群晖的任务计划，选择运行的用户为root（一定注意，卸载挂载外置设备需要root权限）：</p>
+<p><img src="/post/images/2024/03/DraggedImage-4-3.png" alt=""></p>
+<p>然后将如下代码放入脚本中，其中的2-3需要替换为备份的外置目的地设备编号。</p>
+<pre><code>echo 0 &amp;gt; /sys/bus/usb/devices/2-3/authorized
+echo 1 &amp;gt; /sys/bus/usb/devices/2-3/authorized
+</code></pre>
+<p><img src="/post/images/2024/03/DraggedImage-5-3.png" alt=""></p>
+<p>最后，设定好计划时间，我目前是在Hyper Backup之前的5分钟挂载。</p>
+<h2 id="结尾">结尾</h2>
+<p>说完了后，说说成品Nas和自己搭建Nas推荐哪个，整体就是完全不建议没有技术或者不想折腾的人来自己搭建Nas，更建议直接买群晖或者其他厂商的成品Nas，对于有技术的用户，这种方式就挺推荐的。</p>
+<p>搭建到如今，也算是对稳定性比较信任了，将自己照片、文件都转移到了群晖，同时也说服了自己的爱人将手机照片转到了群晖，不得不说群晖的配套软件是真的好用，买软件送硬件也不是无道理，看来以后买一个白裙也不是不可以。</p>
+<p>参考文章</p>
+<ol>
+<li><a href="https://www.dearhoney.idv.tw/2800/synology-nas-usb-order-hyper-backup-remount/">Synology NAS 的 USB 外接硬碟在系統中的順序 / HyperBackup 備份後自動卸載該如何重新掛載</a></li>
+<li><a href="https://www.gebi1.com/thread-301584-1-1.html">2022年组建群晖实体机的一些建议 – 黑白群晖 – 隔壁网 (gebi1.com)</a></li>
+</ol>
+
+  (完)
+</content>
+
+
+
+<hr />
+
+
+  </main>
+  <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
+        property="dct:title">Lucas's blog</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName"
+        href="http://vec6.com">lucas</a> is licensed under <a
+        href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank"
+        rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
+            style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+            src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a>
+    | theme: <a href="https://github.com/janraasch/hugo-bearblog/">Bear</a> 
+    <br />
+    Language Switcher: 
+
+    
+    
+    <a title="English" href="/en">English</a>
+    
+    
+
+    
+</p>
+
+
+</footer>
+
+    </body>
+
+</html>

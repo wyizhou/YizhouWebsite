@@ -17,7 +17,7 @@
 介绍完UI库和组件库后，单页应用还差一个东西，就是路由功能，路由也可以通过简单的Javascript来判断，比如当点击了一个链接后，Javascript将当前页面内容清除（隐藏），然后再渲染点击的目标内容。但是这个时候有一些问题，比如需要编写大量的代码、丢失浏览器的前进后退、没有办法收藏等问题（后面两个问题可以再通过增加代码去解决）。所以React-router-dom`这类的库就出现了，把所有的底层的逻辑和代码都进行封装提供一些接口，即大部分的人不需要再编写、理解这类的代码直接可以开箱即用，这也就是这类路由库出现的原因。 我们从前面了解到了状态分别为props和state，一个是外部，一个是内部的。
 那这个时候如果组件的嵌套过于&quot;多层次&quot;了后，比如从顶层的组件需要传递一个状态到第N层的组件中，那么每一层即使不需要不处理也要将状态进行传递，那这个时候涉及到的组件其中会包含非常多的和组件无关的代码。 所以这个时候需要一个通用的状态管理的解决方案（如Redux），让整个Web应用都共享一个大的状态，需要多层传递的状态则可以放在这个大状态内部，让不关心有些状态的组件不用去关心无关状态，而有些状态的组件去关心自己关心的状态。
 Redux本身设计是非常有趣的，整个应用的状态不能直接修改，这是因为如果大家都直接修改很有可能会造成状态的管理的混乱，所以Redux的修改状态流程是组件发起动作-&gt;Dispatch函数接收动作-&gt;reducer处理动作-&gt;影响状态-&gt;重新渲染组件。" />
-<meta name="keywords" content="Developer," />
+<meta name="keywords" content="" />
 
 
 <meta property="og:url" content="https://vec6.com/blog/frontend-terms/">
@@ -36,7 +36,6 @@ Redux本身设计是非常有趣的，整个应用的状态不能直接修改，
     <meta property="article:section" content="blog">
     <meta property="article:published_time" content="2022-04-22T01:52:54+00:00">
     <meta property="article:modified_time" content="2022-04-22T01:52:54+00:00">
-    <meta property="article:tag" content="Developer">
 
 
 
@@ -268,6 +267,7 @@ Redux本身设计是非常有趣的，整个应用的状态不能直接修改，
 <style>
     .katex * {
         font-size: 97%;
+        overflow: scroll;
     }
 </style>
 
@@ -353,14 +353,23 @@ Redux本身设计是非常有趣的，整个应用的状态不能直接修改，
   <main>
 
 <h1>前端的技术栈理解</h1>
-<p>
-  <i>
-    <time datetime='2022-04-22' pubdate>
-      Create time:2022-04-22
-    </time>
-    <hr />
-  </i>
-</p>
+
+
+<div class="asset-footer">
+  
+  <h3>文档信息</h3>
+  <ul>
+  <li>版权声明：自由转载-商用-保持署名（<a href="https://creativecommons.org/licenses/by/4.0/deed.zh-hans">创意共享4.0许可证</a>）</li>
+  <li>发表日期： <abbr class="published" title="2022-04-22">2022-04-22</abbr></li>
+  <li>分类信息：  
+    <a href="https://vec6.com/categories/developer/">#Developer</a>
+    
+  </li>
+  <li>标签信息：  
+  </li>
+  
+  </ul>
+</div>
 
 
 
@@ -377,12 +386,13 @@ Redux本身设计是非常有趣的，整个应用的状态不能直接修改，
 <p>那这个时候如果组件的嵌套过于&quot;多层次&quot;了后，比如从顶层的组件需要传递一个状态到第N层的组件中，那么每一层即使不需要不处理也要将状态进行传递，那这个时候涉及到的组件其中会包含非常多的和组件无关的代码。 所以这个时候需要一个通用的状态管理的解决方案（如Redux），让整个Web应用都共享一个大的状态，需要多层传递的状态则可以放在这个大状态内部，让不关心有些状态的组件不用去关心无关状态，而有些状态的组件去关心自己关心的状态。</p>
 <p>Redux本身设计是非常有趣的，整个应用的状态不能直接修改，这是因为如果大家都直接修改很有可能会造成状态的管理的混乱，所以Redux的修改状态流程是组件发起动作-&gt;Dispatch函数接收动作-&gt;reducer处理动作-&gt;影响状态-&gt;重新渲染组件。</p>
 
+  (完)
 </content>
-<p>
-  
-  <a href="https://vec6.com/tags/developer/">#Developer</a>
-  
-</p>
+
+
+
+<hr />
+
 
   </main>
   <footer><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span
