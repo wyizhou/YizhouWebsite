@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chinese Word Segmentation on Lucas Wu</title>
+    <link>https://vec6.com/en/tags/chinese-word-segmentation/</link>
+    <description>Recent content in Chinese Word Segmentation on Lucas Wu</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 18 Nov 2020 08:51:13 +0000</lastBuildDate>
+    <atom:link href="https://vec6.com/en/tags/chinese-word-segmentation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>(2) Talking About Chinese Word Segmentation: Trie, KMP, AC Automaton</title>
+      <link>https://vec6.com/en/blog/chinesecutwords-2/</link>
+      <pubDate>Wed, 18 Nov 2020 08:51:13 +0000</pubDate>
+      <guid>https://vec6.com/en/blog/chinesecutwords-2/</guid>
+      <description>&lt;h2 id=&#34;trie-tree&#34;&gt;Trie Tree&lt;/h2&gt;&#xA;&lt;p&gt;In the previous article, we discussed some matching algorithms. However, in addition to algorithms, an efficient data structure is necessary. Storing words in a simple list like [&amp;lsquo;中国人&amp;rsquo;, &amp;lsquo;中东人&amp;rsquo;] is not practical. Imagine having hundreds of thousands of words—the memory usage of such a list would be enormous.&lt;/p&gt;&#xA;&lt;p&gt;A Trie tree, also known as a prefix tree, originates from the word &lt;code&gt;retrieval&lt;/code&gt; and is pronounced like &amp;ldquo;try.&amp;rdquo; Trie trees provide an efficient data structure for word segmentation. Essentially, it is a tree-like structure. For example, a Trie tree constructed from the strings &amp;ldquo;中国人&amp;rdquo; and &amp;ldquo;中东人&amp;rdquo; would look like the diagram below. It’s clear from the structure that Trie trees effectively save memory space by reusing common prefixes like &amp;ldquo;中.&amp;rdquo;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pandas on Lucas Wu</title>
+    <link>https://vec6.com/en/tags/pandas/</link>
+    <description>Recent content in Pandas on Lucas Wu</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 12 Jan 2025 21:53:34 +0000</lastBuildDate>
+    <atom:link href="https://vec6.com/en/tags/pandas/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Understanding Pandas Groupby</title>
+      <link>https://vec6.com/en/blog/groupbyofpandas/</link>
+      <pubDate>Sun, 12 Jan 2025 21:53:34 +0000</pubDate>
+      <guid>https://vec6.com/en/blog/groupbyofpandas/</guid>
+      <description>&lt;p&gt;The &lt;code&gt;groupby&lt;/code&gt; function in Pandas is used to group data by certain categories and perform basic statistical operations, complex aggregations, transformations, and filtering on each group.&lt;/p&gt;&#xA;&lt;p&gt;Common use cases include:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Summary Statistics&lt;/strong&gt;: Quickly calculate sums, averages, etc., for each group.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Data Comparison&lt;/strong&gt;: Compare performance differences between groups.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Outlier Detection&lt;/strong&gt;: Identify abnormal data points within groups.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Feature Engineering&lt;/strong&gt;: Create new features for machine learning, such as group-level means or counts.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Data Cleaning&lt;/strong&gt;: Correct or fill missing values using group-level statistics.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;basic-statistics&#34;&gt;Basic Statistics&lt;/h2&gt;&#xA;&lt;p&gt;Consider an e-commerce dataset of fruit sales. We can perform group-wise statistics in various ways.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -353,6 +353,8 @@ echo 0 &amp;gt; /sys/bus/usb/devices/2-3/authorized echo 1 &amp;gt; /sys/bus/usb
               {left: '\\(', right: '\\)', display: false},
               {left: '\\[', right: '\\]', display: true}
           ],
+          output: 'html',
+        
           
           throwOnError : false,
           newLineInDisplayMode: true,
@@ -363,6 +365,8 @@ echo 0 &amp;gt; /sys/bus/usb/devices/2-3/authorized echo 1 &amp;gt; /sys/bus/usb
 <style>
     .katex * {
         font-size: 97%;
+    }
+    .katex-html {
         overflow: scroll;
     }
 </style>

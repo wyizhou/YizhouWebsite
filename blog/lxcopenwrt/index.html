@@ -323,6 +323,8 @@ mount -t ext4 -o loop [固件路径.img] /root/op 然后进入/root/op，跳至3
               {left: '\\(', right: '\\)', display: false},
               {left: '\\[', right: '\\]', display: true}
           ],
+          output: 'html',
+        
           
           throwOnError : false,
           newLineInDisplayMode: true,
@@ -333,6 +335,8 @@ mount -t ext4 -o loop [固件路径.img] /root/op 然后进入/root/op，跳至3
 <style>
     .katex * {
         font-size: 97%;
+    }
+    .katex-html {
         overflow: scroll;
     }
 </style>

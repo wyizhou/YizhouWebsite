@@ -10,7 +10,7 @@
 <meta name="description" content="Trie Tree
 In the previous article, we discussed some matching algorithms. However, in addition to algorithms, an efficient data structure is necessary. Storing words in a simple list like [&lsquo;中国人&rsquo;, &lsquo;中东人&rsquo;] is not practical. Imagine having hundreds of thousands of words—the memory usage of such a list would be enormous.
 A Trie tree, also known as a prefix tree, originates from the word retrieval and is pronounced like &ldquo;try.&rdquo; Trie trees provide an efficient data structure for word segmentation. Essentially, it is a tree-like structure. For example, a Trie tree constructed from the strings &ldquo;中国人&rdquo; and &ldquo;中东人&rdquo; would look like the diagram below. It’s clear from the structure that Trie trees effectively save memory space by reusing common prefixes like &ldquo;中.&rdquo;" />
-<meta name="keywords" content="" />
+<meta name="keywords" content="Chinese word segmentation," />
 
 
 <meta property="og:url" content="https://vec6.com/en/blog/chinesecutwords-2/">
@@ -23,6 +23,7 @@ A Trie tree, also known as a prefix tree, originates from the word retrieval and
     <meta property="article:section" content="blog">
     <meta property="article:published_time" content="2020-11-18T08:51:13+00:00">
     <meta property="article:modified_time" content="2020-11-18T08:51:13+00:00">
+    <meta property="article:tag" content="Chinese Word Segmentation">
 
 
 
@@ -41,7 +42,7 @@ A Trie tree, also known as a prefix tree, originates from the word retrieval and
   <meta itemprop="datePublished" content="2020-11-18T08:51:13+00:00">
   <meta itemprop="dateModified" content="2020-11-18T08:51:13+00:00">
   <meta itemprop="wordCount" content="1804">
-  <meta itemprop="keywords" content="Developer">
+  <meta itemprop="keywords" content="Chinese Word Segmentation">
 <meta name="referrer" content="no-referrer-when-downgrade" />
 
   <style>
@@ -232,6 +233,8 @@ A Trie tree, also known as a prefix tree, originates from the word retrieval and
               {left: '\\(', right: '\\)', display: false},
               {left: '\\[', right: '\\]', display: true}
           ],
+          output: 'html',
+        
           
           throwOnError : false,
           newLineInDisplayMode: true,
@@ -242,6 +245,8 @@ A Trie tree, also known as a prefix tree, originates from the word retrieval and
 <style>
     .katex * {
         font-size: 97%;
+    }
+    .katex-html {
         overflow: scroll;
     }
 </style>
@@ -390,6 +395,8 @@ A Trie tree, also known as a prefix tree, originates from the word retrieval and
     
   </li>
   <li>标签信息：  
+    <a href="https://vec6.com/en/tags/chinese-word-segmentation/">#Chinese Word Segmentation</a>
+    
   </li>
   
   </ul>
