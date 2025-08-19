@@ -426,7 +426,7 @@ A Trie tree, also known as a prefix tree, originates from the word retrieval and
 </ol>
 <p>Each node represents a character, and a special key, <code>__value</code>, indicates whether a node is the end of a word. The following implementation achieves this:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Trie</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_children <span style="color:#f92672">=</span> {}
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_add_word</span>(self, word):
 </span></span><span style="display:flex;"><span>        child <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_children
@@ -539,7 +539,7 @@ A Trie tree, also known as a prefix tree, originates from the word retrieval and
 <p><img src="/post/images/2020/11/1607672063-10-20220415155506488-0012449.jpg" alt=""></p>
 <p>这个时候就查看当前节点（即红色节点）的fail指针(红线)指向的节点下是否有字符<code>h</code>，此时发现有，则通过fail指针继续查找，直到找到了单词<code>she</code>。 AC自动机的理念是比较好理解，而难点在于如何计算fail指针指向谁，计算fail指针可以通过BFS（层次遍历），BFS将Trie每一层进行遍历，遍历的时候将计算所有子节点的fail指针，并将子节点放入到一个先进先出容器当中（队列）便于访问子节点的子节点。 而计算fail指针的时候一定是当前字符不存在于当前节点的子节点当中，所以查找当前节点的子节点的fail指针的时候，可以通过将当前节点的子节点中的所有fail指针都可以获取到所有父节点的fail指针，然后一层一层的找，如果找到后就指向谁，如果没有找到则指向最顶层。 下面是实现的代码：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TrieNode</span>(object):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_children <span style="color:#f92672">=</span> {}
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_fail <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_exist <span style="color:#f92672">=</span> []
@@ -553,8 +553,8 @@ A Trie tree, also known as a prefix tree, originates from the word retrieval and
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> child
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Trie</span>(TrieNode):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
-</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>()
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_find_text</span>(self, text):
 </span></span><span style="display:flex;"><span>        state <span style="color:#f92672">=</span> self
 </span></span><span style="display:flex;"><span>        cut_word <span style="color:#f92672">=</span> []
@@ -569,7 +569,7 @@ A Trie tree, also known as a prefix tree, originates from the word retrieval and
 </span></span><span style="display:flex;"><span>                    max_cut <span style="color:#f92672">=</span> text[i <span style="color:#f92672">-</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>:i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
 </span></span><span style="display:flex;"><span>                    cut_word<span style="color:#f92672">.</span>append(max_cut)
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> cut_word
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __setitem__(self, key, value):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__setitem__</span>(self, key, value):
 </span></span><span style="display:flex;"><span>        state <span style="color:#f92672">=</span> self
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> char <span style="color:#f92672">in</span> key:
 </span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> char <span style="color:#f92672">==</span> key[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] :
@@ -621,7 +621,7 @@ A Trie tree, also known as a prefix tree, originates from the word retrieval and
 <h3 id="implementation">Implementation</h3>
 <p>Below is a Python implementation of the AC Automaton:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TrieNode</span>(object):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_children <span style="color:#f92672">=</span> {}
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_fail <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_exist <span style="color:#f92672">=</span> []
@@ -635,8 +635,8 @@ A Trie tree, also known as a prefix tree, originates from the word retrieval and
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> child
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Trie</span>(TrieNode):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
-</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>()
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_find_text</span>(self, text):
 </span></span><span style="display:flex;"><span>        state <span style="color:#f92672">=</span> self
 </span></span><span style="display:flex;"><span>        cut_word <span style="color:#f92672">=</span> []
@@ -651,7 +651,7 @@ A Trie tree, also known as a prefix tree, originates from the word retrieval and
 </span></span><span style="display:flex;"><span>                    max_cut <span style="color:#f92672">=</span> text[i <span style="color:#f92672">-</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>:i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
 </span></span><span style="display:flex;"><span>                    cut_word<span style="color:#f92672">.</span>append(max_cut)
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> cut_word
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __setitem__(self, key, value):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__setitem__</span>(self, key, value):
 </span></span><span style="display:flex;"><span>        state <span style="color:#f92672">=</span> self
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> char <span style="color:#f92672">in</span> key:
 </span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> char <span style="color:#f92672">==</span> key[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]:

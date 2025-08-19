@@ -15,5 +15,12 @@
       <guid>https://vec6.com/en/blog/chinesecutwords-2/</guid>
       <description>&lt;h2 id=&#34;trie-tree&#34;&gt;Trie Tree&lt;/h2&gt;&#xA;&lt;p&gt;In the previous article, we discussed some matching algorithms. However, in addition to algorithms, an efficient data structure is necessary. Storing words in a simple list like [&amp;lsquo;中国人&amp;rsquo;, &amp;lsquo;中东人&amp;rsquo;] is not practical. Imagine having hundreds of thousands of words—the memory usage of such a list would be enormous.&lt;/p&gt;&#xA;&lt;p&gt;A Trie tree, also known as a prefix tree, originates from the word &lt;code&gt;retrieval&lt;/code&gt; and is pronounced like &amp;ldquo;try.&amp;rdquo; Trie trees provide an efficient data structure for word segmentation. Essentially, it is a tree-like structure. For example, a Trie tree constructed from the strings &amp;ldquo;中国人&amp;rdquo; and &amp;ldquo;中东人&amp;rdquo; would look like the diagram below. It’s clear from the structure that Trie trees effectively save memory space by reusing common prefixes like &amp;ldquo;中.&amp;rdquo;&lt;/p&gt;</description>
     </item>
+    <item>
+      <title>(1) Talking About Chinese Word Segmentation: Maximum Matching, Bidirectional Matching, Minimal Word Count</title>
+      <link>https://vec6.com/en/blog/chinesecutwords-1/</link>
+      <pubDate>Sun, 08 Nov 2020 10:36:34 +0000</pubDate>
+      <guid>https://vec6.com/en/blog/chinesecutwords-1/</guid>
+      <description>&lt;p&gt;Chinese word segmentation refers to the process of dividing text into words, where the concatenated result equals the original text. Chinese word segmentation has always been a significant area in the NLP field. Most text mining tasks are based on it. However, Chinese differs from English, where words are separated by spaces, making English semantically less complex compared to Chinese.&lt;/p&gt;&#xA;&lt;p&gt;There has always been a business demand for Chinese word segmentation. However, due to being busy with other projects, I had not studied it thoroughly before. Recently, I started exploring Chinese word segmentation algorithms. While the field is relatively mature, its performance for out-of-vocabulary words or specific domain texts is often unsatisfactory. To achieve better results, a combination of algorithms or the use of manual dictionaries is often necessary.&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>
