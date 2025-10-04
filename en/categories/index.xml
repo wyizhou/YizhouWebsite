@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Lucas Wu</title>
-    <link>https://vec6.com/en/categories/</link>
+    <link>https://0b44ccdd.vec6.com/en/categories/</link>
     <description>Recent content in Categories on Lucas Wu</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Sun, 12 Jan 2025 21:53:34 +0000</lastBuildDate>
-    <atom:link href="https://vec6.com/en/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://0b44ccdd.vec6.com/en/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DataScience</title>
-      <link>https://vec6.com/en/categories/datascience/</link>
+      <link>https://0b44ccdd.vec6.com/en/categories/datascience/</link>
       <pubDate>Sun, 12 Jan 2025 21:53:34 +0000</pubDate>
-      <guid>https://vec6.com/en/categories/datascience/</guid>
+      <guid>https://0b44ccdd.vec6.com/en/categories/datascience/</guid>
       <description></description>
     </item>
     <item>
       <title>Developer</title>
-      <link>https://vec6.com/en/categories/developer/</link>
+      <link>https://0b44ccdd.vec6.com/en/categories/developer/</link>
       <pubDate>Fri, 22 Apr 2022 01:52:54 +0000</pubDate>
-      <guid>https://vec6.com/en/categories/developer/</guid>
+      <guid>https://0b44ccdd.vec6.com/en/categories/developer/</guid>
       <description></description>
     </item>
     <item>
       <title>Math</title>
-      <link>https://vec6.com/en/categories/math/</link>
+      <link>https://0b44ccdd.vec6.com/en/categories/math/</link>
       <pubDate>Tue, 27 Oct 2020 07:35:35 +0000</pubDate>
-      <guid>https://vec6.com/en/categories/math/</guid>
+      <guid>https://0b44ccdd.vec6.com/en/categories/math/</guid>
       <description></description>
     </item>
   </channel>

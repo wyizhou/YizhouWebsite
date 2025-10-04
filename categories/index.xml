@@ -2,45 +2,45 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Lucas Wu</title>
-    <link>https://vec6.com/categories/</link>
+    <link>https://0b44ccdd.vec6.com/categories/</link>
     <description>Recent content in Categories on Lucas Wu</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
     <lastBuildDate>Mon, 27 Jan 2025 10:53:34 +0000</lastBuildDate>
-    <atom:link href="https://vec6.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://0b44ccdd.vec6.com/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DataScience</title>
-      <link>https://vec6.com/categories/datascience/</link>
+      <link>https://0b44ccdd.vec6.com/categories/datascience/</link>
       <pubDate>Mon, 27 Jan 2025 10:53:34 +0000</pubDate>
-      <guid>https://vec6.com/categories/datascience/</guid>
+      <guid>https://0b44ccdd.vec6.com/categories/datascience/</guid>
       <description></description>
     </item>
     <item>
       <title>Math</title>
-      <link>https://vec6.com/categories/math/</link>
+      <link>https://0b44ccdd.vec6.com/categories/math/</link>
       <pubDate>Mon, 27 Jan 2025 10:53:34 +0000</pubDate>
-      <guid>https://vec6.com/categories/math/</guid>
+      <guid>https://0b44ccdd.vec6.com/categories/math/</guid>
       <description></description>
     </item>
     <item>
       <title>Investment</title>
-      <link>https://vec6.com/categories/investment/</link>
+      <link>https://0b44ccdd.vec6.com/categories/investment/</link>
       <pubDate>Fri, 08 Mar 2024 08:00:00 +0000</pubDate>
-      <guid>https://vec6.com/categories/investment/</guid>
+      <guid>https://0b44ccdd.vec6.com/categories/investment/</guid>
       <description></description>
     </item>
     <item>
       <title>Developer</title>
-      <link>https://vec6.com/categories/developer/</link>
+      <link>https://0b44ccdd.vec6.com/categories/developer/</link>
       <pubDate>Thu, 19 Oct 2023 05:24:00 +0000</pubDate>
-      <guid>https://vec6.com/categories/developer/</guid>
+      <guid>https://0b44ccdd.vec6.com/categories/developer/</guid>
       <description></description>
     </item>
     <item>
       <title>Misc</title>
-      <link>https://vec6.com/categories/misc/</link>
+      <link>https://0b44ccdd.vec6.com/categories/misc/</link>
       <pubDate>Tue, 11 Oct 2022 01:52:49 +0000</pubDate>
-      <guid>https://vec6.com/categories/misc/</guid>
+      <guid>https://0b44ccdd.vec6.com/categories/misc/</guid>
       <description></description>
     </item>
   </channel>
